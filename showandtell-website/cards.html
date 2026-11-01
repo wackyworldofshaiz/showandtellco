@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Choose a card: Show and Tell Co</title>
+<meta name="description" content="Show and Tell Co: printed pun cards, pick-your-patch totes and tees, and iron-on patches. Order on WhatsApp.">
+<link rel="icon" type="image/png" href="images/brand/wordmark-violet.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&amp;family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Caveat:wght@500;700&amp;display=swap">
+<style>
+body{margin:0;background:#FDFDFD}
+.disp{font-family:'Fraunces',Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1}
+.hand{font-family:'Caveat',cursive}
+a{color:#5D1AFA}a:hover{color:#3D0CB0}
+.thumb:focus-visible,.seg:focus-visible,.chip:focus-visible,.opt:focus-visible,.crumb:focus-visible{outline:3px solid #5D1AFA;outline-offset:3px}
+.field:focus{outline:3px solid #5D1AFA;outline-offset:1px}
+.acc summary{cursor:pointer;list-style:none}
+.acc summary::-webkit-details-marker{display:none}
+.acc[open] .chev{transform:rotate(180deg)}
+</style>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<noscript><p style="padding:16px;font-family:sans-serif">Please turn on JavaScript to use this page.</p></noscript>
+<div id="dc-root"></div>
+<template id="dc-template">
+<div style="width: 100%; min-height: 1000px; box-sizing: border-box; font-family: 'DM Sans', Helvetica, Arial, sans-serif; color: #1A0B45; background: #FDFDFD">
+
+<header style="background: #5D1AFA; color: #FDFDFD">
+<div style="max-width: 1240px; margin: 0 auto; padding: 18px 5%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="index.html" aria-label="Back to Show and Tell Co home" style="display: block; line-height: 0"><img src="images/brand/wordmark-white.png" alt="Show and Tell Co" style="height: 48px; width: auto"></a>
+<nav aria-label="Builders" style="display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 16px; font-weight: 600">
+<a href="build-your-tote.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Build a tote</a>
+<a href="cards.html" aria-current="page" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Choose a card</a>
+<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Shop patches</a>
+</nav>
+</div>
+</header>
+
+<main style="max-width: 1240px; margin: 0 auto; padding: 48px 5% 80px; display: flex; flex-direction: column; gap: 32px">
+<!-- LIST: all cards, big -->
+<sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 720px; margin: 0 auto; text-align: center">
+
+<h1 class="disp" style="margin: 0; font-size: 56px; line-height: 1.02; font-weight: 900; letter-spacing: -0.02em">Choose your card.</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3B2E6B; max-width: 640px">Tap a card to see the front, the back and the inside, then write your message. We'll handwrite it inside the card for you.</p>
+</div>
+
+<div role="group" aria-label="Filter cards" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px">
+<sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
+<button class="chip" type="button" aria-pressed="{{ f.on }}" onClick="{{ f.pick }}" style="min-height: 44px; padding: 0 20px; border-radius: 999px; border: 2px solid #5D1AFA; background: {{ f.bg }}; color: {{ f.fg }}; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">{{ f.label }}</button>
+</sc-for>
+</div>
+
+<ul aria-label="Cards" style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 40px 28px">
+<sc-for list="{{ cards }}" as="c" hint-placeholder-count="8">
+<li>
+<button class="thumb" type="button" aria-label="{{ c.title }}. Open to personalise." onClick="{{ c.pick }}" style="width: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; display: flex; flex-direction: column; gap: 14px; text-align: left; font-family: inherit; color: #1A0B45">
+<span style="display: block; width: 100%">
+<img src="{{ c.src }}" alt="" style="width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: contain; object-position: center bottom; display: block; filter: drop-shadow(0 10px 18px rgba(26, 11, 69, 0.18))">
+</span>
+<span style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 13px; font-weight: 700; color: #5D1AFA">{{ c.cat }}</span>
+<span class="disp" style="font-size: 21px; line-height: 1.2; font-weight: 800; min-height: 2.4em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">{{ c.title }}</span>
+<span style="font-size: 16px; font-weight: 700">{{ c.price }}</span>
+</span>
+</button>
+</li>
+</sc-for>
+</ul>
+</div>
+</sc-if>
+
+<!-- DETAIL: product page for one card -->
+<sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 32px">
+
+<!-- Breadcrumb + previous/next -->
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<nav aria-label="Breadcrumb" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; color: #3B2E6B">
+<button class="crumb" type="button" onClick="{{ toList }}" style="min-height: 40px; padding: 0; border: 0; background: transparent; color: #5D1AFA; font-family: inherit; font-size: 14px; font-weight: 700; text-decoration: underline; cursor: pointer">Cards</button>
+<span aria-hidden="true">›</span>
+<button class="crumb" type="button" onClick="{{ toCat }}" style="min-height: 40px; padding: 0; border: 0; background: transparent; color: #5D1AFA; font-family: inherit; font-size: 14px; font-weight: 700; text-decoration: underline; cursor: pointer">{{ card.cat }}</button>
+<span aria-hidden="true">›</span>
+<span aria-current="page">{{ card.title }}</span>
+</nav>
+<div style="display: flex; gap: 8px">
+<button class="chip" type="button" onClick="{{ prev }}" aria-label="Previous card" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 2px solid #CFC6F2; background: #FDFDFD; color: #1A0B45; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Previous</button>
+<button class="chip" type="button" onClick="{{ next }}" aria-label="Next card" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 2px solid #CFC6F2; background: #FDFDFD; color: #1A0B45; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Next</button>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 56px; align-items: flex-start">
+
+<!-- LEFT: gallery -->
+<section aria-label="Card images" style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 22px">
+<div style="width: 100%; min-height: 540px; display: flex; align-items: center; justify-content: center; padding: 12px 0">
+
+<sc-if value="{{ showFlip }}" hint-placeholder-val="{{ true }}">
+<div style="width: 100%; max-width: 420px; aspect-ratio: {{ card.ar }}; perspective: 1400px">
+<div style="position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); transform: rotateY({{ rot }}deg)">
+<div aria-hidden="{{ frontHidden }}" style="position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 6px; overflow: hidden; background: #FDFDFD; box-shadow: 0 20px 44px rgba(26, 11, 69, 0.2)">
+<img src="{{ card.src }}" alt="Front of card: {{ card.title }}" style="width: 100%; height: 100%; object-fit: cover; display: block">
+</div>
+<div aria-hidden="{{ backHidden }}" style="position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border-radius: 6px; background: #FBF7F0; box-shadow: 0 20px 44px rgba(26, 11, 69, 0.2); padding: 36px 28px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 10px; text-align: center">
+<img src="images/brand/wordmark-violet.png" alt="Show and Tell Co" style="width: 38%; height: auto">
+<p style="margin: 0; font-size: 12px; line-height: 1.5; color: #3B2E6B">Designed by Show and Tell Co<br>@showandtell.co</p>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ showInside }}" hint-placeholder-val="{{ false }}">
+<div style="width: 100%; max-width: 680px; aspect-ratio: {{ card.spread }}; display: flex; border-radius: 6px; overflow: hidden; box-shadow: 0 20px 44px rgba(26, 11, 69, 0.2)">
+<div style="flex: 1 1 50%; background: #FBF7F0; padding: 24px; box-sizing: border-box; display: flex; align-items: flex-end; justify-content: flex-start">
+<svg viewBox="-44 -44 88 88" aria-hidden="true" style="width: 22px; height: 22px"><path d="M0 -44 C4 -12 12 -4 44 0 C12 4 4 12 0 44 C-4 12 -12 4 -44 0 C-12 -4 -4 -12 0 -44 Z" fill="#5D1AFA"></path></svg>
+</div>
+<div style="flex: 1 1 50%; background: #FDFDFD; border-left: 1px solid #E3DCF7; padding: 28px 24px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 12px">
+<p class="hand" style="margin: 0; font-size: 26px; line-height: 1.25; color: {{ msgColor }}; white-space: pre-wrap; overflow-wrap: anywhere">{{ msgShown }}</p>
+<p class="hand" style="margin: 0; font-size: 26px; font-weight: 700; color: {{ msgColor }}">{{ fromShown }}</p>
+</div>
+</div>
+</sc-if>
+</div>
+
+<!-- Thumbnails -->
+<div role="group" aria-label="Views" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px">
+<button class="seg" type="button" aria-pressed="{{ vFront.on }}" onClick="{{ vFront.pick }}" style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px; border-radius: 12px; border: {{ vFront.border }}; background: #FDFDFD; cursor: pointer; font-family: inherit; color: #1A0B45; font-size: 13px; font-weight: 700">
+<img src="{{ card.src }}" alt="" style="width: 64px; height: 84px; object-fit: cover; display: block; border-radius: 3px">Front</button>
+<button class="seg" type="button" aria-pressed="{{ vInside.on }}" onClick="{{ vInside.pick }}" style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px; border-radius: 12px; border: {{ vInside.border }}; background: #FDFDFD; cursor: pointer; font-family: inherit; color: #1A0B45; font-size: 13px; font-weight: 700">
+<span aria-hidden="true" style="display: flex; width: 96px; height: 84px; border-radius: 3px; overflow: hidden; box-shadow: 0 0 0 1px #E3DCF7"><span style="flex: 1 1 50%; background: #FBF7F0"></span><span style="flex: 1 1 50%; background: #FDFDFD; border-left: 1px solid #E3DCF7; display: flex; flex-direction: column; justify-content: center; gap: 5px; padding: 0 8px"><span style="height: 2px; background: #CFC6F2"></span><span style="height: 2px; background: #CFC6F2"></span><span style="height: 2px; width: 60%; background: #CFC6F2"></span></span></span>Inside</button>
+<button class="seg" type="button" aria-pressed="{{ vBack.on }}" onClick="{{ vBack.pick }}" style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px; border-radius: 12px; border: {{ vBack.border }}; background: #FDFDFD; cursor: pointer; font-family: inherit; color: #1A0B45; font-size: 13px; font-weight: 700">
+<span aria-hidden="true" style="display: flex; align-items: flex-end; justify-content: center; width: 64px; height: 84px; padding-bottom: 10px; box-sizing: border-box; border-radius: 3px; background: #FBF7F0; box-shadow: 0 0 0 1px #E3DCF7"><img src="images/brand/wordmark-violet.png" alt="" style="width: 28px; height: auto"></span>Back</button>
+</div>
+<p style="margin: 0; font-size: 14px; color: #3B2E6B">{{ viewHint }}</p>
+</section>
+
+<!-- RIGHT: product info and options -->
+<section aria-label="Card options" style="flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 26px">
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 14px; font-weight: 700; color: #5D1AFA">{{ card.cat }} card</p>
+<h1 class="disp" style="margin: 0; font-size: 40px; line-height: 1.08; font-weight: 900">{{ card.title }}</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: #3B2E6B">{{ card.desc }}</p>
+<a href="#details" style="font-size: 15px; font-weight: 700">See full details</a>
+<sc-if value="{{ card.hasPatch }}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #3B2E6B">There's a matching patch for your tote, too.</p>
+</sc-if>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 4px; padding-bottom: 22px; border-bottom: 1px solid #E3DCF7">
+<p style="margin: 0; font-size: 30px; font-weight: 700">{{ unitLabel }} <span style="font-size: 16px; font-weight: 500; color: #3B2E6B">per card</span></p>
+<p style="margin: 0; font-size: 15px; color: #3B2E6B">{{ totalLine }}</p>
+</div>
+
+<!-- Paper type -->
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
+<legend style="padding: 0; margin-bottom: 10px; font-size: 16px; font-weight: 700">Paper type: <span style="font-weight: 500">{{ paperName }}</span></legend>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{ papers }}" as="pp" hint-placeholder-count="3">
+<button class="opt" type="button" aria-pressed="{{ pp.on }}" onClick="{{ pp.pick }}" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 60px; padding: 10px 16px; border-radius: 14px; border: {{ pp.border }}; background: #FDFDFD; color: #1A0B45; font-family: inherit; text-align: left; cursor: pointer">
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">{{ pp.name }}</span><span style="font-size: 13px; color: #3B2E6B">{{ pp.note }}</span></span>
+<span style="font-size: 14px; font-weight: 600; color: #3B2E6B; white-space: nowrap">{{ pp.extra }}</span>
+</button>
+</sc-for>
+</div>
+</fieldset>
+
+<!-- Quantity -->
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
+<legend style="padding: 0; margin-bottom: 10px; font-size: 16px; font-weight: 700">Quantity: <span style="font-weight: 500">{{ qtyName }}</span></legend>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px">
+<sc-for list="{{ qtys }}" as="q" hint-placeholder-count="5">
+<button class="opt" type="button" aria-pressed="{{ q.on }}" onClick="{{ q.pick }}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 64px; padding: 8px; border-radius: 14px; border: {{ q.border }}; background: #FDFDFD; color: #1A0B45; font-family: inherit; cursor: pointer">
+<span style="font-size: 16px; font-weight: 700">{{ q.label }}</span>
+<span style="font-size: 12px; color: #3B2E6B">{{ q.total }}</span>
+</button>
+</sc-for>
+</div>
+</fieldset>
+
+<!-- Inside -->
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
+<legend style="padding: 0; margin-bottom: 10px; font-size: 16px; font-weight: 700">Inside: <span style="font-weight: 500">{{ insideName }}</span></legend>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{ insides }}" as="io" hint-placeholder-count="2">
+<button class="opt" type="button" aria-pressed="{{ io.on }}" onClick="{{ io.pick }}" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; min-height: 64px; padding: 10px 14px; border-radius: 14px; border: {{ io.border }}; background: #FDFDFD; color: #1A0B45; font-family: inherit; text-align: left; cursor: pointer"><span style="font-size: 15px; font-weight: 700">{{ io.name }}</span><span style="font-size: 13px; color: #3B2E6B">{{ io.note }}</span></button>
+</sc-for>
+</div>
+</fieldset>
+
+<!-- Message -->
+<sc-if value="{{ writeInside }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="card-msg" style="font-size: 16px; font-weight: 700">Your message <span style="font-weight: 500; color: #3B2E6B">(we'll handwrite it)</span></label>
+<textarea id="card-msg" class="field" rows="4" maxlength="220" value="{{ msg }}" onChange="{{ onMsg }}" onFocus="{{ goInside }}" placeholder="Write what you want to say." style="width: 100%; box-sizing: border-box; padding: 14px 16px; border-radius: 14px; border: 2px solid #CFC6F2; background: #FDFDFD; font-family: inherit; font-size: 16px; line-height: 1.5; color: #1A0B45; resize: vertical"></textarea>
+<p style="margin: 0; font-size: 13px; color: #3B2E6B">{{ msgCount }}</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="card-from" style="font-size: 16px; font-weight: 700">Sign it from</label>
+<input id="card-from" class="field" type="text" maxlength="40" value="{{ from }}" onChange="{{ onFrom }}" onFocus="{{ goInside }}" placeholder="Your name" style="width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 16px; border-radius: 14px; border: 2px solid #CFC6F2; background: #FDFDFD; font-family: inherit; font-size: 16px; color: #1A0B45">
+</div>
+</div>
+</sc-if>
+
+<!-- Order -->
+<div style="display: flex; flex-direction: column; gap: 10px">
+<a href="{{ waLink }}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 24px; border-radius: 999px; background: #5D1AFA; color: #FDFDFD; font-size: 17px; font-weight: 700; text-decoration: none">Order on WhatsApp · {{ totalShort }}</a>
+<a href="build-your-tote.html" style="display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 22px; border-radius: 999px; border: 2px solid #1A0B45; color: #1A0B45; font-size: 16px; font-weight: 700; text-decoration: none; box-sizing: border-box">Add a matching tote</a>
+<p style="margin: 4px 0 0; font-size: 14px; color: #3B2E6B; text-align: center">Ready in [X] days · Delivery in [YOUR AREAS] · Delivery charges apply</p>
+</div>
+</section>
+</div>
+
+<!-- BELOW: details accordions -->
+<section id="details" aria-label="Card details" style="display: flex; flex-direction: column; border-top: 1px solid #E3DCF7; margin-top: 16px">
+<details class="acc" open="{{ true }}" style="border-bottom: 1px solid #E3DCF7">
+<summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">Product description</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
+<div style="padding: 0 0 24px; display: flex; flex-direction: column; gap: 12px; max-width: 760px; font-size: 16px; line-height: 1.65; color: #3B2E6B">
+<p style="margin: 0">{{ card.desc }}</p>
+<p style="margin: 0">Every Show and Tell card is designed in-house and printed in bright colour, with a pun worth keeping. It comes with an envelope and is blank inside, so you can write your own message or let us hand-letter it for you.</p>
+</div>
+</details>
+<details class="acc" style="border-bottom: 1px solid #E3DCF7">
+<summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">Specifications</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
+<dl style="margin: 0 0 24px; display: grid; grid-template-columns: minmax(120px, 200px) minmax(0, 1fr); gap: 10px 24px; max-width: 760px; font-size: 16px">
+<dt style="font-weight: 700">Size</dt><dd style="margin: 0; color: #3B2E6B">[CARD SIZE, e.g. A6, 105 × 148 mm]</dd>
+<dt style="font-weight: 700">Paper</dt><dd style="margin: 0; color: #3B2E6B">{{ paperName }}</dd>
+<dt style="font-weight: 700">Envelope</dt><dd style="margin: 0; color: #3B2E6B">Included [ENVELOPE COLOUR]</dd>
+<dt style="font-weight: 700">Inside</dt><dd style="margin: 0; color: #3B2E6B">{{ insideName }} (choose blank, or your message handwritten by us)</dd>
+<dt style="font-weight: 700">Category</dt><dd style="margin: 0; color: #3B2E6B">{{ card.cat }}</dd>
+</dl>
+</details>
+<details class="acc" style="border-bottom: 1px solid #E3DCF7">
+<summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">Paper types</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
+<ul style="margin: 0 0 24px; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; max-width: 760px; font-size: 16px; line-height: 1.55; color: #3B2E6B">
+<sc-for list="{{ papers }}" as="pp" hint-placeholder-count="3">
+<li><strong style="color: #1A0B45">{{ pp.name }}.</strong> {{ pp.note }}</li>
+</sc-for>
+</ul>
+</details>
+<details class="acc" style="border-bottom: 1px solid #E3DCF7">
+<summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">Delivery</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
+<div style="padding: 0 0 24px; max-width: 760px; font-size: 16px; line-height: 1.65; color: #3B2E6B">
+<p style="margin: 0">Cards are ready in [X] days. We deliver in [YOUR AREAS], and pickup is available in [CITY]. Delivery charges apply: they depend on your location and we confirm them on WhatsApp before you pay.</p>
+</div>
+</details>
+</section>
+
+</div>
+</sc-if>
+</main>
+
+<footer style="background: #1A0B45; color: #FDFDFD">
+<div style="max-width: 1240px; margin: 0 auto; padding: 56px 5% 40px; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<a href="index.html" aria-label="Show and Tell Co home" style="line-height: 0"><img src="images/brand/wordmark-white.png" alt="Show and Tell Co" style="height: 72px; width: auto"></a>
+<p style="margin: 0; font-size: 16px; color: #FDFDFD">Pun-filled cards and pick-your-patch totes and tees.</p>
+<p style="margin: 0; font-size: 14px; color: #CFC6F2">Patch bar experience in Abuja and Barcelona</p>
+</div>
+<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 16px">
+<a href="cards.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Cards</a>
+<a href="build-your-tote.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Build a tote</a>
+<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Patches</a>
+<a href="https://www.instagram.com/showandtell.co/" target="_blank" rel="noopener" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Instagram</a>
+</nav>
+</div>
+<div style="max-width: 1240px; margin: 0 auto; padding: 0 5% 36px">
+<p style="margin: 0; padding-top: 22px; border-top: 1px solid #3B2E6B; font-size: 14px; color: #CFC6F2">© 2026 Show and Tell Co · Delivery charges apply</p>
+</div>
+</footer>
+</div>
+</template>
+<script src="assets/morphdom.min.js"></script>
+<script src="assets/dc-lite.js"></script>
+<script>
+// ---------- Your settings ----------
+// Your WhatsApp number in international format, digits only (for example 2348012345678).
+var WHATSAPP_NUMBER = '';
+var CURRENCY = '₦';
+var CARD_PRICE = 4500; // price per card
+
+// Paper types. extra = added to the price of each card (0 for none, null if not decided yet).
+var PAPERS = [
+  { id: 'matte', name: 'Matte', note: 'Smooth with no shine, and easy to write on.', extra: 0 },
+  { id: 'gloss', name: 'Gloss', note: 'Extra-bright colours with a soft shine.', extra: 0 },
+  { id: 'textured', name: 'Textured premium', note: 'Thicker card with a linen-like feel.', extra: null }
+];
+
+// Quantity options. To give a discount for bigger orders, set unit to a lower price per card (or leave null for the normal price).
+var QTYS = [
+  { n: 1, unit: null }, { n: 5, unit: null }, { n: 10, unit: null }, { n: 25, unit: null }, { n: 50, unit: null }
+];
+
+// One line per card. w and h are the design's pixel size, so each card keeps its own shape.
+var CARDS = [
+  { no: '01', cat: 'Love', title: 'I love you from my head to-ma-toes', src: 'images/cards/card-13.jpg', w: 1060, h: 1484, patchNo: '05', desc: 'Three shiny tomatoes and one very sincere pun, for the person you love from your head to your toes.' },
+  { no: '02', cat: 'Love', title: 'Life is butter with you', src: 'images/cards/card-04.jpg', w: 800, h: 1231, desc: 'A golden block of butter on a blue dish, for the person who makes everything better. Perfect for anniversaries, birthdays or a random Tuesday.' },
+  { no: '03', cat: 'Love', title: 'To the loaf of my life (wheat belong together)', src: 'images/cards/card-05.jpg', w: 1053, h: 1494, desc: 'A loaf in a heart-print bag for the one you can’t live without. Wheat belong together, after all.' },
+  { no: '04', cat: 'Love', title: 'Love you a brunch', src: 'images/cards/card-06.jpg', w: 1098, h: 1433, desc: 'Pancakes, bacon, eggs and coffee, for the person you’d share your last pancake with.' },
+  { no: '05', cat: 'Love', title: 'Love you so matcha', src: 'images/cards/card-07.jpg', w: 1086, h: 1448, desc: 'A checkered pink mug of matcha, for the one you love so, so matcha.' },
+  { no: '06', cat: 'Love', title: 'Love you soy much', src: 'images/cards/card-08.jpg', w: 1122, h: 1402, desc: 'A hand-lettered soy sauce bottle for someone you love soy much.' },
+  { no: '07', cat: 'Love', title: 'You make my heart go pop!', src: 'images/cards/card-10.jpg', w: 1121, h: 1403, desc: 'A pink toaster popping two iced pastries, for the one who makes your heart go pop.' },
+  { no: '08', cat: 'Love', title: "You're hot stuff!", src: 'images/cards/card-11.jpg', w: 1055, h: 1491, desc: 'A bottle of hot sauce for someone who’s simply too hot to handle.' },
+  { no: '09', cat: 'Love', title: 'You are the one that I want', src: 'images/cards/card-14.jpg', w: 1122, h: 1402, desc: 'A box of a dozen doughnuts, and only one of them is the one you want.' },
+  { no: '10', cat: 'Wedding', title: 'To the happy couple', src: 'images/cards/card-12.jpg', w: 1051, h: 1496, desc: 'A bold red heart on soft blue stripes, made for weddings, engagements and anniversaries.' },
+  { no: '11', cat: 'Cheeky', title: 'Nice bum', src: 'images/cards/card-09.jpg', w: 1054, h: 1492, desc: 'A goose with no shame and a compliment to match. For partners, best friends and anyone who’ll laugh.' },
+  { no: '12', cat: 'Christmas', title: 'Fa la la la la', src: 'images/cards/card-01.jpg', w: 1060, h: 1484, desc: 'Colourful hand-lettered fa la las on pink. A cheerful Christmas card for anyone on your list.' },
+  { no: '13', cat: 'Christmas', title: 'Dear Santa, define nice', src: 'images/cards/card-02.jpg', w: 1052, h: 1495, desc: 'Candy-cane stripes and an important question for Santa. For the friend who’s been mostly nice.' },
+  { no: '14', cat: 'Christmas', title: 'Dear Santa, pls just leave your credit card under the tree. Thx!', src: 'images/cards/card-03.jpg', w: 1122, h: 1402, desc: 'A Christmas tree, gold stars and one simple request to Santa. For anyone with expensive taste.' }
+];
+// ---------- End of settings ----------
+
+var FILTERS = ['All', 'Love', 'Christmas', 'Wedding', 'Cheeky'];
+
+function money(n) { return n == null ? '[PRICE]' : CURRENCY + Number(n).toLocaleString('en-GB'); }
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { mode: 'list', card: '01', view: 'front', filter: 'All', paper: 'matte', qty: 1, inside: 'blank', msg: '', from: '' };
+  }
+
+  renderVals() {
+    var self = this;
+    var st = this.state;
+    var c0 = CARDS.find(function (c) { return c.no === st.card; }) || CARDS[0];
+    var card = {
+      no: c0.no, cat: c0.cat, title: c0.title, src: c0.src, desc: c0.desc,
+      ar: c0.w + ' / ' + c0.h,
+      spread: (c0.w * 2) + ' / ' + c0.h,
+      hasPatch: !!c0.patchNo
+    };
+
+    var paper = PAPERS.find(function (p) { return p.id === st.paper; }) || PAPERS[0];
+    function unitFor(qty) {
+      if (paper.extra == null) return null;
+      var q = QTYS.find(function (x) { return x.n === qty; });
+      var base = q && q.unit != null ? q.unit : CARD_PRICE;
+      return base + paper.extra;
+    }
+    var unit = unitFor(st.qty);
+    var total = unit == null ? null : unit * st.qty;
+
+    var filters = FILTERS.map(function (f) {
+      var on = f === st.filter;
+      return {
+        label: f, on: on ? 'true' : 'false',
+        bg: on ? '#5D1AFA' : '#FDFDFD', fg: on ? '#FDFDFD' : '#5D1AFA',
+        pick: function () { self.setState({ filter: f }); }
+      };
+    });
+
+    var visible = CARDS.filter(function (c) { return st.filter === 'All' || c.cat === st.filter; });
+    var cards = visible.map(function (c) {
+      return {
+        title: c.title, src: c.src, cat: c.cat, price: money(CARD_PRICE),
+        pick: function () { self.setState({ mode: 'detail', card: c.no, view: 'front' }); }
+      };
+    });
+    var pool = visible.length ? visible : CARDS;
+    var idx = pool.findIndex(function (c) { return c.no === st.card; });
+    function go(step) {
+      var i = idx < 0 ? 0 : (idx + step + pool.length) % pool.length;
+      self.setState({ card: pool[i].no, view: 'front' });
+    }
+
+    function view(id) {
+      var on = st.view === id;
+      return { on: on ? 'true' : 'false', border: on ? '2px solid #5D1AFA' : '2px solid #E3DCF7', pick: function () { self.setState({ view: id }); } };
+    }
+
+    var papers = PAPERS.map(function (p) {
+      var on = p.id === paper.id;
+      return {
+        name: p.name, note: p.note, on: on ? 'true' : 'false',
+        extra: p.extra == null ? '+[PRICE]' : (p.extra === 0 ? 'Included' : '+' + money(p.extra)),
+        border: on ? '2px solid #5D1AFA' : '2px solid #E3DCF7',
+        pick: function () { self.setState({ paper: p.id }); }
+      };
+    });
+
+    var qtys = QTYS.map(function (q) {
+      var on = q.n === st.qty;
+      var u = unitFor(q.n);
+      return {
+        label: q.n === 1 ? '1 card' : q.n + ' cards', on: on ? 'true' : 'false',
+        total: u == null ? '[TOTAL]' : money(u * q.n),
+        border: on ? '2px solid #5D1AFA' : '2px solid #E3DCF7',
+        pick: function () { self.setState({ qty: q.n }); }
+      };
+    });
+
+    var write = st.inside === 'message';
+    var insides = [
+      { id: 'blank', name: 'Leave it blank', note: 'Write your own words inside' },
+      { id: 'message', name: 'Handwritten message', note: 'We write your message for you' }
+    ].map(function (o) {
+      var on = o.id === st.inside;
+      return { name: o.name, note: o.note, on: on ? 'true' : 'false', border: on ? '2px solid #5D1AFA' : '2px solid #E3DCF7', pick: function () { self.setState({ inside: o.id, view: o.id === 'message' ? 'inside' : self.state.view }); } };
+    });
+    var hasMsg = write && st.msg.trim().length > 0;
+    var orderMsg = "Hi Show and Tell! I'd like " + st.qty + ' x the card "' + card.title + '" on ' + paper.name + ' paper'
+      + (total != null ? ' (' + money(total) + ')' : '') + '.'
+      + (!write ? ' Please leave it blank inside.' : (hasMsg ? ' Please write inside: "' + st.msg.trim() + '"' : ' I\'d like a handwritten message (I\'ll send the words).'))
+      + (write && st.from.trim() ? ' From: ' + st.from.trim() + '.' : '');
+
+    return {
+      filters: filters, cards: cards, card: card,
+      isList: st.mode === 'list', isDetail: st.mode === 'detail',
+      toList: function () { self.setState({ mode: 'list' }); },
+      toCat: function () { self.setState({ mode: 'list', filter: c0.cat }); },
+      prev: function () { go(-1); },
+      next: function () { go(1); },
+      vFront: view('front'), vInside: view('inside'), vBack: view('back'),
+      showFlip: st.view !== 'inside',
+      showInside: st.view === 'inside',
+      rot: st.view === 'back' ? 180 : 0,
+      frontHidden: st.view === 'back' ? 'true' : 'false',
+      backHidden: st.view === 'back' ? 'false' : 'true',
+      viewHint: st.view === 'inside' ? (write ? 'Your message appears on the right-hand page.' : 'Blank inside, ready for your own words.') : 'Tap Inside to see the inside of the card.',
+      insides: insides, writeInside: write, insideName: write ? 'Handwritten message' : 'Blank',
+      papers: papers, paperName: paper.name,
+      qtys: qtys, qtyName: st.qty === 1 ? '1 card' : st.qty + ' cards',
+      unitLabel: money(unit),
+      totalLine: total == null ? 'Total shown once the paper price is set' : 'Total for ' + (st.qty === 1 ? '1 card' : st.qty + ' cards') + ': ' + money(total),
+      totalShort: total == null ? '[TOTAL]' : money(total),
+      msg: st.msg, from: st.from,
+      msgShown: !write ? '' : (hasMsg ? st.msg : 'Your message will appear here, handwritten.'),
+      fromShown: write && st.from.trim() ? 'Love, ' + st.from.trim() : '',
+      msgColor: hasMsg ? '#1A0B45' : '#8C82B0',
+      msgCount: st.msg.length + ' / 220 characters',
+      waLink: 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(orderMsg),
+      onMsg: function (e) { self.setState({ msg: e.target.value }); },
+      onFrom: function (e) { self.setState({ from: e.target.value }); },
+      goInside: function () { if (self.state.view !== 'inside') self.setState({ view: 'inside' }); }
+    };
+  }
+}
+
+DCLite.mount(Component);
+</script>
+</body>
+</html>

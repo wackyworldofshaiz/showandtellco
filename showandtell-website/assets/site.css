@@ -1,0 +1,11 @@
+/* Small additions for the live site. The page styles themselves are inline in each page. */
+html { scroll-behavior: smooth; }
+img { max-width: 100%; }
+
+/* Phones: scale down the biggest headings so they fit the screen. */
+@media (max-width: 640px) {
+  .disp[style*="font-size: 84px"] { font-size: 50px !important; }
+  .disp[style*="font-size: 60px"] { font-size: 40px !important; }
+  .disp[style*="font-size: 56px"] { font-size: 42px !important; }
+  article[style*="padding: 44px"] { padding: 28px !important; }
+}
