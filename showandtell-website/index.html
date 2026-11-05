@@ -23,7 +23,8 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <header class="grain" style="background-color: #5D1AFA; color: #FDFDFD">
 <nav aria-label="Main" style="max-width: 1240px; margin: 0 auto; padding: 24px 5%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px">
 <a href="#top" aria-label="Show and Tell Co home" style="display: block; line-height: 0"><img src="images/brand/wordmark-white.png" alt="Show and Tell Co" style="height: 64px; width: auto; display: block"></a>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; font-size: 17px; font-weight: 500">
+<button type="button" class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="site-links" style="align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0; background: transparent; color: #FDFDFD; border: 2px solid rgba(253,253,253,0.5); border-radius: 999px; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path class="menu-bars" d="M4 7h16M4 12h16M4 17h16"/><path class="menu-x" d="M6 6l12 12M18 6L6 18"/></svg></button>
+<div id="site-links" class="site-links" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; font-size: 17px; font-weight: 500">
 <a href="cards.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Cards</a>
 <a href="#totes" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Totes</a>
 <a href="#how" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">How it works</a>
@@ -35,7 +36,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <div style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
 
 <h1 class="disp" style="margin: 0; font-size: 84px; line-height: 0.98; font-weight: 900; letter-spacing: -0.02em; color: #FDFDFD; max-width: 693px">Cards that tell it. <span style="color: #E4EE3F">Totes that show it.</span></h1>
-<p style="margin: 0; max-width: 520px; font-size: 20px; line-height: 1.55; color: #FDFDFD"><strong style="color: rgb(228, 238, 63)">Cards:</strong> a pun for every feeling, with your message hand-lettered inside if you like.&nbsp;<strong style="color: rgb(228, 238, 63)">Patch totes and tees:</strong> pick your patches and we'll press them on by hand.</p>
+<p style="margin: 0; max-width: 520px; font-size: 20px; line-height: 1.55; color: #FDFDFD"><strong style="color: rgb(228, 238, 63)">Cards:</strong> a pun for every feeling, with your message hand-lettered inside if you like.&nbsp;<strong style="color: rgb(228, 238, 63)">Patch totes and tees:</strong> pick your designs (prints, patches or pins) and we'll press them on by hand.</p>
 
 <div style="display: flex; flex-wrap: wrap; gap: 14px; padding-top: 8px">
 <a href="build-your-tote.html" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 30px; border-radius: 999px; background: #E4EE3F; color: #1A0B45; font-size: 17px; font-weight: 700; text-decoration: none">Build your tote</a>
@@ -79,14 +80,53 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </div>
 
 <h3 class="disp" style="margin: 0; font-size: 38px; line-height: 1.08; font-weight: 900; color: #1A0B45">Patch totes you design yourself.</h3>
-<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #1A0B45">You choose the patches, we press them on by hand. Jollof, danfo, Wahala, city stamps: no two bags come out the same.</p>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #1A0B45">Choose prints, embroidered patches or pins, and we put them together by hand. Jollof, danfo, Wahala, city stamps: no two bags come out the same.</p>
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding-top: 6px">
-<p style="margin: 0; font-size: 18px; font-weight: 700; color: #1A0B45">Totes from ₦80,000 · patches from ₦9,500</p>
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #1A0B45">Totes from ₦80,000 · prints from [PRICE] · patches ₦9,500 · pins from [PRICE]</p>
 <a href="build-your-tote.html" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; border-radius: 999px; background: #1A0B45; color: #FDFDFD; font-size: 16px; font-weight: 700; text-decoration: none">Build your tote</a>
 </div>
 </article>
 
 </div>
+</section>
+
+<!-- Print, patch or pin -->
+<section aria-labelledby="types-h" style="max-width: 1240px; margin: 0 auto; padding: 0 5% 112px; display: flex; flex-direction: column; gap: 48px">
+<h2 id="types-h" class="disp" style="margin: 0; font-size: 60px; line-height: 1.02; font-weight: 900; letter-spacing: -0.02em; color: #1A0B45">Print, patch or pin?</h2>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 24px">
+
+<li style="flex: 1 1 280px; min-width: 0; background: #EFE9FF; border-radius: 28px; padding: 40px; display: flex; flex-direction: column; gap: 18px; box-sizing: border-box">
+<div aria-hidden="true" style="display: flex; justify-content: center; align-items: center; height: 180px; border-radius: 20px; background: #F6F1E7">
+<img src="images/patches/jollof.webp" alt="" style="height: 140px; width: auto; display: block; mix-blend-mode: multiply">
+</div>
+<h3 class="disp" style="margin: 0; font-size: 34px; font-weight: 900; color: #1A0B45">Print</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B2E6B">Full colour, smooth and flat. The best value, and great for group orders.</p>
+<p style="margin: auto 0 0; font-size: 18px; font-weight: 700; color: #1A0B45">from [PRICE]</p>
+</li>
+
+<li style="flex: 1 1 280px; min-width: 0; background: #E4EE3F; border-radius: 28px; padding: 40px; display: flex; flex-direction: column; gap: 18px; box-sizing: border-box">
+<div aria-hidden="true" style="display: flex; justify-content: center; align-items: center; height: 180px">
+<img src="images/patches/suya.webp" alt="" style="height: 150px; width: auto; display: block; filter: drop-shadow(0 10px 16px rgba(26, 11, 69, 0.25))">
+</div>
+<h3 class="disp" style="margin: 0; font-size: 34px; font-weight: 900; color: #1A0B45">Patch</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #1A0B45">Raised embroidery you can feel. The premium choice, also sold on its own to iron on yourself.</p>
+<p style="margin: auto 0 0; font-size: 18px; font-weight: 700; color: #1A0B45">₦9,500</p>
+</li>
+
+<li style="flex: 1 1 280px; min-width: 0; background: #5D1AFA; border-radius: 28px; padding: 40px; display: flex; flex-direction: column; gap: 18px; box-sizing: border-box">
+<div aria-hidden="true" style="display: flex; justify-content: center; align-items: center; height: 180px">
+<svg viewBox="0 0 120 120" style="height: 150px; width: auto" fill="none" stroke="#E4EE3F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="60" cy="60" r="50"></circle>
+<circle cx="60" cy="60" r="38"></circle>
+<path d="M60 36 C62 52 68 58 84 60 C68 62 62 68 60 84 C58 68 52 62 36 60 C52 58 58 52 60 36 Z"></path>
+</svg>
+</div>
+<h3 class="disp" style="margin: 0; font-size: 34px; font-weight: 900; color: #FDFDFD">Pin</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #FDFDFD">Enamel pins that clip on and come off. Swap them around, collect the set.</p>
+<p style="margin: auto 0 0; font-size: 18px; font-weight: 700; color: #E4EE3F">from [PRICE]</p>
+</li>
+
+</ul>
 </section>
 
 <!-- How Pick & Press works -->
@@ -104,13 +144,13 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </li>
 <li style="flex: 1 1 230px; min-width: 0; background: #FDFDFD; border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 12px; box-sizing: border-box">
 <span class="disp" style="font-size: 56px; line-height: 1; font-weight: 900; color: #5D1AFA">02</span>
-<h3 class="disp" style="margin: 0; font-size: 26px; font-weight: 800; color: #1A0B45">Pick your patches</h3>
-<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B2E6B">Browse the patch menu and send us the numbers you love.</p>
+<h3 class="disp" style="margin: 0; font-size: 26px; font-weight: 800; color: #1A0B45">Pick your designs</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B2E6B">Browse the design menu and choose each one as a print, a patch or a pin.</p>
 </li>
 <li style="flex: 1 1 230px; min-width: 0; background: #FDFDFD; border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 12px; box-sizing: border-box">
 <span class="disp" style="font-size: 56px; line-height: 1; font-weight: 900; color: #5D1AFA">03</span>
-<h3 class="disp" style="margin: 0; font-size: 26px; font-weight: 800; color: #1A0B45">We press them on</h3>
-<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B2E6B">Every patch is heat-pressed by hand and finished so it stays put.</p>
+<h3 class="disp" style="margin: 0; font-size: 26px; font-weight: 800; color: #1A0B45">We put it together</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B2E6B">Prints and patches are heat-pressed by hand. Pins clip on.</p>
 </li>
 <li style="flex: 1 1 230px; min-width: 0; background: #FDFDFD; border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 12px; box-sizing: border-box">
 <span class="disp" style="font-size: 56px; line-height: 1; font-weight: 900; color: #5D1AFA">04</span>
@@ -164,5 +204,6 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </footer>
 
 </div>
+<script src="assets/menu.js"></script>
 </body>
 </html>

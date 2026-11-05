@@ -1,6 +1,6 @@
 # Show and Tell Co website
 
-Printed pun cards, pick-your-patch totes and tees, and iron-on patches.
+Printed pun cards, pick-your-design totes and tees, and iron-on patches and pins.
 
 This is a plain static website: HTML, CSS, JavaScript and images. It doesn't need a build step or a server, so it runs on GitHub Pages, Netlify or any web host.
 
@@ -11,7 +11,7 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | `index.html` | Home page |
 | `build-your-tote.html` | Build your tote (Classic tote, Premium tote bag, T-shirt) |
 | `cards.html` | Card list and card product pages |
-| `patches.html` | Patch menu and patch product pages |
+| `patches.html` | The design menu and design product pages (prints, patches and pins) |
 
 Images are in `images/`. The interactive pages share `assets/dc-lite.js` and `assets/morphdom.min.js`, and `assets/site.css` holds the phone tweaks.
 
@@ -33,16 +33,28 @@ To use your own domain (for example showandtell.co), add it under **Settings ›
 
 **Prices still to set** (they show as [PRICE] or [TOTAL] until then):
 - Premium tote bag and T-shirt: `price: null` in `STYLES` in `build-your-tote.html`.
+- Print and pin prices: `price: null` for `print` and `pin` in `TYPES`. Set them in **both** `build-your-tote.html` and `patches.html`, then replace the `[PRICE]` text for prints and pins on `index.html` (the totes card and the "Print, patch or pin?" section).
 - Textured premium paper surcharge: `extra: null` in `PAPERS` in `cards.html`.
 
 **Text placeholders in square brackets:**
 - Home page, step 01: [YOUR TOTE COLOURS]
 - Cards page: card size, envelope colour, ready-in days, delivery areas and pickup city
-- Patches page: patch type and size
+- Design menu: the size of each type
 
 **Home page "Order" and "Plan a gift" buttons.** These point to an `#order` section that isn't on the page yet. Either add an order section or point them at WhatsApp or `build-your-tote.html`.
 
-## Adding a patch or a card
+## Prints, patches and pins
 
-- **New patch:** add the image to `images/patches/`. Then add a line to the `PATCHES` list in **both** `build-your-tote.html` and `patches.html`, with the next id, a name, a category and `src: 'images/patches/<file>'`.
+Every design can come as a **print** (a heat transfer pressed flat on), a **patch** (embroidered, iron-on) or a **pin** (enamel, locking back). The settings live near the top of the script in **both** `build-your-tote.html` and `patches.html`; keep the two copies the same.
+
+- **`TYPES`**: one entry per type, with its `label`, default `price` (`null` shows [PRICE]), `soldAlone` (whether people can buy it without a tote or tee) and a short `note` shown to customers.
+- **`types`** on each design in `PATCHES`: the types it comes in, for example `['print', 'patch']`.
+- **`pinSrc`** (optional) on a design: its pin image. Setting it switches Pin on for that design; you don't need to add `'pin'` to `types`.
+- **`prices`** (optional) on a design: a different price for that design only, for example `prices: { patch: 12000 }`. Anything not listed uses the `TYPES` price.
+
+**To switch pins on for a design:** add the pin photo to `images/pins/`, then add `pinSrc: 'images/pins/<file>'` to that design in both files. The Pin option appears in the builder and the Pins filter on the design menu as soon as one design has a pin.
+
+## Adding a design or a card
+
+- **New design:** add the image to `images/patches/`. Then add a line to the `PATCHES` list in **both** `build-your-tote.html` and `patches.html`, with the next id, a name, a category, `types: ['print', 'patch']` and `src: 'images/patches/<file>'`.
 - **New card:** add the image to `images/cards/` and a line to the `CARDS` list in `cards.html`. `w` and `h` are the image's width and height in pixels.
