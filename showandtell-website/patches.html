@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Patches: Show and Tell Co</title>
+<title>The design menu: Show and Tell Co</title>
 <meta name="description" content="Show and Tell Co: printed pun cards, pick-your-patch totes and tees, and iron-on patches. Order on WhatsApp.">
 <link rel="icon" type="image/png" href="images/brand/wordmark-violet.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&amp;family=DM+Sans:opsz,wght@9..40,400..700&amp;display=swap">
@@ -27,10 +27,11 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <header style="background: #5D1AFA; color: #FDFDFD">
 <div style="max-width: 1240px; margin: 0 auto; padding: 18px 5%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
 <a href="index.html" aria-label="Back to Show and Tell Co home" style="display: block; line-height: 0"><img src="images/brand/wordmark-white.png" alt="Show and Tell Co" style="height: 48px; width: auto"></a>
-<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 16px; font-weight: 600">
+<button type="button" class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="site-links" style="align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0; background: transparent; color: #FDFDFD; border: 2px solid rgba(253,253,253,0.5); border-radius: 999px; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path class="menu-bars" d="M4 7h16M4 12h16M4 17h16"/><path class="menu-x" d="M6 6l12 12M18 6L6 18"/></svg></button>
+<nav id="site-links" class="site-links" aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 16px; font-weight: 600">
 <a href="build-your-tote.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Build a tote</a>
 <a href="cards.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Choose a card</a>
-<a href="patches.html" aria-current="page" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Shop patches</a>
+<a href="patches.html" aria-current="page" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Shop designs</a>
 </nav>
 </div>
 </header>
@@ -41,17 +42,24 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
 <div style="display: flex; flex-direction: column; gap: 32px">
 <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 720px; margin: 0 auto; text-align: center">
-<h1 class="disp" style="margin: 0; font-size: 56px; line-height: 1.02; font-weight: 900; letter-spacing: -0.02em">The patch menu.</h1>
-<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3B2E6B; max-width: 640px">Buy a patch on its own and iron it on yourself, or add it to a tote or tee and we'll press it on for you.</p>
+<h1 class="disp" style="margin: 0; font-size: 56px; line-height: 1.02; font-weight: 900; letter-spacing: -0.02em">The design menu.</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3B2E6B; max-width: 640px">Every design comes as a print or an embroidered patch, and some as pins. Add them to a tote or tee and we'll press them on, or buy patches and pins on their own.</p>
 </div>
 
-<div role="group" aria-label="Filter patches" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 12px">
+<div role="group" aria-label="Filter by category" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px">
 <sc-for list="{{ filters }}" as="f" hint-placeholder-count="7">
 <button class="chip" type="button" aria-pressed="{{ f.on }}" onClick="{{ f.pick }}" style="min-height: 44px; padding: 0 20px; border-radius: 999px; border: 2px solid #5D1AFA; background: {{ f.bg }}; color: {{ f.fg }}; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">{{ f.label }}</button>
 </sc-for>
 </div>
+<div role="group" aria-label="Filter by type" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px">
+<sc-for list="{{ typeFilters }}" as="f" hint-placeholder-count="3">
+<button class="chip" type="button" aria-pressed="{{ f.on }}" onClick="{{ f.pick }}" style="min-height: 40px; padding: 0 18px; border-radius: 999px; border: 2px solid #1A0B45; background: {{ f.bg }}; color: {{ f.fg }}; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">{{ f.label }}</button>
+</sc-for>
+</div>
+</div>
 
-<ul aria-label="Patches" style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 40px 28px">
+<ul aria-label="Designs"style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 40px 28px">
 <sc-for list="{{ patches }}" as="p" hint-placeholder-count="12">
 <li>
 <button class="thumb" type="button" aria-label="{{ p.name }}. Open details." onClick="{{ p.pick }}" style="width: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; display: flex; flex-direction: column; gap: 14px; text-align: left; font-family: inherit; color: #1A0B45">
@@ -74,39 +82,52 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
 <nav aria-label="Breadcrumb" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; color: #3B2E6B">
-<button class="crumb" type="button" onClick="{{ toList }}" style="min-height: 40px; padding: 0; border: 0; background: transparent; color: #5D1AFA; font-family: inherit; font-size: 14px; font-weight: 700; text-decoration: underline; cursor: pointer">Patches</button>
+<button class="crumb" type="button" onClick="{{ toList }}" style="min-height: 40px; padding: 0; border: 0; background: transparent; color: #5D1AFA; font-family: inherit; font-size: 14px; font-weight: 700; text-decoration: underline; cursor: pointer">Designs</button>
 <span aria-hidden="true">›</span>
 <button class="crumb" type="button" onClick="{{ toCat }}" style="min-height: 40px; padding: 0; border: 0; background: transparent; color: #5D1AFA; font-family: inherit; font-size: 14px; font-weight: 700; text-decoration: underline; cursor: pointer">{{ patch.cat }}</button>
 <span aria-hidden="true">›</span>
 <span aria-current="page">{{ patch.name }}</span>
 </nav>
 <div style="display: flex; gap: 8px">
-<button class="chip" type="button" onClick="{{ prev }}" aria-label="Previous patch" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 2px solid #CFC6F2; background: #FDFDFD; color: #1A0B45; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Previous</button>
-<button class="chip" type="button" onClick="{{ next }}" aria-label="Next patch" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 2px solid #CFC6F2; background: #FDFDFD; color: #1A0B45; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Next</button>
+<button class="chip" type="button" onClick="{{ prev }}" aria-label="Previous design" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 2px solid #CFC6F2; background: #FDFDFD; color: #1A0B45; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Previous</button>
+<button class="chip" type="button" onClick="{{ next }}" aria-label="Next design" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 2px solid #CFC6F2; background: #FDFDFD; color: #1A0B45; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Next</button>
 </div>
 </div>
 
 <div style="display: flex; flex-wrap: wrap; gap: 56px; align-items: flex-start">
 
-<section aria-label="Patch image" style="flex: 1 1 520px; min-width: 0; display: flex; align-items: center; justify-content: center; min-height: 480px">
-<img src="{{ patch.src }}" alt="{{ patch.name }} patch" style="width: 100%; max-width: 520px; height: auto; display: block; filter: drop-shadow(0 18px 30px rgba(26, 11, 69, 0.2))">
+<section aria-label="Design image" style="flex: 1 1 520px; min-width: 0; display: flex; align-items: center; justify-content: center; min-height: 480px">
+<img src="{{ mainImg }}" alt="{{ patch.name }} {{ typeWord }}" style="width: 100%; max-width: 520px; height: auto; display: block; filter: drop-shadow(0 18px 30px rgba(26, 11, 69, 0.2))">
 </section>
 
-<section aria-label="Patch options" style="flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 26px">
+<section aria-label="Design options" style="flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 26px">
 <div style="display: flex; flex-direction: column; gap: 10px">
-<p style="margin: 0; font-size: 14px; font-weight: 700; color: #5D1AFA">{{ patch.cat }} patch</p>
+<p style="margin: 0; font-size: 14px; font-weight: 700; color: #5D1AFA">{{ patch.cat }} {{ typeWord }}</p>
 <h1 class="disp" style="margin: 0; font-size: 40px; line-height: 1.08; font-weight: 900">{{ patch.name }}</h1>
 <p style="margin: 0; font-size: 16px; line-height: 1.6; color: #3B2E6B">{{ patch.desc }}</p>
-<a href="#patch-details" style="font-size: 15px; font-weight: 700">See full details</a>
+<a href="#design-details" style="font-size: 15px; font-weight: 700">See full details</a>
 </div>
 
 <div style="display: flex; flex-direction: column; gap: 4px; padding-bottom: 22px; border-bottom: 1px solid #E3DCF7">
-<p style="margin: 0; font-size: 30px; font-weight: 700">{{ unitLabel }} <span style="font-size: 16px; font-weight: 500; color: #3B2E6B">per patch</span></p>
+<p style="margin: 0; font-size: 30px; font-weight: 700">{{ unitLabel }} <span style="font-size: 16px; font-weight: 500; color: #3B2E6B">per {{ typeWord }}</span></p>
 <p style="margin: 0; font-size: 15px; color: #3B2E6B">{{ totalLine }}</p>
 </div>
 
 <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
-<legend style="padding: 0; margin-bottom: 10px; font-size: 16px; font-weight: 700">Quantity: <span style="font-weight: 500">{{ qtyName }}</span></legend>
+<legend style="padding: 0; margin-bottom: 10px; font-size: 16px; font-weight: 700">Type: <span style="font-weight: 500">{{ typeLabel }}</span></legend>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px">
+<sc-for list="{{ typeOpts }}" as="t" hint-placeholder-count="2">
+<button class="opt" type="button" aria-pressed="{{ t.on }}" onClick="{{ t.pick }}" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 4px; min-height: 64px; padding: 12px 14px; border-radius: 14px; border: {{ t.border }}; background: #FDFDFD; color: #1A0B45; font-family: inherit; text-align: left; cursor: pointer">
+<span style="display: flex; width: 100%; justify-content: space-between; gap: 8px; font-size: 16px; font-weight: 700"><span>{{ t.label }}</span><span>{{ t.price }}</span></span>
+<span style="font-size: 13px; line-height: 1.4; color: #3B2E6B">{{ t.note }}</span>
+</button>
+</sc-for>
+</div>
+</fieldset>
+
+<sc-if value="{{ soldAlone }}" hint-placeholder-val="{{ true }}">
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
+<legend style="padding: 0; margin-bottom: 10px; font-size: 16px; font-weight: 700">Quantity:<span style="font-weight: 500">{{ qtyName }}</span></legend>
 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); gap: 8px">
 <sc-for list="{{ qtys }}" as="q" hint-placeholder-count="5">
 <button class="opt" type="button" aria-pressed="{{ q.on }}" onClick="{{ q.pick }}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 64px; padding: 8px; border-radius: 14px; border: {{ q.border }}; background: #FDFDFD; color: #1A0B45; font-family: inherit; cursor: pointer">
@@ -116,9 +137,15 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </sc-for>
 </div>
 </fieldset>
+</sc-if>
 
 <div style="display: flex; flex-direction: column; gap: 10px">
-<a href="{{ waLink }}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 24px; border-radius: 999px; background: #5D1AFA; color: #FDFDFD; font-size: 17px; font-weight: 700; text-decoration: none">Buy the patch only · {{ totalShort }}</a>
+<sc-if value="{{ soldAlone }}" hint-placeholder-val="{{ true }}">
+<a href="{{ waLink }}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 24px; border-radius: 999px; background: #5D1AFA; color: #FDFDFD; font-size: 17px; font-weight: 700; text-decoration: none">Buy the {{ typeWord }} only · {{ totalShort }}</a>
+</sc-if>
+<sc-if value="{{ notSoldAlone }}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0; padding: 14px 18px; border-radius: 16px; background: #EFE9FF; font-size: 15px; line-height: 1.5; font-weight: 700; text-align: center">Prints are pressed on by us. Add it to a tote or tee.</p>
+</sc-if>
 <a href="build-your-tote.html" style="display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 22px; border-radius: 999px; border: 2px solid #1A0B45; color: #1A0B45; font-size: 16px; font-weight: 700; text-decoration: none; box-sizing: border-box">Add it to a tote or tee</a>
 <p style="margin: 2px 0 0; font-size: 14px; line-height: 1.5; color: #3B2E6B; text-align: center">{{ addHint }}</p>
 <p style="margin: 0; font-size: 14px; color: #3B2E6B; text-align: center">Ready in 3 working days · Delivery charges apply</p>
@@ -126,23 +153,40 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </section>
 </div>
 
-<section id="patch-details" aria-label="Patch details" style="display: flex; flex-direction: column; border-top: 1px solid #E3DCF7">
+<section id="design-details" aria-label="Design details"style="display: flex; flex-direction: column; border-top: 1px solid #E3DCF7">
 <details class="acc" open="{{ true }}" style="border-bottom: 1px solid #E3DCF7">
 <summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">Product description</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
 <div style="padding: 0 0 24px; display: flex; flex-direction: column; gap: 12px; max-width: 760px; font-size: 16px; line-height: 1.65; color: #3B2E6B">
 <p style="margin: 0">{{ patch.desc }}</p>
-<p style="margin: 0">Buy it on its own for a jacket, cap or bag you already love, or add it to one of our totes or tees and we'll press it on for you.</p>
+<p style="margin: 0">{{ moreLine }}</p>
 </div>
 </details>
 <details class="acc" style="border-bottom: 1px solid #E3DCF7">
 <summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">Specifications</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
 <dl style="margin: 0 0 24px; display: grid; grid-template-columns: minmax(120px, 200px) minmax(0, 1fr); gap: 10px 24px; max-width: 760px; font-size: 16px">
-<dt style="font-weight: 700">Type</dt><dd style="margin: 0; color: #3B2E6B">[Embroidered / printed], iron-on backing</dd>
-<dt style="font-weight: 700">Size</dt><dd style="margin: 0; color: #3B2E6B">[PATCH SIZE, e.g. 8 cm wide]</dd>
+<dt style="font-weight: 700">Type</dt><dd style="margin: 0; color: #3B2E6B">{{ specType }}</dd>
+<dt style="font-weight: 700">Size</dt><dd style="margin: 0; color: #3B2E6B">[{{ sizeWord }} SIZE, e.g. 8 cm wide]</dd>
 <dt style="font-weight: 700">Works on</dt><dd style="margin: 0; color: #3B2E6B">Cotton, canvas and denim</dd>
 <dt style="font-weight: 700">Category</dt><dd style="margin: 0; color: #3B2E6B">{{ patch.cat }}</dd>
 </dl>
 </details>
+<sc-if value="{{ isPrint }}" hint-placeholder-val="{{ false }}">
+<details class="acc" style="border-bottom: 1px solid #E3DCF7">
+<summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">How it's pressed</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
+<div style="padding: 0 0 24px; max-width: 760px; font-size: 16px; line-height: 1.65; color: #3B2E6B">
+<p style="margin: 0">We heat-press your print onto the bag with a professional press. Care: wait 24 hours before the first wash, wash cold and inside out, and air dry.</p>
+</div>
+</details>
+</sc-if>
+<sc-if value="{{ isPin }}" hint-placeholder-val="{{ false }}">
+<details class="acc" style="border-bottom: 1px solid #E3DCF7">
+<summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">How to wear it</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
+<div style="padding: 0 0 24px; max-width: 760px; font-size: 16px; line-height: 1.65; color: #3B2E6B">
+<p style="margin: 0">Push the pin through the fabric and click the locking back into place. To move it, press the release on the back.</p>
+</div>
+</details>
+</sc-if>
+<sc-if value="{{ isPatch }}" hint-placeholder-val="{{ true }}">
 <details class="acc" style="border-bottom: 1px solid #E3DCF7">
 <summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">How to iron it on</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
 <ol style="margin: 0 0 24px; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; max-width: 760px; font-size: 16px; line-height: 1.55; color: #3B2E6B">
@@ -153,6 +197,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <li>For extra hold, add a few stitches around the edge.</li>
 </ol>
 </details>
+</sc-if>
 <details class="acc" style="border-bottom: 1px solid #E3DCF7">
 <summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">Delivery</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
 <div style="padding: 0 0 24px; max-width: 760px; font-size: 16px; line-height: 1.65; color: #3B2E6B">
@@ -162,7 +207,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </section>
 
 <section aria-labelledby="more-h" style="display: flex; flex-direction: column; gap: 20px">
-<h2 id="more-h" class="disp" style="margin: 0; font-size: 30px; font-weight: 900">More {{ patch.cat }} patches</h2>
+<h2 id="more-h" class="disp" style="margin: 0; font-size: 30px; font-weight: 900">More {{ patch.cat }} designs</h2>
 <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 24px">
 <sc-for list="{{ related }}" as="r" hint-placeholder-count="4">
 <li>
@@ -190,7 +235,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 16px">
 <a href="cards.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Cards</a>
 <a href="build-your-tote.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Build a tote</a>
-<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Patches</a>
+<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Designs</a>
 <a href="https://www.instagram.com/showandtell.co/" target="_blank" rel="noopener" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Instagram</a>
 </nav>
 </div>
@@ -202,104 +247,175 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </template>
 <script src="assets/morphdom.min.js"></script>
 <script src="assets/dc-lite.js"></script>
+<script src="assets/menu.js"></script>
 <script>
 // ---------- Your settings ----------
 // WhatsApp number in international format, digits only (for example 2348012345678).
 var WHATSAPP_NUMBER = '';
 var CURRENCY = '₦';
-var PATCH_PRICE = 9500; // default price per patch; a patch can override it with its own price
 var QTYS = [1, 2, 3, 5, 10];
 
-// Keep this list the same as the one in the tote builder.
+// Keep TYPES, TYPE_ORDER and PATCHES the same as in the tote builder.
+// The three kinds of design. price null = shows [PRICE] until you set it.
+// soldAlone: whether people can buy this type on its own, without a tote or tee.
+var TYPES = {
+  print: { label: 'Print', price: null, soldAlone: false, note: 'Full colour, pressed flat onto your bag by us.' },
+  patch: { label: 'Patch', price: 9500, soldAlone: true,  note: 'Raised embroidery with an iron-on back.' },
+  pin:   { label: 'Pin',   price: null, soldAlone: true,  note: 'Enamel pin with a locking back. Clip it on, swap it around.' }
+};
+var TYPE_ORDER = ['print', 'patch', 'pin'];
+
+// Your designs. types = the kinds it comes in. Optional extras:
+// pinSrc: 'images/pins/<file>' switches Pin on for that design.
+// prices: { patch: 12000 } charges more or less than the TYPES price for one design.
 var PATCHES = [
-  { id: 'p01', name: 'Abuja City Gate', cat: 'Places', price: null, src: 'images/patches/abuja-gate.webp', desc: 'The gate that welcomes you into Abuja, with the green-white-green flying above it and the road stretching ahead.' },
-  { id: 'p02', name: 'Plantain', cat: 'Food', price: null, src: 'images/patches/plantain.webp', desc: 'A ripe bunch of plantain on a green leaf, ready to become dodo.' },
-  { id: 'p03', name: 'Meat pie', cat: 'Food', price: null, src: 'images/patches/meat-pie.webp', desc: 'A golden meat pie, broken open to show the filling. Party-tray essential.' },
-  { id: 'p04', name: 'Jollof and chicken', cat: 'Food', price: null, src: 'images/patches/jollof.webp', desc: 'A green-and-white bowl of jollof with a chicken leg on top. The only correct answer at any party.' },
-  { id: 'p05', name: 'Danfo, full house', cat: 'Rides', price: null, src: 'images/patches/danfo-busy.webp', desc: 'A yellow Lagos danfo packed to the windows, with one arm hanging out for good measure.' },
-  { id: 'p06', name: 'Danfo', cat: 'Rides', price: null, src: 'images/patches/danfo.webp', desc: 'The classic yellow Lagos bus with its door wide open. Enter with your change ready.' },
-  { id: 'p07', name: 'Keke', cat: 'Rides', price: null, src: 'images/patches/keke.webp', desc: 'A yellow-and-black keke, the quickest way through traffic.' },
-  { id: 'p08', name: 'National Theatre', cat: 'Places', price: null, src: 'images/patches/national-theatre.webp', desc: 'The National Theatre in Lagos, its famous curved roof framed by trees.' },
-  { id: 'p09', name: 'Drums', cat: 'Culture', price: null, src: 'images/patches/drums.webp', desc: 'A set of drums with a beater, for anyone who can’t sit still when the music starts.' },
-  { id: 'p10', name: 'Gala', cat: 'Snacks & drinks', price: null, src: 'images/patches/gala.webp', desc: 'The sausage roll in the red-and-yellow wrapper. A traffic snack legend.' },
-  { id: 'p11', name: 'Green passport', cat: 'Culture', price: null, src: 'images/patches/passport.webp', desc: 'The green passport, for the japa crew, the frequent flyers and everyone who carries home with them.' },
-  { id: 'p12', name: 'Puff-puff', cat: 'Snacks & drinks', price: null, src: 'images/patches/puff-puff.webp', desc: 'A striped bowl piled high with golden puff-puff. Nobody stops at one.' },
-  { id: 'p13', name: 'Pure water', cat: 'Snacks & drinks', price: null, src: 'images/patches/pure-water.webp', desc: 'The sachet of pure water, cold and perfect on a hot afternoon.' },
-  { id: 'p14', name: 'Suya', cat: 'Food', price: null, src: 'images/patches/suya.webp', desc: 'Three sticks of suya with onions, tomatoes and plenty of yaji.' },
-  { id: 'p15', name: 'Palm wine', cat: 'Snacks & drinks', price: null, src: 'images/patches/palm-wine.webp', desc: 'A clay pot of fresh palm wine under a palm tree.' },
-  { id: 'p16', name: 'Show and Tell logo', cat: 'Show & Tell', price: null, src: 'images/patches/show-and-tell.webp', desc: 'Our logo in pink and cream, with the lime sparkle.' },
-  { id: 'p17', name: 'SuperYogo', cat: 'Snacks & drinks', price: null, src: 'images/patches/superyogo.webp', desc: 'The pink strawberry yoghurt sachet, a childhood favourite.' },
-  { id: 'p18', name: 'Zuma Rock', cat: 'Places', price: null, src: 'images/patches/zuma-rock.webp', desc: 'Zuma Rock rising over green trees, with the road out of Abuja in front.' },
-  { id: 'p19', name: 'Wahala', cat: 'Sayings', price: null, src: 'images/patches/wahala.webp', desc: 'One word for every kind of trouble, in cream script on red. Wear it as a warning or a lifestyle.' },
-  { id: 'p20', name: 'Abuja stamp', cat: 'Places', price: null, src: 'images/patches/abuja-stamp.webp', desc: 'A green-and-gold postage stamp of Abuja, with the city gate in front of Aso Rock.' },
-  { id: 'p21', name: 'No gree for anybody', cat: 'Sayings', price: null, src: 'images/patches/no-gree.webp', desc: 'A cup of coffee with an attitude. For anyone who stands their ground before breakfast.' },
-  { id: 'p22', name: 'Lagos stamp', cat: 'Places', price: null, src: 'images/patches/lagos-stamp.webp', desc: 'A green-and-gold postage stamp of Lagos, with the Lekki–Ikoyi bridge and the city skyline.' },
-  { id: 'p23', name: 'Nollywood', cat: 'Culture', price: null, src: 'images/patches/nollywood.webp', desc: 'A classic Nollywood VHS tape and its case, “Hit movie!” and all. For everyone who grew up watching Part 1 and Part 2.' }
+  { id: 'p01', name: 'Abuja City Gate', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/abuja-gate.webp', desc: 'The gate that welcomes you into Abuja, with the green-white-green flying above it and the road stretching ahead.' },
+  { id: 'p02', name: 'Plantain', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/plantain.webp', desc: 'A ripe bunch of plantain on a green leaf, ready to become dodo.' },
+  { id: 'p03', name: 'Meat pie', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/meat-pie.webp', desc: 'A golden meat pie, broken open to show the filling. Party-tray essential.' },
+  { id: 'p04', name: 'Jollof and chicken', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/jollof.webp', desc: 'A green-and-white bowl of jollof with a chicken leg on top. The only correct answer at any party.' },
+  { id: 'p05', name: 'Danfo, full house', cat: 'Rides', types: ['print', 'patch'], src: 'images/patches/danfo-busy.webp', desc: 'A yellow Lagos danfo packed to the windows, with one arm hanging out for good measure.' },
+  { id: 'p06', name: 'Danfo', cat: 'Rides', types: ['print', 'patch'], src: 'images/patches/danfo.webp', desc: 'The classic yellow Lagos bus with its door wide open. Enter with your change ready.' },
+  { id: 'p07', name: 'Keke', cat: 'Rides', types: ['print', 'patch'], src: 'images/patches/keke.webp', desc: 'A yellow-and-black keke, the quickest way through traffic.' },
+  { id: 'p08', name: 'National Theatre', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/national-theatre.webp', desc: 'The National Theatre in Lagos, its famous curved roof framed by trees.' },
+  { id: 'p09', name: 'Drums', cat: 'Culture', types: ['print', 'patch'], src: 'images/patches/drums.webp', desc: 'A set of drums with a beater, for anyone who can’t sit still when the music starts.' },
+  { id: 'p10', name: 'Gala', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/gala.webp', desc: 'The sausage roll in the red-and-yellow wrapper. A traffic snack legend.' },
+  { id: 'p11', name: 'Green passport', cat: 'Culture', types: ['print', 'patch'], src: 'images/patches/passport.webp', desc: 'The green passport, for the japa crew, the frequent flyers and everyone who carries home with them.' },
+  { id: 'p12', name: 'Puff-puff', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/puff-puff.webp', desc: 'A striped bowl piled high with golden puff-puff. Nobody stops at one.' },
+  { id: 'p13', name: 'Pure water', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/pure-water.webp', desc: 'The sachet of pure water, cold and perfect on a hot afternoon.' },
+  { id: 'p14', name: 'Suya', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/suya.webp', desc: 'Three sticks of suya with onions, tomatoes and plenty of yaji.' },
+  { id: 'p15', name: 'Palm wine', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/palm-wine.webp', desc: 'A clay pot of fresh palm wine under a palm tree.' },
+  { id: 'p16', name: 'Show and Tell logo', cat: 'Show & Tell', types: ['print', 'patch'], src: 'images/patches/show-and-tell.webp', desc: 'Our logo in pink and cream, with the lime sparkle.' },
+  { id: 'p17', name: 'SuperYogo', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/superyogo.webp', desc: 'The pink strawberry yoghurt sachet, a childhood favourite.' },
+  { id: 'p18', name: 'Zuma Rock', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/zuma-rock.webp', desc: 'Zuma Rock rising over green trees, with the road out of Abuja in front.' },
+  { id: 'p19', name: 'Wahala', cat: 'Sayings', types: ['print', 'patch'], src: 'images/patches/wahala.webp', desc: 'One word for every kind of trouble, in cream script on red. Wear it as a warning or a lifestyle.' },
+  { id: 'p20', name: 'Abuja stamp', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/abuja-stamp.webp', desc: 'A green-and-gold postage stamp of Abuja, with the city gate in front of Aso Rock.' },
+  { id: 'p21', name: 'No gree for anybody', cat: 'Sayings', types: ['print', 'patch'], src: 'images/patches/no-gree.webp', desc: 'A cup of coffee with an attitude. For anyone who stands their ground before breakfast.' },
+  { id: 'p22', name: 'Lagos stamp', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/lagos-stamp.webp', desc: 'A green-and-gold postage stamp of Lagos, with the Lekki–Ikoyi bridge and the city skyline.' },
+  { id: 'p23', name: 'Nollywood', cat: 'Culture', types: ['print', 'patch'], src: 'images/patches/nollywood.webp', desc: 'A classic Nollywood VHS tape and its case, “Hit movie!” and all. For everyone who grew up watching Part 1 and Part 2.' }
 ];
 // ---------- End of settings ----------
 
 var FILTERS = ['All', 'Food', 'Snacks & drinks', 'Rides', 'Places', 'Culture', 'Sayings', 'Show & Tell'];
 
 function money(n) { return n == null ? '[PRICE]' : CURRENCY + Number(n).toLocaleString('en-GB'); }
-function priceOf(p) { return p.price != null ? p.price : PATCH_PRICE; }
+// A design comes in its listed types, plus Pin as soon as it has a pin image.
+function typesOf(d) {
+  var t = d.types || ['print', 'patch'];
+  return TYPE_ORDER.filter(function (k) { return t.indexOf(k) >= 0 || (k === 'pin' && !!d.pinSrc); });
+}
+function priceOf(d, type) { return d.prices && d.prices[type] != null ? d.prices[type] : TYPES[type].price; }
+function imgOf(d, type) { return type === 'pin' && d.pinSrc ? d.pinSrc : d.src; }
+function hasPins() { return PATCHES.some(function (d) { return typesOf(d).indexOf('pin') >= 0; }); }
+// The lowest price set across a design's types, shown as "from ...".
+function fromLabel(d) {
+  var set = typesOf(d).map(function (t) { return priceOf(d, t); }).filter(function (n) { return n != null; });
+  return set.length ? 'from ' + money(Math.min.apply(null, set)) : '[PRICE]';
+}
+function plural(type, n) {
+  var w = TYPES[type].label.toLowerCase();
+  return n + ' ' + (n === 1 ? w : w + (type === 'patch' ? 'es' : 's'));
+}
+// The type a design opens on: the type being filtered, else patch, else its first type.
+function startType(d, want) {
+  var t = typesOf(d);
+  return t.indexOf(want) >= 0 ? want : (t.indexOf('patch') >= 0 ? 'patch' : t[0]);
+}
+
+var TYPE_FILTERS = [['all', 'All types'], ['print', 'Prints'], ['patch', 'Patches'], ['pin', 'Pins']];
+var SPEC_TYPE = { print: 'Print: full-colour heat transfer (DTF), pressed on by us', patch: 'Embroidered patch, iron-on backing', pin: 'Enamel pin, locking back' };
+var MORE_LINE = {
+  print: "Choose it as a print and we'll press it onto one of our totes or tees for you.",
+  patch: "Buy it on its own for a jacket, cap or bag you already love, or add it to one of our totes or tees and we'll press it on for you.",
+  pin: 'Buy it on its own to clip onto a jacket, cap or bag you already love, or add it to one of our totes or tees.'
+};
 
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { mode: 'list', patch: 'p01', filter: 'All', qty: 1 };
+    this.state = { mode: 'list', patch: 'p01', filter: 'All', typeFilter: 'all', type: 'patch', qty: 1 };
   }
 
   renderVals() {
     var self = this;
     var st = this.state;
     var p0 = PATCHES.find(function (p) { return p.id === st.patch; }) || PATCHES[0];
-    var unit = priceOf(p0);
+    var types = typesOf(p0);
+    var type = types.indexOf(st.type) >= 0 ? st.type : startType(p0, st.typeFilter);
+    var word = TYPES[type].label.toLowerCase();
+    var unit = priceOf(p0, type);
     var total = unit == null ? null : unit * st.qty;
 
-    function open(id) { return function () { self.setState({ mode: 'detail', patch: id, qty: 1 }); }; }
+    function open(id) {
+      return function () {
+        var d = PATCHES.find(function (p) { return p.id === id; });
+        self.setState({ mode: 'detail', patch: id, type: startType(d, st.typeFilter), qty: 1 });
+      };
+    }
 
     var filters = FILTERS.map(function (f) {
       var on = f === st.filter;
       return { label: f, on: on ? 'true' : 'false', bg: on ? '#5D1AFA' : '#FDFDFD', fg: on ? '#FDFDFD' : '#5D1AFA', pick: function () { self.setState({ filter: f }); } };
     });
 
-    var visible = PATCHES.filter(function (p) { return st.filter === 'All' || p.cat === st.filter; });
+    // The Pins chip only shows once at least one design has a pin image.
+    var typeFilters = TYPE_FILTERS.filter(function (f) { return f[0] !== 'pin' || hasPins(); }).map(function (f) {
+      var on = f[0] === st.typeFilter;
+      return { label: f[1], on: on ? 'true' : 'false', bg: on ? '#1A0B45' : '#FDFDFD', fg: on ? '#FDFDFD' : '#1A0B45', pick: function () { self.setState({ typeFilter: f[0] }); } };
+    });
+
+    var visible = PATCHES.filter(function (p) {
+      return (st.filter === 'All' || p.cat === st.filter) && (st.typeFilter === 'all' || typesOf(p).indexOf(st.typeFilter) >= 0);
+    });
     var patches = visible.map(function (p) {
-      return { name: p.name, cat: p.cat, src: p.src, price: money(priceOf(p)), pick: open(p.id) };
+      return { name: p.name, cat: p.cat, src: imgOf(p, st.typeFilter), price: fromLabel(p), pick: open(p.id) };
     });
     var pool = visible.length ? visible : PATCHES;
     var idx = pool.findIndex(function (p) { return p.id === st.patch; });
     function go(step) {
       var i = idx < 0 ? 0 : (idx + step + pool.length) % pool.length;
-      self.setState({ patch: pool[i].id, qty: 1 });
+      var d = pool[i];
+      self.setState({ patch: d.id, type: typesOf(d).indexOf(type) >= 0 ? type : startType(d, st.typeFilter), qty: 1 });
     }
 
     var related = PATCHES.filter(function (p) { return p.cat === p0.cat && p.id !== p0.id; }).slice(0, 4).map(function (p) {
-      return { name: p.name, src: p.src, price: money(priceOf(p)), pick: open(p.id) };
+      return { name: p.name, src: p.src, price: fromLabel(p), pick: open(p.id) };
+    });
+
+    var typeOpts = types.map(function (t) {
+      var on = t === type;
+      return {
+        label: TYPES[t].label, price: money(priceOf(p0, t)), note: TYPES[t].note, on: on ? 'true' : 'false',
+        border: on ? '2px solid #5D1AFA' : '2px solid #E3DCF7',
+        pick: function () { self.setState({ type: t }); }
+      };
     });
 
     var qtys = QTYS.map(function (n) {
       var on = n === st.qty;
       return {
-        label: n === 1 ? '1 patch' : n + ' patches', on: on ? 'true' : 'false',
+        label: plural(type, n), on: on ? 'true' : 'false',
         total: unit == null ? '[TOTAL]' : money(unit * n),
         border: on ? '2px solid #5D1AFA' : '2px solid #E3DCF7',
         pick: function () { self.setState({ qty: n }); }
       };
     });
 
-    var orderMsg = "Hi Show and Tell! I'd like to buy " + st.qty + ' x the ' + p0.name + ' patch on its own'
+    var orderMsg = "Hi Show and Tell! I'd like to buy " + st.qty + ' x the ' + p0.name + ' ' + word + ' on its own'
       + (total != null ? ' (' + money(total) + ')' : '') + '.';
 
     return {
       isList: st.mode === 'list', isDetail: st.mode === 'detail',
-      filters: filters, patches: patches, related: related, qtys: qtys,
+      filters: filters, typeFilters: typeFilters, patches: patches, related: related, typeOpts: typeOpts, qtys: qtys,
       patch: p0,
+      mainImg: imgOf(p0, type), typeWord: word, typeLabel: TYPES[type].label,
+      isPrint: type === 'print', isPatch: type === 'patch', isPin: type === 'pin',
+      soldAlone: TYPES[type].soldAlone, notSoldAlone: !TYPES[type].soldAlone,
+      specType: SPEC_TYPE[type], sizeWord: word.toUpperCase(), moreLine: MORE_LINE[type],
       unitLabel: money(unit),
-      totalLine: total == null ? '' : 'Total for ' + (st.qty === 1 ? '1 patch' : st.qty + ' patches') + ': ' + money(total),
+      totalLine: total == null || !TYPES[type].soldAlone ? '' : 'Total for ' + plural(type, st.qty) + ': ' + money(total),
       totalShort: total == null ? '[TOTAL]' : money(total),
-      qtyName: st.qty === 1 ? '1 patch' : st.qty + ' patches',
-      addHint: 'In the builder, pick a tote or tee and find ' + p0.name + ' under ' + p0.cat + '.',
+      qtyName: plural(type, st.qty),
+      addHint: 'In the builder, pick a tote or tee, choose Add as: ' + TYPES[type].label + ', and find ' + p0.name + ' under ' + p0.cat + '.',
       waLink: 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(orderMsg),
       toList: function () { self.setState({ mode: 'list' }); },
       toCat: function () { self.setState({ mode: 'list', filter: p0.cat }); },

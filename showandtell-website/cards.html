@@ -29,10 +29,11 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <header style="background: #5D1AFA; color: #FDFDFD">
 <div style="max-width: 1240px; margin: 0 auto; padding: 18px 5%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
 <a href="index.html" aria-label="Back to Show and Tell Co home" style="display: block; line-height: 0"><img src="images/brand/wordmark-white.png" alt="Show and Tell Co" style="height: 48px; width: auto"></a>
-<nav aria-label="Builders" style="display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 16px; font-weight: 600">
+<button type="button" class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="site-links" style="align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0; background: transparent; color: #FDFDFD; border: 2px solid rgba(253,253,253,0.5); border-radius: 999px; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path class="menu-bars" d="M4 7h16M4 12h16M4 17h16"/><path class="menu-x" d="M6 6l12 12M18 6L6 18"/></svg></button>
+<nav id="site-links" class="site-links" aria-label="Builders" style="display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 16px; font-weight: 600">
 <a href="build-your-tote.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Build a tote</a>
 <a href="cards.html" aria-current="page" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Choose a card</a>
-<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Shop patches</a>
+<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Shop designs</a>
 </nav>
 </div>
 </header>
@@ -263,7 +264,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 16px">
 <a href="cards.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Cards</a>
 <a href="build-your-tote.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Build a tote</a>
-<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Patches</a>
+<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Designs</a>
 <a href="https://www.instagram.com/showandtell.co/" target="_blank" rel="noopener" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Instagram</a>
 </nav>
 </div>
@@ -275,6 +276,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </template>
 <script src="assets/morphdom.min.js"></script>
 <script src="assets/dc-lite.js"></script>
+<script src="assets/menu.js"></script>
 <script>
 // ---------- Your settings ----------
 // Your WhatsApp number in international format, digits only (for example 2348012345678).

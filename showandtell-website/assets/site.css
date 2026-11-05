@@ -9,3 +9,18 @@ img { max-width: 100%; }
   .disp[style*="font-size: 56px"] { font-size: 42px !important; }
   article[style*="padding: 44px"] { padding: 28px !important; }
 }
+
+/* Header menu: the hamburger button only shows on phones. */
+.menu-btn { display: none; }
+.menu-btn .menu-x { display: none; }
+@media (max-width: 640px) {
+  .menu-btn { display: inline-flex; }
+  .site-links { display: none !important; }
+  header[data-menu-open] .site-links {
+    display: flex !important; flex-direction: column; align-items: flex-start !important;
+    width: 100%; gap: 4px !important; padding-top: 8px;
+    border-top: 1px solid rgba(253,253,253,0.25);
+  }
+  header[data-menu-open] .menu-btn .menu-bars { display: none; }
+  header[data-menu-open] .menu-btn .menu-x { display: inline; }
+}

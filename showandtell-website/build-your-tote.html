@@ -26,10 +26,11 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <header style="background: #5D1AFA; color: #FDFDFD">
 <div style="max-width: 1240px; margin: 0 auto; padding: 18px 5%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
 <a href="index.html" aria-label="Back to Show and Tell Co home" style="display: block; line-height: 0"><img src="images/brand/wordmark-white.png" alt="Show and Tell Co" style="height: 48px; width: auto"></a>
-<nav aria-label="Builders" style="display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 16px; font-weight: 600">
+<button type="button" class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="site-links" style="align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0; background: transparent; color: #FDFDFD; border: 2px solid rgba(253,253,253,0.5); border-radius: 999px; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path class="menu-bars" d="M4 7h16M4 12h16M4 17h16"/><path class="menu-x" d="M6 6l12 12M18 6L6 18"/></svg></button>
+<nav id="site-links" class="site-links" aria-label="Builders" style="display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 16px; font-weight: 600">
 <a href="build-your-tote.html" aria-current="page" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Build a tote</a>
 <a href="cards.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Choose a card</a>
-<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Shop patches</a>
+<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Shop designs</a>
 </nav>
 </div>
 </header>
@@ -39,7 +40,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center">
 <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 720px">
 <h1 class="disp" style="margin: 0; font-size: 56px; line-height: 1.02; font-weight: 900; letter-spacing: -0.02em">Build your tote.</h1>
-<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3B2E6B; max-width: 640px">Pick your base, add your favourite patches, make it yours. We press every patch on by hand before it goes out.</p>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3B2E6B; max-width: 640px">Pick your base, add your favourite designs as prints, patches or pins, make it yours. We press every print and patch on by hand before it goes out.</p>
 <p style="margin: 4px 0 0; display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; background: #E4EE3F; color: #1A0B45; font-size: 14px; font-weight: 700"><svg viewBox="-44 -44 88 88" aria-hidden="true" style="width: 14px; height: 14px"><path d="M0 -44 C4 -12 12 -4 44 0 C12 4 4 12 0 44 C-4 12 -12 4 -44 0 C-12 -4 -4 -12 0 -44 Z" fill="#5D1AFA"></path></svg>Patch bar experience in Abuja and Barcelona</p>
 </div>
 <ol aria-label="Steps" style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
@@ -82,7 +83,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <section aria-labelledby="blank-h" style="display: flex; flex-direction: column; gap: 20px">
 <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
 <h2 id="blank-h" class="disp" style="margin: 0; font-size: 34px; font-weight: 900">Start from scratch</h2>
-<p style="margin: 0; font-size: 17px; color: #3B2E6B">Grab a blank and build it patch by patch.</p>
+<p style="margin: 0; font-size: 17px; color: #3B2E6B">Grab a blank and build it one design at a time.</p>
 </div>
 <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 360px)); justify-content: center; gap: 20px">
 <sc-for list="{{ blanks }}" as="b" hint-placeholder-count="2">
@@ -121,8 +122,8 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <div onPointerDown="{{ onBgDown }}" onPointerMove="{{ onMove }}" onPointerUp="{{ onUp }}" onPointerLeave="{{ onUp }}" style="position: relative; width: 100%; max-width: 560px; aspect-ratio: 1 / 1; touch-action: none; user-select: none">
 <img src="{{ bagImg }}" alt="{{ bagAlt }}" draggable="false" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none">
 <sc-for list="{{ placed }}" as="p" hint-placeholder-count="3">
-<button class="pbtn" type="button" aria-label="{{ p.label }}" onPointerDown="{{ p.down }}" onKeyDown="{{ p.key }}" onClick="{{ p.select }}" style="position: absolute; left: {{ p.x }}%; top: {{ p.y }}%; width: {{ p.w }}%; transform: translate(-50%, -50%) rotate({{ p.r }}deg); padding: 4px; margin: 0; border: 0; background: transparent; cursor: grab; outline: {{ p.ring }}; outline-offset: 2px; border-radius: 14px; line-height: 0; touch-action: none">
-<img src="{{ p.src }}" alt="" draggable="false" style="width: 100%; height: auto; display: block; pointer-events: none; filter: drop-shadow(0 2px 2px rgba(26, 11, 69, 0.25))">
+<button class="pbtn" type="button" aria-label="{{ p.label }}" onPointerDown="{{ p.down }}" onKeyDown="{{ p.key }}" onClick="{{ p.select }}" style="position: absolute; left: {{ p.x }}%; top: {{ p.y }}%; width: {{ p.w }}%; transform: translate(-50%, -50%) rotate({{ p.r }}deg); padding: 4px; margin: 0; border: 0; background: transparent; cursor: grab; outline: {{ p.ring }}; outline-offset: 2px; border-radius: 14px; line-height: 0; touch-action: none; mix-blend-mode: {{ p.blend }}">
+<img src="{{ p.src }}" alt="" draggable="false" style="width: 100%; height: auto; display: block; pointer-events: none; filter: {{ p.shadow }}">
 </button>
 </sc-for>
 <img src="{{ bagShade }}" alt="" draggable="false" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; pointer-events: none">
@@ -130,7 +131,15 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <p style="margin: 0; font-size: 14px; color: #3B2E6B; text-align: center">{{ hint }}</p>
 </div>
 
-<div role="toolbar" aria-label="Edit patch" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
+<sc-if value="{{ hasSelTypes }}" hint-placeholder-val="{{ false }}">
+<div role="group" aria-label="Type of the selected design" style="align-self: center; display: inline-flex; padding: 4px; border-radius: 999px; background: #EFE9FF; gap: 4px">
+<sc-for list="{{ selTypes }}" as="tt" hint-placeholder-count="2">
+<button class="tab" type="button" aria-pressed="{{ tt.on }}" onClick="{{ tt.pick }}" style="min-height: 40px; min-width: 76px; padding: 0 16px; border-radius: 999px; border: 0; background: {{ tt.bg }}; color: {{ tt.fg }}; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">{{ tt.label }}</button>
+</sc-for>
+</div>
+</sc-if>
+
+<div role="toolbar" aria-label="Edit design" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px">
 <button class="act" type="button" onClick="{{ undo }}" disabled="{{ noUndo }}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 2px solid #1A0B45; background: #FDFDFD; color: #1A0B45; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Undo</button>
 <button class="act" type="button" onClick="{{ rotL }}" disabled="{{ noSel }}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 2px solid #5D1AFA; background: #FDFDFD; color: #5D1AFA; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Rotate left</button>
 <button class="act" type="button" onClick="{{ rotR }}" disabled="{{ noSel }}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 2px solid #5D1AFA; background: #FDFDFD; color: #5D1AFA; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Rotate right</button>
@@ -175,7 +184,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </sc-for>
 </div>
 </div>
-<button class="go" type="button" onClick="{{ toStep2 }}" style="align-self: flex-start; min-height: 50px; padding: 0 28px; border-radius: 999px; border: 0; background: #5D1AFA; color: #FDFDFD; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer">Next: add patches</button>
+<button class="go" type="button" onClick="{{ toStep2 }}" style="align-self: flex-start; min-height: 50px; padding: 0 28px; border-radius: 999px; border: 0; background: #5D1AFA; color: #FDFDFD; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer">Next: add designs</button>
 </div>
 </sc-if>
 
@@ -183,10 +192,19 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <sc-if value="{{ s2 }}" hint-placeholder-val="{{ false }}">
 <div style="display: flex; flex-direction: column; gap: 16px">
 <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px">
-<h2 class="disp" style="margin: 0; font-size: 26px; font-weight: 800">Add your patches</h2>
+<h2 class="disp" style="margin: 0; font-size: 26px; font-weight: 800">Add your designs</h2>
 <p style="margin: 0; font-size: 14px; color: #3B2E6B">{{ maxLabel }}</p>
 </div>
-<div role="group" aria-label="Patch categories" style="display: flex; flex-wrap: wrap; gap: 8px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px">
+<span id="add-as" style="font-size: 15px; font-weight: 700">Add as:</span>
+<div role="group" aria-labelledby="add-as" style="display: inline-flex; padding: 4px; border-radius: 999px; background: #EFE9FF; gap: 4px">
+<sc-for list="{{ addTypes }}" as="at" hint-placeholder-count="2">
+<button class="tab" type="button" aria-pressed="{{ at.on }}" onClick="{{ at.pick }}" style="min-height: 40px; min-width: 76px; padding: 0 16px; border-radius: 999px; border: 0; background: {{ at.bg }}; color: {{ at.fg }}; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">{{ at.label }}</button>
+</sc-for>
+</div>
+<p style="flex: 1 1 100%; margin: 0; font-size: 14px; color: #3B2E6B">{{ addNote }}</p>
+</div>
+<div role="group" aria-label="Design categories" style="display: flex; flex-wrap: wrap; gap: 8px">
 <sc-for list="{{ cats }}" as="g" hint-placeholder-count="6">
 <button class="pill" type="button" aria-pressed="{{ g.on }}" onClick="{{ g.pick }}" style="min-height: 40px; padding: 0 16px; border-radius: 999px; border: 2px solid #5D1AFA; background: {{ g.bg }}; color: {{ g.fg }}; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">{{ g.label }}</button>
 </sc-for>
@@ -194,7 +212,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px">
 <sc-for list="{{ library }}" as="l" hint-placeholder-count="10">
 <li>
-<button class="lib" type="button" onClick="{{ l.add }}" aria-label="Add patch: {{ l.name }}" style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 8px; padding: 14px 8px 10px; border-radius: 16px; border: 2px solid #EFE9FF; background: #F7F4FF; cursor: pointer; font-family: inherit; color: #1A0B45; box-sizing: border-box">
+<button class="lib" type="button" onClick="{{ l.add }}" aria-label="Add {{ l.typeWord }}: {{ l.name }}" style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 8px; padding: 14px 8px 10px; border-radius: 16px; border: 2px solid #EFE9FF; background: #F7F4FF; cursor: pointer; font-family: inherit; color: #1A0B45; box-sizing: border-box">
 <img src="{{ l.src }}" alt="" style="width: 70px; height: 62px; object-fit: contain; display: block">
 <span style="font-size: 12px; font-weight: 700; line-height: 1.25; text-align: center">{{ l.name }}<br><span style="font-weight: 500; color: #3B2E6B">{{ l.price }}</span></span>
 </button>
@@ -212,7 +230,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <div style="display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: 20px; background: #F7F4FF">
 <div style="display: flex; justify-content: space-between; gap: 12px; font-size: 16px"><span style="font-weight: 700">{{ styleName }} · {{ c.name }}</span><span>{{ basePrice }}</span></div>
 <sc-for list="{{ lines }}" as="ln" hint-placeholder-count="3">
-<div style="display: flex; justify-content: space-between; gap: 12px; font-size: 15px; color: #3B2E6B"><span>{{ ln.name }}{{ ln.side }}</span><span>{{ ln.price }}</span></div>
+<div style="display: flex; justify-content: space-between; gap: 12px; font-size: 15px; color: #3B2E6B"><span>{{ ln.name }}{{ ln.suffix }}</span><span>{{ ln.price }}</span></div>
 </sc-for>
 <div style="display: flex; justify-content: space-between; gap: 12px; padding-top: 10px; border-top: 1px solid #CFC6F2; font-size: 18px; font-weight: 700"><span>Total</span><span>{{ total }}</span></div>
 </div>
@@ -221,7 +239,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <textarea id="tote-notes" class="field" rows="3" maxlength="300" value="{{ notes }}" onChange="{{ onNotes }}" placeholder="A deadline, a gift note, anything else..." style="width: 100%; box-sizing: border-box; padding: 14px 16px; border-radius: 14px; border: 2px solid #CFC6F2; background: #FDFDFD; font-family: inherit; font-size: 16px; line-height: 1.5; color: #1A0B45; resize: vertical"></textarea>
 </div>
 <div style="display: flex; flex-direction: column; gap: 12px; padding: 22px; border-radius: 20px; background: #E4EE3F">
-<p style="margin: 0; font-size: 15px; line-height: 1.5">Send us your design and a screenshot. We'll confirm the price and timing, then press every patch on by hand.</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.5">Send us your design and a screenshot. We'll confirm the price and timing, then press every print and patch on by hand.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
 <a href="{{ waLink }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 50px; padding: 0 24px; border-radius: 999px; background: #5D1AFA; color: #FDFDFD; font-size: 16px; font-weight: 700; text-decoration: none">Order on WhatsApp</a>
 <a href="cards.html" style="display: inline-flex; align-items: center; min-height: 50px; padding: 0 22px; border-radius: 999px; border: 2px solid #1A0B45; color: #1A0B45; font-size: 16px; font-weight: 700; text-decoration: none; box-sizing: border-box">Add a matching card</a>
@@ -248,7 +266,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 16px">
 <a href="cards.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Cards</a>
 <a href="build-your-tote.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Build a tote</a>
-<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Patches</a>
+<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Designs</a>
 <a href="https://www.instagram.com/showandtell.co/" target="_blank" rel="noopener" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Instagram</a>
 </nav>
 </div>
@@ -260,14 +278,23 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </template>
 <script src="assets/morphdom.min.js"></script>
 <script src="assets/dc-lite.js"></script>
+<script src="assets/menu.js"></script>
 <script>
 // ---------- Your settings ----------
 // WhatsApp number in international format, digits only (for example 2348012345678).
 var WHATSAPP_NUMBER = '';
 // Prices: put numbers in place of null (for example 15000). Totals appear once every price is set.
 var CURRENCY = '₦';
-var PATCH_PRICE = 9500; // default price per patch; a patch can override it with its own price
-var MAX_PATCHES = 10;
+var MAX_DESIGNS = 10; // prints, patches and pins all count towards this
+
+// The three kinds of design. price null = shows [PRICE] until you set it.
+// soldAlone: whether people can buy this type on its own, without a tote or tee.
+var TYPES = {
+  print: { label: 'Print', price: null, soldAlone: false, note: 'Full colour, pressed flat onto your bag by us.' },
+  patch: { label: 'Patch', price: 9500, soldAlone: true,  note: 'Raised embroidery with an iron-on back.' },
+  pin:   { label: 'Pin',   price: null, soldAlone: true,  note: 'Enamel pin with a locking back. Clip it on, swap it around.' }
+};
+var TYPE_ORDER = ['print', 'patch', 'pin'];
 
 var COLOURS = {
   natural: { name: 'Natural', body: '#F6F1E7', handle: '#D9CFBB', stitch: '#CFC3AA', pocket: '#EDE5D6' },
@@ -297,44 +324,46 @@ function mapPos(style, x, y) {
   return [a.x1 + fx * (a.x2 - a.x1), a.y1 + fy * (a.y2 - a.y1)];
 }
 
-// Your patches. price null = the default PATCH_PRICE above; put a number to charge more or less for one patch.
+// Your designs. types = the kinds it comes in. Optional extras:
+// pinSrc: 'images/pins/<file>' switches Pin on for that design.
+// prices: { patch: 12000 } charges more or less than the TYPES price for one design.
 var PATCHES = [
-  { id: 'p01', no: '01', name: 'Abuja City Gate', cat: 'Places', price: null, src: 'images/patches/abuja-gate.webp' },
-  { id: 'p02', no: '02', name: 'Plantain', cat: 'Food', price: null, src: 'images/patches/plantain.webp' },
-  { id: 'p03', no: '03', name: 'Meat pie', cat: 'Food', price: null, src: 'images/patches/meat-pie.webp' },
-  { id: 'p04', no: '04', name: 'Jollof and chicken', cat: 'Food', price: null, src: 'images/patches/jollof.webp' },
-  { id: 'p05', no: '05', name: 'Danfo, full house', cat: 'Rides', price: null, src: 'images/patches/danfo-busy.webp' },
-  { id: 'p06', no: '06', name: 'Danfo', cat: 'Rides', price: null, src: 'images/patches/danfo.webp' },
-  { id: 'p07', no: '07', name: 'Keke', cat: 'Rides', price: null, src: 'images/patches/keke.webp' },
-  { id: 'p08', no: '08', name: 'National Theatre', cat: 'Places', price: null, src: 'images/patches/national-theatre.webp' },
-  { id: 'p09', no: '09', name: 'Drums', cat: 'Culture', price: null, src: 'images/patches/drums.webp' },
-  { id: 'p10', no: '10', name: 'Gala', cat: 'Snacks & drinks', price: null, src: 'images/patches/gala.webp' },
-  { id: 'p11', no: '11', name: 'Green passport', cat: 'Culture', price: null, src: 'images/patches/passport.webp' },
-  { id: 'p12', no: '12', name: 'Puff-puff', cat: 'Snacks & drinks', price: null, src: 'images/patches/puff-puff.webp' },
-  { id: 'p13', no: '13', name: 'Pure water', cat: 'Snacks & drinks', price: null, src: 'images/patches/pure-water.webp' },
-  { id: 'p14', no: '14', name: 'Suya', cat: 'Food', price: null, src: 'images/patches/suya.webp' },
-  { id: 'p15', no: '15', name: 'Palm wine', cat: 'Snacks & drinks', price: null, src: 'images/patches/palm-wine.webp' },
-  { id: 'p16', no: '16', name: 'Show and Tell logo', cat: 'Show & Tell', price: null, src: 'images/patches/show-and-tell.webp' },
-  { id: 'p17', no: '17', name: 'SuperYogo', cat: 'Snacks & drinks', price: null, src: 'images/patches/superyogo.webp' },
-  { id: 'p18', no: '18', name: 'Zuma Rock', cat: 'Places', price: null, src: 'images/patches/zuma-rock.webp' },
-  { id: 'p19', no: '19', name: 'Wahala', cat: 'Sayings', price: null, src: 'images/patches/wahala.webp' },
-  { id: 'p20', no: '20', name: 'Abuja stamp', cat: 'Places', price: null, src: 'images/patches/abuja-stamp.webp' },
-  { id: 'p21', no: '21', name: 'No gree for anybody', cat: 'Sayings', price: null, src: 'images/patches/no-gree.webp' },
-  { id: 'p22', no: '22', name: 'Lagos stamp', cat: 'Places', price: null, src: 'images/patches/lagos-stamp.webp' },
-  { id: 'p23', no: '23', name: 'Nollywood', cat: 'Culture', price: null, src: 'images/patches/nollywood.webp' }
+  { id: 'p01', no: '01', name: 'Abuja City Gate', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/abuja-gate.webp' },
+  { id: 'p02', no: '02', name: 'Plantain', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/plantain.webp' },
+  { id: 'p03', no: '03', name: 'Meat pie', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/meat-pie.webp' },
+  { id: 'p04', no: '04', name: 'Jollof and chicken', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/jollof.webp' },
+  { id: 'p05', no: '05', name: 'Danfo, full house', cat: 'Rides', types: ['print', 'patch'], src: 'images/patches/danfo-busy.webp' },
+  { id: 'p06', no: '06', name: 'Danfo', cat: 'Rides', types: ['print', 'patch'], src: 'images/patches/danfo.webp' },
+  { id: 'p07', no: '07', name: 'Keke', cat: 'Rides', types: ['print', 'patch'], src: 'images/patches/keke.webp' },
+  { id: 'p08', no: '08', name: 'National Theatre', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/national-theatre.webp' },
+  { id: 'p09', no: '09', name: 'Drums', cat: 'Culture', types: ['print', 'patch'], src: 'images/patches/drums.webp' },
+  { id: 'p10', no: '10', name: 'Gala', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/gala.webp' },
+  { id: 'p11', no: '11', name: 'Green passport', cat: 'Culture', types: ['print', 'patch'], src: 'images/patches/passport.webp' },
+  { id: 'p12', no: '12', name: 'Puff-puff', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/puff-puff.webp' },
+  { id: 'p13', no: '13', name: 'Pure water', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/pure-water.webp' },
+  { id: 'p14', no: '14', name: 'Suya', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/suya.webp' },
+  { id: 'p15', no: '15', name: 'Palm wine', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/palm-wine.webp' },
+  { id: 'p16', no: '16', name: 'Show and Tell logo', cat: 'Show & Tell', types: ['print', 'patch'], src: 'images/patches/show-and-tell.webp' },
+  { id: 'p17', no: '17', name: 'SuperYogo', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/superyogo.webp' },
+  { id: 'p18', no: '18', name: 'Zuma Rock', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/zuma-rock.webp' },
+  { id: 'p19', no: '19', name: 'Wahala', cat: 'Sayings', types: ['print', 'patch'], src: 'images/patches/wahala.webp' },
+  { id: 'p20', no: '20', name: 'Abuja stamp', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/abuja-stamp.webp' },
+  { id: 'p21', no: '21', name: 'No gree for anybody', cat: 'Sayings', types: ['print', 'patch'], src: 'images/patches/no-gree.webp' },
+  { id: 'p22', no: '22', name: 'Lagos stamp', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/lagos-stamp.webp' },
+  { id: 'p23', no: '23', name: 'Nollywood', cat: 'Culture', types: ['print', 'patch'], src: 'images/patches/nollywood.webp' }
 ];
 
 // Ready-made mixes for "Start from a favourite". x and y are % of the bag, s is size 0-4, r is rotation.
 var PRESETS = [
   { id: 'lagos', name: 'Lagos life', style: 'classic', colour: 'natural', items: [
-    { pid: 'p06', x: 34, y: 48, s: 2, r: -6 }, { pid: 'p07', x: 68, y: 52, s: 2, r: 6 },
-    { pid: 'p13', x: 36, y: 78, s: 2, r: 4 }, { pid: 'p12', x: 68, y: 82, s: 2, r: -4 } ] },
+    { pid: 'p06', type: 'patch', x: 34, y: 48, s: 2, r: -6 }, { pid: 'p07', type: 'patch', x: 68, y: 52, s: 2, r: 6 },
+    { pid: 'p13', type: 'patch', x: 36, y: 78, s: 2, r: 4 }, { pid: 'p12', type: 'patch', x: 68, y: 82, s: 2, r: -4 } ] },
   { id: 'owambe', name: 'Owambe plate', style: 'pocket', colour: 'natural', items: [
-    { pid: 'p04', x: 32, y: 50, s: 2, r: -5 }, { pid: 'p14', x: 68, y: 50, s: 2, r: 6 },
-    { pid: 'p09', x: 36, y: 80, s: 2, r: 4 }, { pid: 'p15', x: 68, y: 82, s: 2, r: -6 } ] },
+    { pid: 'p04', type: 'patch', x: 32, y: 50, s: 2, r: -5 }, { pid: 'p14', type: 'patch', x: 68, y: 50, s: 2, r: 6 },
+    { pid: 'p09', type: 'patch', x: 36, y: 80, s: 2, r: 4 }, { pid: 'p15', type: 'patch', x: 68, y: 82, s: 2, r: -6 } ] },
   { id: 'abuja', name: 'Abuja, with love', style: 'tee', colour: 'white', items: [
-    { pid: 'p01', x: 32, y: 46, s: 2, r: -5 }, { pid: 'p18', x: 68, y: 50, s: 2, r: 5 },
-    { pid: 'p11', x: 34, y: 80, s: 2, r: 6 }, { pid: 'p16', x: 68, y: 82, s: 2, r: -4 } ] }
+    { pid: 'p01', type: 'patch', x: 32, y: 46, s: 2, r: -5 }, { pid: 'p18', type: 'patch', x: 68, y: 50, s: 2, r: 5 },
+    { pid: 'p11', type: 'patch', x: 34, y: 80, s: 2, r: 6 }, { pid: 'p16', type: 'patch', x: 68, y: 82, s: 2, r: -4 } ] }
 ];
 
 var SIZES = [14, 19, 25, 31, 38];
@@ -344,7 +373,15 @@ var CATS = ['All', 'Food', 'Snacks & drinks', 'Rides', 'Places', 'Culture', 'Say
 
 function money(n) { return n == null ? '[PRICE]' : CURRENCY + Number(n).toLocaleString('en-GB'); }
 function patchInfo(pid) { return PATCHES.find(function (p) { return p.id === pid; }); }
-function patchPrice(info) { return info.price != null ? info.price : PATCH_PRICE; }
+// A design comes in its listed types, plus Pin as soon as it has a pin image.
+function typesOf(d) {
+  var t = d.types || ['print', 'patch'];
+  return TYPE_ORDER.filter(function (k) { return t.indexOf(k) >= 0 || (k === 'pin' && !!d.pinSrc); });
+}
+function priceOf(d, type) { return d.prices && d.prices[type] != null ? d.prices[type] : TYPES[type].price; }
+function imgOf(d, type) { return type === 'pin' && d.pinSrc ? d.pinSrc : d.src; }
+function hasPins() { return PATCHES.some(function (d) { return typesOf(d).indexOf('pin') >= 0; }); }
+function itemType(it) { return it.type || 'patch'; }
 function styleInfo(id) { return STYLES.find(function (s) { return s.id === id; }) || STYLES[0]; }
 function face(style, side) { return side === 'back' && style.back ? style.back : style; }
 function totalFor(styleId, items) {
@@ -352,20 +389,30 @@ function totalFor(styleId, items) {
   if (base == null) return null;
   var sum = base;
   for (var i = 0; i < items.length; i++) {
-    var pp = patchPrice(patchInfo(items[i].pid));
+    var pp = priceOf(patchInfo(items[i].pid), itemType(items[i]));
     if (pp == null) return null;
     sum += pp;
   }
   return sum;
 }
 function totalLabel(n) { return n == null ? '[TOTAL]' : money(n); }
+// How each type sits on the bag: prints read as ink on canvas, pins sit proud with a tight shadow.
+var LOOKS = {
+  print: { blend: 'multiply', shadow: 'none' },
+  patch: { blend: 'normal', shadow: 'drop-shadow(0 2px 2px rgba(26, 11, 69, 0.25))' },
+  pin: { blend: 'normal', shadow: 'drop-shadow(0 2px 1px rgba(26, 11, 69, 0.5))' }
+};
+// "(print)", "(patch, back)" and so on, for the summary and the WhatsApp message.
+function itemSuffix(style, it) {
+  return ' (' + TYPES[itemType(it)].label.toLowerCase() + (style.back ? ', ' + (it.side === 'back' ? 'back' : 'front') : '') + ')';
+}
 
 class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.uid = 0;
     this.moved = false;
-    this.state = { mode: 'start', step: 1, style: 'classic', colour: 'natural', side: 'front', cat: 'All', placed: [], sel: null, drag: null, hist: [], notes: '' };
+    this.state = { mode: 'start', step: 1, style: 'classic', colour: 'natural', side: 'front', cat: 'All', addType: 'print', placed: [], sel: null, drag: null, hist: [], notes: '' };
   }
 
   nextId() { this.uid += 1; return this.uid; }
@@ -391,11 +438,11 @@ class Component extends DCLogic {
     var colourId = style.colours.indexOf(st.colour) >= 0 ? st.colour : style.colours[0];
     var c = COLOURS[colourId];
     var selItem = st.placed.find(function (p) { return p.uid === st.sel; });
-    var full = st.placed.length >= MAX_PATCHES;
+    var full = st.placed.length >= MAX_DESIGNS;
     var side = style.back ? st.side : 'front';
     var fc = face(style, side);
 
-    var stepNames = ['Pick your base', 'Add your patches', 'Make it yours'];
+    var stepNames = ['Pick your base', 'Add your designs', 'Make it yours'];
     var activeStep = st.mode === 'start' ? 1 : st.step;
     var stepDots = stepNames.map(function (label, i) {
       var on = i + 1 === activeStep;
@@ -406,7 +453,7 @@ class Component extends DCLogic {
       var ps = styleInfo(pr.style);
       var items = pr.items.map(function (it) {
         var pos = mapPos(ps, it.x, it.y);
-        return { src: patchInfo(it.pid).src, x: pos[0], y: pos[1], w: SIZES[it.s], r: it.r };
+        return { src: imgOf(patchInfo(it.pid), itemType(it)), x: pos[0], y: pos[1], w: SIZES[it.s], r: it.r };
       });
       return {
         name: pr.name, img: ps.img, shade: ps.shade, items: items,
@@ -422,16 +469,18 @@ class Component extends DCLogic {
     var blanks = STYLES.map(function (s) {
       return {
         name: s.name, img: s.img, price: money(s.price),
-        meta: s.colours.length + (s.colours.length === 1 ? ' colour' : ' colours') + (s.back ? ' · patches front and back' : ''),
+        meta: s.colours.length + (s.colours.length === 1 ? ' colour' : ' colours') + (s.back ? ' · designs front and back' : ''),
         use: function () { self.setState({ mode: 'build', step: 1, style: s.id, colour: s.colours[0], side: 'front', placed: [], sel: null, hist: [], notes: '' }); }
       };
     });
 
     var placed = st.placed.filter(function (p) { return (p.side || 'front') === side; }).map(function (p) {
       var info = patchInfo(p.pid);
+      var type = itemType(p);
       return {
-        x: p.x, y: p.y, w: SIZES[p.s], r: p.r, src: info.src,
-        label: 'Patch: ' + info.name + '. Drag to move, or use the arrow keys.',
+        x: p.x, y: p.y, w: SIZES[p.s], r: p.r, src: imgOf(info, type),
+        blend: LOOKS[type].blend, shadow: LOOKS[type].shadow,
+        label: TYPES[type].label + ': ' + info.name + '. Drag to move, or use the arrow keys.',
         ring: p.uid === st.sel ? '2px dashed #5D1AFA' : '0px solid transparent',
         down: function (e) { e.preventDefault(); self.moved = false; self.setState({ drag: p.uid, sel: p.uid }); },
         select: function () { self.setState({ sel: p.uid }); },
@@ -445,7 +494,7 @@ class Component extends DCLogic {
       };
     });
 
-    var tabs = ['1. Base', '2. Patches', '3. Finish'].map(function (label, i) {
+    var tabs = ['1. Base', '2. Designs', '3. Finish'].map(function (label, i) {
       var on = st.step === i + 1;
       return { label: label, on: on ? 'true' : 'false', bg: on ? '#5D1AFA' : 'transparent', fg: on ? '#FDFDFD' : '#1A0B45', pick: function () { self.setState({ step: i + 1 }); } };
     });
@@ -470,26 +519,48 @@ class Component extends DCLogic {
       return { label: g, on: on ? 'true' : 'false', bg: on ? '#5D1AFA' : '#FDFDFD', fg: on ? '#FDFDFD' : '#5D1AFA', pick: function () { self.setState({ cat: g }); } };
     });
 
-    var library = PATCHES.filter(function (info) { return st.cat === 'All' || info.cat === st.cat; }).map(function (info) {
+    // Pin only shows once at least one design has a pin image.
+    var addTypeIds = TYPE_ORDER.filter(function (t) { return t !== 'pin' || hasPins(); });
+    var addType = addTypeIds.indexOf(st.addType) >= 0 ? st.addType : addTypeIds[0];
+    var addTypes = addTypeIds.map(function (t) {
+      var on = t === addType;
+      return { label: TYPES[t].label, on: on ? 'true' : 'false', bg: on ? '#5D1AFA' : 'transparent', fg: on ? '#FDFDFD' : '#1A0B45', pick: function () { self.setState({ addType: t }); } };
+    });
+
+    var library = PATCHES.filter(function (info) {
+      return (st.cat === 'All' || info.cat === st.cat) && typesOf(info).indexOf(addType) >= 0;
+    }).map(function (info) {
       return {
-        no: info.no, name: info.name, src: info.src, price: money(patchPrice(info)),
+        no: info.no, name: info.name, src: imgOf(info, addType), price: money(priceOf(info, addType)),
+        typeWord: TYPES[addType].label.toLowerCase(),
         add: function () {
           var list = self.state.placed;
-          if (list.length >= MAX_PATCHES) return;
+          if (list.length >= MAX_DESIGNS) return;
           var slot = SLOTS[list.length % SLOTS.length];
           var pos = mapPos(self.curFace(), slot[0], slot[1]);
-          var item = { uid: self.nextId(), pid: info.id, x: pos[0], y: pos[1], s: 2, r: 0, side: self.curSide() };
+          var item = { uid: self.nextId(), pid: info.id, type: addType, x: pos[0], y: pos[1], s: addType === 'pin' ? 1 : 2, r: 0, side: self.curSide() };
           self.commit(list.concat([item]), { sel: item.uid });
         }
       };
     });
 
-    var lines = st.placed.map(function (p) {
-      var info = patchInfo(p.pid);
-      return { no: info.no, name: info.name, price: money(patchPrice(info)), side: style.back ? (p.side === 'back' ? ' (back)' : ' (front)') : '' };
+    // Print | Patch | Pin switch for the selected design, offering only the types it comes in.
+    var selInfo = selItem ? patchInfo(selItem.pid) : null;
+    var selTypeIds = selInfo ? typesOf(selInfo) : [];
+    var selTypes = selTypeIds.map(function (t) {
+      var on = t === itemType(selItem);
+      return {
+        label: TYPES[t].label, on: on ? 'true' : 'false', bg: on ? '#5D1AFA' : 'transparent', fg: on ? '#FDFDFD' : '#1A0B45',
+        pick: function () { if (!on) self.change(selItem.uid, function (q) { return Object.assign({}, q, { type: t }); }); }
+      };
     });
 
-    var names = st.placed.map(function (p) { var i = patchInfo(p.pid); return i.name + (style.back ? (p.side === 'back' ? ' (back)' : ' (front)') : ''); });
+    var lines = st.placed.map(function (p) {
+      var info = patchInfo(p.pid);
+      return { no: info.no, name: info.name, price: money(priceOf(info, itemType(p))), suffix: itemSuffix(style, p) };
+    });
+
+    var names = st.placed.map(function (p) { return patchInfo(p.pid).name + itemSuffix(style, p); });
     var sides = ['front', 'back'].map(function (sd) {
       var on = sd === side;
       var n = st.placed.filter(function (p) { return (p.side || 'front') === sd; }).length;
@@ -497,7 +568,7 @@ class Component extends DCLogic {
     });
     var total = totalLabel(totalFor(style.id, st.placed));
     var msg = "Hi Show and Tell! I'd like a " + style.name + ' in ' + c.name + ' with ' + st.placed.length
-      + (st.placed.length === 1 ? ' patch: ' : ' patches: ') + (names.length ? names.join(', ') : 'none yet') + '.'
+      + (st.placed.length === 1 ? ' design: ' : ' designs: ') + (names.length ? names.join(', ') : 'none yet') + '.'
       + (st.notes.trim() ? ' Notes: ' + st.notes.trim() : '')
       + " I'll send a screenshot of my layout.";
 
@@ -506,11 +577,12 @@ class Component extends DCLogic {
       stepDots: stepDots, presets: presets, blanks: blanks,
       c: c, bagImg: fc.img, bagShade: fc.shade, bagAlt: style.name + ', ' + c.name + (style.back ? ', ' + side : ''), hasBack: !!style.back, sides: sides, styleName: style.name, basePrice: money(style.price),
       placed: placed, tabs: tabs, styles: styles, colours: colours, cats: cats, library: library, lines: lines,
+      addTypes: addTypes, addNote: TYPES[addType].note, selTypes: selTypes, hasSelTypes: selTypeIds.length > 1,
       s1: st.step === 1, s2: st.step === 2, s3: st.step === 3,
       noSel: !selItem, noDup: !selItem || full, noUndo: st.hist.length === 0,
-      countLabel: st.placed.length + (st.placed.length === 1 ? ' patch' : ' patches') + ' on your ' + style.name.toLowerCase(),
-      maxLabel: st.placed.length + ' of ' + MAX_PATCHES + ' added',
-      hint: full ? 'Your design is full. Remove a patch to add another.' : (st.placed.length ? 'Drag patches to move them. Tap one to edit it.' : 'Ready for patches.'),
+      countLabel: st.placed.length + (st.placed.length === 1 ? ' design' : ' designs') + ' on your ' + style.name.toLowerCase(),
+      maxLabel: st.placed.length + ' of ' + MAX_DESIGNS + ' added',
+      hint: full ? 'That’s the limit. Remove a design to add another.' : (st.placed.length ? 'Drag designs to move them. Tap one to edit it.' : 'Ready for designs.'),
       total: total, notes: st.notes,
       waLink: 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg),
       toStep2: function () { self.setState({ step: 2 }); },
@@ -547,7 +619,7 @@ class Component extends DCLogic {
       },
       dup: function () {
         var it = self.state.placed.find(function (q) { return q.uid === self.state.sel; });
-        if (!it || self.state.placed.length >= MAX_PATCHES) return;
+        if (!it || self.state.placed.length >= MAX_DESIGNS) return;
         var copy = Object.assign({}, it, { uid: self.nextId(), x: self.clampX(it.x + 6), y: self.clampY(it.y + 6) });
         self.commit(self.state.placed.concat([copy]), { sel: copy.uid });
       },
