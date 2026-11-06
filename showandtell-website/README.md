@@ -31,9 +31,7 @@ To use your own domain (for example showandtell.co), add it under **Settings ›
 - `cards.html`
 - `patches.html`
 
-**Prices still to set.** Anything still `null` in `assets/prices.js` shows as [PRICE] or [TOTAL] on the site:
-- **Euro prices:** every one, so European visitors see [PRICE] until you fill them in.
-- **Naira prices:** Premium tote bag, T-shirt, print, pin and the textured paper extra.
+**Prices to check.** Every price in `assets/prices.js` has a placeholder so the site shows real numbers. Only the classic tote (₦80,000), patch (₦9,500) and card (₦4,500) prices are confirmed; replace the rest with your own. A price set to `null` shows as [PRICE], and totals that include it show [TOTAL].
 
 **Text placeholders in square brackets:**
 - Home page, step 01: [YOUR TOTE COLOURS]

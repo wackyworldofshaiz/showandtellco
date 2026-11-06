@@ -4,25 +4,25 @@
 var PRICES = {
   ng: {
     card: 4500,           // each card
-    cardBulk: { 5: null, 10: null, 25: null, 50: null }, // price per card at that quantity (null = the normal card price)
-    texturedPaper: null,  // added to each card on textured premium paper
+    cardBulk: { 5: 4200, 10: 4000, 25: 3700, 50: 3500 }, // price per card at that quantity (null = the normal card price)
+    texturedPaper: 1000,  // added to each card on textured premium paper
     classicTote: 80000,
-    premiumTote: null,
-    tshirt: null,
-    print: null,
+    premiumTote: 95000,
+    tshirt: 45000,
+    print: 5000,
     patch: 9500,
-    pin: null
+    pin: 6500
   },
   eu: {
-    card: null,
-    cardBulk: { 5: null, 10: null, 25: null, 50: null },
-    texturedPaper: null,
-    classicTote: null,
-    premiumTote: null,
-    tshirt: null,
-    print: null,
-    patch: null,
-    pin: null
+    card: 6,
+    cardBulk: { 5: 5.5, 10: 5, 25: 4.5, 50: 4 },
+    texturedPaper: 1.5,
+    classicTote: 45,
+    premiumTote: 55,
+    tshirt: 35,
+    print: 5,
+    patch: 9,
+    pin: 7
   }
 };
 // ---------- End of prices ----------
