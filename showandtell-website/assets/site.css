@@ -24,3 +24,14 @@ img { max-width: 100%; }
   header[data-menu-open] .menu-btn .menu-bars { display: none; }
   header[data-menu-open] .menu-btn .menu-x { display: inline; }
 }
+
+/* Region switch (NGN / EUR) in the header. */
+.region-switch { display: inline-flex; gap: 2px; padding: 3px; border: 2px solid rgba(253,253,253,0.5); border-radius: 999px; }
+.region-switch button {
+  padding: 6px 12px; border: 0; border-radius: 999px; background: transparent; color: #FDFDFD;
+  font: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+}
+.region-switch button[aria-pressed="true"] { background: #E4EE3F; color: #1A0B45; }
+@media (max-width: 640px) {
+  header[data-menu-open] .region-switch { margin-top: 8px; }
+}

@@ -32,6 +32,9 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <a href="build-your-tote.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Build a tote</a>
 <a href="cards.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Choose a card</a>
 <a href="patches.html" aria-current="page" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Shop designs</a>
+<div role="group" aria-label="Prices in" class="region-switch">
+<sc-for list="{{ regions }}" as="r"><button type="button" data-set-region="{{ r.code }}" aria-pressed="{{ r.on }}">{{ r.label }}</button></sc-for>
+</div>
 </nav>
 </div>
 </header>
@@ -248,26 +251,27 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <script src="assets/morphdom.min.js"></script>
 <script src="assets/dc-lite.js"></script>
 <script src="assets/menu.js"></script>
+<script src="assets/prices.js"></script>
 <script>
 // ---------- Your settings ----------
 // WhatsApp number in international format, digits only (for example 2348012345678).
 var WHATSAPP_NUMBER = '';
-var CURRENCY = '₦';
+// Prices are in assets/prices.js.
 var QTYS = [1, 2, 3, 5, 10];
 
 // Keep TYPES, TYPE_ORDER and PATCHES the same as in the tote builder.
-// The three kinds of design. price null = shows [PRICE] until you set it.
+// The three kinds of design. Their prices are in assets/prices.js.
 // soldAlone: whether people can buy this type on its own, without a tote or tee.
 var TYPES = {
-  print: { label: 'Print', price: null, soldAlone: false, note: 'Full colour, pressed flat onto your bag by us.' },
-  patch: { label: 'Patch', price: 9500, soldAlone: true,  note: 'Raised embroidery with an iron-on back.' },
-  pin:   { label: 'Pin',   price: null, soldAlone: true,  note: 'Enamel pin with a locking back. Clip it on, swap it around.' }
+  print: { label: 'Print', soldAlone: false, note: 'Full colour, pressed flat onto your bag by us.' },
+  patch: { label: 'Patch', soldAlone: true,  note: 'Raised embroidery with an iron-on back.' },
+  pin:   { label: 'Pin',   soldAlone: true,  note: 'Enamel pin with a locking back. Clip it on, swap it around.' }
 };
 var TYPE_ORDER = ['print', 'patch', 'pin'];
 
 // Your designs. types = the kinds it comes in. Optional extras:
 // pinSrc: 'images/pins/<file>' switches Pin on for that design.
-// prices: { patch: 12000 } charges more or less than the TYPES price for one design.
+// prices: { ng: { patch: 12000 }, eu: { patch: 30 } } charges more or less than the usual price for one design.
 var PATCHES = [
   { id: 'p01', name: 'Abuja City Gate', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/abuja-gate.webp', desc: 'The gate that welcomes you into Abuja, with the green-white-green flying above it and the road stretching ahead.' },
   { id: 'p02', name: 'Plantain', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/plantain.webp', desc: 'A ripe bunch of plantain on a green leaf, ready to become dodo.' },
@@ -297,13 +301,12 @@ var PATCHES = [
 
 var FILTERS = ['All', 'Food', 'Snacks & drinks', 'Rides', 'Places', 'Culture', 'Sayings', 'Show & Tell'];
 
-function money(n) { return n == null ? '[PRICE]' : CURRENCY + Number(n).toLocaleString('en-GB'); }
 // A design comes in its listed types, plus Pin as soon as it has a pin image.
 function typesOf(d) {
   var t = d.types || ['print', 'patch'];
   return TYPE_ORDER.filter(function (k) { return t.indexOf(k) >= 0 || (k === 'pin' && !!d.pinSrc); });
 }
-function priceOf(d, type) { return d.prices && d.prices[type] != null ? d.prices[type] : TYPES[type].price; }
+function priceOf(d, type) { var own = d.prices && d.prices[region()]; return own && own[type] != null ? own[type] : priceFor(type); }
 function imgOf(d, type) { return type === 'pin' && d.pinSrc ? d.pinSrc : d.src; }
 function hasPins() { return PATCHES.some(function (d) { return typesOf(d).indexOf('pin') >= 0; }); }
 // The lowest price set across a design's types, shown as "from ...".
@@ -332,6 +335,8 @@ var MORE_LINE = {
 class Component extends DCLogic {
   constructor(props) {
     super(props);
+    var self0 = this;
+    window.addEventListener('regionchange', function () { self0.setState({}); });
     this.state = { mode: 'list', patch: 'p01', filter: 'All', typeFilter: 'all', type: 'patch', qty: 1 };
   }
 
@@ -401,9 +406,10 @@ class Component extends DCLogic {
     });
 
     var orderMsg = "Hi Show and Tell! I'd like to buy " + st.qty + ' x the ' + p0.name + ' ' + word + ' on its own'
-      + (total != null ? ' (' + money(total) + ')' : '') + '.';
+      + (total != null ? ' (' + money(total) + ')' : '') + '.' + regionNote();
 
     return {
+      regions: regionOptions(),
       isList: st.mode === 'list', isDetail: st.mode === 'detail',
       filters: filters, typeFilters: typeFilters, patches: patches, related: related, typeOpts: typeOpts, qtys: qtys,
       patch: p0,

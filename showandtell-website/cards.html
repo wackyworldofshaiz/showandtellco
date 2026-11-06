@@ -34,6 +34,9 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <a href="build-your-tote.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Build a tote</a>
 <a href="cards.html" aria-current="page" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Choose a card</a>
 <a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Shop designs</a>
+<div role="group" aria-label="Prices in" class="region-switch">
+<sc-for list="{{ regions }}" as="r"><button type="button" data-set-region="{{ r.code }}" aria-pressed="{{ r.on }}">{{ r.label }}</button></sc-for>
+</div>
 </nav>
 </div>
 </header>
@@ -277,24 +280,22 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <script src="assets/morphdom.min.js"></script>
 <script src="assets/dc-lite.js"></script>
 <script src="assets/menu.js"></script>
+<script src="assets/prices.js"></script>
 <script>
 // ---------- Your settings ----------
 // Your WhatsApp number in international format, digits only (for example 2348012345678).
 var WHATSAPP_NUMBER = '';
-var CURRENCY = '₦';
-var CARD_PRICE = 4500; // price per card
+// Card prices, including bulk prices and the textured paper extra, are in assets/prices.js.
 
-// Paper types. extra = added to the price of each card (0 for none, null if not decided yet).
+// Paper types. extra: 0 = no extra charge, 'texturedPaper' = the extra set in assets/prices.js.
 var PAPERS = [
   { id: 'matte', name: 'Matte', note: 'Smooth with no shine, and easy to write on.', extra: 0 },
   { id: 'gloss', name: 'Gloss', note: 'Extra-bright colours with a soft shine.', extra: 0 },
-  { id: 'textured', name: 'Textured premium', note: 'Thicker card with a linen-like feel.', extra: null }
+  { id: 'textured', name: 'Textured premium', note: 'Thicker card with a linen-like feel.', extra: 'texturedPaper' }
 ];
 
-// Quantity options. To give a discount for bigger orders, set unit to a lower price per card (or leave null for the normal price).
-var QTYS = [
-  { n: 1, unit: null }, { n: 5, unit: null }, { n: 10, unit: null }, { n: 25, unit: null }, { n: 50, unit: null }
-];
+// Quantity options. Bulk prices per card are set in cardBulk in assets/prices.js.
+var QTYS = [1, 5, 10, 25, 50];
 
 // One line per card. w and h are the design's pixel size, so each card keeps its own shape.
 var CARDS = [
@@ -317,11 +318,14 @@ var CARDS = [
 
 var FILTERS = ['All', 'Love', 'Christmas', 'Wedding', 'Cheeky'];
 
-function money(n) { return n == null ? '[PRICE]' : CURRENCY + Number(n).toLocaleString('en-GB'); }
+
+function paperExtra(p) { return p.extra === 0 ? 0 : priceFor(p.extra); }
 
 class Component extends DCLogic {
   constructor(props) {
     super(props);
+    var self0 = this;
+    window.addEventListener('regionchange', function () { self0.setState({}); });
     this.state = { mode: 'list', card: '01', view: 'front', filter: 'All', paper: 'matte', qty: 1, inside: 'blank', msg: '', from: '' };
   }
 
@@ -338,10 +342,11 @@ class Component extends DCLogic {
 
     var paper = PAPERS.find(function (p) { return p.id === st.paper; }) || PAPERS[0];
     function unitFor(qty) {
-      if (paper.extra == null) return null;
-      var q = QTYS.find(function (x) { return x.n === qty; });
-      var base = q && q.unit != null ? q.unit : CARD_PRICE;
-      return base + paper.extra;
+      var extra = paperExtra(paper);
+      var bulk = priceFor('cardBulk') || {};
+      var base = bulk[qty] != null ? bulk[qty] : priceFor('card');
+      if (extra == null || base == null) return null;
+      return base + extra;
     }
     var unit = unitFor(st.qty);
     var total = unit == null ? null : unit * st.qty;
@@ -358,7 +363,7 @@ class Component extends DCLogic {
     var visible = CARDS.filter(function (c) { return st.filter === 'All' || c.cat === st.filter; });
     var cards = visible.map(function (c) {
       return {
-        title: c.title, src: c.src, cat: c.cat, price: money(CARD_PRICE),
+        title: c.title, src: c.src, cat: c.cat, price: money(priceFor('card')),
         pick: function () { self.setState({ mode: 'detail', card: c.no, view: 'front' }); }
       };
     });
@@ -378,20 +383,20 @@ class Component extends DCLogic {
       var on = p.id === paper.id;
       return {
         name: p.name, note: p.note, on: on ? 'true' : 'false',
-        extra: p.extra == null ? '+[PRICE]' : (p.extra === 0 ? 'Included' : '+' + money(p.extra)),
+        extra: p.extra === 0 ? 'Included' : '+' + money(paperExtra(p)),
         border: on ? '2px solid #5D1AFA' : '2px solid #E3DCF7',
         pick: function () { self.setState({ paper: p.id }); }
       };
     });
 
-    var qtys = QTYS.map(function (q) {
-      var on = q.n === st.qty;
-      var u = unitFor(q.n);
+    var qtys = QTYS.map(function (n) {
+      var on = n === st.qty;
+      var u = unitFor(n);
       return {
-        label: q.n === 1 ? '1 card' : q.n + ' cards', on: on ? 'true' : 'false',
-        total: u == null ? '[TOTAL]' : money(u * q.n),
+        label: n === 1 ? '1 card' : n + ' cards', on: on ? 'true' : 'false',
+        total: u == null ? '[TOTAL]' : money(u * n),
         border: on ? '2px solid #5D1AFA' : '2px solid #E3DCF7',
-        pick: function () { self.setState({ qty: q.n }); }
+        pick: function () { self.setState({ qty: n }); }
       };
     });
 
@@ -407,9 +412,10 @@ class Component extends DCLogic {
     var orderMsg = "Hi Show and Tell! I'd like " + st.qty + ' x the card "' + card.title + '" on ' + paper.name + ' paper'
       + (total != null ? ' (' + money(total) + ')' : '') + '.'
       + (!write ? ' Please leave it blank inside.' : (hasMsg ? ' Please write inside: "' + st.msg.trim() + '"' : ' I\'d like a handwritten message (I\'ll send the words).'))
-      + (write && st.from.trim() ? ' From: ' + st.from.trim() + '.' : '');
+      + (write && st.from.trim() ? ' From: ' + st.from.trim() + '.' : '') + regionNote();
 
     return {
+      regions: regionOptions(),
       filters: filters, cards: cards, card: card,
       isList: st.mode === 'list', isDetail: st.mode === 'detail',
       toList: function () { self.setState({ mode: 'list' }); },

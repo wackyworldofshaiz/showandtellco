@@ -13,7 +13,7 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | `cards.html` | Card list and card product pages |
 | `patches.html` | The design menu and design product pages (prints, patches and pins) |
 
-Images are in `images/`. The interactive pages share `assets/dc-lite.js` and `assets/morphdom.min.js`, and `assets/site.css` holds the phone tweaks.
+Images are in `images/`. The interactive pages share `assets/dc-lite.js` and `assets/morphdom.min.js`. Every page uses `assets/prices.js` (all prices), `assets/menu.js` (the phone menu) and `assets/site.css` (phone tweaks, the menu and the currency switch).
 
 ## Put it online with GitHub Pages
 
@@ -31,10 +31,9 @@ To use your own domain (for example showandtell.co), add it under **Settings ›
 - `cards.html`
 - `patches.html`
 
-**Prices still to set** (they show as [PRICE] or [TOTAL] until then):
-- Premium tote bag and T-shirt: `price: null` in `STYLES` in `build-your-tote.html`.
-- Print and pin prices: `price: null` for `print` and `pin` in `TYPES`. Set them in **both** `build-your-tote.html` and `patches.html`, then replace the `[PRICE]` text for prints and pins on `index.html` (the totes card and the "Print, patch or pin?" section).
-- Textured premium paper surcharge: `extra: null` in `PAPERS` in `cards.html`.
+**Prices still to set.** Anything still `null` in `assets/prices.js` shows as [PRICE] or [TOTAL] on the site:
+- **Euro prices:** every one, so European visitors see [PRICE] until you fill them in.
+- **Naira prices:** Premium tote bag, T-shirt, print, pin and the textured paper extra.
 
 **Text placeholders in square brackets:**
 - Home page, step 01: [YOUR TOTE COLOURS]
@@ -43,14 +42,25 @@ To use your own domain (for example showandtell.co), add it under **Settings ›
 
 **Home page "Order" and "Plan a gift" buttons.** These point to an `#order` section that isn't on the page yet. Either add an order section or point them at WhatsApp or `build-your-tote.html`.
 
+## Prices for Nigeria and Europe
+
+All prices live in one file, `assets/prices.js`, with one list for Nigeria (`ng`, in naira) and one for Europe (`eu`, in euros). Each euro price is set by hand, not converted from naira. Put a number in place of `null`, for example `25` or `24.50`. The home page prices update from the same file.
+
+**Which prices a visitor sees:**
+- **First visit:** visitors whose computer or phone is set to a European time zone see euros, and everyone else sees naira.
+- **Switching:** the NGN ₦ / EUR € switch in the header (inside the menu on phones) changes it, and the browser remembers the choice.
+- **Links:** a link ending in `?region=eu` or `?region=ng` (for example `build-your-tote.html?region=eu`) opens with those prices, which is handy for ads.
+
+WhatsApp orders from the euro prices end with "(Prices in euros, ordering from Europe.)" so you can tell them apart. Both regions use the same WhatsApp number, and there's no delivery charge.
+
 ## Prints, patches and pins
 
 Every design can come as a **print** (a heat transfer pressed flat on), a **patch** (embroidered, iron-on) or a **pin** (enamel, locking back). The settings live near the top of the script in **both** `build-your-tote.html` and `patches.html`; keep the two copies the same.
 
-- **`TYPES`**: one entry per type, with its `label`, default `price` (`null` shows [PRICE]), `soldAlone` (whether people can buy it without a tote or tee) and a short `note` shown to customers.
+- **`TYPES`**: one entry per type, with its `label`, `soldAlone` (whether people can buy it without a tote or tee) and a short `note` shown to customers. Their prices are `print`, `patch` and `pin` in `assets/prices.js`.
 - **`types`** on each design in `PATCHES`: the types it comes in, for example `['print', 'patch']`.
 - **`pinSrc`** (optional) on a design: its pin image. Setting it switches Pin on for that design; you don't need to add `'pin'` to `types`.
-- **`prices`** (optional) on a design: a different price for that design only, for example `prices: { patch: 12000 }`. Anything not listed uses the `TYPES` price.
+- **`prices`** (optional) on a design: a different price for that design only, per region, for example `prices: { ng: { patch: 12000 }, eu: { patch: 30 } }`. Anything not listed uses the usual price from `assets/prices.js`.
 
 **To switch pins on for a design:** add the pin photo to `images/pins/`, then add `pinSrc: 'images/pins/<file>'` to that design in both files. The Pin option appears in the builder and the Pins filter on the design menu as soon as one design has a pin.
 

@@ -31,6 +31,9 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <a href="build-your-tote.html" aria-current="page" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Build a tote</a>
 <a href="cards.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Choose a card</a>
 <a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Shop designs</a>
+<div role="group" aria-label="Prices in" class="region-switch">
+<sc-for list="{{ regions }}" as="r"><button type="button" data-set-region="{{ r.code }}" aria-pressed="{{ r.on }}">{{ r.label }}</button></sc-for>
+</div>
 </nav>
 </div>
 </header>
@@ -279,20 +282,20 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <script src="assets/morphdom.min.js"></script>
 <script src="assets/dc-lite.js"></script>
 <script src="assets/menu.js"></script>
+<script src="assets/prices.js"></script>
 <script>
 // ---------- Your settings ----------
 // WhatsApp number in international format, digits only (for example 2348012345678).
 var WHATSAPP_NUMBER = '';
-// Prices: put numbers in place of null (for example 15000). Totals appear once every price is set.
-var CURRENCY = '₦';
+// Prices are in assets/prices.js.
 var MAX_DESIGNS = 10; // prints, patches and pins all count towards this
 
-// The three kinds of design. price null = shows [PRICE] until you set it.
+// The three kinds of design. Their prices are in assets/prices.js.
 // soldAlone: whether people can buy this type on its own, without a tote or tee.
 var TYPES = {
-  print: { label: 'Print', price: null, soldAlone: false, note: 'Full colour, pressed flat onto your bag by us.' },
-  patch: { label: 'Patch', price: 9500, soldAlone: true,  note: 'Raised embroidery with an iron-on back.' },
-  pin:   { label: 'Pin',   price: null, soldAlone: true,  note: 'Enamel pin with a locking back. Clip it on, swap it around.' }
+  print: { label: 'Print', soldAlone: false, note: 'Full colour, pressed flat onto your bag by us.' },
+  patch: { label: 'Patch', soldAlone: true,  note: 'Raised embroidery with an iron-on back.' },
+  pin:   { label: 'Pin',   soldAlone: true,  note: 'Enamel pin with a locking back. Clip it on, swap it around.' }
 };
 var TYPE_ORDER = ['print', 'patch', 'pin'];
 
@@ -309,10 +312,10 @@ COLOURS.white = { name: 'White', body: '#F4F4F2' };
 // Each tote is a photo (img) with a shading layer (shade) laid over the patches so folds and light show through.
 // area = where patch centres can go, in % of the photo (x1 to x2 across, y1 to y2 down).
 var STYLES = [
-  { id: 'classic', name: 'Classic tote', price: 80000, colours: ['cream'], img: 'images/products/premium.png', shade: 'images/products/premium-shade.png', area: { x1: 26, x2: 70, y1: 50, y2: 84 } },
-  { id: 'pocket', name: 'Premium tote bag', price: null, colours: ['trim'], img: 'images/products/classic.png', shade: 'images/products/classic-shade.png', area: { x1: 22, x2: 78, y1: 52, y2: 82 } },
+  { id: 'classic', name: 'Classic tote', priceKey: 'classicTote', colours: ['cream'], img: 'images/products/premium.png', shade: 'images/products/premium-shade.png', area: { x1: 26, x2: 70, y1: 50, y2: 84 } },
+  { id: 'pocket', name: 'Premium tote bag', priceKey: 'premiumTote', colours: ['trim'], img: 'images/products/classic.png', shade: 'images/products/classic-shade.png', area: { x1: 22, x2: 78, y1: 52, y2: 82 } },
   // A product with a back view gets a Front / Back switch, and patches can go on either side.
-  { id: 'tee', name: 'T-shirt', price: null, colours: ['white'], img: 'images/products/tee-front.png', shade: 'images/products/tee-front-shade.png', area: { x1: 32, x2: 66, y1: 30, y2: 80 },
+  { id: 'tee', name: 'T-shirt', priceKey: 'tshirt', colours: ['white'], img: 'images/products/tee-front.png', shade: 'images/products/tee-front-shade.png', area: { x1: 32, x2: 66, y1: 30, y2: 80 },
     back: { img: 'images/products/tee-back.png', shade: 'images/products/tee-back-shade.png', area: { x1: 32, x2: 66, y1: 24, y2: 80 } } }
 ];
 
@@ -326,7 +329,7 @@ function mapPos(style, x, y) {
 
 // Your designs. types = the kinds it comes in. Optional extras:
 // pinSrc: 'images/pins/<file>' switches Pin on for that design.
-// prices: { patch: 12000 } charges more or less than the TYPES price for one design.
+// prices: { ng: { patch: 12000 }, eu: { patch: 30 } } charges more or less than the usual price for one design.
 var PATCHES = [
   { id: 'p01', no: '01', name: 'Abuja City Gate', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/abuja-gate.webp' },
   { id: 'p02', no: '02', name: 'Plantain', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/plantain.webp' },
@@ -371,21 +374,20 @@ var SLOTS = [[50, 55], [32, 68], [68, 68], [50, 82], [30, 48], [70, 48], [36, 86
 var CATS = ['All', 'Food', 'Snacks & drinks', 'Rides', 'Places', 'Culture', 'Sayings', 'Show & Tell'];
 // ---------- End of settings ----------
 
-function money(n) { return n == null ? '[PRICE]' : CURRENCY + Number(n).toLocaleString('en-GB'); }
 function patchInfo(pid) { return PATCHES.find(function (p) { return p.id === pid; }); }
 // A design comes in its listed types, plus Pin as soon as it has a pin image.
 function typesOf(d) {
   var t = d.types || ['print', 'patch'];
   return TYPE_ORDER.filter(function (k) { return t.indexOf(k) >= 0 || (k === 'pin' && !!d.pinSrc); });
 }
-function priceOf(d, type) { return d.prices && d.prices[type] != null ? d.prices[type] : TYPES[type].price; }
+function priceOf(d, type) { var own = d.prices && d.prices[region()]; return own && own[type] != null ? own[type] : priceFor(type); }
 function imgOf(d, type) { return type === 'pin' && d.pinSrc ? d.pinSrc : d.src; }
 function hasPins() { return PATCHES.some(function (d) { return typesOf(d).indexOf('pin') >= 0; }); }
 function itemType(it) { return it.type || 'patch'; }
 function styleInfo(id) { return STYLES.find(function (s) { return s.id === id; }) || STYLES[0]; }
 function face(style, side) { return side === 'back' && style.back ? style.back : style; }
 function totalFor(styleId, items) {
-  var base = styleInfo(styleId).price;
+  var base = priceFor(styleInfo(styleId).priceKey);
   if (base == null) return null;
   var sum = base;
   for (var i = 0; i < items.length; i++) {
@@ -410,6 +412,8 @@ function itemSuffix(style, it) {
 class Component extends DCLogic {
   constructor(props) {
     super(props);
+    var self0 = this;
+    window.addEventListener('regionchange', function () { self0.setState({}); });
     this.uid = 0;
     this.moved = false;
     this.state = { mode: 'start', step: 1, style: 'classic', colour: 'natural', side: 'front', cat: 'All', addType: 'print', placed: [], sel: null, drag: null, hist: [], notes: '' };
@@ -468,7 +472,7 @@ class Component extends DCLogic {
 
     var blanks = STYLES.map(function (s) {
       return {
-        name: s.name, img: s.img, price: money(s.price),
+        name: s.name, img: s.img, price: money(priceFor(s.priceKey)),
         meta: s.colours.length + (s.colours.length === 1 ? ' colour' : ' colours') + (s.back ? ' · designs front and back' : ''),
         use: function () { self.setState({ mode: 'build', step: 1, style: s.id, colour: s.colours[0], side: 'front', placed: [], sel: null, hist: [], notes: '' }); }
       };
@@ -502,7 +506,7 @@ class Component extends DCLogic {
     var styles = STYLES.map(function (s) {
       var on = s.id === st.style;
       return {
-        name: s.name, price: money(s.price), on: on ? 'true' : 'false',
+        name: s.name, price: money(priceFor(s.priceKey)), on: on ? 'true' : 'false',
         border: on ? '2px solid #5D1AFA' : '2px solid #CFC6F2',
         pick: function () { self.setState({ style: s.id, side: 'front', sel: null, colour: s.colours.indexOf(st.colour) >= 0 ? st.colour : s.colours[0] }); }
       };
@@ -570,12 +574,13 @@ class Component extends DCLogic {
     var msg = "Hi Show and Tell! I'd like a " + style.name + ' in ' + c.name + ' with ' + st.placed.length
       + (st.placed.length === 1 ? ' design: ' : ' designs: ') + (names.length ? names.join(', ') : 'none yet') + '.'
       + (st.notes.trim() ? ' Notes: ' + st.notes.trim() : '')
-      + " I'll send a screenshot of my layout.";
+      + " I'll send a screenshot of my layout." + regionNote();
 
     return {
+      regions: regionOptions(),
       isStart: st.mode === 'start', isBuild: st.mode === 'build',
       stepDots: stepDots, presets: presets, blanks: blanks,
-      c: c, bagImg: fc.img, bagShade: fc.shade, bagAlt: style.name + ', ' + c.name + (style.back ? ', ' + side : ''), hasBack: !!style.back, sides: sides, styleName: style.name, basePrice: money(style.price),
+      c: c, bagImg: fc.img, bagShade: fc.shade, bagAlt: style.name + ', ' + c.name + (style.back ? ', ' + side : ''), hasBack: !!style.back, sides: sides, styleName: style.name, basePrice: money(priceFor(style.priceKey)),
       placed: placed, tabs: tabs, styles: styles, colours: colours, cats: cats, library: library, lines: lines,
       addTypes: addTypes, addNote: TYPES[addType].note, selTypes: selTypes, hasSelTypes: selTypeIds.length > 1,
       s1: st.step === 1, s2: st.step === 2, s3: st.step === 3,
