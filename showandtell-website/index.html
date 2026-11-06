@@ -29,6 +29,9 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <a href="#totes" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Totes</a>
 <a href="#how" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">How it works</a>
 <a href="#order" style="color: #1A0B45; background: #E4EE3F; text-decoration: none; padding: 12px 24px; border-radius: 999px; font-weight: 700">Order</a>
+<div role="group" aria-label="Prices in" class="region-switch">
+<button type="button" data-set-region="ng" aria-pressed="true">NGN ₦</button><button type="button" data-set-region="eu" aria-pressed="false">EUR €</button>
+</div>
 </div>
 </nav>
 
@@ -67,7 +70,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <h3 class="disp" style="margin: 0; font-size: 38px; line-height: 1.08; font-weight: 900; color: #1A0B45">A pun for every feeling.</h3>
 <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3B2E6B">Birthdays, anniversaries, thank-yous and "just because". Bright, printed cards with puns worth keeping, and we can hand-letter your message inside.</p>
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding-top: 6px">
-<p style="margin: 0; font-size: 18px; font-weight: 700; color: #1A0B45">₦4,500 each</p>
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #1A0B45"><span data-price="card">₦4,500</span> each</p>
 <a href="cards.html" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; border-radius: 999px; background: #5D1AFA; color: #FDFDFD; font-size: 16px; font-weight: 700; text-decoration: none">Shop cards</a>
 </div>
 </article>
@@ -82,7 +85,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <h3 class="disp" style="margin: 0; font-size: 38px; line-height: 1.08; font-weight: 900; color: #1A0B45">Patch totes you design yourself.</h3>
 <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #1A0B45">Choose prints, embroidered patches or pins, and we put them together by hand. Jollof, danfo, Wahala, city stamps: no two bags come out the same.</p>
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding-top: 6px">
-<p style="margin: 0; font-size: 18px; font-weight: 700; color: #1A0B45">Totes from ₦80,000 · prints from [PRICE] · patches ₦9,500 · pins from [PRICE]</p>
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #1A0B45">Totes from <span data-price="classicTote">₦80,000</span> · prints from <span data-price="print">[PRICE]</span> · patches <span data-price="patch">₦9,500</span> · pins from <span data-price="pin">[PRICE]</span></p>
 <a href="build-your-tote.html" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; border-radius: 999px; background: #1A0B45; color: #FDFDFD; font-size: 16px; font-weight: 700; text-decoration: none">Build your tote</a>
 </div>
 </article>
@@ -101,7 +104,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </div>
 <h3 class="disp" style="margin: 0; font-size: 34px; font-weight: 900; color: #1A0B45">Print</h3>
 <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3B2E6B">Full colour, smooth and flat. The best value, and great for group orders.</p>
-<p style="margin: auto 0 0; font-size: 18px; font-weight: 700; color: #1A0B45">from [PRICE]</p>
+<p style="margin: auto 0 0; font-size: 18px; font-weight: 700; color: #1A0B45">from <span data-price="print">[PRICE]</span></p>
 </li>
 
 <li style="flex: 1 1 280px; min-width: 0; background: #E4EE3F; border-radius: 28px; padding: 40px; display: flex; flex-direction: column; gap: 18px; box-sizing: border-box">
@@ -110,7 +113,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </div>
 <h3 class="disp" style="margin: 0; font-size: 34px; font-weight: 900; color: #1A0B45">Patch</h3>
 <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #1A0B45">Raised embroidery you can feel. The premium choice, also sold on its own to iron on yourself.</p>
-<p style="margin: auto 0 0; font-size: 18px; font-weight: 700; color: #1A0B45">₦9,500</p>
+<p style="margin: auto 0 0; font-size: 18px; font-weight: 700; color: #1A0B45"><span data-price="patch">₦9,500</span></p>
 </li>
 
 <li style="flex: 1 1 280px; min-width: 0; background: #5D1AFA; border-radius: 28px; padding: 40px; display: flex; flex-direction: column; gap: 18px; box-sizing: border-box">
@@ -123,7 +126,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </div>
 <h3 class="disp" style="margin: 0; font-size: 34px; font-weight: 900; color: #FDFDFD">Pin</h3>
 <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #FDFDFD">Enamel pins that clip on and come off. Swap them around, collect the set.</p>
-<p style="margin: auto 0 0; font-size: 18px; font-weight: 700; color: #E4EE3F">from [PRICE]</p>
+<p style="margin: auto 0 0; font-size: 18px; font-weight: 700; color: #E4EE3F">from <span data-price="pin">[PRICE]</span></p>
 </li>
 
 </ul>
@@ -204,6 +207,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </footer>
 
 </div>
+<script src="assets/prices.js"></script>
 <script src="assets/menu.js"></script>
 </body>
 </html>
