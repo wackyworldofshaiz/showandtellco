@@ -18,25 +18,13 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
+<header style="background: #5D1AFA; color: #FDFDFD"><div id="site-header" data-page="totes"></div></header>
+<script src="assets/header.js"></script>
 <noscript><p style="padding:16px;font-family:sans-serif">Please turn on JavaScript to use this page.</p></noscript>
 <div id="dc-root"></div>
 <template id="dc-template">
 <div style="width: 100%; min-height: 1000px; box-sizing: border-box; font-family: 'DM Sans', Helvetica, Arial, sans-serif; color: #1A0B45; background: #FDFDFD">
 
-<header style="background: #5D1AFA; color: #FDFDFD">
-<div style="max-width: 1240px; margin: 0 auto; padding: 18px 5%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
-<a href="index.html" aria-label="Back to Show and Tell Co home" style="display: block; line-height: 0"><img src="images/brand/wordmark-white.png" alt="Show and Tell Co" style="height: 48px; width: auto"></a>
-<button type="button" class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="site-links" style="align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0; background: transparent; color: #FDFDFD; border: 2px solid rgba(253,253,253,0.5); border-radius: 999px; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path class="menu-bars" d="M4 7h16M4 12h16M4 17h16"/><path class="menu-x" d="M6 6l12 12M18 6L6 18"/></svg></button>
-<nav id="site-links" class="site-links" aria-label="Builders" style="display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 16px; font-weight: 600">
-<a href="build-your-tote.html" aria-current="page" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Build a tote</a>
-<a href="cards.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Choose a card</a>
-<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Shop designs</a>
-<div role="group" aria-label="Prices in" class="region-switch">
-<sc-for list="{{ regions }}" as="r"><button type="button" data-set-region="{{ r.code }}" aria-pressed="{{ r.on }}">{{ r.label }}</button></sc-for>
-</div>
-</nav>
-</div>
-</header>
 
 <main style="max-width: 1240px; margin: 0 auto; padding: 48px 5% 80px; display: flex; flex-direction: column; gap: 36px">
 
@@ -283,6 +271,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <script src="assets/dc-lite.js"></script>
 <script src="assets/menu.js"></script>
 <script src="assets/prices.js"></script>
+<script src="assets/catalog.js"></script>
 <script>
 // ---------- Your settings ----------
 // WhatsApp number in international format, digits only (for example 2348012345678).
@@ -297,7 +286,6 @@ var TYPES = {
   patch: { label: 'Patch', soldAlone: true,  note: 'Raised embroidery with an iron-on back.' },
   pin:   { label: 'Pin',   soldAlone: true,  note: 'Enamel pin with a locking back. Clip it on, swap it around.' }
 };
-var TYPE_ORDER = ['print', 'patch', 'pin'];
 
 var COLOURS = {
   natural: { name: 'Natural', body: '#F6F1E7', handle: '#D9CFBB', stitch: '#CFC3AA', pocket: '#EDE5D6' },
@@ -327,34 +315,7 @@ function mapPos(style, x, y) {
   return [a.x1 + fx * (a.x2 - a.x1), a.y1 + fy * (a.y2 - a.y1)];
 }
 
-// Your designs. types = the kinds it comes in. Optional extras:
-// pinSrc: 'images/pins/<file>' switches Pin on for that design.
-// prices: { ng: { patch: 12000 }, eu: { patch: 30 } } charges more or less than the usual price for one design.
-var PATCHES = [
-  { id: 'p01', no: '01', name: 'Abuja City Gate', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/abuja-gate.webp' },
-  { id: 'p02', no: '02', name: 'Plantain', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/plantain.webp' },
-  { id: 'p03', no: '03', name: 'Meat pie', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/meat-pie.webp' },
-  { id: 'p04', no: '04', name: 'Jollof and chicken', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/jollof.webp' },
-  { id: 'p05', no: '05', name: 'Danfo, full house', cat: 'Rides', types: ['print', 'patch'], src: 'images/patches/danfo-busy.webp' },
-  { id: 'p06', no: '06', name: 'Danfo', cat: 'Rides', types: ['print', 'patch'], src: 'images/patches/danfo.webp' },
-  { id: 'p07', no: '07', name: 'Keke', cat: 'Rides', types: ['print', 'patch'], src: 'images/patches/keke.webp' },
-  { id: 'p08', no: '08', name: 'National Theatre', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/national-theatre.webp' },
-  { id: 'p09', no: '09', name: 'Drums', cat: 'Culture', types: ['print', 'patch'], src: 'images/patches/drums.webp' },
-  { id: 'p10', no: '10', name: 'Gala', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/gala.webp' },
-  { id: 'p11', no: '11', name: 'Green passport', cat: 'Culture', types: ['print', 'patch'], src: 'images/patches/passport.webp' },
-  { id: 'p12', no: '12', name: 'Puff-puff', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/puff-puff.webp' },
-  { id: 'p13', no: '13', name: 'Pure water', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/pure-water.webp' },
-  { id: 'p14', no: '14', name: 'Suya', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/suya.webp' },
-  { id: 'p15', no: '15', name: 'Palm wine', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/palm-wine.webp' },
-  { id: 'p16', no: '16', name: 'Show and Tell logo', cat: 'Show & Tell', types: ['print', 'patch'], src: 'images/patches/show-and-tell.webp' },
-  { id: 'p17', no: '17', name: 'SuperYogo', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/superyogo.webp' },
-  { id: 'p18', no: '18', name: 'Zuma Rock', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/zuma-rock.webp' },
-  { id: 'p19', no: '19', name: 'Wahala', cat: 'Sayings', types: ['print', 'patch'], src: 'images/patches/wahala.webp' },
-  { id: 'p20', no: '20', name: 'Abuja stamp', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/abuja-stamp.webp' },
-  { id: 'p21', no: '21', name: 'No gree for anybody', cat: 'Sayings', types: ['print', 'patch'], src: 'images/patches/no-gree.webp' },
-  { id: 'p22', no: '22', name: 'Lagos stamp', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/lagos-stamp.webp' },
-  { id: 'p23', no: '23', name: 'Nollywood', cat: 'Culture', types: ['print', 'patch'], src: 'images/patches/nollywood.webp' }
-];
+// The designs (PATCHES) are in assets/catalog.js.
 
 // Ready-made mixes for "Start from a favourite". x and y are % of the bag, s is size 0-4, r is rotation.
 var PRESETS = [
@@ -375,14 +336,6 @@ var CATS = ['All', 'Food', 'Snacks & drinks', 'Rides', 'Places', 'Culture', 'Say
 // ---------- End of settings ----------
 
 function patchInfo(pid) { return PATCHES.find(function (p) { return p.id === pid; }); }
-// A design comes in its listed types, plus Pin as soon as it has a pin image.
-function typesOf(d) {
-  var t = d.types || ['print', 'patch'];
-  return TYPE_ORDER.filter(function (k) { return t.indexOf(k) >= 0 || (k === 'pin' && !!d.pinSrc); });
-}
-function priceOf(d, type) { var own = d.prices && d.prices[region()]; return own && own[type] != null ? own[type] : priceFor(type); }
-function imgOf(d, type) { return type === 'pin' && d.pinSrc ? d.pinSrc : d.src; }
-function hasPins() { return PATCHES.some(function (d) { return typesOf(d).indexOf('pin') >= 0; }); }
 function itemType(it) { return it.type || 'patch'; }
 function styleInfo(id) { return STYLES.find(function (s) { return s.id === id; }) || STYLES[0]; }
 function face(style, side) { return side === 'back' && style.back ? style.back : style; }
@@ -417,6 +370,9 @@ class Component extends DCLogic {
     this.uid = 0;
     this.moved = false;
     this.state = { mode: 'start', step: 1, style: 'classic', colour: 'natural', side: 'front', cat: 'All', addType: 'print', placed: [], sel: null, drag: null, hist: [], notes: '' };
+    // A link like build-your-tote.html?style=tee starts building on that blank.
+    var want = STYLES.find(function (s) { return s.id === new URLSearchParams(location.search).get('style'); });
+    if (want) Object.assign(this.state, { mode: 'build', style: want.id, colour: want.colours[0] });
   }
 
   nextId() { this.uid += 1; return this.uid; }
@@ -577,7 +533,6 @@ class Component extends DCLogic {
       + " I'll send a screenshot of my layout." + regionNote();
 
     return {
-      regions: regionOptions(),
       isStart: st.mode === 'start', isBuild: st.mode === 'build',
       stepDots: stepDots, presets: presets, blanks: blanks,
       c: c, bagImg: fc.img, bagShade: fc.shade, bagAlt: style.name + ', ' + c.name + (style.back ? ', ' + side : ''), hasBack: !!style.back, sides: sides, styleName: style.name, basePrice: money(priceFor(style.priceKey)),
