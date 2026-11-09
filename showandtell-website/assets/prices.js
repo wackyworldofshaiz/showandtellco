@@ -60,11 +60,6 @@ function money(n) {
 function regionNote() {
   return currentRegion === 'ng' ? '' : ' (Prices in ' + REGIONS[currentRegion].currency + ', ordering from ' + REGIONS[currentRegion].name + '.)';
 }
-// For the switch in the interactive pages' templates.
-function regionOptions() {
-  return REGION_ORDER.map(function (k) { return { code: k, label: REGIONS[k].code + ' ' + REGIONS[k].symbol, on: k === currentRegion ? 'true' : 'false' }; });
-}
-
 (function () {
   // Static pages mark prices with data-price="<key>" and fill them in here.
   function fillStatic() {
