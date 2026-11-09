@@ -45,17 +45,17 @@ var NAV = [
       + '</ul></li>';
   }).join('');
 
-  host.className = 'site-nav';
+  host.className = 'site-bar';
   host.innerHTML =
-    '<div class="nav-top">'
+    '<div class="site-nav"><div class="nav-top">'
     + '<div class="nav-left">'
     + '<button type="button" class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="site-links">'
     + '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">'
     + '<path class="menu-bars" d="M4 7h16M4 12h16M4 17h16"/><path class="menu-x" d="M6 6l12 12M18 6L6 18"/></svg></button>'
     + regionSwitch('region-desktop')
     + '</div>'
-    + '<a class="nav-logo" href="index.html" aria-label="Show and Tell Co home"><img src="images/brand/wordmark-white.png" alt="Show and Tell Co"></a>'
+    + '<a class="nav-logo" href="index.html" aria-label="Show and Tell Co home"><img src="images/brand/wordmark-violet.png" alt="Show and Tell Co"></a>'
     + '<div class="nav-right"><a class="nav-cta" href="build-your-tote.html">Build a tote</a></div>'
     + '</div>'
-    + '<nav id="site-links" class="site-links" aria-label="Main"><ul>' + items + '</ul>' + regionSwitch('region-mobile') + '</nav>';
+    + '<nav id="site-links" class="site-links" aria-label="Main"><ul>' + items + '</ul>' + regionSwitch('region-mobile') + '</nav></div>';
 })();
