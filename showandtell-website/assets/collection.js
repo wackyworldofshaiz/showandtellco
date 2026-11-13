@@ -10,7 +10,7 @@
   var GROUPS = ['All', 'Cards', 'Designs', 'Totes and tees'];
   var SORTS = [['featured', 'Featured'], ['low', 'Price, low to high'], ['high', 'Price, high to low'], ['az', 'Name, A to Z']];
   var CAT_ORDER = ['Places', 'Food', 'Snacks & drinks', 'Rides', 'Culture', 'Sayings', 'Show & Tell'];
-  var state = { group: 'All', sort: 'featured' };
+  var state = { group: 'All', sort: 'featured', q: '' };
 
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
   function priceLabel(it) { return it.price == null ? '[PRICE]' : (it.from ? 'from ' : '') + money(it.price); }
@@ -19,7 +19,8 @@
     var cover = it.fit === 'cover';
     return '<li style="list-style: none; min-width: 0">'
       + '<a class="product-tile" href="' + esc(it.href) + '" style="display: flex; flex-direction: column; gap: 10px; color: #1A0B45; text-decoration: none">'
-      + '<span style="display: block; aspect-ratio: 4 / 5; border-radius: 20px; overflow: hidden; background: ' + (cover ? '#EFE9FF' : '#F4F0FF') + '">'
+      + '<span style="position: relative; display: block; aspect-ratio: 4 / 5; border-radius: 20px; overflow: hidden; background: ' + (cover ? '#EFE9FF' : '#F4F0FF') + '">'
+      + (badgesOf(it.id).length ? '<span style="position: absolute; z-index: 1; top: 12px; left: 12px; padding: 4px 10px; border-radius: 999px; background: #1A0B45; color: #FDFDFD; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase">' + esc(badgesOf(it.id).join(' · ')) + '</span>' : '')
       + '<img src="' + esc(it.img) + '" alt="" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: ' + (cover ? 'cover' : 'contain') + '; box-sizing: border-box; padding: ' + (cover ? '0' : '14%') + '">'
       + '</span>'
       + '<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5D1AFA">' + esc(it.kind) + '</span>'
@@ -62,7 +63,10 @@
         + (col.fallback ? section('', 'While you wait', '', catalogItems(col.fallback)) : '');
     }
     if (col.filters) {
-      var shown = items.filter(function (it) { return state.group === 'All' || it.group === state.group; });
+      var q = state.q.trim().toLowerCase();
+      var shown = items.filter(function (it) {
+        return (state.group === 'All' || it.group === state.group) && (!q || it.name.toLowerCase().indexOf(q) >= 0 || it.cat.toLowerCase().indexOf(q) >= 0);
+      });
       var order = shown.map(function (it, i) { return { it: it, i: i }; });
       order.sort(function (a, b) {
         var pa = a.it.price, pb = b.it.price;
@@ -74,14 +78,17 @@
         return a.i - b.i;
       });
       shown = order.map(function (o) { return o.it; });
-      return '<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">'
+      return '<div style="display: flex; flex-direction: column; gap: 20px">'
+        + '<label style="display: flex; flex-direction: column; gap: 8px; max-width: 520px; font-size: 15px; font-weight: 600">Search products'
+        + '<input id="search" type="search" data-search value="' + esc(state.q) + '" placeholder="Try jollof, Lagos or love" autocomplete="off" style="min-height: 48px; padding: 0 16px; border-radius: 12px; border: 2px solid #CFC6F2; background: #FDFDFD; color: #1A0B45; font: inherit; font-size: 16px; font-weight: 400"></label>'
+        + '<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">'
         + '<div role="group" aria-label="Show" style="display: flex; flex-wrap: wrap; gap: 8px">'
         + GROUPS.map(function (g) { return chip(g, g === state.group, 'data-group="' + esc(g) + '"'); }).join('') + '</div>'
         + '<label style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600">Sort by'
         + '<select data-sort style="min-height: 40px; padding: 0 12px; border-radius: 12px; border: 2px solid #CFC6F2; background: #FDFDFD; color: #1A0B45; font: inherit; font-size: 15px">'
         + SORTS.map(function (s) { return '<option value="' + s[0] + '"' + (s[0] === state.sort ? ' selected' : '') + '>' + s[1] + '</option>'; }).join('')
         + '</select></label></div>'
-        + '<p style="margin: 0; font-size: 15px; color: #3B2E6B">' + shown.length + (shown.length === 1 ? ' product' : ' products') + '</p>'
+        + '<p style="margin: 0; font-size: 15px; color: #3B2E6B" aria-live="polite">' + shown.length + (shown.length === 1 ? ' product' : ' products') + (q ? ' matching \u201c' + esc(state.q.trim()) + '\u201d' : '') + '</p>' + '</div>'
         + grid(shown);
     }
     return grid(items);
@@ -109,11 +116,20 @@
     var g = e.target.closest('[data-group]');
     if (g) { state.group = g.getAttribute('data-group'); render(); root.querySelector('[data-group="' + state.group + '"]').focus(); }
   });
+  root.addEventListener('input', function (e) {
+    if (!e.target.matches('[data-search]')) return;
+    var pos = e.target.selectionStart;
+    state.q = e.target.value; render();
+    var box = root.querySelector('[data-search]'); box.focus(); box.setSelectionRange(pos, pos);
+  });
   root.addEventListener('change', function (e) {
     if (e.target.matches('[data-sort]')) { state.sort = e.target.value; render(); root.querySelector('[data-sort]').focus(); }
   });
   window.addEventListener('regionchange', render);
   render();
   // The section in the link (for example #for-her) only exists once the page is drawn.
-  if (location.hash) { var t = document.getElementById(location.hash.slice(1)); if (t) t.scrollIntoView(); }
+  if (location.hash) {
+    var t = document.getElementById(location.hash.slice(1));
+    if (t) { t.scrollIntoView(); if (t.matches('input')) t.focus(); } // #search opens with the search box ready
+  }
 })();

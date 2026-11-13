@@ -16,6 +16,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 .acc summary::-webkit-details-marker{display:none}
 .acc[open] .chev{transform:rotate(180deg)}
 </style>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
@@ -292,9 +293,10 @@ class Component extends DCLogic {
     var self0 = this;
     window.addEventListener('regionchange', function () { self0.setState({}); });
     this.state = { mode: 'list', patch: 'p01', filter: 'All', typeFilter: 'all', type: 'patch', qty: 1 };
-    // A link like patches.html?design=p04 opens that design.
-    var want = PATCHES.find(function (d) { return d.id === new URLSearchParams(location.search).get('design'); });
-    if (want) Object.assign(this.state, { mode: 'detail', patch: want.id, type: startType(want, 'all') });
+    // A link like patches.html?design=p04 opens that design; &type=print opens it as a print.
+    var q = new URLSearchParams(location.search);
+    var want = PATCHES.find(function (d) { return d.id === q.get('design'); });
+    if (want) Object.assign(this.state, { mode: 'detail', patch: want.id, type: startType(want, q.get('type') || 'all') });
   }
 
   renderVals() {
