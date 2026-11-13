@@ -61,16 +61,32 @@ var BLANKS = [
 // ---------- Collections ----------
 // Each menu page shows the products listed here. Refer to products by id:
 // cards as 'card-01', designs as 'p04', blanks as 'classic', 'pocket' or 'tee'.
+// Add a type to show a design as one kind only, with that kind's price: 'p22:print', 'p19:patch'.
 // 'all-cards' and 'all-designs' add every card or design.
+// 'bestsellers' and 'new-arrivals' also decide the BESTSELLER and NEW badges:
+// a product gets the badge only while it's on that list.
 // sections split a page into headed groups; the id is the #link the menu uses.
 // Text in [square brackets] is a placeholder to replace.
 var COLLECTIONS = {
+  'bestsellers': {
+    title: 'Bestsellers',
+    intro: 'The ones everyone keeps coming back for.',
+    colour: '#F6F1E7',
+    items: ['card-05', 'classic', 'p19:patch', 'p04:patch', 'card-04']
+  },
+  'new-arrivals': {
+    title: 'New arrivals',
+    intro: 'Fresh cards and designs, just in.',
+    colour: '#E4EE3F',
+    items: ['p22:print', 'card-10', 'p06:print', 'card-11', 'card-02', 'p19:patch', 'card-12', 'p23:print']
+  },
   'holiday-gift-guide': {
     title: 'Holiday Gift Guide',
     intro: 'Cards that say it, totes that show it, and little extras for every stocking. Pick a section or browse the lot.',
     colour: '#E4EE3F',
     sections: [
       { id: 'for-her', title: 'For her', items: ['card-02', 'card-05', 'card-09', 'pocket', 'p04', 'p12'] },
+      { id: 'for-couples', title: 'For couples', items: ['card-10', 'card-03', 'card-04', 'card-07', 'classic', 'p04'] },
       { id: 'for-him', title: 'For him', items: ['card-08', 'classic', 'p21', 'p19', 'p14', 'p23'] },
       { id: 'for-little-ones', title: 'For little ones', items: ['tee', 'p12', 'p10', 'p17', 'p07'] },
       { id: 'for-the-group', title: 'For the group', note: 'Matching totes for the whole crew. Build one and we\u2019ll make as many as you need.', items: ['classic', 'pocket', 'tee'] },
@@ -109,6 +125,15 @@ var COLLECTIONS = {
   }
 };
 
+// ---------- Homepage picks ----------
+// The products on the homepage feature rows. Same ids as in COLLECTIONS.
+// The New arrivals row shows the first four from 'new-arrivals' above.
+var HOME = {
+  forHer: ['card-05', 'card-02', 'classic', 'p19:patch', 'card-08', 'p04:patch'],
+  forCouples: ['card-04', 'p14:patch', 'card-12', 'p23:print', 'card-03', 'p12:patch'],
+  punCard: 'card-05' // the card in the middle of the pun cards banner
+};
+
 // ---------- Helpers shared by the pages ----------
 var TYPE_ORDER = ['print', 'patch', 'pin'];
 // A design comes in its listed types, plus Pin as soon as it has a pin image.
@@ -137,7 +162,13 @@ function catalogItem(id) {
     if (!c) return null;
     return { id: id, group: 'Cards', kind: 'Card', name: c.title, img: c.src, fit: 'cover', href: 'cards.html?card=' + c.no, price: priceFor('card'), from: false, cat: c.cat };
   }
-  var d = PATCHES.find(function (x) { return x.id === id; });
+  var parts = id.split(':');
+  var d = PATCHES.find(function (x) { return x.id === parts[0]; });
+  if (d && parts[1] && typesOf(d).indexOf(parts[1]) >= 0) {
+    var t = parts[1];
+    return { id: id, base: d.id, group: 'Designs', kind: t.charAt(0).toUpperCase() + t.slice(1), name: d.name, img: imgOf(d, t), fit: 'contain',
+      href: 'patches.html?design=' + d.id + '&type=' + t, price: priceOf(d, t), from: false, cat: d.cat };
+  }
   if (d) {
     var set = typesOf(d).map(function (t) { return priceOf(d, t); }).filter(function (n) { return n != null; });
     var labels = typesOf(d).map(function (t) { return t; });
@@ -148,4 +179,13 @@ function catalogItem(id) {
   if (b) return { id: id, group: 'Totes and tees', kind: b.kind + ', build your own', name: b.name, img: b.img, fit: 'contain', href: 'build-your-tote.html?style=' + b.id, price: priceFor(b.priceKey), from: true, cat: b.kind };
   if (window.console) console.warn('catalog.js: no product with id ' + id);
   return null;
+}
+// 'New' and 'Bestseller' for a product id, from the two lists above.
+function badgesOf(id) {
+  var base = id.split(':')[0];
+  function on(list) { return COLLECTIONS[list].items.some(function (x) { return x.split(':')[0] === base; }); }
+  var out = [];
+  if (on('new-arrivals')) out.push('New');
+  if (on('bestsellers')) out.push('Bestseller');
+  return out;
 }

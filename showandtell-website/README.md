@@ -16,16 +16,33 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | `junior.html` | Show and Tell Junior |
 | `games.html` | Games (coming soon, with a few favourites meanwhile) |
 | `collectibles.html` | Collectibles: every design, grouped by category |
-| `all-products.html` | All products, with filters and sorting |
+| `all-products.html` | All products, with search, filters and sorting (the header's search icon opens it) |
+| `bestsellers.html` | Bestsellers |
+| `new-arrivals.html` | New arrivals |
 
 Images are in `images/`. Shared files in `assets/`:
 - `catalog.js`: every card, design and blank, and which collection pages they appear on.
 - `prices.js`: all prices, in naira and euros.
-- `header.js`: the header on every page (logo in the middle, menu underneath). Edit `NAV` in it to change the menu.
+- `header.js`: the header on every page: the scrolling announcement bar, then the currency switch, logo and search, with the menu underneath. Edit `ANNOUNCEMENTS` or `NAV` in it to change them.
+- `home.js` and `home.css`: the homepage's product rows, sign-up forms and layout.
+- `fonts/`: the three self-hosted fonts and `fonts.css`.
 - `collection.js`: draws the collection pages from `catalog.js`.
 - `menu.js`: the phone menu and the header dropdown.
 - `site.css`: the header, phone tweaks and the currency switch.
 - `dc-lite.js` and `morphdom.min.js`: the engine behind the builder, cards and design pages.
+
+## Homepage
+
+The homepage uses three fonts, one job each: **Archivo** (class `wide`) for headings, **Pinyon Script** (class `script`) for one accent word next to a heading, and **Jost** for everything else.
+
+Its product rows come from `assets/catalog.js`:
+- **Selected for her** and **Selected for the couple:** the six products in `HOME.forHer` and `HOME.forCouples`.
+- **New arrivals:** the `'new-arrivals'` list in `COLLECTIONS`. The row scrolls four at a time.
+- **Pun cards banner:** the card in `HOME.punCard`.
+
+**NEW and BESTSELLER badges** come from the `'new-arrivals'` and `'bestsellers'` lists: a product shows the badge while it's on the list. The lists start with the products the design used as examples, so check them.
+
+**Club and newsletter sign-ups** use Netlify Forms: no extra service, and the sign-ups appear under **Forms** in the Netlify dashboard. If the forms don't appear there after the first deploy, turn on **Form detection** in the site's Netlify settings and deploy again.
 
 ## Collections (the menu pages)
 
@@ -33,7 +50,9 @@ Like a shop's collections, each menu page lists products from `assets/catalog.js
 
 The Holiday Gift Guide is split into `sections`. If you add or rename a section, update the dropdown under Holiday Gift Guide in `NAV` in `assets/header.js` to match. Intros in [square brackets] are placeholders to replace.
 
-Product links open the product directly: `cards.html?card=03`, `patches.html?design=p19` or `build-your-tote.html?style=tee`.
+Add a type to a design id to show it as one kind only, with that kind's price: `'p22:print'` or `'p19:patch'`.
+
+Product links open the product directly: `cards.html?card=03`, `patches.html?design=p19` (add `&type=print` to open it as a print) or `build-your-tote.html?style=tee`.
 
 ## Put it online with GitHub Pages
 
@@ -50,15 +69,13 @@ To use your own domain (for example showandtell.co), add it under **Settings ›
 - `build-your-tote.html`
 - `cards.html`
 - `patches.html`
+- `assets/home.js` (the homepage footer's "Order on WhatsApp" link)
 
 **Prices to check.** Every price in `assets/prices.js` has a placeholder so the site shows real numbers. Only the classic tote (₦80,000), patch (₦9,500) and card (₦4,500) prices are confirmed; replace the rest with your own. A price set to `null` shows as [PRICE], and totals that include it show [TOTAL].
 
 **Text placeholders in square brackets:**
-- Home page, step 01: [YOUR TOTE COLOURS]
 - Cards page: card size, envelope colour, ready-in days, delivery areas and pickup city
 - Design menu: the size of each type
-
-**Home page "Order" and "Plan a gift" buttons.** These point to an `#order` section that isn't on the page yet. Either add an order section or point them at WhatsApp or `build-your-tote.html`.
 
 ## Prices for Nigeria and Europe
 
