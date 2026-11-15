@@ -73,7 +73,8 @@ var STORY_KITS = [
     gallery: [
       { src: 'images/story-kits/danfo-days-model.webp', alt: 'A smiling woman wearing the Danfo Days tee, a black line drawing of a Lagos bus stop, holding up the Story Kit box' },
       { src: 'images/story-kits/danfo-days-flatlay.jpg', alt: 'Everything in the kit: the printed white tee, the sheet of 16 colour iron-on pieces and the Danfo Days box' },
-      { src: 'images/story-kits/danfo-days-scene.webp', alt: 'The Danfo Days scene filled in with every piece' }
+      { src: 'images/story-kits/danfo-days-scene.webp', alt: 'The Danfo Days scene filled in with every piece' },
+      { src: 'images/story-kits/danfo-days-size-chart.webp', alt: 'T-shirt size chart in centimetres, measured flat. Chest: M 53, L 58, XL 62, 2XL 67. Between sizes? Take the bigger one.' }
     ],
     edition: 10,                                 // how many were made
     stock: { M: 2, L: 4, XL: 2, '2XL': 2 },      // left in each size

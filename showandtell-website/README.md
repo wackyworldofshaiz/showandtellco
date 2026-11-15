@@ -101,7 +101,7 @@ A Story Kit is a white tee printed with a line-drawn scene, plus a set of iron-o
 
 The page shows "Only N left", each size shows its own count, and the quantity can't go above what's left in the chosen size. A size at 0 is crossed out, and when every size is 0 the kit shows **Sold out** with a link to Instagram. Sizes not listed in `stock` don't appear. The kit's tile on All products, New arrivals and the Holiday Gift Guide shows the count too.
 
-**Photos:** `images/story-kits/`. The gallery shows the model shot (`danfo-days-model.webp`), the flat lay of everything in the kit (`danfo-days-flatlay.jpg`, also used on product tiles) and the finished scene. Square photos fit best. The homepage Story Kits band uses the first two gallery photos. To change them, edit `img` and `gallery` in `STORY_KITS`.
+**Photos:** `images/story-kits/`. The gallery shows the model shot (`danfo-days-model.webp`), the flat lay of everything in the kit (`danfo-days-flatlay.jpg`, also used on product tiles) and the finished scene, then the size chart (`danfo-days-size-chart.webp`). Square photos fit best. The homepage Story Kits band uses the first two gallery photos. To change them, edit `img` and `gallery` in `STORY_KITS`.
 
 **To add the next scene:** copy the Danfo Days entry in `STORY_KITS`, give it a new `id`, and add `'kit-<id>'` to any collection.
 
