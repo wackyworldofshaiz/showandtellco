@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Story Kit: Danfo Days · Show and Tell Co</title>
+<meta name="description" content="A tee printed with a hand-drawn Lagos bus stop, plus 16 iron-on pieces you place yourself. The shirt shows the scene. You tell the story. Only 10 made.">
+<link rel="icon" type="image/png" href="images/brand/wordmark-violet.png">
+<link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jost-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/home.css">
+<style>
+/* Story Kit page. Uses the homepage fonts and colours (assets/home.css). */
+.kit-wrap { max-width: 1240px; margin: 0 auto; padding: 0 40px; box-sizing: border-box; }
+.kit-crumb { padding: 20px 0 0; font-size: 14px; color: #6B6B68; }
+.home .kit-crumb a { color: #6B6B68; }
+.kit-main { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 56px; padding: 24px 0 72px; align-items: start; }
+.kit-gallery { display: flex; flex-direction: column; gap: 12px; }
+.kit-photo { aspect-ratio: 1 / 1; background: #F4F0FF; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.kit-photo img { width: 100%; height: 100%; object-fit: contain; }
+.kit-thumbs { display: flex; gap: 10px; }
+.kit-thumb { width: 84px; height: 84px; padding: 0; border: 2px solid transparent; border-radius: 4px; background: #F4F0FF; cursor: pointer; overflow: hidden; }
+.kit-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.kit-thumb[aria-pressed="true"] { border-color: #5D1AFA; }
+.kit-info { display: flex; flex-direction: column; gap: 18px; }
+.kit-title { margin: 0; font-size: clamp(40px, 4.4vw, 60px); line-height: 0.95; color: #1A0B45; }
+.kit-title .script { display: block; font-size: 0.9em; line-height: 0.9; color: #5D1AFA; }
+.kit-tagline { margin: 0; font-size: 20px; line-height: 1.4; }
+.kit-price-row { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
+.kit-price { font-size: 26px; font-weight: 500; color: #1A0B45; }
+.kit-left { display: inline-flex; align-items: center; min-height: 32px; padding: 0 14px; border-radius: 999px; background: #E4EE3F; color: #1A0B45; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.kit-left.is-out { background: #1A0B45; color: #F6F1E7; }
+.kit-desc { margin: 0; font-size: 17px; line-height: 1.6; }
+.kit-field { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; border: 0; }
+.kit-field legend { padding: 0; margin-bottom: 10px; }
+.kit-sizes { display: flex; flex-wrap: wrap; gap: 8px; }
+.kit-size { min-width: 64px; min-height: 52px; padding: 4px 12px; border: 1.5px solid #CFC6F2; border-radius: 10px; background: #FFFFFF; color: #1A0B45; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.15; }
+.kit-size small { font-size: 11px; font-weight: 400; color: #6B6B68; }
+.kit-size[aria-pressed="true"] { border-color: #5D1AFA; background: #5D1AFA; color: #FFFFFF; }
+.kit-size[aria-pressed="true"] small { color: #E4EE3F; }
+.kit-size:disabled { cursor: not-allowed; color: #A9A3BF; background: #F4F4F2; border-color: #E6E6E3; text-decoration: line-through; }
+.kit-qty { display: inline-flex; align-items: center; border: 1.5px solid #CFC6F2; border-radius: 10px; align-self: flex-start; }
+.kit-qty button { width: 52px; height: 52px; border: 0; background: none; color: #1A0B45; font: inherit; font-size: 22px; cursor: pointer; }
+.kit-qty button:disabled { color: #C9C4D9; cursor: not-allowed; }
+.kit-qty output { min-width: 40px; text-align: center; font-size: 18px; font-weight: 600; color: #1A0B45; }
+.kit-hint { margin: 0; font-size: 14px; color: #6B6B68; }
+.kit-check { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 16px; cursor: pointer; }
+.kit-check input { width: 20px; height: 20px; accent-color: #5D1AFA; }
+.kit-order { width: 100%; }
+.home .kit-order { background: #1A0B45; color: #F6F1E7; }
+.home .kit-order:hover { background: #5D1AFA; color: #FFFFFF; }
+.home .kit-order[aria-disabled="true"] { background: #E6E6E3; color: #6B6B68; pointer-events: none; }
+.kit-total { margin: 0; font-size: 16px; }
+.kit-band { background: #F6F1E7; }
+.kit-band-inner { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; padding: 72px 40px; }
+.kit-band h2 { margin: 0 0 18px; font-size: 26px; line-height: 1; color: #1A0B45; }
+.kit-band h2 .script { font-size: 1.3em; color: #5D1AFA; }
+.kit-band ul, .kit-band ol { margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.5; }
+.kit-band table { border-collapse: collapse; font-size: 16px; }
+.kit-band th, .kit-band td { padding: 8px 18px 8px 0; border-bottom: 1px solid #DDD3C2; text-align: left; font-weight: 400; }
+.kit-band th { font-weight: 600; }
+.kit-closer { position: relative; overflow: hidden; background: #5D1AFA; color: #F6F1E7; }
+.kit-closer-inner { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 96px 40px 104px; text-align: center; }
+.kit-closer-title { margin: 0; max-width: 980px; font-size: clamp(34px, 4vw, 56px); line-height: 1.05; color: #FFFFFF; }
+.kit-closer-title .script { font-size: 1.3em; line-height: 0.8; color: #E4EE3F; }
+.kit-closer p { margin: 0; max-width: 560px; font-size: 19px; line-height: 1.55; color: #F6F1E7; }
+.kit-closer .kit-sticker { color: #1A0B45; }
+.home .kit-closer .btn-cream:hover { background: #E4EE3F; }
+.kit-sticker { position: absolute; top: 36px; right: 7%; margin: 0; padding: 12px 20px; border-radius: 16px; background: #E4EE3F; color: #1A0B45; font-size: 20px; line-height: 1.05; transform: rotate(8deg); box-shadow: 0 8px 0 rgba(26, 11, 69, 0.25); }
+.kit-sticker-pink { top: auto; right: auto; bottom: 40px; left: 6%; background: #FF8FCF; transform: rotate(-7deg); }
+@media (max-width: 900px) {
+  .kit-wrap { padding: 0 20px; }
+  .kit-main { grid-template-columns: 1fr; gap: 32px; }
+  .kit-band-inner { grid-template-columns: 1fr; gap: 44px; padding: 56px 20px; }
+  .kit-closer-inner { padding: 40px 16px 56px; gap: 20px; }
+  .kit-closer-title { font-size: 30px; }
+  .kit-closer p { font-size: 17px; }
+  .kit-sticker { position: static; margin: 0; font-size: 16px; transform: rotate(-4deg); }
+  .kit-sticker-pink { display: none; }
+}
+</style>
+</head>
+<body class="home">
+<header><div id="site-header" data-page="story-kits"></div></header>
+<script src="assets/header.js"></script>
+
+<main id="kit">
+<noscript><p style="padding: 16px">Please turn on JavaScript to see this product.</p></noscript>
+</main>
+
+<footer class="home-footer">
+<div class="footer-cols">
+<div class="footer-news">
+<h2 class="wide footer-news-title">Hear about new drops <span class="script">first</span></h2>
+<form class="footer-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-signup>
+<input type="hidden" name="form-name" value="newsletter">
+<p hidden><label>Leave this empty <input name="bot-field"></label></p>
+<label class="visually-hidden" for="f-email">Email address</label>
+<input id="f-email" name="email" type="email" autocomplete="email" placeholder="Your email address" required>
+<button type="submit">Sign up</button>
+<p class="form-status" role="status"></p>
+</form>
+</div>
+<nav class="footer-links" aria-label="Shop"><h2 class="label">Shop</h2><a href="story-kit.html" aria-current="page">Story Kits</a><a href="cards.html">Cards</a><a href="build-your-tote.html">Totes</a><a href="patches.html">Prints, patches and pins</a><a href="holiday-gift-guide.html">Holiday Gift Guide</a><a href="all-products.html">All products</a></nav>
+<nav class="footer-links" aria-label="Help"><h2 class="label">Help</h2><a href="faq.html">FAQ</a><a href="faq.html#care">Care for your tote</a><a href="https://wa.me/" data-whatsapp>Order on WhatsApp</a><a href="faq.html#groups">Group orders</a></nav>
+<nav class="footer-links" aria-label="Follow"><h2 class="label">Follow</h2><a href="https://www.instagram.com/showandtell.co/">Instagram</a></nav>
+</div>
+<div class="footer-base">
+<img src="images/brand/logo-stacked-violet.png" alt="Show and Tell Co" width="43" height="34">
+<span>© 2026 Show and Tell Co · Cards that tell it. Totes that show it.</span>
+</div>
+</footer>
+
+<script src="assets/prices.js"></script>
+<script src="assets/catalog.js"></script>
+<script src="assets/home.js"></script>
+<script>
+// ---------- Your settings ----------
+// WhatsApp number in international format, digits only (for example 2348012345678).
+// Same number as in build-your-tote.html, cards.html, patches.html and assets/home.js.
+var WHATSAPP_NUMBER = '';
+// Chest width of each tee, measured flat across (cm). Shown in the size guide.
+var CHEST_CM = { XS: 48, S: 50, M: 53, L: 58, XL: 62, '2XL': 67 };
+// ---------- End of settings ----------
+// Stock and the kit's text live in STORY_KITS in assets/catalog.js.
+
+(function () {
+  var root = document.getElementById('kit');
+  var want = null;
+  try { want = new URLSearchParams(location.search).get('kit'); } catch (e) {}
+  var kit = STORY_KITS.find(function (k) { return k.id === want; }) || STORY_KITS[0];
+  var sizes = KIT_SIZES.filter(function (s) { return s in kit.stock; });
+  var state = {
+    photo: 0,
+    size: (sizes.find(function (s) { return kit.stock[s] > 0; }) || null),
+    qty: 1,
+    gift: false
+  };
+
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function left() { return kitLeft(kit); }
+  function maxQty() { return state.size ? Math.max(0, kit.stock[state.size] || 0) : 0; }
+
+  function orderLink() {
+    var price = priceFor(kit.priceKey);
+    var lines = ["Hi Show and Tell! I'd like to order a Story Kit:",
+      '- ' + kit.name + ', size ' + state.size + ', quantity ' + state.qty,
+      '- Total: ' + (price == null ? '[TOTAL]' : money(price * state.qty))];
+    if (state.gift) lines.push('- It’s a gift, please add a gift note.');
+    return 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n') + regionNote());
+  }
+
+  function render() {
+    var price = priceFor(kit.priceKey);
+    var n = left();
+    var soldOut = n === 0;
+    var photo = kit.gallery[state.photo] || kit.gallery[0];
+    var mq = maxQty();
+    if (state.qty > mq) state.qty = Math.max(1, mq);
+
+    var sizeBtns = sizes.map(function (s) {
+      var k = kit.stock[s];
+      return '<button type="button" class="kit-size" data-size="' + esc(s) + '" aria-pressed="' + (s === state.size) + '"' + (k > 0 ? '' : ' disabled') + '>'
+        + esc(s) + '<small>' + (k > 0 ? k + ' left' : 'sold out') + '</small></button>';
+    }).join('');
+
+    root.innerHTML =
+      '<div class="kit-wrap">'
+      + '<nav class="kit-crumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / <a href="all-products.html">All products</a> / <span aria-current="page">Story Kit: ' + esc(kit.name) + '</span></nav>'
+      + '<div class="kit-main">'
+      +   '<div class="kit-gallery">'
+      +     '<div class="kit-photo"><img src="' + esc(photo.src) + '" alt="' + esc(photo.alt) + '"></div>'
+      +     '<div class="kit-thumbs" role="group" aria-label="Photos">'
+      +       kit.gallery.map(function (g, i) { return '<button type="button" class="kit-thumb" data-photo="' + i + '" aria-pressed="' + (i === state.photo) + '" aria-label="Photo ' + (i + 1) + ' of ' + kit.gallery.length + '"><img src="' + esc(g.src) + '" alt=""></button>'; }).join('')
+      +     '</div>'
+      +   '</div>'
+      +   '<div class="kit-info">'
+      +     '<p class="label">Story kit · edition of ' + kit.edition + '</p>'
+      +     '<h1 class="wide kit-title"><span class="script">Story kit</span>' + esc(kit.name) + '</h1>'
+      +     '<p class="kit-tagline">' + esc(kit.tagline) + ' The shirt shows the scene. You tell the story.</p>'
+      +     '<div class="kit-price-row"><span class="kit-price">' + esc(money(price)) + '</span>'
+      +       '<span class="kit-left' + (soldOut ? ' is-out' : '') + '">' + (soldOut ? 'Sold out' : 'Only ' + n + ' left') + '</span></div>'
+      +     '<p class="kit-desc">' + esc(kit.desc) + '</p>'
+      +     '<fieldset class="kit-field" id="kit-size"><legend class="label">Size</legend><div class="kit-sizes">' + sizeBtns + '</div>'
+      +       '<p class="kit-hint">Unisex fit. See the size guide below.</p></fieldset>'
+      +     (soldOut ? '' :
+              '<div class="kit-field"><span class="label" id="qty-label">Quantity</span>'
+      +       '<div class="kit-qty" role="group" aria-labelledby="qty-label">'
+      +         '<button type="button" data-qty="-1" aria-label="One fewer"' + (state.qty <= 1 ? ' disabled' : '') + '>−</button>'
+      +         '<output aria-live="polite">' + state.qty + '</output>'
+      +         '<button type="button" data-qty="1" aria-label="One more"' + (state.qty >= mq ? ' disabled' : '') + '>+</button>'
+      +       '</div>'
+      +       (state.qty >= mq && mq > 0 ? '<p class="kit-hint">That’s all we have left in ' + esc(state.size) + '.</p>' : '')
+      +     '</div>'
+      +     '<label class="kit-check"><input type="checkbox" data-gift' + (state.gift ? ' checked' : '') + '> It’s a gift (we’ll add a gift note)</label>')
+      +     (soldOut
+              ? '<a class="btn kit-order" aria-disabled="true">Sold out</a><p class="kit-total">This edition has sold out. Follow <a href="https://www.instagram.com/showandtell.co/">@showandtell.co</a> to hear about the next scene first.</p>'
+              : '<p class="kit-total">Total: <strong>' + esc(price == null ? '[TOTAL]' : money(price * state.qty)) + '</strong></p>'
+      +         '<a class="btn kit-order" href="' + esc(orderLink()) + '" target="_blank" rel="noopener">Order on WhatsApp</a>'
+      +         '<p class="kit-hint">Your order opens in WhatsApp, already written. We reply to confirm your size and delivery.</p>')
+      +   '</div>'
+      + '</div></div>'
+
+      + '<section class="kit-band" aria-label="About the kit"><div class="kit-wrap kit-band-inner">'
+      +   '<div><h2 class="wide">In the <span class="script">box</span></h2><ul>'
+      +     '<li>A white tee printed with the ' + esc(kit.name) + ' scene</li>'
+      +     '<li>16 full-colour iron-on pieces</li>'
+      +     '<li>A reusable pressing sheet</li>'
+      +     '<li>Step-by-step ironing card</li>'
+      +     '<li>A “Show us your story” card</li></ul></div>'
+      +   '<div><h2 class="wide">How it <span class="script">works</span></h2><ol>'
+      +     '<li><strong>Plan it.</strong> Lay the tee flat and move the pieces around until the story feels right.</li>'
+      +     '<li><strong>Press it.</strong> Cover with the pressing sheet and iron each piece on the cotton setting, steam off, for 20 seconds. Let it cool, then peel.</li>'
+      +     '<li><strong>Show us.</strong> Post your tee and tag @showandtell.co with #ShowAndTellStory.</li></ol></div>'
+      +   '<div><h2 class="wide">Size <span class="script">guide</span></h2>'
+      +     '<table><thead><tr><th scope="col">Size</th><th scope="col">Chest, flat</th></tr></thead><tbody>'
+      +     sizes.map(function (s) { return '<tr><td>' + esc(s) + '</td><td>' + (CHEST_CM[s] ? CHEST_CM[s] + ' cm' : '') + '</td></tr>'; }).join('')
+      +     '</tbody></table>'
+      +     '<p class="kit-hint" style="margin-top: 14px">Care: wait 24 hours before the first wash. Wash inside out at 30°C, no tumble dryer, and never iron straight onto the pieces.</p></div>'
+      + '</div></section>'
+
+      + '<section class="kit-closer" aria-labelledby="closer-h">'
+      +   '<div class="kit-closer-inner">'
+      +     '<p class="wide kit-sticker">Only ' + kit.edition + '<br>made</p>'
+      +     '<p class="wide kit-sticker kit-sticker-pink" aria-hidden="true">Iron it<br>yourself</p>'
+      +     '<h2 id="closer-h" class="wide kit-closer-title">Some things you <span class="script">show</span> and some things you <span class="script">tell</span></h2>'
+      +     '<p>Every Story Kit is a scene with room left in it. Where the goat sleeps, who waves from the bus, what the boy climbs for: that part is yours.</p>'
+      +     (soldOut ? '' : '<a class="btn btn-cream" href="#kit-size">Choose your size</a>')
+      +   '</div></section>';
+  }
+
+  root.addEventListener('click', function (e) {
+    var b;
+    if ((b = e.target.closest('[data-photo]'))) { state.photo = +b.getAttribute('data-photo'); render(); focusSel('[data-photo="' + state.photo + '"]'); return; }
+    if ((b = e.target.closest('[data-size]'))) { state.size = b.getAttribute('data-size'); state.qty = 1; render(); focusSel('[data-size="' + state.size + '"]'); return; }
+    if ((b = e.target.closest('[data-qty]'))) {
+      state.qty = Math.min(maxQty(), Math.max(1, state.qty + +b.getAttribute('data-qty')));
+      render(); focusSel('[data-qty="' + b.getAttribute('data-qty') + '"]'); return;
+    }
+  });
+  root.addEventListener('change', function (e) {
+    if (e.target.matches('[data-gift]')) { state.gift = e.target.checked; render(); focusSel('[data-gift]'); }
+  });
+  function focusSel(sel) { var el = root.querySelector(sel); if (el && !el.disabled) el.focus(); }
+  window.addEventListener('regionchange', render);
+  render();
+})();
+</script>
+<script src="assets/menu.js"></script>
+</body>
+</html>

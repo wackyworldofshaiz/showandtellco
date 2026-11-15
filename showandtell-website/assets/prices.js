@@ -3,26 +3,28 @@
 // null shows [PRICE] on the site, and totals show [TOTAL] until every price in them is set.
 var PRICES = {
   ng: {
-    card: 4500,           // each card
-    cardBulk: { 5: 4200, 10: 4000, 25: 3700, 50: 3500 }, // price per card at that quantity (null = the normal card price)
+    card: 3500,           // each card
+    cardBulk: { 5: 3250, 10: 3100, 25: 2900, 50: 2650 }, // price per card at that quantity (null = the normal card price)
     texturedPaper: 1000,  // added to each card on textured premium paper
     classicTote: 80000,
     premiumTote: 95000,
     tshirt: 45000,
     print: 5000,
     patch: 9500,
-    pin: 6500
+    pin: 6500,
+    storyKit: 25000       // Story Kit: printed tee + iron-on pieces
   },
   eu: {
     card: 6,
-    cardBulk: { 5: 5.5, 10: 5, 25: 4.5, 50: 4 },
+    cardBulk: { 5: 5.5, 10: 5.25, 25: 5, 50: 4.5 },
     texturedPaper: 1.5,
     classicTote: 45,
     premiumTote: 55,
     tshirt: 35,
     print: 5,
     patch: 9,
-    pin: 7
+    pin: 7,
+    storyKit: 28
   }
 };
 // ---------- End of prices ----------
