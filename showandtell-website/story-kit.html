@@ -21,7 +21,7 @@
 .kit-photo { aspect-ratio: 1 / 1; background: #F4F0FF; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .kit-photo img { width: 100%; height: 100%; object-fit: contain; }
 .kit-thumbs { display: flex; gap: 10px; }
-.kit-thumb { width: 84px; height: 84px; padding: 0; border: 2px solid transparent; border-radius: 4px; background: #F4F0FF; cursor: pointer; overflow: hidden; }
+.kit-thumb { flex: 0 1 84px; min-width: 0; aspect-ratio: 1; padding: 0; border: 2px solid transparent; border-radius: 4px; background: #F4F0FF; cursor: pointer; overflow: hidden; }
 .kit-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .kit-thumb[aria-pressed="true"] { border-color: #5D1AFA; }
 .kit-info { display: flex; flex-direction: column; gap: 18px; }
