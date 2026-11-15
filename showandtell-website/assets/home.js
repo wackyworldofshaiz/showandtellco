@@ -13,7 +13,7 @@ var WHATSAPP_NUMBER = '';
 
   function tile(it) {
     var shape = it.group === 'Cards' ? 'is-card' : (it.group === 'Designs' ? 'is-design' : 'is-blank');
-    var kind = it.group === 'Totes and tees' ? it.cat : it.kind;
+    var kind = it.group === 'Totes and tees' ? it.cat : it.kind; // Story kits show 'Story kit · N left'
     var badges = badgesOf(it.id);
     return '<li><a class="ptile" href="' + esc(it.href) + '">'
       + '<span class="ptile-img ' + shape + '">'
@@ -44,7 +44,23 @@ var WHATSAPP_NUMBER = '';
       card.querySelector('[data-pun-name]').textContent = pun.name;
       card.querySelector('[data-pun-price]').textContent = pun.price == null ? '[PRICE]' : money(pun.price);
     }
+    storyKit();
     pager();
+  }
+
+  // Story Kits band: the first kit in STORY_KITS, with its live price and stock.
+  function storyKit() {
+    var box = document.querySelector('[data-kit-feature]');
+    if (!box || typeof STORY_KITS === 'undefined' || !STORY_KITS.length) { if (box) box.hidden = true; return; }
+    var k = STORY_KITS[0], n = kitLeft(k), price = priceFor(k.priceKey);
+    var href = 'story-kit.html?kit=' + encodeURIComponent(k.id);
+    box.querySelectorAll('a').forEach(function (a) { a.href = href; });
+    box.querySelector('[data-kit-name]').textContent = k.name;
+    box.querySelector('[data-kit-edition]').textContent = k.edition;
+    box.querySelector('[data-kit-price]').textContent = price == null ? '[PRICE]' : money(price);
+    box.querySelector('[data-kit-left]').textContent = n ? 'Only ' + n + ' left' : 'Sold out';
+    box.querySelector('[data-kit-link]').textContent = n ? 'Shop the kit' : 'See the kit';
+    [0, 1].forEach(function (i) { var g = k.gallery[i], img = box.querySelector('[data-kit-img="' + i + '"]'); if (g && img) img.src = g.src; });
   }
 
   // New arrivals: one bar per screenful of products; tap a bar to scroll there.

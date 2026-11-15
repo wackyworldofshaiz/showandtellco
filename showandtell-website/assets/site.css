@@ -63,7 +63,7 @@ img { max-width: 100%; }
 .region-switch button[aria-pressed="true"] { color: #1F1F1F; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
 
 /* Smaller screens: hamburger on the left, menu opens as a full panel below the logo. */
-@media (max-width: 1040px) {
+@media (max-width: 1099px) {
   .site-nav { padding: 10px 16px 0; }
   .nav-top { padding-bottom: 10px; }
   .menu-btn { display: inline-flex; }

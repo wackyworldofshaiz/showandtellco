@@ -9,6 +9,7 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | File | Page |
 | --- | --- |
 | `index.html` | Home page |
+| `story-kit.html` | Story Kits: a printed tee plus iron-on pieces, with limited stock per size |
 | `build-your-tote.html` | Build your tote (Classic tote, Premium tote bag, T-shirt) |
 | `cards.html` | Card list and card product pages |
 | `patches.html` | The design menu and design product pages (prints, patches and pins) |
@@ -19,6 +20,7 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | `all-products.html` | All products, with search, filters and sorting (the header's search icon opens it) |
 | `bestsellers.html` | Bestsellers |
 | `new-arrivals.html` | New arrivals |
+| `faq.html` | Frequently asked questions: tote care, cards, prints vs patches vs pins, group orders, ordering and delivery, patch bar. Answers in [square brackets] are placeholders to fill in. |
 
 Images are in `images/`. Shared files in `assets/`:
 - `catalog.js`: every card, design and blank, and which collection pages they appear on.
@@ -65,13 +67,14 @@ To use your own domain (for example showandtell.co), add it under **Settings ›
 
 ## Things to fill in before launch
 
-**WhatsApp number.** Orders open WhatsApp with the order already written. Near the bottom of each of these three files, set `var WHATSAPP_NUMBER = '';` to your number, digits only in international format (for example `'2348012345678'`):
+**WhatsApp number.** Orders open WhatsApp with the order already written. Near the bottom of each of these files, set `var WHATSAPP_NUMBER = '';` to your number, digits only in international format (for example `'2348012345678'`):
 - `build-your-tote.html`
 - `cards.html`
 - `patches.html`
+- `story-kit.html`
 - `assets/home.js` (the homepage footer's "Order on WhatsApp" link)
 
-**Prices to check.** Every price in `assets/prices.js` has a placeholder so the site shows real numbers. Only the classic tote (₦80,000), patch (₦9,500) and card (₦4,500) prices are confirmed; replace the rest with your own. A price set to `null` shows as [PRICE], and totals that include it show [TOTAL].
+**Prices to check.** Every price in `assets/prices.js` has a placeholder so the site shows real numbers. Only the classic tote (₦80,000), patch (₦9,500) and card (₦3,500) prices are confirmed; replace the rest with your own. A price set to `null` shows as [PRICE], and totals that include it show [TOTAL].
 
 **Text placeholders in square brackets:**
 - Cards page: card size, envelope colour, ready-in days, delivery areas and pickup city
@@ -87,6 +90,20 @@ All prices live in one file, `assets/prices.js`, with one list for Nigeria (`ng`
 - **Links:** a link ending in `?region=eu` or `?region=ng` (for example `build-your-tote.html?region=eu`) opens with those prices, which is handy for ads.
 
 WhatsApp orders from the euro prices end with "(Prices in euros, ordering from Europe.)" so you can tell them apart. Both regions use the same WhatsApp number, and there's no delivery charge.
+
+## Story Kits (limited stock)
+
+A Story Kit is a white tee printed with a line-drawn scene, plus a set of iron-on pieces the customer places and irons on themselves. The page is `story-kit.html` (`story-kit.html?kit=danfo-days` opens a specific kit). Kits live in `STORY_KITS` in `assets/catalog.js`, and the price is `storyKit` in `assets/prices.js`.
+
+**Stock is counted by hand.** Orders come in on WhatsApp, so the site can't know when a kit is sold. Each kit has a `stock` line with how many are left in each size, for example `stock: { M: 2, L: 4, XL: 2, '2XL': 2 }`:
+1. When you confirm an order, lower that size's number (for example `L: 4` to `L: 3`).
+2. Upload `assets/catalog.js` again.
+
+The page shows "Only N left", each size shows its own count, and the quantity can't go above what's left in the chosen size. A size at 0 is crossed out, and when every size is 0 the kit shows **Sold out** with a link to Instagram. Sizes not listed in `stock` don't appear. The kit's tile on All products, New arrivals and the Holiday Gift Guide shows the count too.
+
+**Photos:** `images/story-kits/`. The gallery shows the model shot (`danfo-days-model.webp`), the flat lay of everything in the kit (`danfo-days-flatlay.jpg`, also used on product tiles) and the finished scene. Square photos fit best. The homepage Story Kits band uses the first two gallery photos. To change them, edit `img` and `gallery` in `STORY_KITS`.
+
+**To add the next scene:** copy the Danfo Days entry in `STORY_KITS`, give it a new `id`, and add `'kit-<id>'` to any collection.
 
 ## Prints, patches and pins
 

@@ -7,7 +7,7 @@
   var col = COLLECTIONS[key];
   if (!col) { root.textContent = 'Unknown collection: ' + key; return; }
 
-  var GROUPS = ['All', 'Cards', 'Designs', 'Totes and tees'];
+  var GROUPS = ['All', 'Story kits', 'Cards', 'Designs', 'Totes and tees'];
   var SORTS = [['featured', 'Featured'], ['low', 'Price, low to high'], ['high', 'Price, high to low'], ['az', 'Name, A to Z']];
   var CAT_ORDER = ['Places', 'Food', 'Snacks & drinks', 'Rides', 'Culture', 'Sayings', 'Show & Tell'];
   var state = { group: 'All', sort: 'featured', q: '' };

@@ -58,9 +58,35 @@ var BLANKS = [
   { id: 'tee', name: 'T-shirt', kind: 'T-shirt', priceKey: 'tshirt', img: 'images/products/tee-front.png' }
 ];
 
+// ---------- Story Kits (limited stock) ----------
+// A tee printed with a line-drawn scene, plus iron-on pieces the customer adds themselves.
+// STOCK: how many are left in each size. When an order is confirmed on WhatsApp,
+// lower the number and upload the file again. A size at 0 shows as sold out,
+// and the kit shows 'Sold out' when every size is 0.
+var STORY_KITS = [
+  {
+    id: 'danfo-days',
+    name: 'Danfo Days',
+    tagline: 'A Lagos bus stop at night, waiting for its story.',
+    desc: 'A white tee printed with a hand-drawn Lagos bus stop: a danfo with its door open, a bench, a stool and a palm tree. Inside the box are 16 full-colour iron-on pieces (the market woman, the conductor, a sleeping goat, a stretching dog and more) for you to place wherever the story goes, then iron on at home.',
+    img: 'images/story-kits/danfo-days-flatlay.jpg',
+    gallery: [
+      { src: 'images/story-kits/danfo-days-model.webp', alt: 'A smiling woman wearing the Danfo Days tee, a black line drawing of a Lagos bus stop, holding up the Story Kit box' },
+      { src: 'images/story-kits/danfo-days-flatlay.jpg', alt: 'Everything in the kit: the printed white tee, the sheet of 16 colour iron-on pieces and the Danfo Days box' },
+      { src: 'images/story-kits/danfo-days-scene.webp', alt: 'The Danfo Days scene filled in with every piece' }
+    ],
+    edition: 10,                                 // how many were made
+    stock: { M: 2, L: 4, XL: 2, '2XL': 2 },      // left in each size
+    priceKey: 'storyKit'
+  }
+];
+var KIT_SIZES = ['XS', 'S', 'M', 'L', 'XL', '2XL'];
+function kitLeft(k) { return Object.keys(k.stock).reduce(function (n, s) { return n + Math.max(0, k.stock[s] || 0); }, 0); }
+
 // ---------- Collections ----------
 // Each menu page shows the products listed here. Refer to products by id:
-// cards as 'card-01', designs as 'p04', blanks as 'classic', 'pocket' or 'tee'.
+// cards as 'card-01', designs as 'p04', blanks as 'classic', 'pocket' or 'tee',
+// Story Kits as 'kit-danfo-days'.
 // Add a type to show a design as one kind only, with that kind's price: 'p22:print', 'p19:patch'.
 // 'all-cards' and 'all-designs' add every card or design.
 // 'bestsellers' and 'new-arrivals' also decide the BESTSELLER and NEW badges:
@@ -78,7 +104,7 @@ var COLLECTIONS = {
     title: 'New arrivals',
     intro: 'Fresh cards and designs, just in.',
     colour: '#E4EE3F',
-    items: ['p22:print', 'card-10', 'p06:print', 'card-11', 'card-02', 'p19:patch', 'card-12', 'p23:print']
+    items: ['kit-danfo-days', 'p22:print', 'card-10', 'p06:print', 'card-11', 'card-02', 'p19:patch', 'card-12', 'p23:print']
   },
   'holiday-gift-guide': {
     title: 'Holiday Gift Guide',
@@ -89,6 +115,7 @@ var COLLECTIONS = {
       { id: 'for-couples', title: 'For couples', items: ['card-10', 'card-03', 'card-04', 'card-07', 'classic', 'p04'] },
       { id: 'for-him', title: 'For him', items: ['card-08', 'classic', 'p21', 'p19', 'p14', 'p23'] },
       { id: 'for-little-ones', title: 'For little ones', items: ['tee', 'p12', 'p10', 'p17', 'p07'] },
+      { id: 'story-kits', title: 'Story Kits', note: 'A tee that shows the scene, and pieces so they can tell the story. Only 10 made.', items: ['kit-danfo-days'] },
       { id: 'for-the-group', title: 'For the group', note: 'Matching totes for the whole crew. Build one and we\u2019ll make as many as you need.', items: ['classic', 'pocket', 'tee'] },
       { id: 'christmas-cards', title: 'Christmas cards', items: ['card-12', 'card-13', 'card-14'] },
       { id: 'stocking-fillers', title: 'Stocking fillers', items: ['p19', 'p11', 'p22', 'p20', 'p13', 'card-11'] }
@@ -121,7 +148,7 @@ var COLLECTIONS = {
     intro: 'Everything we make, in one place.',
     colour: '#F4F0FF',
     filters: true,
-    items: ['classic', 'pocket', 'tee', 'all-cards', 'all-designs']
+    items: ['kit-danfo-days', 'classic', 'pocket', 'tee', 'all-cards', 'all-designs']
   }
 };
 
@@ -161,6 +188,12 @@ function catalogItem(id) {
     var c = CARDS.find(function (x) { return 'card-' + x.no === id; });
     if (!c) return null;
     return { id: id, group: 'Cards', kind: 'Card', name: c.title, img: c.src, fit: 'cover', href: 'cards.html?card=' + c.no, price: priceFor('card'), from: false, cat: c.cat };
+  }
+  if (id.indexOf('kit-') === 0) {
+    var k = STORY_KITS.find(function (x) { return 'kit-' + x.id === id; });
+    if (!k) return null;
+    return { id: id, group: 'Story kits', kind: kitLeft(k) ? 'Story kit · ' + kitLeft(k) + ' left' : 'Story kit · sold out', name: k.name, img: k.img, fit: 'contain',
+      href: 'story-kit.html?kit=' + k.id, price: priceFor(k.priceKey), from: false, cat: 'Story kit' };
   }
   var parts = id.split(':');
   var d = PATCHES.find(function (x) { return x.id === parts[0]; });

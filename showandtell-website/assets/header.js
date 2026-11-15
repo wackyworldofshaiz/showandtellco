@@ -6,6 +6,7 @@
 
 // Prices go in as <span data-price="..."></span> and assets/prices.js fills them in NGN or EUR.
 var ANNOUNCEMENTS = [
+  'New: Story Kits. Only 10 made',
   'Hand-lettered message inside any card',
   'Totes ready in 3 working days',
   'Patch bar in Abuja and Barcelona',
@@ -15,6 +16,7 @@ var ANNOUNCEMENTS = [
 var NAV = [
   { page: 'bestsellers', label: 'Bestsellers', href: 'bestsellers.html' },
   { page: 'new-arrivals', label: 'New arrivals', href: 'new-arrivals.html' },
+  { page: 'story-kits', label: 'Story Kits', href: 'story-kit.html' },
   { page: 'cards', label: 'Cards', href: 'cards.html' },
   { page: 'totes', label: 'Totes', href: 'build-your-tote.html' },
   { page: 'holiday-gift-guide', label: 'Holiday Gift Guide', href: 'holiday-gift-guide.html', children: [
@@ -23,6 +25,7 @@ var NAV = [
     { label: 'For couples', href: 'holiday-gift-guide.html#for-couples' },
     { label: 'For him', href: 'holiday-gift-guide.html#for-him' },
     { label: 'For little ones', href: 'holiday-gift-guide.html#for-little-ones' },
+    { label: 'Story Kits', href: 'holiday-gift-guide.html#story-kits' },
     { label: 'For the group', href: 'holiday-gift-guide.html#for-the-group' },
     { label: 'Christmas cards', href: 'holiday-gift-guide.html#christmas-cards' },
     { label: 'Stocking fillers', href: 'holiday-gift-guide.html#stocking-fillers' }
@@ -30,7 +33,8 @@ var NAV = [
   { page: 'junior', label: 'Show and Tell Junior', href: 'junior.html' },
   { page: 'games', label: 'Games', href: 'games.html' },
   { page: 'collectibles', label: 'Collectibles', href: 'collectibles.html' },
-  { page: 'all-products', label: 'All products', href: 'all-products.html' }
+  { page: 'all-products', label: 'All products', href: 'all-products.html' },
+  { page: 'faq', label: 'FAQ', href: 'faq.html' }
 ];
 
 (function () {
