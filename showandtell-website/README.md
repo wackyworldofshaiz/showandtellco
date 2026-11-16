@@ -38,6 +38,8 @@ Images are in `images/`. Shared files in `assets/`:
 The homepage uses three fonts, one job each: **Archivo** (class `wide`) for headings, **Pinyon Script** (class `script`) for one accent word next to a heading, and **Jost** for everything else.
 
 Its product rows come from `assets/catalog.js`:
+- **Hero:** the big Story Kits panel shows the first kit in `STORY_KITS` (name, how many were made, link, and "See the kit" once it sells out). To feature something else, edit the `hero2` section at the top of `index.html`.
+- **Category circles** under "Some things you show and some things you tell" are plain links in `index.html` (the `cats` list). Add or swap a circle there; Games uses a drawn pair of dice until there's a product photo.
 - **Selected for her** and **Selected for the couple:** the six products in `HOME.forHer` and `HOME.forCouples`.
 - **New arrivals:** the `'new-arrivals'` list in `COLLECTIONS`. The row scrolls four at a time.
 - **Pun cards banner:** the card in `HOME.punCard`.

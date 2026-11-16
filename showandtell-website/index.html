@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Show and Tell Co: pun cards and patch totes</title>
-<meta name="description" content="Show and Tell Co: printed pun cards, pick-your-patch totes and tees, and iron-on patches. Order on WhatsApp.">
+<title>Show and Tell Co: pun cards, Story Kits, totes, tees and gifts</title>
+<meta name="description" content="Show and Tell Co: printed pun cards, Story Kits, pick-your-design totes and tees, prints, patches, pins, games and collectibles. Order on WhatsApp.">
 <link rel="icon" type="image/png" href="images/brand/wordmark-violet.png">
 <link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/jost-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -18,22 +18,46 @@
 
 <main>
 
-<!-- Hero -->
-<section class="hero" aria-labelledby="hero-title">
-<div class="hero-text">
-<h1 id="hero-title" class="wide hero-title">Some things you <span class="script">show</span> and some things you <span class="script">tell</span></h1>
-<p class="hero-intro">Pick a tote, choose your prints, patches or pins, and we press them on by hand. Add a pun card that says the rest.</p>
-<div class="hero-ctas">
-<a class="btn btn-cream" href="build-your-tote.html">Build your tote</a>
-<a class="btn btn-outline" href="cards.html">Shop cards</a>
-</div>
-</div>
-<div class="hero-art">
-<img class="hero-tote" src="images/brand/hero-tote-patches.webp" width="793" height="942" alt="A canvas tote with olive handles covered in Show and Tell patches, including Wahala, Lagos and Abuja stamps, Nollywood, jollof and suya">
-<img class="hero-card" src="images/cards/card-13.jpg" alt="">
-<img class="hero-wahala" src="images/patches/wahala.webp" alt="">
-<img class="hero-stamp" src="images/patches/lagos-stamp.webp" alt="">
-</div>
+<!-- Hero: one big panel for what's new (the first kit in STORY_KITS, filled in by assets/home.js), two small panels -->
+<section class="hero2" aria-label="Featured">
+<a class="h2-kit" href="story-kit.html" data-kit-hero>
+<span class="h2-sparkles" aria-hidden="true"><svg viewBox="-44 -44 88 88"><path d="M0 -44 C4 -12 12 -4 44 0 C12 4 4 12 0 44 C-4 12 -12 4 -44 0 C-12 -4 -4 -12 0 -44 Z"/></svg><svg viewBox="-44 -44 88 88"><path d="M0 -44 C4 -12 12 -4 44 0 C12 4 4 12 0 44 C-4 12 -12 4 -44 0 C-12 -4 -4 -12 0 -44 Z"/></svg><svg viewBox="-44 -44 88 88"><path d="M0 -44 C4 -12 12 -4 44 0 C12 4 4 12 0 44 C-4 12 -12 4 -44 0 C-12 -4 -4 -12 0 -44 Z"/></svg><svg viewBox="-44 -44 88 88"><path d="M0 -44 C4 -12 12 -4 44 0 C12 4 4 12 0 44 C-4 12 -12 4 -44 0 C-12 -4 -4 -12 0 -44 Z"/></svg><svg viewBox="-44 -44 88 88"><path d="M0 -44 C4 -12 12 -4 44 0 C12 4 4 12 0 44 C-4 12 -12 4 -44 0 C-12 -4 -4 -12 0 -44 Z"/></svg></span>
+<img class="h2-kit-photo" data-kit-img="0" src="images/story-kits/danfo-days-model.webp" width="1254" height="1254" alt="A smiling woman wearing the Danfo Days tee, a black line drawing of a Lagos bus stop, holding up the Story Kit box">
+<span class="wide h2-kit-sticker">Only <span data-kit-edition>10</span><br>made</span>
+<span class="h2-kit-text">
+<span class="script h2-kicker">Just landed</span>
+<span class="wide h2-kit-title">Story Kits</span>
+<span class="wide h2-kit-name" data-kit-name>Danfo Days</span>
+<span class="h2-kit-desc">A tee printed with a hand-drawn scene, plus iron-on pieces you place yourself. The shirt shows the scene. You tell the story.</span>
+<span class="btn btn-cream" data-kit-link>Shop the kit</span>
+</span>
+</a>
+<a class="h2-tile h2-cards" href="cards.html">
+<span class="h2-tile-art" aria-hidden="true"><img class="h2-card-a" src="images/cards/card-07.jpg" alt=""><img class="h2-card-b" src="images/cards/card-13.jpg" alt=""></span>
+<span class="h2-tile-text"><span class="script h2-tile-kicker">Back for the holidays</span><span class="wide h2-tile-title">Pun cards</span><span class="h2-tile-link">Shop cards →</span></span>
+</a>
+<a class="h2-tile h2-tote" href="build-your-tote.html">
+<span class="h2-tile-art" aria-hidden="true"><img class="h2-tote-img" src="images/brand/hero-tote-patches.webp" alt=""></span>
+<span class="h2-tile-text"><span class="script h2-tile-kicker">Your bag,</span><span class="wide h2-tile-title">your mix</span><span class="h2-tile-link">Build a tote →</span></span>
+</a>
+</section>
+
+<!-- Brand line and category shortcuts -->
+<section class="brand" aria-labelledby="hero-title">
+<h1 id="hero-title" class="wide brand-title">Some things you <span class="script">show</span> and some things you <span class="script">tell</span></h1>
+<p class="brand-intro">Things to give, wear and play with, for everything you want to say.</p>
+<nav class="cats" aria-label="Shop by category">
+<ul>
+<li><a class="cat" href="story-kit.html"><span class="cat-circle cat-lilac" aria-hidden="true"><img class="cat-photo" src="images/story-kits/danfo-days-model.webp" alt="" loading="lazy"></span><span class="cat-new">New</span><span class="cat-name">Story Kits</span></a></li>
+<li><a class="cat" href="cards.html"><span class="cat-circle cat-pink" aria-hidden="true"><img class="cat-card" src="images/cards/card-07.jpg" alt="" loading="lazy"></span><span class="cat-name">Cards</span></a></li>
+<li><a class="cat" href="build-your-tote.html"><span class="cat-circle cat-cream" aria-hidden="true"><img class="cat-tote" src="images/brand/hero-tote-patches.webp" alt="" loading="lazy"></span><span class="cat-name">Totes &amp; tees</span></a></li>
+<li><a class="cat" href="patches.html"><span class="cat-circle cat-lime" aria-hidden="true"><img class="cat-patch tilt-l" src="images/patches/wahala.webp" alt="" loading="lazy"></span><span class="cat-name">Prints, patches &amp; pins</span></a></li>
+<li><a class="cat" href="games.html"><span class="cat-circle cat-violet" aria-hidden="true"><svg class="cat-dice" viewBox="0 0 100 100" aria-hidden="true"><g transform="rotate(-12 34 52)"><rect x="10" y="30" width="44" height="44" rx="9" fill="#FFFFFF"/><circle cx="22" cy="42" r="4.2" fill="#1A0B45"/><circle cx="32" cy="52" r="4.2" fill="#1A0B45"/><circle cx="42" cy="62" r="4.2" fill="#1A0B45"/></g><g transform="rotate(14 70 44)"><rect x="50" y="22" width="40" height="40" rx="8" fill="#E4EE3F"/><circle cx="61" cy="33" r="3.8" fill="#1A0B45"/><circle cx="79" cy="33" r="3.8" fill="#1A0B45"/><circle cx="61" cy="51" r="3.8" fill="#1A0B45"/><circle cx="79" cy="51" r="3.8" fill="#1A0B45"/></g></svg></span><span class="cat-name">Games</span></a></li>
+<li><a class="cat" href="collectibles.html"><span class="cat-circle cat-sand" aria-hidden="true"><img class="cat-patch tilt-r" src="images/patches/lagos-stamp.webp" alt="" loading="lazy"></span><span class="cat-name">Collectibles</span></a></li>
+<li><a class="cat" href="junior.html"><span class="cat-circle cat-butter" aria-hidden="true"><img class="cat-patch tilt-r" src="images/patches/keke.webp" alt="" loading="lazy"></span><span class="cat-name">Show and Tell Junior</span></a></li>
+<li><a class="cat" href="holiday-gift-guide.html"><span class="cat-circle cat-ink" aria-hidden="true"><img class="cat-card tilt-r" src="images/cards/card-14.jpg" alt="" loading="lazy"></span><span class="cat-name">Holiday Gift Guide</span></a></li>
+</ul>
+</nav>
 </section>
 
 <!-- Gifts: feature + grid -->

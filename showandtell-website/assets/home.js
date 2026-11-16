@@ -48,19 +48,24 @@ var WHATSAPP_NUMBER = '';
     pager();
   }
 
-  // Story Kits band: the first kit in STORY_KITS, with its live price and stock.
+  // Story Kits: the hero panel and the band further down both show the first kit in STORY_KITS,
+  // with its live price and stock.
   function storyKit() {
-    var box = document.querySelector('[data-kit-feature]');
-    if (!box || typeof STORY_KITS === 'undefined' || !STORY_KITS.length) { if (box) box.hidden = true; return; }
+    var boxes = document.querySelectorAll('[data-kit-feature], [data-kit-hero]');
+    if (typeof STORY_KITS === 'undefined' || !STORY_KITS.length) { boxes.forEach(function (b) { b.hidden = true; }); return; }
     var k = STORY_KITS[0], n = kitLeft(k), price = priceFor(k.priceKey);
     var href = 'story-kit.html?kit=' + encodeURIComponent(k.id);
-    box.querySelectorAll('a').forEach(function (a) { a.href = href; });
-    box.querySelector('[data-kit-name]').textContent = k.name;
-    box.querySelector('[data-kit-edition]').textContent = k.edition;
-    box.querySelector('[data-kit-price]').textContent = price == null ? '[PRICE]' : money(price);
-    box.querySelector('[data-kit-left]').textContent = n ? 'Only ' + n + ' left' : 'Sold out';
-    box.querySelector('[data-kit-link]').textContent = n ? 'Shop the kit' : 'See the kit';
-    [0, 1].forEach(function (i) { var g = k.gallery[i], img = box.querySelector('[data-kit-img="' + i + '"]'); if (g && img) img.src = g.src; });
+    function set(box, sel, text) { var el = box.querySelector(sel); if (el) el.textContent = text; }
+    boxes.forEach(function (box) {
+      if (box.matches('a')) box.href = href;
+      box.querySelectorAll('a').forEach(function (a) { a.href = href; });
+      set(box, '[data-kit-name]', k.name);
+      set(box, '[data-kit-edition]', k.edition);
+      set(box, '[data-kit-price]', price == null ? '[PRICE]' : money(price));
+      set(box, '[data-kit-left]', n ? 'Only ' + n + ' left' : 'Sold out');
+      set(box, '[data-kit-link]', n ? 'Shop the kit' : 'See the kit');
+      [0, 1].forEach(function (i) { var g = k.gallery[i], img = box.querySelector('[data-kit-img="' + i + '"]'); if (g && img) { img.src = g.src; if (g.alt && img.alt) img.alt = g.alt; } });
+    });
   }
 
   // New arrivals: one bar per screenful of products; tap a bar to scroll there.
