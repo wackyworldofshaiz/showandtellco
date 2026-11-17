@@ -10,6 +10,7 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | --- | --- |
 | `index.html` | Home page |
 | `story-kit.html` | Story Kits: a printed tee plus iron-on pieces, with limited stock per size |
+| `puzzle.html` | Puzzle sets (Owambe Wahala, Lagos Traffic Chronicles): two 120-piece puzzles per box. Open one with `puzzle.html?puzzle=owambe-wahala` or `?puzzle=lagos-traffic`. Stock, text and photos are in `PUZZLES` in `assets/catalog.js` (change `stock` as boxes sell); the price is `puzzle` in `assets/prices.js`. |
 | `build-your-tote.html` | Build your tote (Classic tote, Premium tote bag, T-shirt) |
 | `cards.html` | Card list and card product pages |
 | `patches.html` | The design menu and design product pages (prints, patches and pins) |
@@ -75,6 +76,7 @@ To use your own domain (for example showandtell.co), add it under **Settings ›
 - `cards.html`
 - `patches.html`
 - `story-kit.html`
+- `puzzle.html`
 - `assets/home.js` (the homepage footer's "Order on WhatsApp" link)
 
 **Prices to check.** Every price in `assets/prices.js` has a placeholder so the site shows real numbers. Only the classic tote (₦80,000), patch (₦9,500) and card (₦3,500) prices are confirmed; replace the rest with your own. A price set to `null` shows as [PRICE], and totals that include it show [TOTAL].

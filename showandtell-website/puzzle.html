@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coffee table puzzles · Show and Tell Co</title>
+<meta name="description" content="Coffee-table jigsaw sets from Show and Tell Co: two 120-piece puzzles that tell one story, in a book-style box. Only 5 of each.">
+<link rel="icon" type="image/png" href="images/brand/wordmark-violet.png">
+<link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jost-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/home.css">
+<style>
+/* Puzzle product page. Uses the homepage fonts, buttons and footer (assets/home.css).
+   The set's own colour (PUZZLES[].colour / .accent in assets/catalog.js) tints the story band. */
+.pz-wrap { max-width: 1240px; margin: 0 auto; padding: 0 40px; box-sizing: border-box; }
+.pz-crumb { padding: 20px 0 0; font-size: 14px; color: #6B6B68; }
+.home .pz-crumb a { color: #6B6B68; }
+.pz-main { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 56px; padding: 24px 0 80px; align-items: start; }
+
+.pz-gallery { display: flex; flex-direction: column; gap: 12px; position: sticky; top: 16px; }
+.pz-photo { aspect-ratio: 1 / 1; background: #EDE5D6; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.pz-photo img { width: 100%; height: 100%; object-fit: contain; box-sizing: border-box; padding: 6%; }
+.pz-photo.is-scene img { padding: 0 4%; }
+.pz-thumbs { display: flex; gap: 10px; flex-wrap: wrap; }
+.pz-thumb { flex: 0 1 84px; min-width: 0; aspect-ratio: 1; padding: 0; border: 2px solid transparent; border-radius: 4px; background: #EDE5D6; cursor: pointer; overflow: hidden; }
+.pz-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.pz-thumb[aria-pressed="true"] { border-color: #5D1AFA; }
+
+.pz-info { display: flex; flex-direction: column; gap: 18px; }
+.pz-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.pz-new { display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: 999px; background: #1A0B45; color: #F6F1E7; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.pz-title { margin: 0; font-size: clamp(40px, 4.4vw, 60px); line-height: 0.95; color: #1A0B45; }
+.pz-title .script { display: block; margin-top: -0.05em; font-size: 1.05em; line-height: 0.9; color: #5D1AFA; }
+.pz-tagline { margin: 0; font-size: 20px; line-height: 1.45; }
+.pz-price-row { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; }
+.pz-price { font-size: 26px; font-weight: 500; color: #1A0B45; }
+.pz-left { display: inline-flex; align-items: center; min-height: 32px; padding: 0 14px; border-radius: 999px; background: #E4EE3F; color: #1A0B45; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.pz-left.is-out { background: #1A0B45; color: #F6F1E7; }
+.pz-facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.pz-facts li { display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px; border: 1.5px solid #CFC6F2; border-radius: 999px; font-size: 13px; font-weight: 500; color: #1A0B45; }
+.pz-field { display: flex; flex-direction: column; gap: 10px; }
+.pz-qty { display: inline-flex; align-items: center; border: 1.5px solid #CFC6F2; border-radius: 10px; align-self: flex-start; }
+.pz-qty button { width: 52px; height: 52px; border: 0; background: none; color: #1A0B45; font: inherit; font-size: 22px; cursor: pointer; }
+.pz-qty button:disabled { color: #C9C4D9; cursor: not-allowed; }
+.pz-qty output { min-width: 40px; text-align: center; font-size: 18px; font-weight: 600; color: #1A0B45; }
+.pz-hint { margin: 0; font-size: 14px; color: #6B6B68; }
+.pz-check { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 16px; cursor: pointer; }
+.pz-check input { width: 20px; height: 20px; accent-color: #5D1AFA; }
+.pz-total { margin: 0; font-size: 16px; }
+.pz-order { width: 100%; }
+.home .pz-order { background: #1A0B45; color: #F6F1E7; }
+.home .pz-order:hover { background: #5D1AFA; color: #FFFFFF; }
+.home .pz-order[aria-disabled="true"] { background: #E6E6E3; color: #6B6B68; pointer-events: none; }
+
+.pz-acc { margin-top: 8px; border-top: 1px solid #E6E6E3; }
+.pz-acc details { border-bottom: 1px solid #E6E6E3; }
+.pz-acc summary { display: flex; align-items: center; justify-content: space-between; min-height: 56px; cursor: pointer; list-style: none; font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #1A0B45; }
+.pz-acc summary::-webkit-details-marker { display: none; }
+.pz-acc summary::after { content: '+'; font-size: 22px; font-weight: 300; letter-spacing: 0; }
+.pz-acc details[open] summary::after { content: '−'; }
+.pz-acc-body { padding: 0 0 22px; font-size: 16px; line-height: 1.6; }
+.pz-acc-body p { margin: 0 0 12px; }
+.pz-acc-body p:last-child { margin-bottom: 0; }
+.pz-spec { display: grid; grid-template-columns: max-content 1fr; gap: 8px 24px; margin: 0; }
+.pz-spec dt { font-weight: 500; color: #1A0B45; }
+.pz-spec dd { margin: 0; }
+
+/* Two puzzles, one story */
+.pz-story { color: #F6F1E7; }
+.pz-story-inner { padding: 88px 40px 96px; }
+.pz-story-head { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 48px; text-align: center; }
+.pz-story-title { margin: 0; font-size: clamp(32px, 3.4vw, 48px); line-height: 1; color: #FFFFFF; }
+.pz-story-title .script { font-size: 1.4em; line-height: 0.8; }
+.pz-story-head p { margin: 0; max-width: 560px; font-size: 18px; line-height: 1.55; }
+.pz-scenes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; margin: 0; padding: 0; list-style: none; }
+.pz-scene figure { margin: 0; display: flex; flex-direction: column; gap: 16px; }
+.pz-scene img { width: 100%; height: auto; display: block; border: 6px solid #F6F1E7; box-sizing: border-box; box-shadow: 0 24px 40px rgba(0, 0, 0, 0.35); }
+.pz-scene:nth-child(1) img { transform: rotate(-1.2deg); }
+.pz-scene:nth-child(2) img { transform: rotate(1.2deg); }
+.pz-scene figcaption { display: flex; flex-direction: column; gap: 6px; }
+.pz-scene-no { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.pz-scene-name { font-size: 26px; color: #FFFFFF; }
+.pz-scene-text { font-size: 17px; line-height: 1.5; }
+
+/* More */
+.pz-more { padding: 80px 0 96px; }
+.pz-more .lockup { margin-bottom: 28px; }
+.pz-more-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
+
+@media (max-width: 900px) {
+  .pz-wrap { padding: 0 16px; }
+  .pz-main { grid-template-columns: 1fr; gap: 28px; padding-bottom: 56px; }
+  .pz-gallery { position: static; }
+  .pz-thumbs { flex-wrap: nowrap; gap: 8px; }
+  .pz-thumb { flex: 1 1 0; }
+  .pz-tagline { font-size: 18px; }
+  .pz-story-inner { padding: 56px 16px 64px; }
+  .pz-story-head { margin-bottom: 32px; }
+  .pz-story-head p { font-size: 16px; }
+  .pz-scenes { grid-template-columns: 1fr; gap: 36px; }
+  .pz-scene-name { font-size: 22px; }
+  .pz-more { padding: 56px 0 64px; }
+  .pz-more-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+</style>
+</head>
+<body class="home">
+<header><div id="site-header" data-page="games"></div></header>
+<script src="assets/header.js"></script>
+
+<main id="puzzle">
+<noscript><p style="padding: 16px">Please turn on JavaScript to see this product.</p></noscript>
+</main>
+
+<footer class="home-footer">
+<div class="footer-cols">
+<div class="footer-news">
+<h2 class="wide footer-news-title">Hear about new drops <span class="script">first</span></h2>
+<form class="footer-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-signup>
+<input type="hidden" name="form-name" value="newsletter">
+<p hidden><label>Leave this empty <input name="bot-field"></label></p>
+<label class="visually-hidden" for="f-email">Email address</label>
+<input id="f-email" name="email" type="email" autocomplete="email" placeholder="Your email address" required>
+<button type="submit">Sign up</button>
+<p class="form-status" role="status"></p>
+</form>
+</div>
+<nav class="footer-links" aria-label="Shop"><h2 class="label">Shop</h2><a href="story-kit.html">Story Kits</a><a href="cards.html">Cards</a><a href="build-your-tote.html">Totes</a><a href="games.html">Games and puzzles</a><a href="patches.html">Prints, patches and pins</a><a href="holiday-gift-guide.html">Holiday Gift Guide</a><a href="all-products.html">All products</a></nav>
+<nav class="footer-links" aria-label="Show and Tell"><h2 class="label">Show and Tell</h2><a href="about.html">About us</a><a href="faq.html#patch-bar">Patch bar pop-ups</a></nav>
+<nav class="footer-links" aria-label="Help"><h2 class="label">Help</h2><a href="faq.html">FAQ</a><a href="faq.html#care">Care for your tote</a><a href="https://wa.me/" data-whatsapp>Order on WhatsApp</a><a href="faq.html#groups">Group orders</a></nav>
+<nav class="footer-links" aria-label="Follow"><h2 class="label">Follow</h2><a href="https://www.instagram.com/showandtell.co/">Instagram</a></nav>
+</div>
+<div class="footer-base">
+<img src="images/brand/logo-stacked-violet.png" alt="Show and Tell Co" width="43" height="34">
+<span>© 2026 Show and Tell Co · Cards that tell it. Totes that show it.</span>
+</div>
+</footer>
+
+<script src="assets/prices.js"></script>
+<script src="assets/catalog.js"></script>
+<script src="assets/home.js"></script>
+<script>
+// ---------- Your settings ----------
+// WhatsApp number in international format, digits only (for example 2348012345678).
+// Same number as in build-your-tote.html, cards.html, patches.html, story-kit.html and assets/home.js.
+var WHATSAPP_NUMBER = '';
+// Products under "You might also like", after the other puzzle sets.
+var ALSO_LIKE = ['kit-danfo-days', 'card-11', 'p19:patch'];
+// ---------- End of settings ----------
+// Stock, text and photos live in PUZZLES in assets/catalog.js.
+
+(function () {
+  var root = document.getElementById('puzzle');
+  var want = null;
+  try { want = new URLSearchParams(location.search).get('puzzle'); } catch (e) {}
+  var pz = PUZZLES.find(function (p) { return p.id === want; }) || PUZZLES[0];
+  var state = { photo: 0, qty: 1, gift: false };
+  document.title = pz.name + ': coffee table puzzle · Show and Tell Co';
+
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function titleHtml(name) {
+    var words = name.split(' ');
+    if (words.length < 2) return esc(name);
+    var last = words.pop();
+    return esc(words.join(' ')) + '<span class="script">' + esc(last) + '</span>';
+  }
+  function isNew() { return badgesOf('puzzle-' + pz.id).indexOf('New') >= 0; }
+
+  function orderLink() {
+    var price = priceFor(pz.priceKey);
+    var lines = ["Hi Show and Tell! I'd like to order a puzzle set:",
+      '- ' + pz.name + ' (2 × 120 pieces), quantity ' + state.qty,
+      '- Total: ' + (price == null ? '[TOTAL]' : money(price * state.qty))];
+    if (state.gift) lines.push('- It’s a gift, please add a gift note.');
+    return 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n') + regionNote());
+  }
+
+  function tile(it) {
+    var badges = badgesOf(it.id);
+    var shape = it.group === 'Cards' ? 'is-card' : (it.group === 'Designs' ? 'is-design' : 'is-blank');
+    return '<li><a class="ptile" href="' + esc(it.href) + '">'
+      + '<span class="ptile-img ' + shape + '">'
+      + (badges.length ? '<span class="ptile-badge">' + esc(badges.join(' | ')) + '</span>' : '')
+      + '<img src="' + esc(it.img) + '" alt="" loading="lazy"></span>'
+      + '<span class="ptile-info"><span class="ptile-text"><span class="ptile-kind">' + esc(it.kind) + '</span>'
+      + '<span class="ptile-name">' + esc(it.name) + '</span></span>'
+      + '<span class="ptile-price">' + esc(it.price == null ? '[PRICE]' : money(it.price)) + '</span></span>'
+      + '</a></li>';
+  }
+
+  function render() {
+    var wasOpen = Array.prototype.map.call(root.querySelectorAll('.pz-acc details'), function (d) { return d.open; });
+    var price = priceFor(pz.priceKey);
+    var n = Math.max(0, pz.stock || 0);
+    var soldOut = n === 0;
+    if (state.qty > n) state.qty = Math.max(1, n);
+    var photo = pz.gallery[state.photo] || pz.gallery[0];
+    var isScene = pz.scenes.some(function (s) { return s.src === photo.src; }) || /progress/.test(photo.src);
+    var others = PUZZLES.filter(function (p) { return p.id !== pz.id; }).map(function (p) { return 'puzzle-' + p.id; });
+    var more = catalogItems(others.concat(ALSO_LIKE)).slice(0, 4);
+
+    root.innerHTML =
+      '<div class="pz-wrap">'
+      + '<nav class="pz-crumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / <a href="games.html">Games</a> / <span aria-current="page">' + esc(pz.name) + '</span></nav>'
+      + '<div class="pz-main">'
+      +   '<div class="pz-gallery">'
+      +     '<div class="pz-photo' + (isScene ? ' is-scene' : '') + '"><img src="' + esc(photo.src) + '" alt="' + esc(photo.alt) + '"></div>'
+      +     '<div class="pz-thumbs" role="group" aria-label="Photos">'
+      +       pz.gallery.map(function (g, i) { return '<button type="button" class="pz-thumb" data-photo="' + i + '" aria-pressed="' + (i === state.photo) + '" aria-label="Photo ' + (i + 1) + ' of ' + pz.gallery.length + '"><img src="' + esc(g.src) + '" alt=""></button>'; }).join('')
+      +     '</div>'
+      +   '</div>'
+      +   '<div class="pz-info">'
+      +     '<div class="pz-tags"><span class="label">Coffee table puzzle</span>' + (isNew() ? '<span class="pz-new">New</span>' : '') + '</div>'
+      +     '<h1 class="wide pz-title">' + titleHtml(pz.name) + '</h1>'
+      +     '<p class="pz-tagline">' + esc(pz.tagline) + '</p>'
+      +     '<div class="pz-price-row"><span class="pz-price">' + esc(money(price)) + '</span>'
+      +       '<span class="pz-left' + (soldOut ? ' is-out' : '') + '">' + (soldOut ? 'Sold out' : 'Only ' + n + ' left') + '</span></div>'
+      +     '<ul class="pz-facts"><li>2 puzzles</li><li>120 pieces each</li><li>28 × 19.5 cm each</li><li>Ages 6+</li></ul>'
+      +     (soldOut ? '' :
+              '<div class="pz-field"><span class="label" id="qty-label">Quantity</span>'
+      +       '<div class="pz-qty" role="group" aria-labelledby="qty-label">'
+      +         '<button type="button" data-qty="-1" aria-label="One fewer"' + (state.qty <= 1 ? ' disabled' : '') + '>−</button>'
+      +         '<output aria-live="polite">' + state.qty + '</output>'
+      +         '<button type="button" data-qty="1" aria-label="One more"' + (state.qty >= n ? ' disabled' : '') + '>+</button>'
+      +       '</div>'
+      +       (state.qty >= n ? '<p class="pz-hint">That’s all we have left.</p>' : '')
+      +     '</div>'
+      +     '<label class="pz-check"><input type="checkbox" data-gift' + (state.gift ? ' checked' : '') + '> It’s a gift (we’ll add a gift note)</label>')
+      +     (soldOut
+              ? '<a class="btn pz-order" aria-disabled="true">Sold out</a><p class="pz-total">This set has sold out. Follow <a href="https://www.instagram.com/showandtell.co/">@showandtell.co</a> to hear when it’s back.</p>'
+              : '<p class="pz-total">Total: <strong>' + esc(price == null ? '[TOTAL]' : money(price * state.qty)) + '</strong></p>'
+      +         '<a class="btn pz-order" href="' + esc(orderLink()) + '" target="_blank" rel="noopener">Order on WhatsApp</a>'
+      +         '<p class="pz-hint">Your order opens in WhatsApp, already written. We reply to confirm delivery or pickup.</p>')
+      +     '<div class="pz-acc">'
+      +       '<details open><summary>Description</summary><div class="pz-acc-body"><p>' + esc(pz.desc) + '</p></div></details>'
+      +       '<details><summary>Product information</summary><div class="pz-acc-body"><dl class="pz-spec">'
+      +         '<dt>Puzzles</dt><dd>2 jigsaw puzzles, 120 pieces each</dd>'
+      +         '<dt>The scenes</dt><dd>' + pz.scenes.map(function (s) { return 'Puzzle ' + s.no + ', ' + esc(s.title); }).join(' · ') + '</dd>'
+      +         '<dt>Finished size</dt><dd>28 × 19.5 cm each</dd>'
+      +         '<dt>Box</dt><dd>Book-style box, 30.6 × 21.6 × 3 cm</dd>'
+      +         '<dt>In the box</dt><dd>Two puzzles in bags 1 and 2, and an A4 picture guide with both scenes</dd>'
+      +         '<dt>Ages</dt><dd>6+. Not suitable for children under 3: small parts.</dd>'
+      +         '<dt>Designed</dt><dd>In Barcelona</dd>'
+      +       '</dl></div></details>'
+      +       '<details><summary>Delivery and orders</summary><div class="pz-acc-body"><p>Order on WhatsApp and we’ll confirm delivery or pickup in Abuja or Barcelona. Delivery charges apply.</p><p>We made only a few boxes of each set, so we reserve yours as soon as you message us.</p></div></details>'
+      +       '<details><summary>Puzzle tips</summary><div class="pz-acc-body"><p>Start with puzzle 1, then puzzle 2: the same faces turn up in both. Keep each set in its own numbered bag, and use the picture guide instead of the box when you need a closer look.</p><p>Finished? Show us: tag @showandtell.co.</p></div></details>'
+      +     '</div>'
+      +   '</div>'
+      + '</div></div>'
+
+      + '<section class="pz-story" style="background: ' + esc(pz.colour) + '" aria-labelledby="story-h"><div class="pz-wrap pz-story-inner">'
+      +   '<div class="pz-story-head">'
+      +     '<h2 id="story-h" class="wide pz-story-title">Two puzzles, <span class="script" style="color: ' + esc(pz.accent) + '">one story</span></h2>'
+      +     '<p>Build them in order and watch the scene change.</p>'
+      +   '</div>'
+      +   '<ul class="pz-scenes">'
+      +     pz.scenes.map(function (s) {
+              return '<li class="pz-scene"><figure><img src="' + esc(s.src) + '" alt="' + esc(s.alt) + '" loading="lazy">'
+                + '<figcaption><span class="pz-scene-no" style="color: ' + esc(pz.accent) + '">Puzzle ' + s.no + '</span>'
+                + '<span class="wide pz-scene-name">' + esc(s.title) + '</span>'
+                + '<span class="pz-scene-text">' + esc(s.text) + '</span></figcaption></figure></li>';
+            }).join('')
+      +   '</ul>'
+      + '</div></section>'
+
+      + '<section class="pz-more" aria-labelledby="more-h"><div class="pz-wrap">'
+      +   '<h2 id="more-h" class="lockup"><span class="script">You might</span><span class="wide">also like</span></h2>'
+      +   '<ul class="pz-more-grid">' + more.map(tile).join('') + '</ul>'
+      + '</div></section>';
+    if (wasOpen.length) Array.prototype.forEach.call(root.querySelectorAll('.pz-acc details'), function (d, i) { d.open = !!wasOpen[i]; });
+  }
+
+  root.addEventListener('click', function (e) {
+    var b;
+    if ((b = e.target.closest('[data-photo]'))) { state.photo = +b.getAttribute('data-photo'); render(); focusSel('[data-photo="' + state.photo + '"]'); return; }
+    if ((b = e.target.closest('[data-qty]'))) {
+      state.qty = Math.min(Math.max(0, pz.stock || 0), Math.max(1, state.qty + +b.getAttribute('data-qty')));
+      render(); focusSel('[data-qty="' + b.getAttribute('data-qty') + '"]'); return;
+    }
+  });
+  root.addEventListener('change', function (e) {
+    if (e.target.matches('[data-gift]')) { state.gift = e.target.checked; render(); focusSel('[data-gift]'); }
+  });
+  function focusSel(sel) { var el = root.querySelector(sel); if (el && !el.disabled) el.focus(); }
+  window.addEventListener('regionchange', render);
+  render();
+})();
+</script>
+<script src="assets/menu.js"></script>
+</body>
+</html>

@@ -12,7 +12,8 @@ var PRICES = {
     print: 5000,
     patch: 9500,
     pin: 6500,
-    storyKit: 35000       // Story Kit: printed tee + iron-on pieces
+    storyKit: 35000,      // Story Kit: printed tee + iron-on pieces
+    puzzle: 25000         // Puzzle set: two 120-piece puzzles in a book box
   },
   eu: {
     card: 6,
@@ -24,7 +25,8 @@ var PRICES = {
     print: 5,
     patch: 9,
     pin: 7,
-    storyKit: 35
+    storyKit: 35,
+    puzzle: 35
   }
 };
 // ---------- End of prices ----------
