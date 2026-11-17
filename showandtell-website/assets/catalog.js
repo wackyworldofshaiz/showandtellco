@@ -89,23 +89,25 @@ function kitLeft(k) { return Object.keys(k.stock).reduce(function (n, s) { retur
 // Coffee-table jigsaw sets. Each set is two 120-piece puzzles in one book-style box.
 // stock: how many boxes are left. Change it as you sell; 0 shows "Sold out".
 // Product page: puzzle.html?puzzle=<id>. Price: 'puzzle' in assets/prices.js.
+// In a gallery, bg: '#F1EFEE' sets the photo frame to the photo's own background colour;
+// fill: true crops a full-bleed photo to fill the square frame.
 var PUZZLES = [
   {
     id: 'owambe-wahala',
     name: 'Owambe Wahala',
     tagline: 'The couple danced in, the money flew, and then somebody touched the cake. Two puzzles, one very eventful owambe.',
     desc: 'Build the party first, then the wahala. The same guests turn up in both scenes: the aunty in the purple gele, the man in the blue agbada and sunglasses, the waiter who saw everything. It all comes in a book-style box that looks good on the coffee table between sessions.',
-    img: 'images/puzzles/owambe-wahala-box.webp',
+    img: 'images/puzzles/owambe-wahala-box-standing.webp',
+    imgBg: '#F1EFEE',                 // img is a photo with its own backdrop: tiles fill with it and use this colour
     scenes: [
       { no: 1, title: 'The Party', src: 'images/puzzles/owambe-party.webp', alt: 'Puzzle 1, The Party: the bride and groom dance in as guests spray money, with the cake still standing behind them', text: 'The couple dance in, the money flies and the cake is still standing.' },
       { no: 2, title: 'The Wahala', src: 'images/puzzles/owambe-wahala.webp', alt: 'Puzzle 2, The Wahala: the wedding cake has collapsed on the table and the bride, groom and guests react in horror', text: 'Somebody touched the cake. Same guests, very different moment.' }
     ],
     gallery: [
-      { src: 'images/puzzles/owambe-wahala-box.webp', alt: 'The Owambe Wahala box: a dark blue book-style box with the cake disaster on the front' },
-      { src: 'images/puzzles/owambe-wahala-box-back.webp', alt: 'The back of the box, showing both puzzles and what is inside' },
-      { src: 'images/puzzles/owambe-party.webp', alt: 'Puzzle 1, The Party' },
-      { src: 'images/puzzles/owambe-wahala.webp', alt: 'Puzzle 2, The Wahala' },
-      { src: 'images/puzzles/owambe-wahala-in-progress.webp', alt: 'The Wahala puzzle half built, with loose pieces around it' }
+      { src: 'images/puzzles/owambe-wahala-box-pieces.webp', bg: '#F1EFEE', alt: 'The Owambe Wahala box lying flat next to loose puzzle pieces' },
+      { src: 'images/puzzles/owambe-wahala-box-standing.webp', bg: '#F1EFEE', alt: 'The Owambe Wahala box standing up: a dark blue book-style box with the cake disaster on the front' },
+      { src: 'images/puzzles/owambe-wahala-finished.webp', bg: '#F1EFEE', alt: 'The Wahala puzzle almost finished, with a few loose pieces beside it' },
+      { src: 'images/puzzles/owambe-wahala-coffee-table.webp', fill: true, alt: 'The Owambe Wahala box on a coffee table beside flowers, books and a pile of pieces' }
     ],
     colour: '#1A0B45',
     accent: '#E4EE3F',
@@ -117,16 +119,18 @@ var PUZZLES = [
     name: 'Lagos Traffic Chronicles',
     tagline: 'Afternoon turns to night and the traffic still has not moved. Two puzzles, one very long go-slow.',
     desc: 'Buy puff-puff through the window, then stay for suya and roasted corn as the lights come on. The same danfo, sellers and LASTMA officer appear in both scenes, from the afternoon go-slow to the night feast under the bridge. It all comes in a book-style box that looks good on the coffee table between sessions.',
-    img: 'images/puzzles/lagos-traffic-box.webp',
+    img: 'images/puzzles/lagos-traffic-box-standing.webp',
+    imgBg: '#F1EFEE',
     scenes: [
       { no: 1, title: 'The Go-Slow', src: 'images/puzzles/lagos-go-slow.webp', alt: 'Puzzle 1, The Go-Slow: a yellow danfo in afternoon Lagos traffic with street sellers, a LASTMA officer and the Lekki-Ikoyi bridge', text: 'Afternoon traffic: danfos, coconut carts and a LASTMA officer doing his best.' },
       { no: 2, title: 'The Night Feast', src: 'images/puzzles/lagos-night-feast.webp', alt: 'Puzzle 2, The Night Feast: the same street at night with suya, roasted corn and the bridge lit up', text: 'Same street after dark: suya, roasted corn and the bridge lit up.' }
     ],
     gallery: [
-      { src: 'images/puzzles/lagos-traffic-box.webp', alt: 'The Lagos Traffic Chronicles box: a deep green book-style box with the go-slow scene on the front' },
-      { src: 'images/puzzles/lagos-traffic-box-back.webp', alt: 'The back of the box, showing both puzzles and what is inside' },
-      { src: 'images/puzzles/lagos-go-slow.webp', alt: 'Puzzle 1, The Go-Slow' },
-      { src: 'images/puzzles/lagos-night-feast.webp', alt: 'Puzzle 2, The Night Feast' }
+      { src: 'images/puzzles/lagos-traffic-box-pieces.webp', bg: '#F0EEED', alt: 'The Lagos Traffic Chronicles box lying flat next to loose puzzle pieces' },
+      { src: 'images/puzzles/lagos-traffic-box-standing.webp', bg: '#F1EFEE', alt: 'The Lagos Traffic Chronicles box standing up: a deep green book-style box with the go-slow scene on the front' },
+      { src: 'images/puzzles/lagos-traffic-finished.webp', bg: '#F2F0EF', alt: 'The Go-Slow puzzle almost finished, with a few loose pieces beside it' },
+      { src: 'images/puzzles/lagos-night-feast-full.webp', alt: 'Puzzle 2, The Night Feast: the same street after dark, with suya, roasted corn, cold drinks and the Lekki-Ikoyi bridge lit up' },
+      { src: 'images/puzzles/lagos-traffic-coffee-table.webp', fill: true, alt: 'The Lagos Traffic Chronicles box on a coffee table beside flowers, books and a pile of pieces' }
     ],
     colour: '#013A27',
     accent: '#FEB800',
@@ -250,7 +254,7 @@ function catalogItem(id) {
   if (id.indexOf('puzzle-') === 0) {
     var z = PUZZLES.find(function (x) { return 'puzzle-' + x.id === id; });
     if (!z) return null;
-    return { id: id, group: 'Games', kind: z.stock > 0 ? 'Puzzle · ' + z.stock + ' left' : 'Puzzle · sold out', name: z.name, img: z.img, fit: 'contain',
+    return { id: id, group: 'Games', kind: z.stock > 0 ? 'Puzzle · ' + z.stock + ' left' : 'Puzzle · sold out', name: z.name, img: z.img, fit: z.imgBg ? 'cover' : 'contain', bg: z.imgBg,
       href: 'puzzle.html?puzzle=' + z.id, price: priceFor(z.priceKey), from: false, cat: 'Puzzle' };
   }
   var parts = id.split(':');

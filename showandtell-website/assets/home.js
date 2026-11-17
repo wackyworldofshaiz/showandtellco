@@ -16,7 +16,7 @@ var WHATSAPP_NUMBER = '';
     var kind = it.group === 'Totes and tees' ? it.cat : it.kind; // Story kits show 'Story kit · N left'
     var badges = badgesOf(it.id);
     return '<li><a class="ptile" href="' + esc(it.href) + '">'
-      + '<span class="ptile-img ' + shape + '">'
+      + '<span class="ptile-img ' + shape + (it.bg ? ' has-bg" style="background:' + esc(it.bg) : '') + '">'
       + (badges.length ? '<span class="ptile-badge">' + esc(badges.join(' | ')) + '</span>' : '')
       + '<img src="' + esc(it.img) + '" alt="" loading="lazy"></span>'
       + '<span class="ptile-info"><span class="ptile-text"><span class="ptile-kind">' + esc(kind) + '</span>'
