@@ -85,10 +85,60 @@ var STORY_KITS = [
 var KIT_SIZES = ['XS', 'S', 'M', 'L', 'XL', '2XL'];
 function kitLeft(k) { return Object.keys(k.stock).reduce(function (n, s) { return n + Math.max(0, k.stock[s] || 0); }, 0); }
 
+// ---------- Puzzles ----------
+// Coffee-table jigsaw sets. Each set is two 120-piece puzzles in one book-style box.
+// stock: how many boxes are left. Change it as you sell; 0 shows "Sold out".
+// Product page: puzzle.html?puzzle=<id>. Price: 'puzzle' in assets/prices.js.
+var PUZZLES = [
+  {
+    id: 'owambe-wahala',
+    name: 'Owambe Wahala',
+    tagline: 'The couple danced in, the money flew, and then somebody touched the cake. Two puzzles, one very eventful owambe.',
+    desc: 'Build the party first, then the wahala. The same guests turn up in both scenes: the aunty in the purple gele, the man in the blue agbada and sunglasses, the waiter who saw everything. It all comes in a book-style box that looks good on the coffee table between sessions.',
+    img: 'images/puzzles/owambe-wahala-box.webp',
+    scenes: [
+      { no: 1, title: 'The Party', src: 'images/puzzles/owambe-party.webp', alt: 'Puzzle 1, The Party: the bride and groom dance in as guests spray money, with the cake still standing behind them', text: 'The couple dance in, the money flies and the cake is still standing.' },
+      { no: 2, title: 'The Wahala', src: 'images/puzzles/owambe-wahala.webp', alt: 'Puzzle 2, The Wahala: the wedding cake has collapsed on the table and the bride, groom and guests react in horror', text: 'Somebody touched the cake. Same guests, very different moment.' }
+    ],
+    gallery: [
+      { src: 'images/puzzles/owambe-wahala-box.webp', alt: 'The Owambe Wahala box: a dark blue book-style box with the cake disaster on the front' },
+      { src: 'images/puzzles/owambe-wahala-box-back.webp', alt: 'The back of the box, showing both puzzles and what is inside' },
+      { src: 'images/puzzles/owambe-party.webp', alt: 'Puzzle 1, The Party' },
+      { src: 'images/puzzles/owambe-wahala.webp', alt: 'Puzzle 2, The Wahala' },
+      { src: 'images/puzzles/owambe-wahala-in-progress.webp', alt: 'The Wahala puzzle half built, with loose pieces around it' }
+    ],
+    colour: '#1A0B45',
+    accent: '#E4EE3F',
+    stock: 5,
+    priceKey: 'puzzle'
+  },
+  {
+    id: 'lagos-traffic',
+    name: 'Lagos Traffic Chronicles',
+    tagline: 'Afternoon turns to night and the traffic still has not moved. Two puzzles, one very long go-slow.',
+    desc: 'Buy puff-puff through the window, then stay for suya and roasted corn as the lights come on. The same danfo, sellers and LASTMA officer appear in both scenes, from the afternoon go-slow to the night feast under the bridge. It all comes in a book-style box that looks good on the coffee table between sessions.',
+    img: 'images/puzzles/lagos-traffic-box.webp',
+    scenes: [
+      { no: 1, title: 'The Go-Slow', src: 'images/puzzles/lagos-go-slow.webp', alt: 'Puzzle 1, The Go-Slow: a yellow danfo in afternoon Lagos traffic with street sellers, a LASTMA officer and the Lekki-Ikoyi bridge', text: 'Afternoon traffic: danfos, coconut carts and a LASTMA officer doing his best.' },
+      { no: 2, title: 'The Night Feast', src: 'images/puzzles/lagos-night-feast.webp', alt: 'Puzzle 2, The Night Feast: the same street at night with suya, roasted corn and the bridge lit up', text: 'Same street after dark: suya, roasted corn and the bridge lit up.' }
+    ],
+    gallery: [
+      { src: 'images/puzzles/lagos-traffic-box.webp', alt: 'The Lagos Traffic Chronicles box: a deep green book-style box with the go-slow scene on the front' },
+      { src: 'images/puzzles/lagos-traffic-box-back.webp', alt: 'The back of the box, showing both puzzles and what is inside' },
+      { src: 'images/puzzles/lagos-go-slow.webp', alt: 'Puzzle 1, The Go-Slow' },
+      { src: 'images/puzzles/lagos-night-feast.webp', alt: 'Puzzle 2, The Night Feast' }
+    ],
+    colour: '#013A27',
+    accent: '#FEB800',
+    stock: 5,
+    priceKey: 'puzzle'
+  }
+];
+
 // ---------- Collections ----------
 // Each menu page shows the products listed here. Refer to products by id:
 // cards as 'card-01', designs as 'p04', blanks as 'classic', 'pocket' or 'tee',
-// Story Kits as 'kit-danfo-days'.
+// Story Kits as 'kit-danfo-days', puzzles as 'puzzle-owambe-wahala'.
 // Add a type to show a design as one kind only, with that kind's price: 'p22:print', 'p19:patch'.
 // 'all-cards' and 'all-designs' add every card or design.
 // 'bestsellers' and 'new-arrivals' also decide the BESTSELLER and NEW badges:
@@ -106,7 +156,7 @@ var COLLECTIONS = {
     title: 'New arrivals',
     intro: 'Fresh cards and designs, just in.',
     colour: '#E4EE3F',
-    items: ['kit-danfo-days', 'p22:print', 'card-10', 'p06:print', 'card-11', 'card-02', 'p19:patch', 'card-12', 'p23:print']
+    items: ['puzzle-owambe-wahala', 'puzzle-lagos-traffic', 'kit-danfo-days', 'p22:print', 'card-10', 'p06:print', 'card-11', 'card-02', 'p19:patch', 'card-12', 'p23:print']
   },
   'holiday-gift-guide': {
     title: 'Holiday Gift Guide',
@@ -131,9 +181,9 @@ var COLLECTIONS = {
   },
   'games': {
     title: 'Games',
-    intro: '[Games are on the way. Check back soon.]',
+    intro: 'Coffee-table puzzles and games for the table. Our first jigsaw sets are here, with more games on the way.',
     colour: '#C9F0FF',
-    items: [],
+    items: ['puzzle-owambe-wahala', 'puzzle-lagos-traffic'],
     emptyTitle: 'Coming soon',
     emptyText: 'Our first games are in the works. In the meantime, here are some favourites.',
     fallback: ['card-11', 'p19', 'p05', 'classic']
@@ -150,7 +200,7 @@ var COLLECTIONS = {
     intro: 'Everything we make, in one place.',
     colour: '#F4F0FF',
     filters: true,
-    items: ['kit-danfo-days', 'classic', 'pocket', 'tee', 'all-cards', 'all-designs']
+    items: ['puzzle-owambe-wahala', 'puzzle-lagos-traffic', 'kit-danfo-days', 'classic', 'pocket', 'tee', 'all-cards', 'all-designs']
   }
 };
 
@@ -196,6 +246,12 @@ function catalogItem(id) {
     if (!k) return null;
     return { id: id, group: 'Story kits', kind: kitLeft(k) ? 'Story kit · ' + kitLeft(k) + ' left' : 'Story kit · sold out', name: k.name, img: k.img, fit: 'contain',
       href: 'story-kit.html?kit=' + k.id, price: priceFor(k.priceKey), from: false, cat: 'Story kit' };
+  }
+  if (id.indexOf('puzzle-') === 0) {
+    var z = PUZZLES.find(function (x) { return 'puzzle-' + x.id === id; });
+    if (!z) return null;
+    return { id: id, group: 'Games', kind: z.stock > 0 ? 'Puzzle · ' + z.stock + ' left' : 'Puzzle · sold out', name: z.name, img: z.img, fit: 'contain',
+      href: 'puzzle.html?puzzle=' + z.id, price: priceFor(z.priceKey), from: false, cat: 'Puzzle' };
   }
   var parts = id.split(':');
   var d = PATCHES.find(function (x) { return x.id === parts[0]; });

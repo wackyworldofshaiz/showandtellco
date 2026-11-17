@@ -10,6 +10,7 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | --- | --- |
 | `index.html` | Home page |
 | `story-kit.html` | Story Kits: a printed tee plus iron-on pieces, with limited stock per size |
+| `puzzle.html` | Puzzle sets (Owambe Wahala, Lagos Traffic Chronicles): two 120-piece puzzles per box. Open one with `puzzle.html?puzzle=owambe-wahala` or `?puzzle=lagos-traffic`. Stock, text and photos are in `PUZZLES` in `assets/catalog.js` (change `stock` as boxes sell); the price is `puzzle` in `assets/prices.js`. |
 | `build-your-tote.html` | Build your tote (Classic tote, Premium tote bag, T-shirt) |
 | `cards.html` | Card list and card product pages |
 | `patches.html` | The design menu and design product pages (prints, patches and pins) |
@@ -41,7 +42,7 @@ The homepage uses three fonts, one job each: **Archivo** (class `wide`) for head
 Its product rows come from `assets/catalog.js`:
 - **Hero:** the big Story Kits panel shows the first kit in `STORY_KITS` (name, how many were made, link, and "See the kit" once it sells out). To feature something else, edit the `hero2` section at the top of `index.html`.
 - **Category circles** under "Some things you show and some things you tell" are plain links in `index.html` (the `cats` list). Add or swap a circle there; Games uses a drawn pair of dice until there's a product photo.
-- **Selected for her** and **Selected for the couple:** the six products in `HOME.forHer` and `HOME.forCouples`.
+- **Selected for you** and **Selected for the group:** the six products in `HOME.forHer` and `HOME.forCouples` (the names are older; the first links to the whole Holiday Gift Guide, the second to its For the group section).
 - **New arrivals:** the `'new-arrivals'` list in `COLLECTIONS`. The row scrolls four at a time.
 - **Pun cards banner:** the card in `HOME.punCard`.
 
@@ -75,6 +76,7 @@ To use your own domain (for example showandtell.co), add it under **Settings ›
 - `cards.html`
 - `patches.html`
 - `story-kit.html`
+- `puzzle.html`
 - `assets/home.js` (the homepage footer's "Order on WhatsApp" link)
 
 **Prices to check.** Every price in `assets/prices.js` has a placeholder so the site shows real numbers. Only the classic tote (₦80,000), patch (₦9,500) and card (₦3,500) prices are confirmed; replace the rest with your own. A price set to `null` shows as [PRICE], and totals that include it show [TOTAL].
