@@ -3,6 +3,7 @@
 // Edit ANNOUNCEMENTS or NAV to change them everywhere. Each page has
 // <div id="site-header" data-page="..."></div> followed by this script;
 // data-page matches an item's page so it shows as the current one.
+// Bestsellers and Collectibles are off the menu for now; their pages still work if linked.
 
 // Prices go in as <span data-price="..."></span> and assets/prices.js fills them in NGN or EUR.
 var ANNOUNCEMENTS = [
@@ -14,11 +15,13 @@ var ANNOUNCEMENTS = [
 ];
 
 var NAV = [
-  { page: 'bestsellers', label: 'Bestsellers', href: 'bestsellers.html' },
+  { page: 'about', label: 'About us', href: 'about.html' },
   { page: 'new-arrivals', label: 'New arrivals', href: 'new-arrivals.html' },
   { page: 'story-kits', label: 'Story Kits', href: 'story-kit.html' },
   { page: 'cards', label: 'Cards', href: 'cards.html' },
   { page: 'totes', label: 'Totes', href: 'build-your-tote.html' },
+  { page: 'games', label: 'Games', href: 'games.html' },
+  { page: 'junior', label: 'Show and Tell Junior', href: 'junior.html' },
   { page: 'holiday-gift-guide', label: 'Holiday Gift Guide', href: 'holiday-gift-guide.html', children: [
     // These match the sections in COLLECTIONS in assets/catalog.js.
     { label: 'For her', href: 'holiday-gift-guide.html#for-her' },
@@ -30,9 +33,6 @@ var NAV = [
     { label: 'Christmas cards', href: 'holiday-gift-guide.html#christmas-cards' },
     { label: 'Stocking fillers', href: 'holiday-gift-guide.html#stocking-fillers' }
   ] },
-  { page: 'junior', label: 'Show and Tell Junior', href: 'junior.html' },
-  { page: 'games', label: 'Games', href: 'games.html' },
-  { page: 'collectibles', label: 'Collectibles', href: 'collectibles.html' },
   { page: 'all-products', label: 'All products', href: 'all-products.html' },
   { page: 'faq', label: 'FAQ', href: 'faq.html' }
 ];

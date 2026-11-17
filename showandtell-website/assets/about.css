@@ -1,0 +1,217 @@
+/* About page (about.html). Uses the homepage's fonts, buttons, lockups and footer from home.css. */
+.about p { margin: 0; }
+.ab-h2 { font-size: 40px; color: #1A0B45; }
+.ab-center { justify-content: center; text-align: center; }
+.ab-sticker { display: inline-block; padding: 12px 20px; border-radius: 18px; line-height: 1.05; text-align: center; box-shadow: 0 8px 0 rgba(26, 11, 69, 0.2); }
+.ab-sticker-lime { background: #E4EE3F; color: #1A0B45; }
+.ab-sticker-pink { background: #FF8FCF; color: #1A0B45; }
+.ab-sparkles svg { position: absolute; }
+
+/* 1. Hero */
+.ab-hero { position: relative; height: 640px; overflow: hidden; background: #F6F1E7; }
+.ab-hero-art { position: absolute; inset: 0; }
+.ab-f { position: absolute; display: block; }
+.ab-f-card { left: 6.25%; top: 70px; width: 150px; transform: rotate(-10deg); box-shadow: 0 18px 30px rgba(26, 11, 69, 0.22); }
+.ab-f-wahala { left: 10.4%; top: 400px; width: 160px; transform: rotate(-14deg); filter: drop-shadow(0 12px 14px rgba(26, 11, 69, 0.25)); }
+.ab-f-dice { left: 17.4%; top: 250px; display: flex; align-items: center; justify-content: center; width: 120px; height: 120px; border-radius: 50%; background: #5D1AFA; transform: rotate(-8deg); }
+.ab-f-dice svg, .ab-way-dice { width: 62%; height: 62%; }
+.ab-f-tote { right: 4.9%; top: 60px; width: 260px; transform: rotate(6deg); filter: drop-shadow(0 26px 30px rgba(26, 11, 69, 0.3)); }
+.ab-f-polaroid { right: 11.8%; top: 400px; width: 180px; padding: 8px 8px 12px; background: #FFFFFF; transform: rotate(7deg); box-shadow: 0 20px 34px rgba(26, 11, 69, 0.25); }
+.ab-f-polaroid img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.ab-f-stamp { right: 3.5%; top: 500px; width: 100px; transform: rotate(-9deg); filter: drop-shadow(0 12px 14px rgba(26, 11, 69, 0.25)); }
+.ab-hero .ab-sparkles svg { fill: #5D1AFA; }
+.ab-hero .ab-sparkles svg:nth-child(1) { left: 32.6%; top: 90px; width: 26px; opacity: 0.9; }
+.ab-hero .ab-sparkles svg:nth-child(2) { left: 66.7%; top: 120px; width: 18px; opacity: 0.7; }
+.ab-hero .ab-sparkles svg:nth-child(3) { left: 30%; top: 560px; width: 16px; opacity: 0.6; }
+.ab-hero .ab-sparkles svg:nth-child(4) { left: 62.5%; top: 560px; width: 28px; opacity: 0.9; }
+.ab-hero-text { position: absolute; z-index: 1; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(600px, 44%); display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; }
+.ab-kicker { font-size: 56px; line-height: 0.9; color: #5D1AFA; }
+.ab-title { margin: 0; font-size: clamp(44px, 4.3vw, 62px); line-height: 1.1; color: #1A0B45; }
+.ab-title .script { margin-left: 0.12em; font-size: 1.35em; line-height: 0.8; color: #5D1AFA; }
+.ab-intro { font-size: 19px; line-height: 1.55; color: #3A3A38; }
+
+/* 2. Why show and tell */
+.ab-why { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 80px; max-width: 1200px; margin: 0 auto; padding: 110px 40px; box-sizing: border-box; }
+.ab-why-art { position: relative; height: 520px; }
+.ab-why-photo { position: absolute; left: 0; top: 0; width: 400px; max-width: 80%; aspect-ratio: 1; border-radius: 14px; overflow: hidden; transform: rotate(-2deg); box-shadow: 0 26px 40px rgba(26, 11, 69, 0.18); }
+.ab-why-photo img { width: 100%; height: 100%; object-fit: cover; }
+.ab-why-danfo { position: absolute; left: 300px; top: 350px; width: 230px; transform: rotate(-6deg); filter: drop-shadow(0 12px 14px rgba(26, 11, 69, 0.25)); }
+.ab-why-sticker { position: absolute; left: 300px; top: 30px; font-size: 20px; transform: rotate(8deg); }
+.ab-why-text { display: flex; flex-direction: column; gap: 22px; }
+.ab-why-text p { font-size: 19px; line-height: 1.6; color: #3A3A38; }
+
+/* 3. Show / Tell */
+.ab-st { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 6px; }
+.ab-st-panel { position: relative; display: block; height: 620px; overflow: hidden; text-decoration: none; }
+.ab-show { background: #5D1AFA; }
+.ab-show::before { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 46%; background: repeating-linear-gradient(90deg, #6B30FF 0 46px, #5D1AFA 46px 92px); }
+.home .ab-show, .home .ab-show:hover { color: #F6F1E7; }
+.ab-tell { background: #FF8FCF; }
+.home .ab-tell, .home .ab-tell:hover { color: #1A0B45; }
+.ab-st-art img { position: absolute; transition: transform 0.25s ease; }
+.ab-show-tote { right: 30px; top: 80px; width: 250px; filter: drop-shadow(0 26px 30px rgba(26, 11, 69, 0.45)); }
+.ab-show-patch { right: 260px; bottom: 50px; width: 130px; transform: rotate(-10deg); filter: drop-shadow(0 12px 14px rgba(26, 11, 69, 0.4)); }
+.ab-tell-card-a { right: 170px; top: 40px; width: 140px; transform: rotate(-9deg); box-shadow: 0 18px 30px rgba(26, 11, 69, 0.25); }
+.ab-tell-card-b { right: 40px; top: 30px; width: 140px; transform: rotate(7deg); box-shadow: 0 18px 30px rgba(26, 11, 69, 0.25); }
+.ab-tell-box { right: 34px; bottom: 64px; width: 250px; border-radius: 6px; transform: rotate(-5deg); box-shadow: 0 22px 34px rgba(26, 11, 69, 0.3); }
+.ab-show:hover .ab-show-tote { transform: rotate(3deg); }
+.ab-tell:hover .ab-tell-card-b { transform: rotate(10deg) translateY(-4px); }
+.ab-st-text { position: absolute; z-index: 1; left: 56px; top: 0; bottom: 0; width: min(330px, 46%); display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+.ab-st-kicker { font-size: 40px; line-height: 0.9; }
+.ab-show .ab-st-kicker { color: #E4EE3F; }
+.ab-tell .ab-st-kicker { color: #5D1AFA; }
+.ab-st-word { font-size: 76px; line-height: 0.9; }
+.ab-show .ab-st-word { color: #FFFFFF; }
+.ab-st-desc { margin-top: 6px; font-size: 18px; line-height: 1.55; }
+.ab-st-link { padding-top: 8px; font-size: 14px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* 4. Give, wear, play, keep */
+.ab-ways { display: flex; flex-direction: column; align-items: center; gap: 56px; padding: 110px 40px 100px; }
+.ab-ways-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; width: 100%; max-width: 1240px; margin: 0; padding: 0; list-style: none; }
+.ab-ways-list a { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; text-decoration: none; }
+.home .ab-ways-list a { color: #1A0B45; }
+.ab-way-circle { display: flex; align-items: center; justify-content: center; width: 200px; height: 200px; max-width: 100%; border-radius: 50%; overflow: hidden; transition: transform 0.2s ease; }
+.ab-ways-list a:hover .ab-way-circle { transform: translateY(-4px); }
+.ab-c-pink { background: #FF8FCF; } .ab-c-cream { background: #F6F1E7; } .ab-c-violet { background: #5D1AFA; } .ab-c-sand { background: #EDE5D6; }
+.ab-way-card { width: 50%; transform: rotate(-6deg); box-shadow: 0 10px 16px rgba(26, 11, 69, 0.2); }
+.ab-way-tote { height: 84%; width: auto; }
+.ab-way-stamp { width: 60%; transform: rotate(6deg); }
+.ab-way-title { font-size: 30px; }
+.ab-way-text { max-width: 250px; font-size: 17px; line-height: 1.5; color: #4A3F6B; }
+
+/* 5. How we make things */
+.ab-how { padding: 90px 88px 100px; background: #F4F4F2; }
+.ab-how .ab-h2 { margin-bottom: 50px; }
+.ab-how-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+.ab-how-list li { display: flex; flex-direction: column; gap: 12px; padding: 0 32px; border-left: 1px solid #E6E6E3; }
+.ab-how-no { font-size: 34px; color: #5D1AFA; }
+.ab-how-title { margin: 0; font-size: 18px; color: #1A0B45; }
+.ab-how-list p { font-size: 17px; line-height: 1.55; color: #4A3F6B; }
+
+/* 6. A note from the team */
+.ab-note-wrap { display: flex; justify-content: center; padding: 110px 40px; }
+.ab-note { position: relative; display: flex; flex-direction: column; align-items: center; gap: 22px; max-width: 820px; padding: 64px 80px 60px; border-radius: 14px; background: #F6F1E7; text-align: center; }
+.ab-note-title { margin: 0; font-size: 54px; font-weight: 400; line-height: 0.9; color: #5D1AFA; }
+.ab-note p { font-size: 21px; line-height: 1.6; color: #1A0B45; }
+.about .ab-note-love { padding-top: 6px; font-size: 40px; line-height: 1; }
+.about .ab-note-sign { margin-top: -10px; font-size: 15px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #4A3F6B; }
+.ab-note-sticker { position: absolute; right: -30px; top: -26px; font-size: 18px; transform: rotate(8deg); }
+
+/* 7. Patch bar */
+.ab-bar { position: relative; display: flex; flex-direction: column; align-items: center; gap: 22px; padding: 90px 40px; overflow: hidden; background: repeating-linear-gradient(90deg, #F6F1E7 0 64px, #E4EE3F 64px 128px); text-align: center; }
+.ab-bar-title { justify-content: center; padding: 14px 28px 18px; border-radius: 14px; background: #1A0B45; font-size: 40px; color: #FFFFFF; }
+.ab-bar-title .script { color: #E4EE3F; }
+.ab-bar-text { max-width: 560px; padding: 18px 26px; border-radius: 14px; background: #FFFFFF; font-size: 19px; line-height: 1.5; color: #1A0B45; }
+.ab-bar-city { position: absolute; font-size: 22px; }
+.ab-bar-abuja { left: 140px; top: 80px; background: #5D1AFA; color: #FFFFFF; transform: rotate(-8deg); }
+.ab-bar-bcn { right: 140px; bottom: 80px; background: #FF8FCF; color: #1A0B45; transform: rotate(7deg); }
+
+/* 8. In short */
+.ab-close { position: relative; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 110px 40px 120px; overflow: hidden; background: #1A0B45; text-align: center; }
+.ab-close .ab-sparkles svg { fill: #E4EE3F; }
+.ab-close .ab-sparkles svg:nth-child(1) { left: 12.5%; top: 90px; width: 26px; opacity: 0.9; }
+.ab-close .ab-sparkles svg:nth-child(2) { left: 84.7%; top: 130px; width: 18px; opacity: 0.7; }
+.ab-close .ab-sparkles svg:nth-child(3) { left: 18%; top: 420px; width: 16px; opacity: 0.6; }
+.ab-close .ab-sparkles svg:nth-child(4) { left: 80%; top: 400px; width: 30px; opacity: 0.9; }
+.ab-close-kicker { font-size: 50px; line-height: 0.9; color: #E4EE3F; }
+.ab-close-lines { font-size: 36px; line-height: 1.15; color: #FFFFFF; }
+.ab-close-lines .script { font-size: 1.35em; line-height: 0.8; color: #FF8FCF; }
+.ab-close-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding-top: 10px; }
+.home .ab-btn-lime { background: #E4EE3F; color: #1A0B45; }
+.home .ab-btn-lime:hover { background: #FFFFFF; color: #1A0B45; }
+
+/* ---------- Tablets ---------- */
+@media (max-width: 1100px) {
+  .ab-f-card { left: 3%; width: 120px; }
+  .ab-f-wahala { left: 4%; width: 130px; }
+  .ab-f-dice { left: 12%; width: 100px; height: 100px; }
+  .ab-f-tote { width: 210px; right: 2%; }
+  .ab-f-polaroid { width: 150px; right: 9%; }
+  .ab-hero .ab-f-stamp { display: none; }
+  .ab-why { gap: 48px; padding: 80px 32px; }
+  .ab-why-danfo { left: auto; right: 0; width: 190px; }
+  .ab-why-sticker { left: auto; right: 10px; }
+  .ab-st-word { font-size: 60px; }
+  .ab-show-tote { width: 200px; }
+  .ab-show-patch { right: 200px; width: 110px; }
+  .ab-tell-card-a { right: 130px; width: 110px; } .ab-tell-card-b { right: 24px; width: 110px; }
+  .ab-tell-box { width: 200px; right: 20px; }
+  .ab-ways-list { grid-template-columns: repeat(2, minmax(0, 260px)); justify-content: center; row-gap: 48px; }
+  .ab-how { padding: 80px 32px; }
+  .ab-how-list li { padding: 0 20px; }
+  .ab-bar-abuja { left: 40px; } .ab-bar-bcn { right: 40px; }
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 860px) {
+  .ab-h2 { font-size: 26px; }
+
+  .ab-hero { height: auto; display: flex; flex-direction: column; }
+  .ab-hero-art { position: relative; inset: auto; height: 250px; }
+  .ab-f-card { left: 6%; top: 34px; width: 90px; }
+  .ab-f-dice { left: 30%; top: 140px; width: 76px; height: 76px; }
+  .ab-f-tote { right: 6%; top: 18px; width: 150px; }
+  .ab-f-polaroid { right: 38%; top: 30px; width: 96px; padding: 5px 5px 8px; transform: rotate(-4deg); }
+  .ab-hero .ab-f-wahala, .ab-hero .ab-f-stamp { display: none; }
+  .ab-hero .ab-sparkles svg:nth-child(n+3) { display: none; }
+  .ab-hero .ab-sparkles svg:nth-child(1) { left: 6%; top: 190px; }
+  .ab-hero .ab-sparkles svg:nth-child(2) { left: auto; right: 8%; top: 210px; }
+  .ab-hero-text { position: static; transform: none; width: auto; padding: 4px 16px 48px; gap: 16px; }
+  .ab-kicker { font-size: 44px; }
+  .ab-title { font-size: 36px; }
+  .ab-intro { font-size: 17px; }
+
+  .ab-why { grid-template-columns: 1fr; gap: 28px; padding: 56px 16px; }
+  .ab-why-art { height: 340px; max-width: 420px; width: 100%; margin: 0 auto; }
+  .ab-why-photo { width: 270px; }
+  .ab-why-danfo { left: auto; right: 0; top: 220px; width: 170px; }
+  .ab-why-sticker { left: auto; right: 6px; top: 18px; font-size: 16px; padding: 10px 14px; }
+  .ab-why-text p { font-size: 17px; }
+
+  .ab-st { grid-template-columns: 1fr; }
+  .ab-st-panel { height: auto; display: flex; flex-direction: column; }
+  .ab-show::before { width: 100%; height: 280px; bottom: auto; }
+  .ab-st-art { position: relative; display: block; height: 280px; }
+  .ab-show-tote { left: 50%; right: auto; top: 26px; width: 200px; transform: translateX(-50%); }
+  .ab-show:hover .ab-show-tote { transform: translateX(-50%) rotate(3deg); }
+  .ab-show-patch { left: 16px; right: auto; bottom: 16px; width: 96px; }
+  .ab-tell-card-a { left: 16px; right: auto; top: 26px; width: 110px; }
+  .ab-tell-card-b { left: 112px; right: auto; top: 20px; width: 110px; }
+  .ab-tell-box { right: 16px; bottom: 26px; width: 160px; }
+  .ab-st-text { position: static; width: auto; padding: 8px 16px 40px; gap: 10px; }
+  .ab-st-kicker { font-size: 34px; }
+  .ab-st-word { font-size: 52px; }
+  .ab-st-desc { font-size: 17px; }
+
+  .ab-ways { gap: 32px; padding: 64px 16px 56px; }
+  .ab-ways-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 16px; }
+  .ab-way-circle { width: 140px; height: 140px; }
+  .ab-way-title { font-size: 22px; }
+  .ab-way-text { font-size: 15px; }
+
+  .ab-how { padding: 56px 16px 64px; }
+  .ab-how .ab-h2 { margin-bottom: 28px; }
+  .ab-how-list { grid-template-columns: 1fr; gap: 28px; }
+  .ab-how-list li { padding: 22px 0 0; border-left: 0; border-top: 1px solid #E6E6E3; }
+  .ab-how-list p { font-size: 16px; }
+
+  .ab-note-wrap { padding: 64px 16px; }
+  .ab-note { padding: 44px 22px 40px; gap: 16px; }
+  .ab-note-title { font-size: 42px; }
+  .ab-note p { font-size: 17px; }
+  .ab-note-sticker { right: 8px; top: -20px; font-size: 14px; padding: 8px 12px; }
+
+  .ab-bar { padding: 96px 16px 100px; gap: 18px; }
+  .ab-bar-title { font-size: 22px; padding: 12px 16px 14px; }
+  .ab-bar-text { font-size: 16px; }
+  .ab-bar-city { font-size: 15px; padding: 8px 12px; }
+  .ab-bar-abuja { left: 16px; top: 28px; }
+  .ab-bar-bcn { right: 16px; bottom: 28px; }
+  .ab-bar .btn { width: 100%; }
+
+  .ab-close { padding: 72px 16px 80px; gap: 22px; }
+  .ab-close-kicker { font-size: 40px; }
+  .ab-close-lines { font-size: 22px; }
+  .ab-close-ctas { flex-direction: column; width: 100%; }
+  .ab-close-ctas .btn { width: 100%; }
+}

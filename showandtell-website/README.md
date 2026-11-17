@@ -20,12 +20,13 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | `all-products.html` | All products, with search, filters and sorting (the header's search icon opens it) |
 | `bestsellers.html` | Bestsellers |
 | `new-arrivals.html` | New arrivals |
+| `about.html` | About us: who we are, show and tell, give / wear / play / keep, how we make things, a note from the team, the patch bar. Styles in `assets/about.css`. |
 | `faq.html` | Frequently asked questions: tote care, cards, prints vs patches vs pins, group orders, ordering and delivery, patch bar. Answers in [square brackets] are placeholders to fill in. |
 
 Images are in `images/`. Shared files in `assets/`:
 - `catalog.js`: every card, design and blank, and which collection pages they appear on.
 - `prices.js`: all prices, in naira and euros.
-- `header.js`: the header on every page: the scrolling announcement bar, then the currency switch, logo and search, with the menu underneath. Edit `ANNOUNCEMENTS` or `NAV` in it to change them.
+- `header.js`: the header on every page: the scrolling announcement bar, then the currency switch, logo and search, with the menu underneath. Edit `ANNOUNCEMENTS` or `NAV` in it to change them. Bestsellers and Collectibles are off the menu for now; their pages still exist.
 - `home.js` and `home.css`: the homepage's product rows, sign-up forms and layout.
 - `fonts/`: the three self-hosted fonts and `fonts.css`.
 - `collection.js`: draws the collection pages from `catalog.js`.

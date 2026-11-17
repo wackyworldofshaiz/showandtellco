@@ -12,7 +12,7 @@ var PRICES = {
     print: 5000,
     patch: 9500,
     pin: 6500,
-    storyKit: 25000       // Story Kit: printed tee + iron-on pieces
+    storyKit: 35000       // Story Kit: printed tee + iron-on pieces
   },
   eu: {
     card: 6,
@@ -24,7 +24,7 @@ var PRICES = {
     print: 5,
     patch: 9,
     pin: 7,
-    storyKit: 28
+    storyKit: 35
   }
 };
 // ---------- End of prices ----------
