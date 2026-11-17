@@ -22,6 +22,7 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | `bestsellers.html` | Bestsellers |
 | `new-arrivals.html` | New arrivals |
 | `about.html` | About us: who we are, show and tell, give / wear / play / keep, how we make things, a note from the team, the patch bar. Styles in `assets/about.css`. |
+| `popup.html` | Patch bar pop-up sign-up (linked from every footer, the FAQ and About). Edit `POPUP` near the bottom of the file for each event: city, date, time, venue, entry, `spots` (35) and `taken`. Raise `taken` as you confirm people; when it reaches `spots` the page switches to a waitlist. Sign-ups arrive in Netlify under **Forms › popup** (the `list` field says spot or waitlist). |
 | `faq.html` | Frequently asked questions: tote care, cards, prints vs patches vs pins, group orders, ordering and delivery, patch bar. Answers in [square brackets] are placeholders to fill in. |
 
 Images are in `images/`. Shared files in `assets/`:

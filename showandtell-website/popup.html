@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pop-up shop and live patch bar · Show and Tell Co</title>
+<meta name="description" content="The Show and Tell pop-up shop: cards, Story Kits, puzzles, prints, patches and pins, plus a live patch bar with only 35 spots. Save yours.">
+<link rel="icon" type="image/png" href="images/brand/wordmark-violet.png">
+<link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jost-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/home.css">
+<style>
+/* Patch bar pop-up sign-up. Uses the homepage fonts, buttons and footer (assets/home.css).
+   Event details and the spot count are in POPUP at the bottom of this file. */
+.pb p { margin: 0; }
+.pb-wrap { max-width: 1240px; margin: 0 auto; padding: 0 40px; box-sizing: border-box; }
+.pb-sticker { display: inline-block; padding: 12px 20px; border-radius: 18px; line-height: 1.05; text-align: center; box-shadow: 0 8px 0 rgba(26, 11, 69, 0.25); }
+
+/* Hero */
+.pb-hero { position: relative; overflow: hidden; background: #1A0B45; color: #F6F1E7; }
+.pb-hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 520px); align-items: center; gap: 64px; padding: 88px 40px 96px; }
+.pb-sparks svg { position: absolute; fill: #E4EE3F; }
+.pb-sparks svg:nth-child(1) { left: 46%; top: 120px; width: 22px; opacity: 0.9; }
+.pb-sparks svg:nth-child(2) { left: 36%; bottom: 40px; width: 30px; opacity: 0.9; }
+.pb-sparks svg:nth-child(3) { right: 6%; bottom: 80px; width: 16px; opacity: 0.6; }
+.pb-kicker { font-size: 58px; line-height: 0.9; color: #E4EE3F; }
+.pb-title { margin: 8px 0 0; font-size: clamp(46px, 5.6vw, 84px); line-height: 0.92; color: #FFFFFF; }
+.pb-intro { max-width: 520px; margin-top: 24px !important; font-size: 20px; line-height: 1.5; }
+.pb-hero-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 30px; }
+.home .pb-btn-lime { background: #E4EE3F; color: #1A0B45; }
+.home .pb-btn-lime:hover { background: #FFFFFF; color: #1A0B45; }
+.pb-hero-note { font-size: 15px; color: #CFC6F2; }
+
+/* The ticket */
+.pb-ticket { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 128px; background: #F6F1E7; color: #1A0B45; border-radius: 18px; transform: rotate(2.5deg); box-shadow: 0 30px 50px rgba(0, 0, 0, 0.45); }
+.pb-ticket::before, .pb-ticket::after { content: ''; position: absolute; right: 116px; width: 24px; height: 24px; border-radius: 50%; background: #1A0B45; }
+.pb-ticket::before { top: -12px; }
+.pb-ticket::after { bottom: -12px; }
+.pb-ticket-main { display: flex; flex-direction: column; gap: 16px; padding: 30px 28px 28px; }
+.pb-ticket-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.pb-admit { white-space: nowrap; padding: 6px 12px; border-radius: 999px; background: #1A0B45; color: #E4EE3F; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.pb-city { font-size: 34px; line-height: 1; }
+.pb-city .script { display: block; font-size: 1.2em; line-height: 0.9; color: #5D1AFA; }
+.pb-rows { display: grid; grid-template-columns: max-content 1fr; gap: 10px 18px; margin: 0; padding-top: 14px; border-top: 1.5px dashed #CFC6F2; }
+.pb-rows dt { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4A3F6B; padding-top: 3px; }
+.pb-rows dd { margin: 0; font-size: 17px; font-weight: 500; }
+.pb-stub { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 20px 10px; border-left: 2px dashed #CFC6F2; text-align: center; }
+.pb-stub-no { font-size: 44px; line-height: 1; color: #5D1AFA; }
+.pb-stub-of { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.pb-ticket-sticker { position: absolute; left: 34px; bottom: -40px; background: #FF8FCF; color: #1A0B45; font-size: 17px; transform: rotate(-5deg); }
+
+/* Spots meter */
+.pb-meter { background: #E4EE3F; color: #1A0B45; }
+.pb-meter-inner { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); align-items: center; gap: 48px; padding: 44px 40px; }
+.pb-meter-count { display: flex; align-items: baseline; gap: 14px; }
+.pb-meter-num { font-size: 84px; line-height: 0.85; }
+.pb-meter-label { font-size: 20px; line-height: 1.1; }
+.pb-meter-label .script { display: block; font-size: 1.6em; line-height: 0.9; color: #5D1AFA; }
+.pb-dots { display: grid; grid-template-columns: repeat(18, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.pb-dots li { aspect-ratio: 1; border-radius: 50%; border: 2px solid #1A0B45; background: transparent; }
+.pb-dots li.is-taken { background: #1A0B45; }
+.pb-dots li.is-taken:nth-child(3n) { background: #5D1AFA; border-color: #5D1AFA; }
+.pb-dots li.is-taken:nth-child(5n) { background: #FF8FCF; border-color: #1A0B45; }
+.pb-meter-note { margin-top: 12px !important; font-size: 15px; }
+
+/* How it works */
+.pb-how { padding: 100px 0 90px; }
+.pb-h2 { font-size: 40px; color: #1A0B45; }
+.pb-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin: 48px 0 0; padding: 0; list-style: none; }
+.pb-step { display: flex; flex-direction: column; gap: 14px; }
+.pb-step-art { position: relative; display: flex; align-items: center; justify-content: center; height: 250px; border-radius: 14px; overflow: hidden; }
+.pb-step:nth-child(1) .pb-step-art { background: #F6F1E7; transform: rotate(-1.5deg); }
+.pb-step:nth-child(2) .pb-step-art { background: #FF8FCF; transform: rotate(1.5deg); }
+.pb-step:nth-child(3) .pb-step-art { background: #5D1AFA; transform: rotate(-1.5deg); }
+.pb-step-art img { position: absolute; filter: drop-shadow(0 12px 14px rgba(26, 11, 69, 0.25)); }
+.pb-a1 { left: 14%; top: 34px; width: 34%; transform: rotate(-10deg); }
+.pb-a2 { right: 12%; top: 70px; width: 32%; transform: rotate(8deg); }
+.pb-a3 { left: 32%; bottom: 20px; width: 30%; transform: rotate(-3deg); }
+.pb-press { height: 86%; width: auto; }
+.pb-press-patch { right: 18%; bottom: 26px; width: 30%; transform: rotate(10deg); }
+.pb-walk { height: 88%; width: auto; }
+.pb-step-no { font-size: 34px; color: #5D1AFA; margin-top: 6px; }
+.pb-step-title { margin: 0; font-size: 18px; color: #1A0B45; }
+.pb-step p { font-size: 16px; line-height: 1.55; color: #4A3F6B; }
+
+/* Bring / we'll have */
+.pb-bring { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 6px; }
+.pb-bring > div { padding: 56px 56px 60px; }
+.pb-bring-you { background: #F6F1E7; }
+.pb-bring-us { background: #1A0B45; color: #F6F1E7; }
+.pb-bring h2 { margin: 0 0 22px; font-size: 30px; line-height: 1; }
+.pb-bring h2 .script { font-size: 1.4em; line-height: 0.8; }
+.pb-bring-you h2 { color: #1A0B45; }
+.pb-bring-you h2 .script { color: #5D1AFA; }
+.pb-bring-us h2 { color: #FFFFFF; }
+.pb-bring-us h2 .script { color: #E4EE3F; }
+.pb-bring ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 18px; line-height: 1.45; }
+.pb-bring li { display: flex; gap: 12px; }
+.pb-bring li::before { content: '✦'; flex: none; color: #5D1AFA; }
+.pb-bring-us li::before { color: #E4EE3F; }
+
+/* Form */
+.pb-form-sec { padding: 100px 0; background: repeating-linear-gradient(90deg, #FFFFFF 0 64px, #F4F0FF 64px 128px); }
+.pb-form-card { position: relative; max-width: 760px; margin: 0 auto; padding: 52px 56px 48px; border-radius: 18px; background: #FFFFFF; box-shadow: 0 24px 50px rgba(26, 11, 69, 0.12); box-sizing: border-box; }
+.pb-form-head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; }
+.pb-form-head .lockup { font-size: 36px; }
+.pb-form-head p { font-size: 17px; color: #4A3F6B; }
+.pb-form-sticker { position: absolute; right: -26px; top: -24px; background: #E4EE3F; color: #1A0B45; font-size: 18px; transform: rotate(8deg); }
+.pb-form { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px 20px; }
+.pb-field { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.pb-field.is-wide { grid-column: 1 / -1; }
+.pb-field > label, .pb-field legend { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #1A0B45; padding: 0; }
+.pb-field legend { margin-bottom: 8px; }
+.pb-field input[type=text], .pb-field input[type=email], .pb-field input[type=tel] { min-height: 50px; padding: 0 14px; border: 1.5px solid #CFC6F2; border-radius: 10px; background: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 400; color: #1A0B45; box-sizing: border-box; width: 100%; }
+.pb-field input:focus { outline: 2px solid #5D1AFA; outline-offset: 1px; border-color: #5D1AFA; }
+.pb-field small { font-size: 13px; color: #6B6B68; }
+.pb-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pb-pill { position: relative; }
+.pb-pill input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.pb-pill span { display: inline-flex; align-items: center; min-height: 46px; padding: 0 18px; border: 1.5px solid #CFC6F2; border-radius: 999px; font-size: 15px; font-weight: 500; color: #1A0B45; cursor: pointer; }
+.pb-pill input:checked + span { background: #5D1AFA; border-color: #5D1AFA; color: #FFFFFF; }
+.pb-pill input:focus-visible + span { outline: 2px solid #1A0B45; outline-offset: 2px; }
+.pb-check { grid-column: 1 / -1; display: flex; align-items: flex-start; gap: 10px; font-size: 15px; line-height: 1.45; cursor: pointer; }
+.pb-check input { flex: none; width: 20px; height: 20px; margin: 1px 0 0; accent-color: #5D1AFA; }
+.pb-submit { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 12px; }
+.home .pb-submit .btn { width: 100%; background: #1A0B45; color: #F6F1E7; }
+.home .pb-submit .btn:hover { background: #5D1AFA; color: #FFFFFF; }
+.pb-status { font-size: 15px; color: #4A3F6B; }
+.pb-done { display: none; flex-direction: column; align-items: center; gap: 14px; padding: 20px 0 6px; text-align: center; }
+.pb-done.is-on { display: flex; }
+.pb-done-title { font-size: 34px; line-height: 1; color: #1A0B45; }
+.pb-done-title .script { display: block; font-size: 1.5em; line-height: 0.9; color: #5D1AFA; }
+.pb-done p { font-size: 17px; line-height: 1.5; color: #4A3F6B; max-width: 480px; }
+
+/* Small FAQ */
+.pb-faq { padding: 90px 0 100px; }
+.pb-faq-list { max-width: 820px; margin: 36px 0 0; border-top: 1px solid #E6E6E3; }
+.pb-faq details { border-bottom: 1px solid #E6E6E3; }
+.pb-faq summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; cursor: pointer; list-style: none; font-size: 18px; font-weight: 500; color: #1A0B45; }
+.pb-faq summary::-webkit-details-marker { display: none; }
+.pb-faq summary::after { content: '+'; font-size: 24px; font-weight: 300; }
+.pb-faq details[open] summary::after { content: '−'; }
+.pb-faq details p { padding: 0 0 22px; font-size: 16px; line-height: 1.6; color: #3A3A38; }
+
+/* Also at the pop-up */
+.pb-subtitle { margin-top: 12px !important; font-size: clamp(22px, 2.4vw, 34px); line-height: 1; color: #E4EE3F; }
+.pb-shop { padding: 0 0 100px; }
+.pb-shop-head { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px 40px; margin-bottom: 36px; }
+.pb-shop-head p { max-width: 460px; font-size: 17px; line-height: 1.55; color: #4A3F6B; }
+.pb-shop-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
+.pb-shop-tile { display: flex; flex-direction: column; gap: 8px; }
+.pb-shop-art { position: relative; display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden; margin-bottom: 6px; }
+.pb-shop-art img { filter: drop-shadow(0 12px 16px rgba(26, 11, 69, 0.25)); }
+.pb-shop-art img.is-photo { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; filter: none; }
+.pb-shop-name { margin: 0; font-size: 16px; color: #1A0B45; }
+.pb-shop-tile p { font-size: 14px; line-height: 1.45; color: #4A3F6B; }
+@media (max-width: 1000px) { .pb-shop-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 28px; } }
+@media (max-width: 860px) { .pb-shop { padding-bottom: 64px; } .pb-shop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .pb-shop-head p { font-size: 16px; } }
+
+@media (max-width: 1000px) {
+  .pb-hero-inner { grid-template-columns: 1fr; gap: 56px; padding: 64px 40px 80px; }
+  .pb-ticket { max-width: 520px; }
+  .pb-meter-inner { grid-template-columns: 1fr; gap: 24px; }
+}
+@media (max-width: 860px) {
+  .pb-wrap { padding: 0 16px; }
+  .pb-hero-inner { padding: 48px 16px 64px; gap: 48px; }
+  .pb-kicker { font-size: 44px; }
+  .pb-title { font-size: 46px; }
+  .pb-intro { font-size: 17px; }
+  .pb-hero-ctas .btn { width: 100%; }
+  .pb-sparks svg:nth-child(1) { left: auto; right: 8%; top: 96px; }
+  .pb-ticket { grid-template-columns: minmax(0, 1fr) 86px; transform: rotate(1.5deg); }
+  .pb-ticket::before, .pb-ticket::after { right: 74px; }
+  .pb-ticket-main { padding: 24px 18px 22px; }
+  .pb-city { font-size: 26px; }
+  .pb-rows dd { font-size: 15px; }
+  .pb-stub-no { font-size: 32px; }
+  .pb-ticket-sticker { left: 14px; bottom: -32px; font-size: 13px; padding: 8px 12px; }
+  .pb-meter-inner { padding: 32px 16px; }
+  .pb-meter-num { font-size: 64px; }
+  .pb-dots { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 6px; }
+  .pb-how { padding: 64px 0; }
+  .pb-h2 { font-size: 26px; }
+  .pb-steps { grid-template-columns: 1fr; gap: 36px; margin-top: 32px; }
+  .pb-step-art { height: 210px; }
+  .pb-bring { grid-template-columns: 1fr; }
+  .pb-bring > div { padding: 40px 16px 44px; }
+  .pb-bring h2 { font-size: 24px; }
+  .pb-bring ul { font-size: 16px; }
+  .pb-form-sec { padding: 56px 12px; }
+  .pb-form-card { padding: 36px 18px 30px; }
+  .pb-form-head .lockup { font-size: 24px; }
+  .pb-form { grid-template-columns: 1fr; }
+  .pb-form-sticker { right: 6px; top: -20px; font-size: 14px; padding: 8px 12px; }
+  .pb-faq { padding: 56px 0 64px; }
+  .pb-faq summary { font-size: 16px; }
+}
+</style>
+</head>
+<body class="home">
+<header><div id="site-header" data-page="popup"></div></header>
+<script src="assets/header.js"></script>
+
+<main class="pb">
+
+<!-- Hero with the ticket -->
+<section class="pb-hero" aria-labelledby="pb-title">
+<span aria-hidden="true">
+<span class="pb-sparks"><svg viewBox="-44 -44 88 88"><path d="M0 -44 C4 -12 12 -4 44 0 C12 4 4 12 0 44 C-4 12 -12 4 -44 0 C-12 -4 -4 -12 0 -44 Z"/></svg><svg viewBox="-44 -44 88 88"><path d="M0 -44 C4 -12 12 -4 44 0 C12 4 4 12 0 44 C-4 12 -12 4 -44 0 C-12 -4 -4 -12 0 -44 Z"/></svg><svg viewBox="-44 -44 88 88"><path d="M0 -44 C4 -12 12 -4 44 0 C12 4 4 12 0 44 C-4 12 -12 4 -44 0 C-12 -4 -4 -12 0 -44 Z"/></svg></span>
+</span>
+<div class="pb-wrap pb-hero-inner">
+<div>
+<span class="script pb-kicker">You're invited</span>
+<h1 id="pb-title" class="wide pb-title">Pop-up <span style="white-space: nowrap">shop</span></h1>
+<p class="wide pb-subtitle">+ live patch bar</p>
+<p class="pb-intro">Shop everything in person, then press your own tote at the live patch bar. Only <span data-pb="spots">35</span> patch bar spots.</p>
+<div class="pb-hero-ctas"><a class="btn pb-btn-lime" href="#save-spot" data-pb="cta">Save my spot</a><span class="pb-hero-note" data-pb="left-note">35 spots left</span></div>
+</div>
+<div class="pb-ticket" role="img" aria-labelledby="pb-ticket-label">
+<span id="pb-ticket-label" class="visually-hidden" data-pb="ticket-label">Ticket: Show and Tell patch bar pop-up</span>
+<div class="pb-ticket-main" aria-hidden="true">
+<div class="pb-ticket-top"><span class="pb-admit">Admit one</span><img src="images/brand/logo-horizontal-violet.png" alt="" style="height: 20px; width: auto"></div>
+<p class="wide pb-city"><span class="script">Pop-up in</span><span data-pb="city">Abuja</span></p>
+<dl class="pb-rows">
+<dt>Date</dt><dd data-pb="date">Saturday 19 December</dd>
+<dt>Time</dt><dd data-pb="time">From 1pm</dd>
+<dt>Where</dt><dd data-pb="venue">Nibcard Games Café, Abuja</dd>
+<dt>Entry</dt><dd data-pb="entry">Free entry, pay for what you press</dd>
+</dl>
+</div>
+<div class="pb-stub" aria-hidden="true"><span class="wide pb-stub-no" data-pb="left">35</span><span class="pb-stub-of">of <span data-pb="spots">35</span><br>patch bar<br>spots left</span></div>
+<span class="wide pb-sticker pb-ticket-sticker" aria-hidden="true">Totes for<br>sale there!</span>
+</div>
+</div>
+</section>
+
+<!-- Spots meter -->
+<section class="pb-meter" aria-label="Spots left">
+<div class="pb-wrap pb-meter-inner">
+<div>
+<div class="pb-meter-count"><span class="wide pb-meter-num" data-pb="left">35</span><span class="wide pb-meter-label"><span class="script">patch bar spots</span>left of <span data-pb="spots">35</span></span></div>
+<p class="pb-meter-note" data-pb="meter-note">The shop is open to everyone, no sign-up needed. When the patch bar spots are gone, join the waitlist and we'll message you if one opens.</p>
+</div>
+<ul class="pb-dots" aria-hidden="true" data-pb="dots"></ul>
+</div>
+</section>
+
+<!-- How it works -->
+<section class="pb-how" aria-labelledby="how-h">
+<div class="pb-wrap">
+<h2 id="how-h" class="lockup pb-h2"><span class="script">How it</span><span class="wide">works</span></h2>
+<ol class="pb-steps">
+<li class="pb-step"><span class="pb-step-art" aria-hidden="true"><img class="pb-a1" src="images/patches/suya.webp" alt=""><img class="pb-a2" src="images/patches/no-gree.webp" alt=""><img class="pb-a3" src="images/patches/passport.webp" alt=""></span><span class="wide pb-step-no" aria-hidden="true">01</span><h3 class="wide pb-step-title">Pick your designs</h3><p>Browse the whole patch menu on the table. Mix prints, patches and pins until it feels like you.</p></li>
+<li class="pb-step"><span class="pb-step-art" aria-hidden="true"><img class="pb-press" src="images/products/classic.png" alt=""><img class="pb-press-patch" src="images/patches/keke.webp" alt=""></span><span class="wide pb-step-no" aria-hidden="true">02</span><h3 class="wide pb-step-title">Press them on</h3><p>Lay them out where you want them, and we heat-press them on with you, right there.</p></li>
+<li class="pb-step"><span class="pb-step-art" aria-hidden="true"><img class="pb-walk" src="images/brand/hero-tote-patches.webp" alt=""></span><span class="wide pb-step-no" aria-hidden="true">03</span><h3 class="wide pb-step-title">Show it off</h3><p>Walk out with a bag nobody else has. Tag us so we can see where it goes next.</p></li>
+</ol>
+</div>
+</section>
+
+<!-- Also at the pop-up: the shop -->
+<section class="pb-shop" aria-labelledby="shop-h">
+<div class="pb-wrap">
+<div class="pb-shop-head"><h2 id="shop-h" class="lockup pb-h2"><span class="script">Also at</span><span class="wide">the pop-up</span></h2><p>Come for the patch bar, stay for the shop. Everything we make is out on the tables to pick up, flip through and take home.</p></div>
+<ul class="pb-shop-grid">
+<li class="pb-shop-tile"><span class="pb-shop-art" style="background: #FF8FCF" aria-hidden="true"><img src="images/cards/card-07.jpg" alt="" style="width: 52%; transform: rotate(-6deg); box-shadow: 0 14px 22px rgba(26, 11, 69, 0.25)"></span><h3 class="wide pb-shop-name">Pun cards</h3><p>A pun for every feeling, lettered inside if you like.</p></li>
+<li class="pb-shop-tile"><span class="pb-shop-art" style="background: #EFE9FF" aria-hidden="true"><img class="is-photo" src="images/story-kits/danfo-days-model.webp" alt=""></span><h3 class="wide pb-shop-name">Story Kits</h3><p>The shirt shows the scene. You tell the story.</p></li>
+<li class="pb-shop-tile"><span class="pb-shop-art" style="background: #CFC6F2" aria-hidden="true"><img src="images/puzzles/owambe-wahala-box.webp" alt="" style="width: 68%; transform: rotate(4deg)"></span><h3 class="wide pb-shop-name">Puzzles</h3><p>Two puzzles, one story, in a box made for the coffee table.</p></li>
+<li class="pb-shop-tile"><span class="pb-shop-art" style="background: #E4EE3F" aria-hidden="true"><img src="images/patches/wahala.webp" alt="" style="position: absolute; left: 12%; top: 22%; width: 56%; transform: rotate(-10deg)"><img src="images/patches/lagos-stamp.webp" alt="" style="position: absolute; right: 10%; bottom: 14%; width: 44%; transform: rotate(8deg)"></span><h3 class="wide pb-shop-name">Prints, patches &amp; pins</h3><p>Press them on at the bar, or take them home.</p></li>
+<li class="pb-shop-tile"><span class="pb-shop-art" style="background: #F6F1E7" aria-hidden="true"><img src="images/brand/hero-tote-patches.webp" alt="" style="width: 80%"></span><h3 class="wide pb-shop-name">Totes &amp; tees</h3><p>Blank and ready to press, or already patched.</p></li>
+</ul>
+</div>
+</section>
+
+<!-- Bring / we'll have -->
+<section class="pb-bring" aria-label="What to bring">
+<div class="pb-bring-you">
+<h2 class="wide"><span class="script">You</span> bring</h2>
+<ul>
+<li>A tote, tee or jacket you want to make yours, or buy one of ours on the day</li>
+<li>Your friends (each spot is one person)</li>
+<li>A rough idea, or none at all: we'll help you choose</li>
+</ul>
+</div>
+<div class="pb-bring-us">
+<h2 class="wide"><span class="script">We</span> bring</h2>
+<ul>
+<li>The full patch, print and pin menu, including new designs</li>
+<li>The heat press, and someone who knows how to use it</li>
+<li>The whole shop to browse and take home</li>
+</ul>
+</div>
+</section>
+
+<!-- Sign-up form (Netlify Forms: sign-ups appear under Forms > popup in the Netlify dashboard) -->
+<section class="pb-form-sec" id="save-spot" aria-labelledby="form-h">
+<div class="pb-form-card">
+<span class="wide pb-sticker pb-form-sticker" aria-hidden="true" data-pb="form-sticker">Only 35 spots</span>
+<div class="pb-form-head">
+<h2 id="form-h" class="lockup" data-pb="form-title"><span class="script">Save</span><span class="wide">your patch bar spot</span></h2>
+<p data-pb="form-intro">The shop is open to everyone, no sign-up needed. To press your own tote at the patch bar, save a spot here and we'll confirm it on WhatsApp or by email, with the exact address.</p>
+</div>
+<form class="pb-form" name="popup" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-pb="form">
+<input type="hidden" name="form-name" value="popup">
+<input type="hidden" name="event" value="" data-pb="event-field">
+<input type="hidden" name="list" value="spot" data-pb="list-field">
+<p hidden><label>Leave this empty <input name="bot-field"></label></p>
+<div class="pb-field"><label for="pb-name">Name</label><input id="pb-name" name="name" type="text" autocomplete="name" required></div>
+<div class="pb-field"><label for="pb-email">Email</label><input id="pb-email" name="email" type="email" autocomplete="email" required></div>
+<div class="pb-field is-wide"><label for="pb-phone">WhatsApp number</label><input id="pb-phone" name="whatsapp" type="tel" autocomplete="tel" placeholder="With country code, e.g. +34 or +234"><small>Optional, but it's the quickest way for us to confirm.</small></div>
+<fieldset class="pb-field is-wide"><legend>How many spots?</legend><div class="pb-pills">
+<label class="pb-pill"><input type="radio" name="spots" value="1" checked><span>Just me</span></label>
+<label class="pb-pill"><input type="radio" name="spots" value="2"><span>Me + 1</span></label>
+<label class="pb-pill"><input type="radio" name="spots" value="3"><span>Me + 2</span></label>
+<label class="pb-pill"><input type="radio" name="spots" value="4"><span>Me + 3</span></label>
+</div></fieldset>
+<fieldset class="pb-field is-wide"><legend>What will you press onto?</legend><div class="pb-pills">
+<label class="pb-pill"><input type="radio" name="bringing" value="My own tote or bag"><span>My own tote or bag</span></label>
+<label class="pb-pill"><input type="radio" name="bringing" value="A tee or jacket"><span>A tee or jacket</span></label>
+<label class="pb-pill"><input type="radio" name="bringing" value="I'll buy one there"><span>I'll buy one there</span></label>
+<label class="pb-pill"><input type="radio" name="bringing" value="Not sure yet" checked><span>Not sure yet</span></label>
+</div></fieldset>
+<label class="pb-check"><input type="checkbox" name="club" value="yes"> Add me to the Show and Tell club for future pop-up invites</label>
+<div class="pb-submit">
+<button type="submit" class="btn" data-pb="submit">Save my spot</button>
+<p class="pb-status" role="status" data-pb="status"></p>
+</div>
+</form>
+<div class="pb-done" data-pb="done" tabindex="-1">
+<p class="wide pb-done-title" data-pb="done-title"><span class="script">You're</span>on the list</p>
+<p data-pb="done-text">We'll confirm your spot on WhatsApp or by email within a couple of days, with the exact address. See you at the patch bar.</p>
+<a class="btn btn-ink" href="https://www.instagram.com/showandtell.co/">Follow @showandtell.co</a>
+</div>
+</div>
+</section>
+
+<!-- Small FAQ -->
+<section class="pb-faq" aria-labelledby="pbfaq-h">
+<div class="pb-wrap">
+<h2 id="pbfaq-h" class="lockup pb-h2"><span class="script">Good</span><span class="wide">to know</span></h2>
+<div class="pb-faq-list">
+<details><summary>Do I need to sign up to visit the shop?</summary><p>No. The shop is open to everyone, so come and browse. Signing up is only for a spot at the live patch bar.</p></details>
+<details><summary>Is my spot confirmed when I sign up?</summary><p>Not straight away. Spots go in the order people sign up, and we confirm yours on WhatsApp or by email within a couple of days.</p></details>
+<details><summary>Can I bring something that isn't a tote?</summary><p>Yes: tees, sweatshirts, denim jackets and canvas bags all work well. Avoid nylon, waterproof or very stretchy fabrics, which don't take heat well.</p></details>
+<details><summary>What if the spots are gone?</summary><p>Join the waitlist with the same form. If someone can't make it, we'll message the next person on the list.</p></details>
+<details><summary>Can I book the patch bar for my own event?</summary><p>Yes. We bring the patch bar to birthdays, bridal showers and team events in Abuja and Barcelona. Message us on WhatsApp and tell us about it.</p></details>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer class="home-footer">
+<div class="footer-cols">
+<div class="footer-news">
+<h2 class="wide footer-news-title">Hear about new drops <span class="script">first</span></h2>
+<form class="footer-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-signup>
+<input type="hidden" name="form-name" value="newsletter">
+<p hidden><label>Leave this empty <input name="bot-field"></label></p>
+<label class="visually-hidden" for="f-email">Email address</label>
+<input id="f-email" name="email" type="email" autocomplete="email" placeholder="Your email address" required>
+<button type="submit">Sign up</button>
+<p class="form-status" role="status"></p>
+</form>
+</div>
+<nav class="footer-links" aria-label="Shop"><h2 class="label">Shop</h2><a href="story-kit.html">Story Kits</a><a href="cards.html">Cards</a><a href="build-your-tote.html">Totes</a><a href="games.html">Games and puzzles</a><a href="patches.html">Prints, patches and pins</a><a href="holiday-gift-guide.html">Holiday Gift Guide</a><a href="all-products.html">All products</a></nav>
+<nav class="footer-links" aria-label="Show and Tell"><h2 class="label">Show and Tell</h2><a href="about.html">About us</a><a href="popup.html" aria-current="page">Patch bar pop-ups</a></nav>
+<nav class="footer-links" aria-label="Help"><h2 class="label">Help</h2><a href="faq.html">FAQ</a><a href="faq.html#care">Care for your tote</a><a href="https://wa.me/" data-whatsapp>Order on WhatsApp</a><a href="faq.html#groups">Group orders</a></nav>
+<nav class="footer-links" aria-label="Follow"><h2 class="label">Follow</h2><a href="https://www.instagram.com/showandtell.co/">Instagram</a></nav>
+</div>
+<div class="footer-base">
+<img src="images/brand/logo-stacked-violet.png" alt="Show and Tell Co" width="43" height="34">
+<span>© 2026 Show and Tell Co · Cards that tell it. Totes that show it.</span>
+</div>
+</footer>
+
+<script src="assets/prices.js"></script>
+<script src="assets/catalog.js"></script>
+<script src="assets/home.js"></script>
+<script>
+// ---------- Your pop-up ----------
+// Change these for each pop-up. Anything in [square brackets] is a placeholder to replace.
+// taken: how many spots are already confirmed. Update it as people sign up (see the Forms tab
+// in Netlify). When taken reaches spots, the page switches to a waitlist automatically.
+var POPUP = {
+  city: 'Abuja',
+  date: 'Saturday 19 December',
+  time: 'From 1pm',
+  venue: 'Nibcard Games Café, Abuja',
+  entry: 'Free entry, pay for what you press',
+  spots: 35,
+  taken: 0
+};
+// ---------- End of settings ----------
+
+(function () {
+  var spots = Math.max(1, POPUP.spots | 0);
+  var taken = Math.min(spots, Math.max(0, POPUP.taken | 0));
+  var left = spots - taken;
+  var full = left === 0;
+  function all(key) { return document.querySelectorAll('[data-pb="' + key + '"]'); }
+  function one(key) { return document.querySelector('[data-pb="' + key + '"]'); }
+  function set(key, text) { all(key).forEach(function (el) { el.textContent = text; }); }
+
+  set('city', POPUP.city); set('date', POPUP.date); set('time', POPUP.time); set('venue', POPUP.venue); set('entry', POPUP.entry);
+  set('spots', spots); set('left', left);
+  set('ticket-label', 'Ticket: Show and Tell pop-up shop and live patch bar in ' + POPUP.city + ', ' + POPUP.date + ', ' + POPUP.time + ', at ' + POPUP.venue + '. ' + left + ' of ' + spots + ' patch bar spots left.');
+  one('event-field').value = 'Patch bar ' + POPUP.city + ', ' + POPUP.date;
+
+  var dots = '';
+  for (var i = 0; i < spots; i++) dots += '<li' + (i < taken ? ' class="is-taken"' : '') + '></li>';
+  one('dots').innerHTML = dots;
+
+  if (full) {
+    set('left-note', 'Patch bar fully booked: join the waitlist');
+    set('cta', 'Join the waitlist');
+    set('meter-note', 'All patch bar spots are taken. The shop is still open to everyone, and you can join the waitlist for the patch bar.');
+    set('form-sticker', 'Fully booked');
+    one('form-title').innerHTML = '<span class="script">Join</span><span class="wide">the waitlist</span>';
+    set('form-intro', 'All ' + spots + ' patch bar spots are taken, but the shop is open to everyone. Leave your details and we’ll message you if a patch bar spot opens.');
+    set('submit', 'Join the waitlist');
+    one('list-field').value = 'waitlist';
+  } else {
+    set('left-note', left === spots ? spots + ' patch bar spots, first come first served' : 'Only ' + left + ' patch bar spots left');
+    if (left <= 10) set('form-sticker', 'Only ' + left + ' left!');
+  }
+
+  // Send the sign-up to Netlify Forms without leaving the page.
+  // Without JavaScript the form still posts, and Netlify shows its own thank-you page.
+  var form = one('form'), status = one('status'), btn = one('submit'), done = one('done');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    btn.disabled = true; status.textContent = 'Saving…';
+    fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(form)).toString() })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.status);
+        form.hidden = true;
+        if (full) {
+          one('done-title').innerHTML = '<span class="script">You’re</span>on the waitlist';
+          set('done-text', 'We’ll message you if a spot opens. Follow us for the next pop-up date.');
+        }
+        done.classList.add('is-on'); done.focus();
+      })
+      .catch(function () { status.textContent = 'Sorry, that didn’t go through. Please try again in a moment, or message us on WhatsApp.'; btn.disabled = false; });
+  });
+})();
+</script>
+<script src="assets/menu.js"></script>
+</body>
+</html>
