@@ -23,6 +23,9 @@
 .pz-photo { aspect-ratio: 1 / 1; background: #EDE5D6; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .pz-photo img { width: 100%; height: 100%; object-fit: contain; box-sizing: border-box; padding: 6%; }
 .pz-photo.is-scene img { padding: 0 4%; }
+/* A photo with its own backdrop: bg sets the frame to the photo's background colour, fill crops the photo to fill the frame. */
+.pz-photo.has-bg img { padding: 0; }
+.pz-photo.is-fill img { padding: 0; object-fit: cover; }
 .pz-thumbs { display: flex; gap: 10px; flex-wrap: wrap; }
 .pz-thumb { flex: 0 1 84px; min-width: 0; aspect-ratio: 1; padding: 0; border: 2px solid transparent; border-radius: 4px; background: #EDE5D6; cursor: pointer; overflow: hidden; }
 .pz-thumb img { width: 100%; height: 100%; object-fit: cover; }
@@ -181,7 +184,7 @@ var ALSO_LIKE = ['kit-danfo-days', 'card-11', 'p19:patch'];
     var badges = badgesOf(it.id);
     var shape = it.group === 'Cards' ? 'is-card' : (it.group === 'Designs' ? 'is-design' : 'is-blank');
     return '<li><a class="ptile" href="' + esc(it.href) + '">'
-      + '<span class="ptile-img ' + shape + '">'
+      + '<span class="ptile-img ' + shape + (it.bg ? ' has-bg" style="background:' + esc(it.bg) : '') + '">'
       + (badges.length ? '<span class="ptile-badge">' + esc(badges.join(' | ')) + '</span>' : '')
       + '<img src="' + esc(it.img) + '" alt="" loading="lazy"></span>'
       + '<span class="ptile-info"><span class="ptile-text"><span class="ptile-kind">' + esc(it.kind) + '</span>'
@@ -206,9 +209,9 @@ var ALSO_LIKE = ['kit-danfo-days', 'card-11', 'p19:patch'];
       + '<nav class="pz-crumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / <a href="games.html">Games</a> / <span aria-current="page">' + esc(pz.name) + '</span></nav>'
       + '<div class="pz-main">'
       +   '<div class="pz-gallery">'
-      +     '<div class="pz-photo' + (isScene ? ' is-scene' : '') + '"><img src="' + esc(photo.src) + '" alt="' + esc(photo.alt) + '"></div>'
+      +     '<div class="pz-photo' + (isScene ? ' is-scene' : '') + (photo.bg ? ' has-bg' : '') + (photo.fill ? ' is-fill' : '') + '"' + (photo.bg ? ' style="background:' + esc(photo.bg) + '"' : '') + '><img src="' + esc(photo.src) + '" alt="' + esc(photo.alt) + '"></div>'
       +     '<div class="pz-thumbs" role="group" aria-label="Photos">'
-      +       pz.gallery.map(function (g, i) { return '<button type="button" class="pz-thumb" data-photo="' + i + '" aria-pressed="' + (i === state.photo) + '" aria-label="Photo ' + (i + 1) + ' of ' + pz.gallery.length + '"><img src="' + esc(g.src) + '" alt=""></button>'; }).join('')
+      +       pz.gallery.map(function (g, i) { return '<button type="button" class="pz-thumb" data-photo="' + i + '"' + (g.bg ? ' style="background:' + esc(g.bg) + '"' : '') + ' aria-pressed="' + (i === state.photo) + '" aria-label="Photo ' + (i + 1) + ' of ' + pz.gallery.length + '"><img src="' + esc(g.src) + '" alt=""></button>'; }).join('')
       +     '</div>'
       +   '</div>'
       +   '<div class="pz-info">'
