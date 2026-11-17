@@ -145,7 +145,7 @@ body.home { margin: 0; background: #FFFFFF; color: #1F1F1F; font-family: 'Jost',
 
 /* Footer */
 .home-footer { background: #F4F4F2; }
-.footer-cols { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 40px; padding: 72px 40px 48px; }
+.footer-cols { display: grid; grid-template-columns: 1.2fr repeat(4, minmax(0, 1fr)); gap: 40px; padding: 72px 40px 48px; }
 .footer-news { display: flex; flex-direction: column; gap: 18px; }
 .footer-news-title { margin: 0; font-size: 24px; line-height: 1.1; color: #1A0B45; }
 .footer-news-title .script { font-size: 1.7em; line-height: 0.6; color: #5D1AFA; }
@@ -359,8 +359,8 @@ body.home { margin: 0; background: #FFFFFF; color: #1F1F1F; font-family: 'Jost',
 .brand-title { margin: 0; font-size: clamp(28px, 2.8vw, 40px); line-height: 1.05; color: #1A0B45; }
 .brand-title .script { font-size: 1.35em; line-height: 0.8; color: #5D1AFA; }
 .brand-intro { margin: 0; font-size: 18px; color: #4A3F6B; }
-.cats { width: 100%; max-width: 1320px; padding-top: 30px; }
-.cats ul { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.cats { width: 100%; max-width: 1180px; padding-top: 30px; }
+.cats ul { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
 .cat { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; text-decoration: none; }
 .home .cat { color: #1A0B45; }
 .cat-circle { display: flex; align-items: center; justify-content: center; width: 140px; height: 140px; max-width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; transition: transform 0.2s ease; }
