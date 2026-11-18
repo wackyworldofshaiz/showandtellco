@@ -76,10 +76,14 @@ var STORY_KITS = [
     name: 'Danfo Days',
     tagline: 'A Lagos bus stop at night, waiting for its story.',
     desc: 'A white tee printed with a hand-drawn Lagos bus stop: a danfo with its door open, a bench, a stool and a palm tree. Inside the box are 16 full-colour iron-on pieces (the market woman, the conductor, a sleeping goat, a stretching dog and more) for you to place wherever the story goes, then iron on at home.',
-    img: 'images/story-kits/danfo-days-flatlay.jpg',
+    img: 'images/story-kits/danfo-days-flatlay.webp',
     gallery: [
       { src: 'images/story-kits/danfo-days-model.webp', alt: 'A smiling woman wearing the Danfo Days tee, a black line drawing of a Lagos bus stop, holding up the Story Kit box' },
-      { src: 'images/story-kits/danfo-days-flatlay.jpg', alt: 'Everything in the kit: the printed white tee, the sheet of 16 colour iron-on pieces and the Danfo Days box' },
+      { src: 'images/story-kits/danfo-days-flatlay.webp', alt: 'Everything in the kit: the printed white tee, two sheets of colour iron-on pieces and the Danfo Days box' },
+      { src: 'images/story-kits/danfo-days-open-box.webp', alt: 'Holding up both sheets of iron-on pieces over the folded tee in its open box' },
+      { src: 'images/story-kits/danfo-days-cutting.webp', alt: 'Cutting the iron-on pieces from the sheet with red scissors, next to the tee and the kit box' },
+      { src: 'images/story-kits/danfo-days-ironing.webp', alt: 'Ironing pieces onto the tee through baking paper, with the open sheets of pieces beside it' },
+      { src: 'images/story-kits/danfo-days-peeling.webp', alt: 'Peeling the backing off a stool piece, with the woman, the luggage, the boy, the goat and the dog already ironed onto the tee' },
       { src: 'images/story-kits/danfo-days-unboxing.webp', alt: 'A smiling woman holding up the finished Danfo Days tee, with every iron-on piece in place, above the open kit box' },
       { src: 'images/story-kits/danfo-days-scene.webp', alt: 'The Danfo Days scene filled in with every piece' },
       { src: 'images/story-kits/danfo-days-size-chart.webp', alt: 'T-shirt size chart in centimetres, measured flat. Chest: M 53, L 58, XL 62, 2XL 67. Between sizes? Take the bigger one.' }

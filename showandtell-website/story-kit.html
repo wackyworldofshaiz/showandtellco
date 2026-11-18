@@ -23,6 +23,8 @@
 .kit-thumbs { display: flex; gap: 10px; }
 .kit-thumb { flex: 0 1 84px; min-width: 0; aspect-ratio: 1; padding: 0; border: 2px solid transparent; border-radius: 4px; background: #F4F0FF; cursor: pointer; overflow: hidden; }
 .kit-thumb img { width: 100%; height: 100%; object-fit: cover; }
+/* On phones the thumbnails wrap, five to a row, so they stay big enough to tap. */
+@media (max-width: 600px) { .kit-thumbs { flex-wrap: wrap; } .kit-thumb { flex: 0 0 calc((100% - 40px) / 5); } }
 .kit-thumb[aria-pressed="true"] { border-color: #5D1AFA; }
 .kit-info { display: flex; flex-direction: column; gap: 18px; }
 .kit-title { margin: 0; font-size: clamp(40px, 4.4vw, 60px); line-height: 0.95; color: #1A0B45; }

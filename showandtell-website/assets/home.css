@@ -374,6 +374,7 @@ body.home { margin: 0; background: #FFFFFF; color: #1F1F1F; font-family: 'Jost',
 .cat-card.tilt-r { width: 50%; transform: rotate(5deg); }
 .cat-tote { height: 84%; width: auto; }
 .cat-patch { width: 68%; }
+.cat-box { width: 44%; transform: rotate(5deg); filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.35)); }
 .cat-patch.tilt-l { transform: rotate(-8deg); }
 .cat-patch.tilt-r { transform: rotate(6deg); }
 .cat-dice { width: 62%; height: 62%; }
