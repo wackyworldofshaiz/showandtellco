@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corporate gifting · Show and Tell Co</title>
+<meta name="description" content="Gifts for your team, clients and events: puzzles, Story Kits, totes, cards and patches from Show and Tell Co, with your branding if you like. Tell us what you need and we’ll send a quote.">
+<link rel="icon" type="image/png" href="images/brand/wordmark-violet.png">
+<link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jost-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/home.css">
+<style>
+/* Corporate gifting: hero, how it works, the enquiry form and FAQs.
+   Enquiries arrive in Netlify under Forms > corporate-gifting (with any uploaded logo attached).
+   Linked from the footer on every page. */
+.cg p { margin: 0; }
+.cg-wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; box-sizing: border-box; }
+.cg-head { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 40px; text-align: center; }
+.cg-h2 { margin: 0; font-size: clamp(30px, 3.6vw, 46px); line-height: 1; color: #1A0B45; }
+.cg-sub { max-width: 560px; font-size: 18px; line-height: 1.5; color: #4A3F6B; }
+
+/* Hero: flat brand violet, like the other pages (no photo backgrounds) */
+.cg-hero { background: #5D1AFA; color: #FFFFFF; overflow: hidden; }
+.cg-hero-inner { max-width: 820px; margin: 0 auto; padding: 88px 24px; box-sizing: border-box; text-align: center; }
+.cg-hero-text { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.cg-kicker { font-size: 56px; line-height: 0.9; color: #E4EE3F; }
+.cg-title { margin: 0; font-size: clamp(42px, 6vw, 80px); line-height: 0.92; color: #FFFFFF; }
+.cg-intro { max-width: 500px; font-size: 19px; line-height: 1.5; color: #E9E3FF; }
+.cg-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 10px; }
+.home .cg-ctas .btn-cream:hover { background: #E4EE3F; color: #1A0B45; }
+
+/* How it works */
+.cg-how { padding: 96px 0; background: #F6F1E7; }
+.cg-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; counter-reset: step; }
+.cg-step { display: flex; flex-direction: column; gap: 12px; padding: 34px 30px; border-radius: 18px; background: #FFFFFF; counter-increment: step; }
+.cg-step::before { content: counter(step); display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 50%; background: #5D1AFA; color: #FFFFFF; font-family: 'Archivo', Helvetica, Arial, sans-serif; font-stretch: 118%; font-weight: 800; font-size: 22px; }
+.cg-step h3 { margin: 6px 0 0; font-size: 20px; line-height: 1.1; color: #1A0B45; }
+.cg-step p { font-size: 16px; line-height: 1.55; color: #4A3F6B; }
+
+/* Enquiry */
+.cg-enquire { padding: 96px 0; background: #5D1AFA; scroll-margin-top: 0; }
+.cg-enquire-grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 56px; align-items: start; }
+.cg-enquire-side { display: flex; flex-direction: column; gap: 18px; color: #FFFFFF; position: sticky; top: 24px; }
+.cg-enquire-side .cg-h2 { color: #FFFFFF; }
+.cg-enquire-side .script { font-size: 48px; line-height: 0.9; color: #E4EE3F; }
+.cg-list { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.cg-list li { display: flex; gap: 12px; font-size: 17px; line-height: 1.45; color: #F1ECFF; }
+.cg-list li::before { content: ''; flex: none; width: 10px; height: 10px; margin-top: 7px; border-radius: 50%; background: #E4EE3F; }
+.cg-note { font-size: 15px; line-height: 1.5; color: #E9E3FF; }
+.cg-card { padding: 44px 48px; border-radius: 18px; background: #FFFFFF; box-shadow: 0 24px 50px rgba(26, 11, 69, 0.2); box-sizing: border-box; }
+
+/* Form fields, same look as special-orders.html */
+.so-form { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px 20px; }
+.so-field { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.so-field.is-wide { grid-column: 1 / -1; }
+.so-field > label, .so-field legend { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #1A0B45; padding: 0; }
+.so-field legend { margin-bottom: 8px; }
+.so-field .opt { font-weight: 500; letter-spacing: 0; text-transform: none; color: #6B6B68; }
+.so-field input[type=text], .so-field input[type=email], .so-field input[type=tel], .so-field input[type=date], .so-field textarea { min-height: 50px; padding: 0 14px; border: 1.5px solid #CFC6F2; border-radius: 10px; background: #FFFFFF; font-family: inherit; font-size: 16px; color: #1A0B45; box-sizing: border-box; width: 100%; }
+.so-field textarea { min-height: 120px; padding: 12px 14px; line-height: 1.5; resize: vertical; }
+.so-field input[type=file] { font-family: inherit; font-size: 15px; color: #1A0B45; }
+.so-field input:focus, .so-field textarea:focus { outline: 2px solid #5D1AFA; outline-offset: 1px; border-color: #5D1AFA; }
+.so-field small { font-size: 13px; color: #6B6B68; }
+.so-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.so-pill { position: relative; }
+.so-pill input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.so-pill span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border: 1.5px solid #CFC6F2; border-radius: 999px; font-size: 15px; font-weight: 500; color: #1A0B45; cursor: pointer; }
+.so-pill input:checked + span { background: #5D1AFA; border-color: #5D1AFA; color: #FFFFFF; }
+.so-pill input:focus-visible + span { outline: 2px solid #1A0B45; outline-offset: 2px; }
+.so-submit { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 12px; }
+.home .so-submit .btn { width: 100%; background: #1A0B45; color: #F6F1E7; }
+.home .so-submit .btn:hover { background: #5D1AFA; color: #FFFFFF; }
+.home .so-submit .btn[disabled] { opacity: 0.6; cursor: default; }
+.so-status { font-size: 15px; color: #4A3F6B; }
+.so-done { display: none; flex-direction: column; align-items: center; gap: 14px; padding: 12px 0; text-align: center; }
+.so-done.is-on { display: flex; }
+.so-done-title { margin: 0; font-size: 34px; line-height: 1; color: #1A0B45; }
+.so-done-title .script { display: block; font-size: 1.5em; line-height: 0.9; color: #5D1AFA; }
+.so-done p { font-size: 17px; line-height: 1.5; color: #4A3F6B; max-width: 480px; }
+
+/* FAQ */
+.cg-faq { padding: 96px 0; }
+.cg-faq .cg-wrap { max-width: 880px; }
+
+@media (max-width: 960px) {
+  .cg-enquire-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .cg-enquire-side { position: static; }
+}
+@media (max-width: 760px) {
+  .cg-wrap { padding: 0 16px; }
+  .cg-hero-inner { padding: 56px 16px 64px; }
+  .cg-hero-text { align-self: stretch; }
+    .cg-kicker { font-size: 44px; }
+  .cg-ctas { flex-direction: column; align-self: stretch; }
+  .cg-ctas .btn { width: 100%; }
+  .cg-how, .cg-enquire, .cg-faq { padding: 64px 0; }
+  .cg-steps { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .cg-step { padding: 26px 22px; }
+  .cg-card { padding: 30px 20px; }
+  .so-form { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+</head>
+<body class="home">
+<header><div id="site-header" data-page="corporate-gifting"></div></header>
+<script src="assets/header.js"></script>
+
+<main class="cg">
+<section class="cg-hero" aria-labelledby="cg-h">
+<div class="cg-hero-inner">
+<div class="cg-hero-text">
+<p class="script cg-kicker">Gifts with a story</p>
+<h1 id="cg-h" class="wide cg-title">Corporate gifting</h1>
+<p class="cg-intro">Puzzles, Story Kits, totes and cards for your team, clients and events, with your branding if you like.</p>
+<div class="cg-ctas">
+<a class="btn btn-cream" href="#enquire">Start an enquiry</a>
+<a class="btn btn-outline" href="all-products.html">Browse the shop</a>
+</div>
+</div>
+</div>
+</section>
+
+<section class="cg-how" aria-labelledby="how-h">
+<div class="cg-wrap">
+<div class="cg-head">
+<h2 id="how-h" class="wide cg-h2">How it works</h2>
+<p class="cg-sub">From your first message to the last box delivered, we handle the making, branding and packing.</p>
+</div>
+<ol class="cg-steps">
+<li class="cg-step"><h3 class="wide">Tell us what you need</h3><p>How many gifts, your budget per person, the products you like and when you need them. It takes two minutes.</p></li>
+<li class="cg-step"><h3 class="wide">Get your quote</h3><p>We reply with pricing for your quantity, branding options and how long it will take to make.</p></li>
+<li class="cg-step"><h3 class="wide">We make and deliver</h3><p>Every gift is packed and ready to hand out, delivered to your office or straight to each person.</p></li>
+</ol>
+</div>
+</section>
+
+<section class="cg-enquire" id="enquire" aria-labelledby="enq-h">
+<div class="cg-wrap cg-enquire-grid">
+<div class="cg-enquire-side">
+<p class="script">Let’s talk</p>
+<h2 id="enq-h" class="wide cg-h2">Start an enquiry</h2>
+<ul class="cg-list">
+<li>Fill in the form with what you have in mind.</li>
+<li>We’ll send you a quote, usually within two working days.</li>
+<li>Once you approve it, we collect any names or logos and get making.</li>
+</ul>
+<p class="cg-note">Branded and personalised orders take longer to make, so get in touch early, especially before the holidays. Prefer to chat? <a href="https://wa.me/" data-whatsapp style="color:#E4EE3F">Message us on WhatsApp</a>.</p>
+</div>
+
+<div class="cg-card">
+<form class="so-form" name="corporate-gifting" method="POST" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field">
+<input type="hidden" name="form-name" value="corporate-gifting">
+<p hidden><label>Leave this empty <input name="bot-field"></label></p>
+<div class="so-field is-wide"><label for="cg-company">Company</label><input id="cg-company" name="company" type="text" autocomplete="organization" required></div>
+<div class="so-field"><label for="cg-name">Your name</label><input id="cg-name" name="name" type="text" autocomplete="name" required></div>
+<div class="so-field"><label for="cg-email">Work email</label><input id="cg-email" name="email" type="email" autocomplete="email" required></div>
+<div class="so-field is-wide"><label for="cg-phone">WhatsApp number <span class="opt">(optional)</span></label><input id="cg-phone" name="whatsapp" type="tel" autocomplete="tel" placeholder="With country code, e.g. +234 or +34"></div>
+<fieldset class="so-field is-wide"><legend>How many gifts?</legend><div class="so-pills">
+<label class="so-pill"><input type="radio" name="quantity" value="10 to 24" required><span>10–24</span></label>
+<label class="so-pill"><input type="radio" name="quantity" value="25 to 49"><span>25–49</span></label>
+<label class="so-pill"><input type="radio" name="quantity" value="50 to 99"><span>50–99</span></label>
+<label class="so-pill"><input type="radio" name="quantity" value="100 to 249"><span>100–249</span></label>
+<label class="so-pill"><input type="radio" name="quantity" value="250 or more"><span>250+</span></label>
+<label class="so-pill"><input type="radio" name="quantity" value="Not sure yet"><span>Not sure yet</span></label>
+</div></fieldset>
+<fieldset class="so-field is-wide"><legend>Products you’re interested in</legend><div class="so-pills">
+<label class="so-pill"><input type="checkbox" name="products" value="Puzzles"><span>Puzzles</span></label>
+<label class="so-pill"><input type="checkbox" name="products" value="Story Kits"><span>Story Kits</span></label>
+<label class="so-pill"><input type="checkbox" name="products" value="Totes"><span>Totes</span></label>
+<label class="so-pill"><input type="checkbox" name="products" value="Tees"><span>Tees</span></label>
+<label class="so-pill"><input type="checkbox" name="products" value="Cards"><span>Cards</span></label>
+<label class="so-pill"><input type="checkbox" name="products" value="Patches, prints and pins"><span>Patches, prints and pins</span></label>
+<label class="so-pill"><input type="checkbox" name="products" value="A gift set"><span>A gift set</span></label>
+</div></fieldset>
+<div class="so-field"><label for="cg-budget">Budget per person <span class="opt">(optional)</span></label><input id="cg-budget" name="budget" type="text" placeholder="e.g. ₦30,000 or €40"></div>
+<div class="so-field"><label for="cg-date">Needed by</label><input id="cg-date" name="needed-by" type="date" required></div>
+<fieldset class="so-field"><legend>Branding or names</legend><div class="so-pills">
+<label class="so-pill"><input type="radio" name="branding" value="Yes"><span>Yes</span></label>
+<label class="so-pill"><input type="radio" name="branding" value="No"><span>No</span></label>
+<label class="so-pill"><input type="radio" name="branding" value="Not sure yet" checked><span>Not sure yet</span></label>
+</div></fieldset>
+<fieldset class="so-field"><legend>Deliver to</legend><div class="so-pills">
+<label class="so-pill"><input type="radio" name="deliver-to" value="One address" checked><span>One address</span></label>
+<label class="so-pill"><input type="radio" name="deliver-to" value="Each person"><span>Each person</span></label>
+</div></fieldset>
+<div class="so-field is-wide"><label for="cg-details">Anything else? <span class="opt">(optional)</span></label><textarea id="cg-details" name="details" placeholder="The occasion, where the gifts are going, colours, the feeling you’re going for…"></textarea></div>
+<div class="so-field is-wide"><label for="cg-file">Your logo <span class="opt">(optional)</span></label><input id="cg-file" name="logo" type="file" accept="image/*,.pdf,.svg"><small>One file, up to 8 MB.</small></div>
+<div class="so-submit">
+<button type="submit" class="btn">Send enquiry</button>
+<p class="so-status" role="status"></p>
+</div>
+</form>
+<div class="so-done" tabindex="-1">
+<p class="wide so-done-title"><span class="script">Thank</span>you</p>
+<p>We’ve got your enquiry and will be in touch within two working days with a quote.</p>
+<a class="btn btn-ink" href="all-products.html">Browse the shop</a>
+</div>
+</div>
+</div>
+</section>
+
+<section class="cg-faq" aria-labelledby="faq-h">
+<div class="cg-wrap">
+<div class="cg-head"><h2 id="faq-h" class="wide cg-h2">Frequently asked questions</h2></div>
+<details class="faq-q" open>
+<summary>How do I request a corporate gifting quote?</summary>
+<div class="faq-a"><p>Fill in the <a href="#enquire">enquiry form</a> above with how many gifts you need, your budget and your deadline. We’ll come back to you with a quote, usually within two working days. You can also message us on <a href="https://wa.me/" data-whatsapp>WhatsApp</a>.</p></div>
+</details>
+<details class="faq-q">
+<summary>How much does corporate gifting cost?</summary>
+<div class="faq-a"><p>It depends on the products you choose, how many you need and any branding. Once we have your enquiry we’ll send a tailored quote, with pricing for your quantity.</p></div>
+</details>
+<details class="faq-q">
+<summary>Which products can I choose?</summary>
+<div class="faq-a"><p>Anything in the shop: puzzles, Story Kits, totes, tees, cards, and patches, prints and pins. We can also put together a gift set, for example a tote with a card and a few patches.</p></div>
+</details>
+<details class="faq-q">
+<summary>Can you add our logo or personalise gifts?</summary>
+<div class="faq-a"><p>Yes. We can add your logo or each person’s name to totes, tees and cards, and design a custom patch or print for your team. Branded orders take a little longer, so let us know your deadline when you enquire.</p></div>
+</details>
+<details class="faq-q">
+<summary>How will the gifts be delivered?</summary>
+<div class="faq-a"><p>We can deliver everything to one address, like your office or event venue, or send each gift straight to each person. Let us know which in the form.</p></div>
+</details>
+</div>
+</section>
+</main>
+
+<footer class="home-footer">
+<div class="footer-cols">
+<div class="footer-news">
+<h2 class="wide footer-news-title">Hear about new drops <span class="script">first</span></h2>
+<form class="footer-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-signup>
+<input type="hidden" name="form-name" value="newsletter">
+<p hidden><label>Leave this empty <input name="bot-field"></label></p>
+<label class="visually-hidden" for="f-email">Email address</label>
+<input id="f-email" name="email" type="email" autocomplete="email" placeholder="Your email address" required>
+<button type="submit">Sign up</button>
+<p class="form-status" role="status"></p>
+</form>
+</div>
+<nav class="footer-links" aria-label="Shop"><h2 class="label">Shop</h2><a href="story-kit.html">Story Kits</a><a href="cards.html">Cards</a><a href="build-your-tote.html">Totes</a><a href="games.html">Games and puzzles</a><a href="patches.html">Prints, patches and pins</a><a href="holiday-gift-guide.html">Holiday Gift Guide</a><a href="all-products.html">All products</a></nav>
+<nav class="footer-links" aria-label="Show and Tell"><h2 class="label">Show and Tell</h2><a href="about.html">About us</a><a href="popup.html">Patch bar pop-ups</a><a href="corporate-gifting.html" aria-current="page">Corporate gifting</a></nav>
+<nav class="footer-links" aria-label="Help"><h2 class="label">Help</h2><a href="faq.html">FAQ</a><a href="faq.html#care">Care for your tote</a><a href="https://wa.me/" data-whatsapp>Order on WhatsApp</a><a href="faq.html#groups">Group orders</a></nav>
+<nav class="footer-links" aria-label="Follow"><h2 class="label">Follow</h2><a href="https://www.instagram.com/showandtell.co/">Instagram</a></nav>
+</div>
+<div class="footer-base">
+<img src="images/brand/logo-stacked-violet.png" alt="Show and Tell Co" width="43" height="34">
+<span>© 2026 Show and Tell Co · Cards that tell it. Totes that show it.</span>
+</div>
+</footer>
+
+<script src="assets/prices.js"></script>
+<script src="assets/catalog.js"></script>
+<script src="assets/home.js"></script>
+<script>
+(function () {
+  // WhatsApp links in the enquiry panel and FAQs (home.js only fills the footer's).
+  document.querySelectorAll('.cg [data-whatsapp]').forEach(function (a) {
+    a.href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent("Hi Show and Tell! I'd like to ask about corporate gifts.");
+  });
+
+  // ---------- Enquiry form ----------
+  // Sends to Netlify Forms without leaving the page. multipart/form-data keeps the logo upload.
+  // Without JavaScript the form still posts, and Netlify shows its own thank-you page.
+  var form = document.querySelector('.so-form'), status = form.querySelector('.so-status'),
+      btn = form.querySelector('[type=submit]'), done = document.querySelector('.so-done'),
+      file = form.querySelector('#cg-file');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (file.files[0] && file.files[0].size > 8 * 1024 * 1024) { status.textContent = 'That file is over 8 MB. Please choose a smaller one.'; return; }
+    btn.disabled = true; status.textContent = 'Sending…';
+    fetch('/', { method: 'POST', body: new FormData(form) })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.status);
+        form.hidden = true; done.classList.add('is-on'); done.focus();
+      })
+      .catch(function () { status.textContent = 'Sorry, that didn’t go through. Please try again in a moment.'; btn.disabled = false; });
+  });
+})();
+</script>
+<script src="assets/menu.js"></script>
+</body>
+</html>
