@@ -16,7 +16,7 @@
     return '<li><a class="gg-tile" href="' + esc(it.href) + '">'
       + '<span class="gg-tile-img' + (cover ? ' is-cover' : '') + (it.group === 'Cards' ? ' is-card' : '') + '"' + (it.bg ? ' style="background:' + esc(it.bg) + '"' : '') + '>'
       + (badges.length ? '<span class="gg-badge">' + esc(badges.join(' · ')) + '</span>' : '')
-      + '<img src="' + esc(it.img) + '" alt="" loading="lazy"></span>'
+      + '<img src="' + esc(imgAt(it.img, 600)) + '" alt="" loading="lazy"></span>'
       + '<span class="gg-kind">' + esc(it.kind) + '</span>'
       + '<span class="gg-name">' + esc(it.name) + '</span>'
       + '<span class="gg-price">' + esc(priceLabel(it)) + '</span>'
@@ -26,7 +26,7 @@
   function row(s, i) {
     var items = catalogItems(s.items), pages = [];
     for (var n = 0; n < items.length; n += PER_PAGE) pages.push(items.slice(n, n + PER_PAGE));
-    var art = (s.art || []).map(function (src, k) { return '<img class="gg-art-' + k + '" src="' + esc(src) + '" alt="" loading="lazy">'; }).join('');
+    var art = (s.art || []).map(function (src, k) { return '<img class="gg-art-' + k + '" src="' + esc(imgAt(src, k ? 320 : 640)) + '" alt="" loading="lazy">'; }).join('');
     return '<section class="gg-row' + (i % 2 ? ' is-flip' : '') + '" id="' + esc(s.id) + '" aria-labelledby="' + esc(s.id) + '-h">'
       + '<a class="gg-panel" href="' + esc(s.shop || 'all-products.html') + '" style="background:' + esc(s.bg) + ';color:' + esc(s.fg) + '">'
       + '<span class="gg-panel-text"><span class="gg-script" style="color:' + esc(s.accent) + '">Selected</span>'

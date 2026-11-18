@@ -1,5 +1,5 @@
-/* The site footer for pages that don't load assets/home.css (the card, design, tote and
-   collection pages). Everything is scoped to .home-footer so it can't change the rest of the page.
+/* The site footer's look for pages that don't load assets/home.css (the card, design, tote and
+   collection pages). The footer itself is drawn by assets/footer.js. Everything is scoped to .home-footer so it can't change the rest of the page.
    The homepage-style pages get the same look from assets/home.css; keep the two in step. */
 .home-footer { background: #F4F4F2; color: #1F1F1F; font-family: 'Jost', Helvetica, Arial, sans-serif; font-weight: 300; }
 .home-footer p, .home-footer h2 { margin: 0; }

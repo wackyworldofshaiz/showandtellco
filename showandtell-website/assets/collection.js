@@ -21,7 +21,7 @@
       + '<a class="product-tile" href="' + esc(it.href) + '" style="display: flex; flex-direction: column; gap: 10px; color: #1A0B45; text-decoration: none">'
       + '<span style="position: relative; display: block; aspect-ratio: 4 / 5; border-radius: 20px; overflow: hidden; background: ' + (cover ? '#EFE9FF' : '#F4F0FF') + '">'
       + (badgesOf(it.id).length ? '<span style="position: absolute; z-index: 1; top: 12px; left: 12px; padding: 4px 10px; border-radius: 999px; background: #1A0B45; color: #FDFDFD; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase">' + esc(badgesOf(it.id).join(' · ')) + '</span>' : '')
-      + '<img src="' + esc(it.img) + '" alt="" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: ' + (cover ? 'cover' : 'contain') + '; box-sizing: border-box; padding: ' + (cover ? '0' : '14%') + '">'
+      + '<img src="' + esc(imgAt(it.img, 600)) + '" alt="" loading="lazy" style="width: 100%; height: 100%; display: block; object-fit: ' + (cover ? 'cover' : 'contain') + '; box-sizing: border-box; padding: ' + (cover ? '0' : '14%') + '">'
       + '</span>'
       + '<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5D1AFA">' + esc(it.kind) + '</span>'
       + '<span style="font-size: 17px; font-weight: 700; line-height: 1.3">' + esc(it.name) + '</span>'

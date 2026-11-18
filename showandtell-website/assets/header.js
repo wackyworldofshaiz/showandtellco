@@ -14,10 +14,25 @@ var ANNOUNCEMENTS = [
   'Prints from <span data-price="print"></span> · patches <span data-price="patch"></span> · pins from <span data-price="pin"></span>'
 ];
 
-// The help line shown beside the search icon. It's a WhatsApp number, so tapping it opens a WhatsApp chat.
-// HELP_PHONE is how it reads on the page; HELP_WHATSAPP is the same number, digits only, for the chat link.
+// ---------- Your WhatsApp number ----------
+// The only place it's set. Every page loads this file first, so the help line beside the search icon,
+// every "Order on WhatsApp" button and the footer link all use it.
+// HELP_PHONE is how it reads on the page; WHATSAPP_NUMBER is the same number, digits only
+// (international format, for example 2348012345678), for the chat links.
 var HELP_PHONE = '+234 705 777 6753';
-var HELP_WHATSAPP = '2347057776753';
+var WHATSAPP_NUMBER = '2347057776753';
+var HELP_WHATSAPP = WHATSAPP_NUMBER; // older name, kept so nothing breaks
+
+// ---------- Smaller images for grids and thumbnails ----------
+// imgAt('images/cards/card-07.jpg', 600) gives a copy of the image 600 px wide, made by Netlify's
+// image service the first time it's asked for and then kept. Netlify also picks the lightest format
+// each browser can show (WebP or AVIF). The original file is untouched, and product pages still use it.
+// On a computer preview (localhost) the service isn't there, so the original is used instead.
+var IMG_LOCAL = /^(localhost|127\.0\.0\.1|\[::1\]|)$/.test(location.hostname) || location.protocol === 'file:';
+function imgAt(src, width) {
+  if (!src || IMG_LOCAL || /^(https?:|data:|\/\/)/.test(src)) return src;
+  return '/.netlify/images?url=' + encodeURIComponent('/' + src.replace(/^\//, '')) + '&w=' + width;
+}
 
 var NAV = [
   { page: 'about', label: 'About us', href: 'about.html' },
