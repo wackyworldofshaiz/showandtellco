@@ -274,9 +274,9 @@ var COLLECTIONS = {
 // The products on the homepage feature rows. Same ids as in COLLECTIONS.
 // The New arrivals row shows the first four from 'new-arrivals' above.
 var HOME = {
-  forHer: ['card-05', 'card-02', 'classic', 'p19:patch', 'card-08', 'p25'],
-  forCouples: ['card-04', 'p29', 'card-12', 'p41', 'card-03', 'p28'],
-  punCard: 'card-05' // the card in the middle of the pun cards banner
+  forHer: ['card-36', 'card-05', 'classic', 'card-25', 'p19:patch', 'card-39'],
+  forCouples: ['card-15', 'p29', 'card-21', 'card-30', 'p41', 'card-34'],
+  punCard: 'card-24' // the card in the middle of the pun cards banner
 };
 
 // ---------- Helpers shared by the pages ----------

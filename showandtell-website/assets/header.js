@@ -23,12 +23,7 @@ var NAV = [
   { page: 'about', label: 'About us', href: 'about.html' },
   { page: 'new-arrivals', label: 'New arrivals', href: 'new-arrivals.html' },
   { page: 'story-kits', label: 'Story Kits', href: 'story-kit.html' },
-  { page: 'cards', label: 'Cards', href: 'cards.html', children: [
-    // These open the cards page with the matching filter ticked (see GROUPS in cards.html).
-    { label: 'All cards', href: 'cards.html' },
-    { label: 'Adults', href: 'cards.html?for=adults' },
-    { label: 'Junior', href: 'cards.html?for=junior' }
-  ] },
+  { page: 'cards', label: 'Cards', href: 'cards.html' }, // no dropdown: the cards page has its own filters
   { page: 'totes', label: 'Totes', href: 'build-your-tote.html' },
   { page: 'games', label: 'Games', href: 'games.html' },
   { page: 'junior', label: 'Show and Tell Junior', href: 'junior.html' },
