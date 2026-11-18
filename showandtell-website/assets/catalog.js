@@ -26,29 +26,36 @@ var CARDS = [
 // pinSrc: 'images/pins/<file>' switches Pin on for that design.
 // prices: { ng: { patch: 12000 }, eu: { patch: 30 } } charges more or less than the usual price for one design.
 var PATCHES = [
-  { id: 'p01', no: '01', name: 'Abuja City Gate', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/abuja-gate.webp', desc: 'The gate that welcomes you into Abuja, with the green-white-green flying above it and the road stretching ahead.' },
-  { id: 'p02', no: '02', name: 'Plantain', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/plantain.webp', desc: 'A ripe bunch of plantain on a green leaf, ready to become dodo.' },
-  { id: 'p03', no: '03', name: 'Meat pie', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/meat-pie.webp', desc: 'A golden meat pie, broken open to show the filling. Party-tray essential.' },
-  { id: 'p04', no: '04', name: 'Jollof and chicken', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/jollof.webp', desc: 'A green-and-white bowl of jollof with a chicken leg on top. The only correct answer at any party.' },
+  { id: 'p24', no: '24', name: 'Danfo, loaded', cat: 'Rides', types: ['patch'], src: 'images/patches/patch-danfo-loaded.webp', desc: 'A yellow danfo with the roof rack piled high and the conductor waving from the door. Everybody is going somewhere.' },
+  { id: 'p25', no: '25', name: 'Chapman', cat: 'Snacks & drinks', types: ['patch'], src: 'images/patches/patch-chapman.webp', desc: 'A tall glass of Chapman with cucumber, orange, a striped straw and a pink bow. The drink of every party.' },
+  { id: 'p26', no: '26', name: 'Abuja taxi', cat: 'Rides', types: ['patch'], src: 'images/patches/patch-abuja-taxi.webp', desc: 'The green-and-white Abuja taxi, ready for the next drop.' },
+  { id: 'p27', no: '27', name: 'Peace and danfo', cat: 'Rides', types: ['patch'], src: 'images/patches/patch-danfo-peace.webp', desc: 'A danfo cruising through a peace sign wrapped in bougainvillea and frangipani.' },
+  { id: 'p28', no: '28', name: 'Puff-puff', cat: 'Snacks & drinks', types: ['patch'], src: 'images/patches/patch-puff-puff.webp', desc: 'A paper bag spilling golden, sugar-dusted puff-puff. Nobody stops at one.' },
+  { id: 'p29', no: '29', name: 'Suya', cat: 'Food', types: ['patch'], src: 'images/patches/patch-suya.webp', desc: 'A stick of suya with onion and tomato, covered in yaji.' },
+  { id: 'p30', no: '30', name: 'Keke', cat: 'Rides', types: ['patch'], src: 'images/patches/patch-keke.webp', desc: 'A yellow keke with a happy driver and a passenger in her best ankara.' },
+  { id: 'p31', no: '31', name: 'Las Gidi', cat: 'Sayings', types: ['patch'], src: 'images/patches/patch-las-gidi.webp', desc: 'Lagos, the way Lagosians say it, in bubbly pink letters with gold sparkles.' },
+  { id: 'p32', no: '32', name: 'Lagos BRT', cat: 'Rides', types: ['print'], src: 'images/patches/print-lagos-brt.webp', desc: 'The blue BRT bus, full of passengers, gliding down its own lane.' },
+  { id: 'p33', no: '33', name: 'Cowry card', cat: 'Culture', types: ['print'], src: 'images/patches/print-cowry-card.webp', desc: 'The Lagos Cowry card, tapped on every bus ride.' },
+  { id: 'p34', no: '34', name: 'Lagos taxi', cat: 'Rides', types: ['print'], src: 'images/patches/print-lagos-taxi.webp', desc: 'A yellow Lagos taxi with a cheerful driver leaning out of the window.' },
+  { id: 'p35', no: '35', name: 'Las Gidi', cat: 'Sayings', types: ['print'], src: 'images/patches/print-las-gidi.webp', desc: 'Lagos, the way Lagosians say it, in glossy pink letters with gold sparkles.' },
+  { id: 'p36', no: '36', name: 'Ghana Must Go', cat: 'Culture', types: ['print'], src: 'images/patches/print-ghana-must-go.webp', desc: 'The checked Ghana Must Go bag, zipped as far as it will go.' },
+  { id: 'p37', no: '37', name: 'Pure water', cat: 'Snacks & drinks', types: ['print'], src: 'images/patches/print-pure-water.webp', desc: 'The sachet of pure water, bitten open and cold on a hot afternoon.' },
+  { id: 'p38', no: '38', name: 'Suya', cat: 'Food', types: ['print'], src: 'images/patches/print-suya.webp', desc: 'A stick of suya with onion and tomato, covered in yaji.' },
+  { id: 'p39', no: '39', name: 'Abuja City Gate', cat: 'Places', types: ['print'], src: 'images/patches/print-abuja-gate.webp', desc: 'The gate that welcomes you into Abuja, with the green-white-green flying above it.' },
+  { id: 'p40', no: '40', name: 'Japa', cat: 'Sayings', types: ['print'], src: 'images/patches/print-japa.webp', desc: 'A pink suitcase covered in stickers and a paper plane on its way. For everyone who has packed up and gone.' },
+  { id: 'p41', no: '41', name: 'No condition is permanent', cat: 'Sayings', types: ['print'], src: 'images/patches/print-no-condition.webp', desc: 'The saying that keeps everybody going, in red on sunshine yellow.' },
+  { id: 'p42', no: '42', name: 'Jollof', cat: 'Food', types: ['patch'], src: 'images/patches/patch-jollof.webp', desc: 'A steaming pot of party jollof with a chicken leg, fried plantain and the spoon still in it.' },
+  { id: 'p43', no: '43', name: 'Zobo', cat: 'Snacks & drinks', types: ['print'], src: 'images/patches/print-zobo.webp', desc: 'A bottle of cold zobo with hibiscus and ginger, tied with a pink bow.' },
+  { id: 'p44', no: '44', name: 'Gen', cat: 'Culture', types: ['print'], src: 'images/patches/print-generator.webp', desc: 'The trusty generator, smoking away with the extension plugged in. For when NEPA takes light.' },
+  { id: 'p45', no: '45', name: 'Okada', cat: 'Rides', types: ['print'], src: 'images/patches/print-okada.webp', desc: 'An okada rider in his yellow helmet with a passenger holding on at the back.' },
+  { id: 'p46', no: '46', name: 'Child of God', cat: 'Sayings', types: ['print'], src: 'images/patches/print-child-of-god.webp', desc: 'Child of God with a shooting star, in bold black on red and blue. Say it with your chest.' },
+  { id: 'p47', no: '47', name: '+4', cat: 'Culture', types: ['patch'], src: 'images/patches/patch-plus-four.webp', desc: 'The +4 card, for anyone who has ever ended a friendship over a card game.' },
+  { id: 'p48', no: '48', name: 'Stargirl', cat: 'Sayings', types: ['patch'], src: 'images/patches/patch-stargirl.webp', desc: 'Stargirl in sunny yellow script on a red-and-blue oval. For the main character.' },
+  { id: 'p49', no: '49', name: 'Wahala on fire', cat: 'Sayings', types: ['print'], src: 'images/patches/print-wahala-flames.webp', desc: 'Wahala in a racing oval with the flames turned all the way up.' },
   { id: 'p05', no: '05', name: 'Danfo, full house', cat: 'Rides', types: ['print', 'patch'], src: 'images/patches/danfo-busy.webp', desc: 'A yellow Lagos danfo packed to the windows, with one arm hanging out for good measure.' },
-  { id: 'p06', no: '06', name: 'Danfo', cat: 'Rides', types: ['print', 'patch'], src: 'images/patches/danfo.webp', desc: 'The classic yellow Lagos bus with its door wide open. Enter with your change ready.' },
-  { id: 'p07', no: '07', name: 'Keke', cat: 'Rides', types: ['print', 'patch'], src: 'images/patches/keke.webp', desc: 'A yellow-and-black keke, the quickest way through traffic.' },
-  { id: 'p08', no: '08', name: 'National Theatre', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/national-theatre.webp', desc: 'The National Theatre in Lagos, its famous curved roof framed by trees.' },
-  { id: 'p09', no: '09', name: 'Drums', cat: 'Culture', types: ['print', 'patch'], src: 'images/patches/drums.webp', desc: 'A set of drums with a beater, for anyone who can’t sit still when the music starts.' },
-  { id: 'p10', no: '10', name: 'Gala', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/gala.webp', desc: 'The sausage roll in the red-and-yellow wrapper. A traffic snack legend.' },
-  { id: 'p11', no: '11', name: 'Green passport', cat: 'Culture', types: ['print', 'patch'], src: 'images/patches/passport.webp', desc: 'The green passport, for the japa crew, the frequent flyers and everyone who carries home with them.' },
-  { id: 'p12', no: '12', name: 'Puff-puff', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/puff-puff.webp', desc: 'A striped bowl piled high with golden puff-puff. Nobody stops at one.' },
-  { id: 'p13', no: '13', name: 'Pure water', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/pure-water.webp', desc: 'The sachet of pure water, cold and perfect on a hot afternoon.' },
-  { id: 'p14', no: '14', name: 'Suya', cat: 'Food', types: ['print', 'patch'], src: 'images/patches/suya.webp', desc: 'Three sticks of suya with onions, tomatoes and plenty of yaji.' },
-  { id: 'p15', no: '15', name: 'Palm wine', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/palm-wine.webp', desc: 'A clay pot of fresh palm wine under a palm tree.' },
-  { id: 'p16', no: '16', name: 'Show and Tell logo', cat: 'Show & Tell', types: ['print', 'patch'], src: 'images/patches/show-and-tell.webp', desc: 'Our logo in pink and cream, with the lime sparkle.' },
-  { id: 'p17', no: '17', name: 'SuperYogo', cat: 'Snacks & drinks', types: ['print', 'patch'], src: 'images/patches/superyogo.webp', desc: 'The pink strawberry yoghurt sachet, a childhood favourite.' },
-  { id: 'p18', no: '18', name: 'Zuma Rock', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/zuma-rock.webp', desc: 'Zuma Rock rising over green trees, with the road out of Abuja in front.' },
   { id: 'p19', no: '19', name: 'Wahala', cat: 'Sayings', types: ['print', 'patch'], src: 'images/patches/wahala.webp', desc: 'One word for every kind of trouble, in cream script on red. Wear it as a warning or a lifestyle.' },
   { id: 'p20', no: '20', name: 'Abuja stamp', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/abuja-stamp.webp', desc: 'A green-and-gold postage stamp of Abuja, with the city gate in front of Aso Rock.' },
-  { id: 'p21', no: '21', name: 'No gree for anybody', cat: 'Sayings', types: ['print', 'patch'], src: 'images/patches/no-gree.webp', desc: 'A cup of coffee with an attitude. For anyone who stands their ground before breakfast.' },
-  { id: 'p22', no: '22', name: 'Lagos stamp', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/lagos-stamp.webp', desc: 'A green-and-gold postage stamp of Lagos, with the Lekki–Ikoyi bridge and the city skyline.' },
-  { id: 'p23', no: '23', name: 'Nollywood', cat: 'Culture', types: ['print', 'patch'], src: 'images/patches/nollywood.webp', desc: 'A classic Nollywood VHS tape and its case, “Hit movie!” and all. For everyone who grew up watching Part 1 and Part 2.' }
+  { id: 'p22', no: '22', name: 'Lagos stamp', cat: 'Places', types: ['print', 'patch'], src: 'images/patches/lagos-stamp.webp', desc: 'A green-and-gold postage stamp of Lagos, with the Lekki–Ikoyi bridge and the city skyline.' }
 ];
 
 // ---------- Blanks you build on ----------
@@ -141,7 +148,7 @@ var PUZZLES = [
 
 // ---------- Collections ----------
 // Each menu page shows the products listed here. Refer to products by id:
-// cards as 'card-01', designs as 'p04', blanks as 'classic', 'pocket' or 'tee',
+// cards as 'card-01', designs as 'p24', blanks as 'classic', 'pocket' or 'tee',
 // Story Kits as 'kit-danfo-days', puzzles as 'puzzle-owambe-wahala'.
 // Add a type to show a design as one kind only, with that kind's price: 'p22:print', 'p19:patch'.
 // 'all-cards' and 'all-designs' add every card or design.
@@ -154,34 +161,34 @@ var COLLECTIONS = {
     title: 'Bestsellers',
     intro: 'The ones everyone keeps coming back for.',
     colour: '#F6F1E7',
-    items: ['card-05', 'classic', 'p19:patch', 'p04:patch', 'card-04']
+    items: ['card-05', 'classic', 'p19:patch', 'p29', 'card-04']
   },
   'new-arrivals': {
     title: 'New arrivals',
     intro: 'Fresh cards and designs, just in.',
     colour: '#E4EE3F',
-    items: ['puzzle-owambe-wahala', 'puzzle-lagos-traffic', 'kit-danfo-days', 'p22:print', 'card-10', 'p06:print', 'card-11', 'card-02', 'p19:patch', 'card-12', 'p23:print']
+    items: ['puzzle-owambe-wahala', 'puzzle-lagos-traffic', 'kit-danfo-days', 'p31', 'p40', 'card-10', 'p24', 'card-11', 'p32', 'card-02', 'p25', 'card-12', 'p41']
   },
   'holiday-gift-guide': {
     title: 'Holiday Gift Guide',
     intro: 'Cards that say it, totes that show it, and little extras for every stocking. Pick a section or browse the lot.',
     colour: '#E4EE3F',
     sections: [
-      { id: 'for-her', title: 'For her', items: ['card-02', 'card-05', 'card-09', 'pocket', 'p04', 'p12'] },
-      { id: 'for-couples', title: 'For couples', items: ['card-10', 'card-03', 'card-04', 'card-07', 'classic', 'p04'] },
-      { id: 'for-him', title: 'For him', items: ['card-08', 'classic', 'p21', 'p19', 'p14', 'p23'] },
-      { id: 'for-little-ones', title: 'For little ones', items: ['tee', 'p12', 'p10', 'p17', 'p07'] },
+      { id: 'for-her', title: 'For her', items: ['card-02', 'card-05', 'card-09', 'pocket', 'p25', 'p31'] },
+      { id: 'for-couples', title: 'For couples', items: ['card-10', 'card-03', 'card-04', 'card-07', 'classic', 'p27'] },
+      { id: 'for-him', title: 'For him', items: ['card-08', 'classic', 'p41', 'p19', 'p29', 'p26'] },
+      { id: 'for-little-ones', title: 'For little ones', items: ['tee', 'p28', 'p37', 'p34', 'p30'] },
       { id: 'story-kits', title: 'Story Kits', note: 'A tee that shows the scene, and pieces so they can tell the story. Only 10 made.', items: ['kit-danfo-days'] },
       { id: 'for-the-group', title: 'For the group', note: 'Matching totes for the whole crew. Build one and we\u2019ll make as many as you need.', items: ['classic', 'pocket', 'tee'] },
       { id: 'christmas-cards', title: 'Christmas cards', items: ['card-12', 'card-13', 'card-14'] },
-      { id: 'stocking-fillers', title: 'Stocking fillers', items: ['p19', 'p11', 'p22', 'p20', 'p13', 'card-11'] }
+      { id: 'stocking-fillers', title: 'Stocking fillers', items: ['p19', 'p40', 'p22', 'p20', 'p37', 'card-11'] }
     ]
   },
   'junior': {
     title: 'Show and Tell Junior',
     intro: '[Bright, playful designs for little ones: snacks, rides and the sweet stuff. Iron a patch onto a school bag or put a print on a tee.]',
     colour: '#FFC9E8',
-    items: ['tee', 'p12', 'p10', 'p17', 'p02', 'p07', 'p06', 'p13', 'p09']
+    items: ['tee', 'p28', 'p37', 'p34', 'p32', 'p30', 'p24', 'p33', 'p25']
   },
   'games': {
     title: 'Games',
@@ -212,8 +219,8 @@ var COLLECTIONS = {
 // The products on the homepage feature rows. Same ids as in COLLECTIONS.
 // The New arrivals row shows the first four from 'new-arrivals' above.
 var HOME = {
-  forHer: ['card-05', 'card-02', 'classic', 'p19:patch', 'card-08', 'p04:patch'],
-  forCouples: ['card-04', 'p14:patch', 'card-12', 'p23:print', 'card-03', 'p12:patch'],
+  forHer: ['card-05', 'card-02', 'classic', 'p19:patch', 'card-08', 'p25'],
+  forCouples: ['card-04', 'p29', 'card-12', 'p41', 'card-03', 'p28'],
   punCard: 'card-05' // the card in the middle of the pun cards banner
 };
 

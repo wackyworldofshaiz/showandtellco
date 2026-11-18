@@ -34,7 +34,7 @@ body.home { margin: 0; background: #FFFFFF; color: #1F1F1F; font-family: 'Jost',
   min-height: 980px; padding: 64px 48px 56px; box-sizing: border-box; overflow: hidden; text-decoration: none;
 }
 .home .feature, .home .feature:hover { color: #FFFFFF; }
-.feature-her { background: #4A3F6B; }
+.feature-her { background: #061E74; }
 .feature-couple { background: #1A0B45; }
 .feature-title { display: flex; flex-direction: column; align-items: center; text-align: center; line-height: 0.86; }
 .feature-title .script { font-size: 132px; }
