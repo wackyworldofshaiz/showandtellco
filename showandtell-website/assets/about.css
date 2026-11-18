@@ -76,6 +76,7 @@
 .ab-way-card { width: 50%; transform: rotate(-6deg); box-shadow: 0 10px 16px rgba(26, 11, 69, 0.2); }
 .ab-way-tote { height: 84%; width: auto; }
 .ab-way-stamp { width: 60%; transform: rotate(6deg); }
+.ab-way-puzzle { width: 44%; transform: rotate(6deg); filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.35)); }
 .ab-way-title { font-size: 30px; }
 .ab-way-text { max-width: 250px; font-size: 17px; line-height: 1.5; color: #4A3F6B; }
 

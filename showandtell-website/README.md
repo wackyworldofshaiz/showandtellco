@@ -27,6 +27,7 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | `faq.html` | Frequently asked questions: tote care, cards, prints vs patches vs pins, group orders, ordering and delivery, patch bar. Answers in [square brackets] are placeholders to fill in. |
 
 Images are in `images/`. Shared files in `assets/`:
+- `filters.css`: the left search and filter rail shared by the cards page and the collection pages that have `filters: true` in `assets/catalog.js` (All products, New arrivals, Holiday Gift Guide, Show and Tell Junior, Collectibles). The filters are `FACETS` in `assets/collection.js`: product type, category, and whether a design comes as a print or a patch, plus "Shop by" (the sections) on the gift guide. A filter with only one choice is hidden. With nothing filtered, a page keeps its usual sections. Links like `all-products.html?type=Cards`, `?cat=Food` or `?q=suya` open a page filtered. Bestsellers and Games are short, so they don't have the rail; add `filters: true` to give it to them.
 - `footer.css` and `footer.js`: the footer's look, newsletter sign-up and WhatsApp link on the pages that don't load `home.css` and `home.js` (cards, designs, tote builder and the collection pages). Every page uses the same footer HTML; to change a link, change it on every page.
 - `catalog.js`: every card, design and blank, and which collection pages they appear on.
 - `prices.js`: all prices, in naira and euros.
