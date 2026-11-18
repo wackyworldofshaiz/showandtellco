@@ -4,8 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The design menu: Show and Tell Co</title>
-<meta name="description" content="Show and Tell Co: printed pun cards, pick-your-patch totes and tees, and iron-on patches. Order on WhatsApp.">
-<link rel="icon" type="image/png" href="images/brand/wordmark-violet.png">
+<meta name="description" content="Embroidered patches and sticker-style prints of the things we love: danfos, jollof, suya, Las Gidi and more. Iron them on, or we press them for you.">
+<link rel="canonical" href="https://showandtellco.shop/patches.html">
+<!-- Share previews (WhatsApp, Instagram, Facebook, X, iMessage). Images are in images/share/, 1200 x 630.
+     If the domain ever changes, change https://showandtellco.shop here on every page. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Show and Tell Co">
+<meta property="og:title" content="The design menu: Show and Tell Co">
+<meta property="og:description" content="Embroidered patches and sticker-style prints of the things we love: danfos, jollof, suya, Las Gidi and more. Iron them on, or we press them for you.">
+<meta property="og:url" content="https://showandtellco.shop/patches.html">
+<meta property="og:image" content="https://showandtellco.shop/images/share/share-designs.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Danfo, jollof and Las Gidi patches on dark violet">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="images/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&amp;family=DM+Sans:opsz,wght@9..40,400..700&amp;display=swap">
 <style>
 body{margin:0;background:#FDFDFD}
@@ -25,29 +39,8 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <script src="assets/header.js"></script>
 <noscript><p style="padding:16px;font-family:sans-serif">Please turn on JavaScript to use this page.</p></noscript>
 <div id="dc-root"></div>
-<footer class="home-footer">
-<div class="footer-cols">
-<div class="footer-news">
-<h2 class="wide footer-news-title">Hear about new drops <span class="script">first</span></h2>
-<form class="footer-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-signup>
-<input type="hidden" name="form-name" value="newsletter">
-<p hidden><label>Leave this empty <input name="bot-field"></label></p>
-<label class="visually-hidden" for="f-email">Email address</label>
-<input id="f-email" name="email" type="email" autocomplete="email" placeholder="Your email address" required>
-<button type="submit">Sign up</button>
-<p class="form-status" role="status"></p>
-</form>
-</div>
-<nav class="footer-links" aria-label="Shop"><h2 class="label">Shop</h2><a href="story-kit.html">Story Kits</a><a href="cards.html">Cards</a><a href="build-your-tote.html">Totes</a><a href="games.html">Games and puzzles</a><a href="patches.html" aria-current="page">Prints, patches and pins</a><a href="holiday-gift-guide.html">Holiday Gift Guide</a><a href="all-products.html">All products</a></nav>
-<nav class="footer-links" aria-label="Show and Tell"><h2 class="label">Show and Tell</h2><a href="about.html">About us</a><a href="popup.html">Patch bar pop-ups</a><a href="corporate-gifting.html">Corporate gifting</a></nav>
-<nav class="footer-links" aria-label="Help"><h2 class="label">Help</h2><a href="faq.html">FAQ</a><a href="faq.html#care">Care for your tote</a><a href="https://wa.me/" data-whatsapp>Order on WhatsApp</a><a href="faq.html#groups">Group orders</a></nav>
-<nav class="footer-links" aria-label="Follow"><h2 class="label">Follow</h2><a href="https://www.instagram.com/showandtell.co/">Instagram</a></nav>
-</div>
-<div class="footer-base">
-<img src="images/brand/logo-stacked-violet.png" alt="Show and Tell Co" width="43" height="34">
-<span>© 2026 Show and Tell Co · Cards that tell it. Totes that show it.</span>
-</div>
-</footer>
+<footer class="home-footer" id="site-footer"></footer>
+<script src="assets/footer.js"></script>
 <template id="dc-template">
 <div style="width: 100%; min-height: 1000px; box-sizing: border-box; font-family: 'DM Sans', Helvetica, Arial, sans-serif; color: #1A0B45; background: #FDFDFD">
 
@@ -79,7 +72,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <sc-for list="{{ patches }}" as="p" hint-placeholder-count="12">
 <li>
 <button class="thumb" type="button" aria-label="{{ p.name }}. Open details." onClick="{{ p.pick }}" style="width: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; display: flex; flex-direction: column; gap: 14px; text-align: left; font-family: inherit; color: #1A0B45">
-<img src="{{ p.src }}" alt="" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; filter: drop-shadow(0 8px 14px rgba(26, 11, 69, 0.16))">
+<img src="{{ p.thumb }}" alt="" loading="lazy" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; filter: drop-shadow(0 8px 14px rgba(26, 11, 69, 0.16))">
 <span style="display: flex; flex-direction: column; gap: 4px">
 <span style="font-size: 13px; font-weight: 700; color: #5D1AFA">{{ p.cat }}</span>
 <span class="disp" style="font-size: 21px; line-height: 1.2; font-weight: 800">{{ p.name }}</span>
@@ -228,7 +221,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <sc-for list="{{ related }}" as="r" hint-placeholder-count="4">
 <li>
 <button class="thumb" type="button" aria-label="{{ r.name }}. Open details." onClick="{{ r.pick }}" style="width: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; display: flex; flex-direction: column; gap: 10px; text-align: left; font-family: inherit; color: #1A0B45">
-<img src="{{ r.src }}" alt="" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; filter: drop-shadow(0 6px 10px rgba(26, 11, 69, 0.14))">
+<img src="{{ r.thumb }}" alt="" loading="lazy" style="width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: contain; display: block; filter: drop-shadow(0 6px 10px rgba(26, 11, 69, 0.14))">
 <span class="disp" style="font-size: 18px; font-weight: 800">{{ r.name }}</span>
 <span style="font-size: 15px; font-weight: 700">{{ r.price }}</span>
 </button>
@@ -249,8 +242,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <script src="assets/catalog.js"></script>
 <script>
 // ---------- Your settings ----------
-// WhatsApp number in international format, digits only (for example 2348012345678).
-var WHATSAPP_NUMBER = '2347057776753';
+// The WhatsApp number is WHATSAPP_NUMBER in assets/header.js.
 // Prices are in assets/prices.js.
 var QTYS = [1, 2, 3, 5, 10];
 
@@ -336,7 +328,7 @@ class Component extends DCLogic {
       return (st.filter === 'All' || p.cat === st.filter) && (st.typeFilter === 'all' || typesOf(p).indexOf(st.typeFilter) >= 0);
     });
     var patches = visible.map(function (p) {
-      return { name: p.name, cat: p.cat, src: imgOf(p, st.typeFilter), price: fromLabel(p), pick: open(p.id) };
+      return { name: p.name, cat: p.cat, src: imgOf(p, st.typeFilter), thumb: imgAt(imgOf(p, st.typeFilter), 600), price: fromLabel(p), pick: open(p.id) };
     });
     var pool = visible.length ? visible : PATCHES;
     var idx = pool.findIndex(function (p) { return p.id === st.patch; });
@@ -347,7 +339,7 @@ class Component extends DCLogic {
     }
 
     var related = PATCHES.filter(function (p) { return p.cat === p0.cat && p.id !== p0.id; }).slice(0, 4).map(function (p) {
-      return { name: p.name, src: p.src, price: fromLabel(p), pick: open(p.id) };
+      return { name: p.name, src: p.src, thumb: imgAt(p.src, 480), price: fromLabel(p), pick: open(p.id) };
     });
 
     var typeOpts = types.map(function (t) {
@@ -396,6 +388,6 @@ class Component extends DCLogic {
 
 DCLite.mount(Component);
 </script>
-<script src="assets/footer.js"></script>
+
 </body>
 </html>

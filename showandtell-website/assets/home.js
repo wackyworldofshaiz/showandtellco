@@ -2,11 +2,7 @@
 // 'new-arrivals' list) with live NGN/EUR prices, runs the New arrivals pager,
 // and sends the club and newsletter forms to Netlify Forms.
 
-// ---------- Your settings ----------
-// WhatsApp number in international format, digits only (for example 2348012345678).
-// The same number is set in build-your-tote.html, cards.html, patches.html, story-kit.html and puzzle.html.
-var WHATSAPP_NUMBER = '2347057776753';
-// ---------- End of settings ----------
+// The WhatsApp number is WHATSAPP_NUMBER in assets/header.js.
 
 (function () {
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
@@ -18,7 +14,7 @@ var WHATSAPP_NUMBER = '2347057776753';
     return '<li><a class="ptile" href="' + esc(it.href) + '">'
       + '<span class="ptile-img ' + shape + (it.bg ? ' has-bg" style="background:' + esc(it.bg) : '') + '">'
       + (badges.length ? '<span class="ptile-badge">' + esc(badges.join(' | ')) + '</span>' : '')
-      + '<img src="' + esc(it.img) + '" alt="" loading="lazy"></span>'
+      + '<img src="' + esc(imgAt(it.img, 600)) + '" alt="" loading="lazy"></span>'
       + '<span class="ptile-info"><span class="ptile-text"><span class="ptile-kind">' + esc(kind) + '</span>'
       + '<span class="ptile-name">' + esc(it.name) + '</span></span>'
       + '<span class="ptile-price">' + esc(it.price == null ? '[PRICE]' : money(it.price)) + '</span></span>'
@@ -64,7 +60,7 @@ var WHATSAPP_NUMBER = '2347057776753';
       set(box, '[data-kit-price]', price == null ? '[PRICE]' : money(price));
       set(box, '[data-kit-left]', n ? 'Only ' + n + ' left' : 'Sold out');
       set(box, '[data-kit-link]', n ? 'Shop the kit' : 'See the kit');
-      [0, 1].forEach(function (i) { var g = k.gallery[i], img = box.querySelector('[data-kit-img="' + i + '"]'); if (g && img) { img.src = g.src; if (g.alt && img.alt) img.alt = g.alt; } });
+      [0, 1].forEach(function (i) { var g = k.gallery[i], img = box.querySelector('[data-kit-img="' + i + '"]'); if (g && img) { img.src = img.loading === 'lazy' ? imgAt(g.src, 800) : g.src; /* the hero photo keeps the original */ if (g.alt && img.alt) img.alt = g.alt; } });
     });
   }
 
@@ -95,13 +91,14 @@ var WHATSAPP_NUMBER = '2347057776753';
     window.addEventListener('resize', pager);
   }
 
-  // WhatsApp link in the footer.
+  // WhatsApp buttons on the page (the footer's own link is set in assets/footer.js).
   var wa = document.querySelectorAll('[data-whatsapp]');
   for (var w = 0; w < wa.length; w++) {
     wa[w].href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent("Hi Show and Tell! I'd like to place an order.");
   }
 
-  // Club and newsletter sign-ups go to Netlify Forms (see them under Forms in the Netlify dashboard).
+  // Club sign-ups go to Netlify Forms (see them under Forms in the Netlify dashboard).
+  // The footer's newsletter form is handled by assets/footer.js.
   // Without JavaScript the forms still post, and Netlify shows its own thank-you page.
   var forms = document.querySelectorAll('form[data-signup]');
   for (var f = 0; f < forms.length; f++) {
