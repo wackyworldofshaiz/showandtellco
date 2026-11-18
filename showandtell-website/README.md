@@ -53,7 +53,7 @@ Its product rows come from `assets/catalog.js`:
 
 ## Collections (the menu pages)
 
-Like a shop's collections, each menu page lists products from `assets/catalog.js`. In `COLLECTIONS` there, each page has a title, an intro, a background colour and a list of product ids: cards as `'card-01'`, designs as `'p04'`, blanks as `'classic'`, `'pocket'` or `'tee'`. `'all-cards'` and `'all-designs'` add every card or design. To put a product on a page, add its id to that page's list.
+Like a shop's collections, each menu page lists products from `assets/catalog.js`. In `COLLECTIONS` there, each page has a title, an intro, a background colour and a list of product ids: cards as `'card-01'`, designs as `'p24'`, blanks as `'classic'`, `'pocket'` or `'tee'`. `'all-cards'` and `'all-designs'` add every card or design. To put a product on a page, add its id to that page's list.
 
 The Holiday Gift Guide is split into `sections`. If you add or rename a section, update the dropdown under Holiday Gift Guide in `NAV` in `assets/header.js` to match. Intros in [square brackets] are placeholders to replace.
 
@@ -118,6 +118,7 @@ Every design can come as a **print** (a heat transfer pressed flat on), a **patc
 - **`TYPES`**: one entry per type, with its `label`, `soldAlone` (whether people can buy it without a tote or tee) and a short `note` shown to customers. Their prices are `print`, `patch` and `pin` in `assets/prices.js`.
 - **`types`** on each design in `PATCHES`: the types it comes in, for example `['print', 'patch']`.
 - **`pinSrc`** (optional) on a design: its pin image. Setting it switches Pin on for that design; you don't need to add `'pin'` to `types`.
+- **Images**: designs live in `images/patches/` as transparent cut-outs. The embroidered ones are named `patch-…` and come as patches only; the flat sticker-style ones are named `print-…` and come as prints only. Danfo full house, Wahala, Abuja stamp and Lagos stamp still come as both.
 - **`prices`** (optional) on a design: a different price for that design only, per region, for example `prices: { ng: { patch: 12000 }, eu: { patch: 30 } }`. Anything not listed uses the usual price from `assets/prices.js`.
 
 **To switch pins on for a design:** add the pin photo to `images/pins/`, then add `pinSrc: 'images/pins/<file>'` to that design in `assets/catalog.js`. The Pin option appears in the builder and the Pins filter on the design menu as soon as one design has a pin.

@@ -35,7 +35,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <div style="display: flex; flex-direction: column; gap: 32px">
 <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 720px; margin: 0 auto; text-align: center">
 <h1 class="disp" style="margin: 0; font-size: 56px; line-height: 1.02; font-weight: 900; letter-spacing: -0.02em">The design menu.</h1>
-<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3B2E6B; max-width: 640px">Every design comes as a print or an embroidered patch, and some as pins. Add them to a tote or tee and we'll press them on, or buy patches and pins on their own.</p>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3B2E6B; max-width: 640px">Our embroidered designs come as patches and our sticker-style designs as prints, and a few come as both. Add them to a tote or tee and we'll press them on, or buy patches and pins on their own.</p>
 </div>
 
 <div style="display: flex; flex-direction: column; align-items: center; gap: 12px">
@@ -265,7 +265,7 @@ var TYPES = {
 
 // ---------- End of settings ----------
 
-var FILTERS = ['All', 'Food', 'Snacks & drinks', 'Rides', 'Places', 'Culture', 'Sayings', 'Show & Tell'];
+var FILTERS = ['All', 'Food', 'Snacks & drinks', 'Rides', 'Places', 'Culture', 'Sayings'];
 
 // The lowest price set across a design's types, shown as "from ...".
 function fromLabel(d) {
@@ -295,8 +295,8 @@ class Component extends DCLogic {
     super(props);
     var self0 = this;
     window.addEventListener('regionchange', function () { self0.setState({}); });
-    this.state = { mode: 'list', patch: 'p01', filter: 'All', typeFilter: 'all', type: 'patch', qty: 1 };
-    // A link like patches.html?design=p04 opens that design; &type=print opens it as a print.
+    this.state = { mode: 'list', patch: PATCHES[0].id, filter: 'All', typeFilter: 'all', type: 'patch', qty: 1 };
+    // A link like patches.html?design=p24 opens that design; &type=print opens it as a print.
     var q = new URLSearchParams(location.search);
     var want = PATCHES.find(function (d) { return d.id === q.get('design'); });
     if (want) Object.assign(this.state, { mode: 'detail', patch: want.id, type: startType(want, q.get('type') || 'all') });

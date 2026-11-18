@@ -324,19 +324,19 @@ function mapPos(style, x, y) {
 // Ready-made mixes for "Start from a favourite". x and y are % of the bag, s is size 0-4, r is rotation.
 var PRESETS = [
   { id: 'lagos', name: 'Lagos life', style: 'classic', colour: 'natural', items: [
-    { pid: 'p06', type: 'patch', x: 34, y: 48, s: 2, r: -6 }, { pid: 'p07', type: 'patch', x: 68, y: 52, s: 2, r: 6 },
-    { pid: 'p13', type: 'patch', x: 36, y: 78, s: 2, r: 4 }, { pid: 'p12', type: 'patch', x: 68, y: 82, s: 2, r: -4 } ] },
+    { pid: 'p24', type: 'patch', x: 34, y: 48, s: 2, r: -6 }, { pid: 'p30', type: 'patch', x: 68, y: 52, s: 2, r: 6 },
+    { pid: 'p28', type: 'patch', x: 36, y: 78, s: 2, r: 4 }, { pid: 'p31', type: 'patch', x: 68, y: 82, s: 2, r: -4 } ] },
   { id: 'owambe', name: 'Owambe plate', style: 'pocket', colour: 'natural', items: [
-    { pid: 'p04', type: 'patch', x: 32, y: 50, s: 2, r: -5 }, { pid: 'p14', type: 'patch', x: 68, y: 50, s: 2, r: 6 },
-    { pid: 'p09', type: 'patch', x: 36, y: 80, s: 2, r: 4 }, { pid: 'p15', type: 'patch', x: 68, y: 82, s: 2, r: -6 } ] },
+    { pid: 'p29', type: 'patch', x: 32, y: 50, s: 2, r: -5 }, { pid: 'p25', type: 'patch', x: 68, y: 50, s: 2, r: 6 },
+    { pid: 'p28', type: 'patch', x: 36, y: 80, s: 2, r: 4 }, { pid: 'p19', type: 'patch', x: 68, y: 82, s: 2, r: -6 } ] },
   { id: 'abuja', name: 'Abuja, with love', style: 'tee', colour: 'white', items: [
-    { pid: 'p01', type: 'patch', x: 32, y: 46, s: 2, r: -5 }, { pid: 'p18', type: 'patch', x: 68, y: 50, s: 2, r: 5 },
-    { pid: 'p11', type: 'patch', x: 34, y: 80, s: 2, r: 6 }, { pid: 'p16', type: 'patch', x: 68, y: 82, s: 2, r: -4 } ] }
+    { pid: 'p20', type: 'patch', x: 32, y: 46, s: 2, r: -5 }, { pid: 'p26', type: 'patch', x: 68, y: 50, s: 2, r: 5 },
+    { pid: 'p27', type: 'patch', x: 34, y: 80, s: 2, r: 6 }, { pid: 'p05', type: 'patch', x: 68, y: 82, s: 2, r: -4 } ] }
 ];
 
 var SIZES = [14, 19, 25, 31, 38];
 var SLOTS = [[50, 55], [32, 68], [68, 68], [50, 82], [30, 48], [70, 48], [36, 86], [64, 86], [50, 40], [50, 68]];
-var CATS = ['All', 'Food', 'Snacks & drinks', 'Rides', 'Places', 'Culture', 'Sayings', 'Show & Tell'];
+var CATS = ['All', 'Food', 'Snacks & drinks', 'Rides', 'Places', 'Culture', 'Sayings'];
 // ---------- End of settings ----------
 
 function patchInfo(pid) { return PATCHES.find(function (p) { return p.id === pid; }); }
