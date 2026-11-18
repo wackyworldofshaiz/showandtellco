@@ -35,13 +35,10 @@ var NAV = [
   { page: 'holiday-gift-guide', label: 'Holiday Gift Guide', href: 'holiday-gift-guide.html', children: [
     // These match the sections in COLLECTIONS in assets/catalog.js.
     { label: 'For her', href: 'holiday-gift-guide.html#for-her' },
-    { label: 'For couples', href: 'holiday-gift-guide.html#for-couples' },
     { label: 'For him', href: 'holiday-gift-guide.html#for-him' },
-    { label: 'For little ones', href: 'holiday-gift-guide.html#for-little-ones' },
-    { label: 'Story Kits', href: 'holiday-gift-guide.html#story-kits' },
-    { label: 'For the group', href: 'holiday-gift-guide.html#for-the-group' },
-    { label: 'Christmas cards', href: 'holiday-gift-guide.html#christmas-cards' },
-    { label: 'Stocking fillers', href: 'holiday-gift-guide.html#stocking-fillers' }
+    { label: 'For the foodie', href: 'holiday-gift-guide.html#for-the-foodie' },
+    { label: 'For kids', href: 'holiday-gift-guide.html#for-kids' },
+    { label: 'Bestsellers', href: 'holiday-gift-guide.html#bestsellers' }
   ] },
   { page: 'all-products', label: 'All products', href: 'all-products.html' },
   { page: 'faq', label: 'FAQ', href: 'faq.html' }
