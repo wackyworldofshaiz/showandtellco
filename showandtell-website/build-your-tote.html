@@ -66,39 +66,13 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </ol>
 </div>
 
-<!-- START: favourites or from scratch -->
+<!-- START: pick a blank -->
 <sc-if value="{{ isStart }}" hint-placeholder-val="{{ true }}">
 <div style="display: flex; flex-direction: column; gap: 56px">
 
-<section aria-labelledby="fav-h" style="display: flex; flex-direction: column; gap: 20px">
-<div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
-<h2 id="fav-h" class="disp" style="margin: 0; font-size: 34px; font-weight: 900">Start from a favourite</h2>
-<p style="margin: 0; font-size: 17px; color: #3B2E6B">Ready-made mixes. Take one as it is, or make it yours.</p>
-</div>
-<ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 360px)); justify-content: center; gap: 20px">
-<sc-for list="{{ presets }}" as="pr" hint-placeholder-count="3">
-<li style="background: #EFE9FF; border-radius: 24px; padding: 22px; display: flex; flex-direction: column; gap: 14px; text-align: center">
-<div aria-hidden="true" style="position: relative; width: 100%; aspect-ratio: 1 / 1">
-<img src="{{ pr.img }}" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain">
-<sc-for list="{{ pr.items }}" as="it" hint-placeholder-count="4">
-<img src="{{ it.src }}" alt="" style="position: absolute; left: {{ it.x }}%; top: {{ it.y }}%; width: {{ it.w }}%; height: auto; transform: translate(-50%, -50%) rotate({{ it.r }}deg); filter: drop-shadow(0 2px 2px rgba(26, 11, 69, 0.25))">
-</sc-for>
-<img src="{{ pr.shade }}" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; pointer-events: none">
-</div>
-<div style="display: flex; flex-direction: column; gap: 4px">
-<h3 class="disp" style="margin: 0; font-size: 24px; font-weight: 900">{{ pr.name }}</h3>
-<p style="margin: 0; font-size: 15px; color: #3B2E6B">{{ pr.meta }}</p>
-<p style="margin: 0; font-size: 16px; font-weight: 700">{{ pr.total }}</p>
-</div>
-<button class="go" type="button" onClick="{{ pr.use }}" style="min-height: 48px; border-radius: 999px; border: 0; background: #5D1AFA; color: #FDFDFD; font-family: inherit; font-size: 16px; font-weight: 700; cursor: pointer">Make it mine</button>
-</li>
-</sc-for>
-</ul>
-</section>
-
 <section aria-labelledby="blank-h" style="display: flex; flex-direction: column; gap: 20px">
 <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
-<h2 id="blank-h" class="disp" style="margin: 0; font-size: 34px; font-weight: 900">Start from scratch</h2>
+<h2 id="blank-h" class="disp" style="margin: 0; font-size: 34px; font-weight: 900">Choose your base</h2>
 <p style="margin: 0; font-size: 17px; color: #3B2E6B">Grab a blank and build it one design at a time.</p>
 </div>
 <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 360px)); justify-content: center; gap: 20px">
@@ -323,7 +297,8 @@ function mapPos(style, x, y) {
 
 // The designs (PATCHES) are in assets/catalog.js.
 
-// Ready-made mixes for "Start from a favourite". x and y are % of the bag, s is size 0-4, r is rotation.
+// Ready-made mixes. Not shown on the page at the moment (the "Start from a favourite" section was taken out);
+// they're kept here in case it comes back. x and y are % of the bag, s is size 0-4, r is rotation.
 var PRESETS = [
   { id: 'lagos', name: 'Lagos life', style: 'classic', colour: 'natural', items: [
     { pid: 'p24', type: 'patch', x: 34, y: 48, s: 2, r: -6 }, { pid: 'p30', type: 'patch', x: 68, y: 52, s: 2, r: 6 },

@@ -1,0 +1,41 @@
+/* Search and filters in a left rail, products on the right. Used by cards.html and the collection
+   pages that have filters (assets/collection.js). Below 860px the rail folds behind a Filters button. */
+.cl{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;align-items:start}
+.cl-rail{position:sticky;top:16px;display:flex;flex-direction:column;gap:18px}
+.cl-search{position:relative}
+.cl-search input{width:100%;box-sizing:border-box;min-height:48px;padding:0 16px 0 44px;border-radius:999px;border:2px solid #CFC6F2;background:#FDFDFD;font-family:inherit;font-size:16px;color:#1A0B45}
+.cl-search input:focus{outline:3px solid #5D1AFA;outline-offset:1px;border-color:#5D1AFA}
+.cl-search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:20px;height:20px;pointer-events:none}
+.cl-panel{display:flex;flex-direction:column;border-top:1px solid #E3DCF7}
+.cl-head{display:flex;align-items:center;justify-content:space-between;min-height:48px}
+.cl-group{border-bottom:1px solid #E3DCF7}
+.cl-group summary{display:flex;align-items:center;justify-content:space-between;min-height:52px;font-size:16px;font-weight:700;cursor:pointer;list-style:none}
+.cl-group summary::-webkit-details-marker{display:none}
+.cl-group[open] .chev{transform:rotate(180deg)}
+.cl-opts{display:flex;flex-direction:column;gap:2px;padding:0 0 14px}
+.cl-opt{display:flex;align-items:center;gap:12px;width:100%;min-height:40px;padding:0 4px;border:0;border-radius:8px;background:transparent;font-family:inherit;font-size:15px;color:#1A0B45;text-align:left;cursor:pointer}
+.cl-opt:hover{background:#F4F0FF}
+.cl-opt:focus-visible,.cl-btn:focus-visible{outline:3px solid #5D1AFA;outline-offset:2px}
+.cl-box{flex:0 0 20px;width:20px;height:20px;box-sizing:border-box;border-radius:5px;border:2px solid #8C82B0;display:flex;align-items:center;justify-content:center}
+.cl-opt[aria-checked="true"] .cl-box{background:#5D1AFA;border-color:#5D1AFA}
+.cl-opt[aria-checked="true"] .cl-box svg{display:block}
+.cl-box svg{display:none;width:14px;height:14px}
+.cl-n{margin-left:auto;font-size:13px;color:#6B6290}
+.cl-opt[disabled]{color:#B4ACCF;cursor:default;background:transparent}
+.cl-btn{min-height:40px;padding:0 4px;border:0;background:transparent;font-family:inherit;font-size:14px;font-weight:700;color:#5D1AFA;text-decoration:underline;cursor:pointer}
+.cl-toggle{display:none}
+.cl-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:22px}
+.cl-chips{display:flex;flex-wrap:wrap;gap:8px}
+.cl-chip{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:0 12px;border-radius:999px;border:0;background:#F4F0FF;color:#1A0B45;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.cl-chip:focus-visible{outline:3px solid #5D1AFA;outline-offset:2px}
+@media (max-width:860px){
+  .cl{grid-template-columns:minmax(0,1fr);gap:20px}
+  .cl-rail{position:static}
+  .cl-toggle{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:999px;border:2px solid #1A0B45;background:#FDFDFD;color:#1A0B45;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer}
+  .cl-toggle:focus-visible{outline:3px solid #5D1AFA;outline-offset:2px}
+  .cl-panel[data-open="false"]{display:none}
+}
+.cl-sort{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:#1A0B45}
+.cl-sort select{min-height:40px;padding:0 42px 0 14px;border-radius:12px;border:2px solid #CFC6F2;background:#FDFDFD url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%231A0B45' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center / 16px 16px;color:#1A0B45;font:inherit;font-size:15px;-webkit-appearance:none;appearance:none;cursor:pointer}
+.cl-sort select:focus-visible{outline:3px solid #5D1AFA;outline-offset:2px}
+.cl-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}

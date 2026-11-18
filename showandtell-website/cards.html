@@ -17,43 +17,8 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 .acc summary{cursor:pointer;list-style:none}
 .acc summary::-webkit-details-marker{display:none}
 .acc[open] .chev{transform:rotate(180deg)}
-/* Card list: search and filters in a left rail, cards on the right. Below 860px the rail folds behind a Filters button. */
-.cl{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;align-items:start}
-.cl-rail{position:sticky;top:16px;display:flex;flex-direction:column;gap:18px}
-.cl-search{position:relative}
-.cl-search input{width:100%;box-sizing:border-box;min-height:48px;padding:0 16px 0 44px;border-radius:999px;border:2px solid #CFC6F2;background:#FDFDFD;font-family:inherit;font-size:16px;color:#1A0B45}
-.cl-search input:focus{outline:3px solid #5D1AFA;outline-offset:1px;border-color:#5D1AFA}
-.cl-search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:20px;height:20px;pointer-events:none}
-.cl-panel{display:flex;flex-direction:column;border-top:1px solid #E3DCF7}
-.cl-head{display:flex;align-items:center;justify-content:space-between;min-height:48px}
-.cl-group{border-bottom:1px solid #E3DCF7}
-.cl-group summary{display:flex;align-items:center;justify-content:space-between;min-height:52px;font-size:16px;font-weight:700;cursor:pointer;list-style:none}
-.cl-group summary::-webkit-details-marker{display:none}
-.cl-group[open] .chev{transform:rotate(180deg)}
-.cl-opts{display:flex;flex-direction:column;gap:2px;padding:0 0 14px}
-.cl-opt{display:flex;align-items:center;gap:12px;width:100%;min-height:40px;padding:0 4px;border:0;border-radius:8px;background:transparent;font-family:inherit;font-size:15px;color:#1A0B45;text-align:left;cursor:pointer}
-.cl-opt:hover{background:#F4F0FF}
-.cl-opt:focus-visible,.cl-btn:focus-visible{outline:3px solid #5D1AFA;outline-offset:2px}
-.cl-box{flex:0 0 20px;width:20px;height:20px;box-sizing:border-box;border-radius:5px;border:2px solid #8C82B0;display:flex;align-items:center;justify-content:center}
-.cl-opt[aria-checked="true"] .cl-box{background:#5D1AFA;border-color:#5D1AFA}
-.cl-opt[aria-checked="true"] .cl-box svg{display:block}
-.cl-box svg{display:none;width:14px;height:14px}
-.cl-n{margin-left:auto;font-size:13px;color:#6B6290}
-.cl-opt[disabled]{color:#B4ACCF;cursor:default;background:transparent}
-.cl-btn{min-height:40px;padding:0 4px;border:0;background:transparent;font-family:inherit;font-size:14px;font-weight:700;color:#5D1AFA;text-decoration:underline;cursor:pointer}
-.cl-toggle{display:none}
+/* Card grid on the cards page (the rail itself is in assets/filters.css). */
 .cl-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:40px 28px}
-.cl-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:22px}
-.cl-chips{display:flex;flex-wrap:wrap;gap:8px}
-.cl-chip{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:0 12px;border-radius:999px;border:0;background:#F4F0FF;color:#1A0B45;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer}
-.cl-chip:focus-visible{outline:3px solid #5D1AFA;outline-offset:2px}
-@media (max-width:860px){
-  .cl{grid-template-columns:minmax(0,1fr);gap:20px}
-  .cl-rail{position:static}
-  .cl-toggle{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:999px;border:2px solid #1A0B45;background:#FDFDFD;color:#1A0B45;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer}
-  .cl-toggle:focus-visible{outline:3px solid #5D1AFA;outline-offset:2px}
-  .cl-panel[data-open="false"]{display:none}
-}
 @media (max-width:600px){
   .cl-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 16px}
   .cl-grid .disp{font-size:17px !important}
@@ -75,6 +40,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </style>
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/filters.css">
 <link rel="stylesheet" href="assets/footer.css">
 </head>
 <body>

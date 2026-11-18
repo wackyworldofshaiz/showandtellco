@@ -161,6 +161,7 @@ var PUZZLES = [
 // 'bestsellers' and 'new-arrivals' also decide the BESTSELLER and NEW badges:
 // a product gets the badge only while it's on that list.
 // sections split a page into headed groups; the id is the #link the menu uses.
+// filters: true gives the page the search box and left filter rail (assets/collection.js).
 // Text in [square brackets] is a placeholder to replace.
 var COLLECTIONS = {
   'bestsellers': {
@@ -173,12 +174,14 @@ var COLLECTIONS = {
     title: 'New arrivals',
     intro: 'The latest from Show and Tell, from puzzles and Story Kits to cards, patches and prints.',
     colour: '#E4EE3F',
+    filters: true,
     items: ['puzzle-owambe-wahala', 'puzzle-lagos-traffic', 'kit-danfo-days', 'p31', 'p40', 'card-10', 'p24', 'card-11', 'p32', 'card-02', 'p25', 'card-12', 'p41']
   },
   'holiday-gift-guide': {
     title: 'Holiday Gift Guide',
-    intro: 'Cards that say it, totes that show it, and little extras for every stocking. Pick a section or browse the lot.',
+    intro: 'Puzzles for game night, Story Kits to make their own, cards that say it, totes that show it, and little extras for every stocking.',
     colour: '#E4EE3F',
+    filters: true,
     sections: [
       { id: 'for-her', title: 'For her', items: ['card-02', 'card-05', 'card-09', 'pocket', 'p25', 'p31'] },
       { id: 'for-couples', title: 'For couples', items: ['card-10', 'card-03', 'card-04', 'card-07', 'classic', 'p27'] },
@@ -192,8 +195,9 @@ var COLLECTIONS = {
   },
   'junior': {
     title: 'Show and Tell Junior',
-    intro: '[Bright, playful designs for little ones: snacks, rides and the sweet stuff. Iron a patch onto a school bag or put a print on a tee.]',
+    intro: 'Bright, playful things for little ones: patches for school bags, prints and tees, and the snacks and rides they know by heart. Junior cards are on the way.',
     colour: '#FFC9E8',
+    filters: true,
     items: ['tee', 'p28', 'p37', 'p34', 'p32', 'p30', 'p24', 'p33', 'p25']
   },
   'games': {
@@ -207,9 +211,10 @@ var COLLECTIONS = {
   },
   'collectibles': {
     title: 'Collectibles',
-    intro: 'Collect the set. Every design comes as an embroidered patch, and pins are on the way. Swap them, stack them, start a collection.',
+    intro: 'Collect the set: embroidered patches and sticker-style prints, with pins on the way. Swap them, stack them, start a collection.',
     colour: '#EFE9FF',
     byCategory: true,
+    filters: true,
     items: ['all-designs']
   },
   'all-products': {
