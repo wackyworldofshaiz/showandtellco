@@ -16,11 +16,40 @@ var CARDS = [
   { no: '07', cat: 'Love', for: ['adults'], sizes: ['A5'], title: 'You make my heart go pop!', src: 'images/cards/card-10.jpg', w: 1121, h: 1403, desc: 'A pink toaster popping two iced pastries, for the one who makes your heart go pop.' },
   { no: '08', cat: 'Love', for: ['adults'], sizes: ['A5'], title: "You're hot stuff!", src: 'images/cards/card-11.jpg', w: 1055, h: 1491, desc: 'A bottle of hot sauce for someone who’s simply too hot to handle.' },
   { no: '09', cat: 'Love', for: ['adults'], sizes: ['A5'], title: 'You are the one that I want', src: 'images/cards/card-14.jpg', w: 1122, h: 1402, desc: 'A box of a dozen doughnuts, and only one of them is the one you want.' },
+  { no: '38', cat: 'Love', for: ['adults'], sizes: ['A5'], title: "We're mint to be!", src: 'images/cards/card-38.jpg', w: 1060, h: 1502, desc: "Two little mint leaves smiling at each other with a pink heart in between. For the one you were always mint to be with." },
+  { no: '15', cat: 'Anniversary', for: ['adults'], sizes: ['A5'], title: "Happy anniversa-tea!", src: 'images/cards/card-15.jpg', w: 1060, h: 1502, desc: "Two tea bags dancing arm in arm on warm orange. For the couple who are still each other’s cup of tea." },
+  { no: '16', cat: 'Anniversary', for: ['adults'], sizes: ['A5'], title: "It's bean one year", src: 'images/cards/card-16.jpg', w: 1060, h: 1502, desc: "Two happy beans holding hands and throwing up peace signs. For a first anniversary, or one year of anything worth celebrating." },
+  { no: '17', cat: 'Anniversary', for: ['adults'], sizes: ['A5'], title: "We make the perfect pair! Happy anniversary to us", src: 'images/cards/card-17.jpg', w: 1060, h: 1502, desc: "The king and queen of hearts holding hands in a shower of little hearts. For the couple who always deal each other a winning hand." },
+  { no: '18', cat: 'Anniversary', for: ['adults'], sizes: ['A5'], title: "You are my sole mate", src: 'images/cards/card-18.jpg', w: 1060, h: 1502, desc: "Two cheeky trainers, sole to sole, on a big pink heart. For the one who walks through everything with you." },
+  { no: '19', cat: 'Anniversary', for: ['adults'], sizes: ['A5'], title: "I'll never Lego of you", src: 'images/cards/card-19.jpg', w: 1060, h: 1502, desc: "Two building bricks locked in a hug, one blue and one red. For the person you’re never letting go of." }, // Check before selling: uses another brand’s name or look.
   { no: '10', cat: 'Wedding', for: ['adults'], sizes: ['A5'], title: 'To the happy couple', src: 'images/cards/card-12.jpg', w: 1051, h: 1496, desc: 'A bold red heart on soft blue stripes, made for weddings, engagements and anniversaries.' },
+  { no: '20', cat: 'Wedding', for: ['adults'], sizes: ['A5'], title: "Joined together in holy macaroni", src: 'images/cards/card-20.jpg', w: 1060, h: 1502, desc: "A macaroni elbow with a smiling face at each end, surrounded by hearts. For the newlyweds, and anyone who loves a pasta pun." },
+  { no: '21', cat: 'Wedding', for: ['adults'], sizes: ['A5'], title: "You guys are the perfect match", src: 'images/cards/card-21.jpg', w: 1060, h: 1502, desc: "A pink matchbox with a red heart, every match ready to strike, on painted blue. For weddings, engagements and couples who light each other up." },
+  { no: '22', cat: 'Wedding', for: ['adults'], sizes: ['A5'], title: "Congratulations on tying the knot", src: 'images/cards/card-22.jpg', w: 1060, h: 1502, desc: "A golden rope tied in a knot with a flutter of pink hearts above it. Simple, sweet and made for the big day." },
+  { no: '23', cat: 'Wedding', for: ['adults'], sizes: ['A5'], title: "A toast to the happy couple", src: 'images/cards/card-23.jpg', w: 1060, h: 1502, desc: "Two slices of toast popping out of a peach toaster with hearts on top. Raise a slice to the newlyweds." },
+  { no: '24', cat: 'Birthday', for: ['adults'], sizes: ['A5'], title: "Sorry I didn't get you a present. At least you avocardo", src: 'images/cards/card-24.jpg', w: 1060, h: 1502, desc: "An avocado in a party hat, reading its card. For the friend who knows it’s the thought that counts." },
+  { no: '25', cat: 'Birthday', for: ['adults'], sizes: ['A5'], title: "You're old but you doughnut look it!", src: 'images/cards/card-25.jpg', w: 1060, h: 1502, desc: "A pink sprinkle doughnut in a polka-dot party hat. The kindest thing you can say on a birthday." },
+  { no: '26', cat: 'Birthday', for: ['adults'], sizes: ['A5'], title: "Hope your birthday is legen (wait for it) diary", src: 'images/cards/card-26.jpg', w: 1060, h: 1502, desc: "A cool cow in cat-eye sunglasses blowing a kiss. For the legend in your life." },
+  { no: '27', cat: 'Birthday', for: ['adults'], sizes: ['A5'], title: "Mayo birthday wishes come true", src: 'images/cards/card-27.jpg', w: 1060, h: 1502, desc: "A big jar of mayo with a bold label and a birthday wish to match. For anyone who puts mayo on everything." },
+  { no: '28', cat: 'Birthday', for: ['adults'], sizes: ['A5'], title: "I'm not saying you're old, but if you were milk I'd sniff you first", src: 'images/cards/card-28.jpg', w: 1060, h: 1502, desc: "A milk bottle with a cheeky message on sunny yellow check. For birthdays where honesty is the best policy." },
+  { no: '29', cat: 'Graduation', for: ['adults'], sizes: ['A5'], title: "A little toast for your graduation", src: 'images/cards/card-29.jpg', w: 1060, h: 1502, desc: "A slice of toast in a mortarboard, raising a glass of bubbly under golden stars. Cheers to the graduate." },
+  { no: '30', cat: 'Graduation', for: ['adults'], sizes: ['A5'], title: "Side quest complete. Happy graduation", src: 'images/cards/card-30.jpg', w: 1060, h: 1502, desc: "A frog in a mortarboard leaping for joy with the diploma in hand. For the grad who made it look easy (it wasn’t)." },
+  { no: '31', cat: 'Graduation', for: ['adults'], sizes: ['A5'], title: "There is a graduate among us", src: 'images/cards/card-31.jpg', w: 1060, h: 1502, desc: "A little red crewmate in a mortarboard. For the gamer who just graduated." }, // Check before selling: uses another brand’s name or look.
+  { no: '32', cat: 'Graduation', for: ['adults'], sizes: ['A5'], title: "Thanks ChatGPT", src: 'images/cards/card-32.jpg', w: 1060, h: 1502, desc: "A deadpan graduate in a mortarboard holding up a thank-you sign. For the grad who knows who helped with that essay." }, // Check before selling: uses another brand’s name or look.
+  { no: '33', cat: 'Graduation', for: ['adults'], sizes: ['A5'], title: "The one where they graduate", src: 'images/cards/card-33.jpg', w: 1060, h: 1502, desc: "An orange sofa on a chalkboard, with season 20, episode 20 written above. For the grad who has watched every episode twice." }, // Check before selling: uses another brand’s name or look.
+  { no: '34', cat: 'Thank you & congrats', for: ['adults'], sizes: ['A5'], title: "Chip chip hurray!", src: 'images/cards/card-34.jpg', w: 1060, h: 1502, desc: "A tortilla chip and a crisp dancing together. For any win, big or small." },
+  { no: '35', cat: 'Thank you & congrats', for: ['adults'], sizes: ['A5'], title: "Thank-a-doodle-you!", src: 'images/cards/card-35.jpg', w: 1060, h: 1502, desc: "A wide-eyed rooster popping in to say thank you, loudly." },
+  { no: '36', cat: 'Thank you & congrats', for: ['adults'], sizes: ['A5'], title: "I'm your biggest fan", src: 'images/cards/card-36.jpg', w: 1060, h: 1502, desc: "A pink electric fan blowing at full blast. For the friend you’ll always cheer on." },
+  { no: '37', cat: 'Thank you & congrats', for: ['adults'], sizes: ['A5'], title: "Overall, you are amazing", src: 'images/cards/card-37.jpg', w: 1060, h: 1502, desc: "A pair of bright blue dungarees and a compliment to match. For thank yous, well dones and just because." },
   { no: '11', cat: 'Cheeky', for: ['adults'], sizes: ['A5'], title: 'Nice bum', src: 'images/cards/card-09.jpg', w: 1054, h: 1492, desc: 'A goose with no shame and a compliment to match. For partners, best friends and anyone who’ll laugh.' },
   { no: '12', cat: 'Christmas', for: ['adults'], sizes: ['A5'], title: 'Fa la la la la', src: 'images/cards/card-01.jpg', w: 1060, h: 1484, desc: 'Colourful hand-lettered fa la las on pink. A cheerful Christmas card for anyone on your list.' },
   { no: '13', cat: 'Christmas', for: ['adults'], sizes: ['A5'], title: 'Dear Santa, define nice', src: 'images/cards/card-02.jpg', w: 1052, h: 1495, desc: 'Candy-cane stripes and an important question for Santa. For the friend who’s been mostly nice.' },
-  { no: '14', cat: 'Christmas', for: ['adults'], sizes: ['A5'], title: 'Dear Santa, pls just leave your credit card under the tree. Thx!', src: 'images/cards/card-03.jpg', w: 1122, h: 1402, desc: 'A Christmas tree, gold stars and one simple request to Santa. For anyone with expensive taste.' }
+  { no: '14', cat: 'Christmas', for: ['adults'], sizes: ['A5'], title: 'Dear Santa, pls just leave your credit card under the tree. Thx!', src: 'images/cards/card-03.jpg', w: 1122, h: 1402, desc: 'A Christmas tree, gold stars and one simple request to Santa. For anyone with expensive taste.' },
+  { no: '39', cat: 'Christmas', for: ['adults'], sizes: ['A5'], title: "Oh Christmas tea, oh Christmas tea!", src: 'images/cards/card-39.jpg', w: 1060, h: 1502, desc: "A little Christmas tree in a teacup, lights, star and all. For the tea lover on your list." },
+  { no: '40', cat: 'Christmas', for: ['adults'], sizes: ['A5'], title: "The first King size bed", src: 'images/cards/card-40.jpg', w: 1060, h: 1502, desc: "A watercolour manger under the star of Bethlehem. A gentle Christmas card with a smile in it." },
+  { no: '41', cat: 'Christmas', for: ['adults'], sizes: ['A5'], title: "You know it's my day, right?", src: 'images/cards/card-41.jpg', w: 1060, h: 1502, desc: "Jesus on a donkey reminds Santa on his reindeer whose birthday it really is. Yeah yeah, Santa knows." },
+  { no: '42', cat: 'Christmas', for: ['adults'], sizes: ['A5'], title: "Peas on earth", src: 'images/cards/card-42.jpg', w: 1060, h: 1502, desc: "A choir of little peas in bobble hats and earmuffs, singing carols in the snow." },
+  { no: '43', cat: 'Christmas', for: ['adults'], sizes: ['A5'], title: "He sees you when you're sleeping", src: 'images/cards/card-43.jpg', w: 1060, h: 1502, desc: "Santa peeking through the curtains with a finger to his lips. A little bit creepy, very festive." }
 ];
 
 // ---------- Designs (prints, patches and pins) ----------
@@ -175,22 +204,37 @@ var COLLECTIONS = {
     intro: 'The latest from Show and Tell, from puzzles and Story Kits to cards, patches and prints.',
     colour: '#E4EE3F',
     filters: true,
-    items: ['puzzle-owambe-wahala', 'puzzle-lagos-traffic', 'kit-danfo-days', 'p31', 'p40', 'card-10', 'p24', 'card-11', 'p32', 'card-02', 'p25', 'card-12', 'p41']
+    items: ['puzzle-owambe-wahala', 'puzzle-lagos-traffic', 'kit-danfo-days', 'card-42', 'card-15', 'card-30', 'card-39', 'card-34', 'card-21', 'p31', 'p40', 'card-10', 'p24', 'card-11', 'p32', 'card-02', 'p25', 'card-12', 'p41']
   },
   'holiday-gift-guide': {
+    // Drawn by assets/gift-guide.js: a banner, then one row per section with a coloured
+    // "Selected for ..." panel beside its products, four at a time. Rows swap sides as they go.
+    // bg / fg / accent: the panel colours. art: up to three cut-out images on the panel
+    // (the first is the big one). shop: where the panel's Shop now link goes.
     title: 'Holiday Gift Guide',
-    intro: 'Puzzles for game night, Story Kits to make their own, cards that say it, totes that show it, and little extras for every stocking.',
-    colour: '#E4EE3F',
-    filters: true,
+    intro: 'A little something for everyone on your list, including the ones who have everything.',
+    colour: '#1A0B45',
     sections: [
-      { id: 'for-her', title: 'For her', items: ['card-02', 'card-05', 'card-09', 'pocket', 'p25', 'p31'] },
-      { id: 'for-couples', title: 'For couples', items: ['card-10', 'card-03', 'card-04', 'card-07', 'classic', 'p27'] },
-      { id: 'for-him', title: 'For him', items: ['card-08', 'classic', 'p41', 'p19', 'p29', 'p26'] },
-      { id: 'for-little-ones', title: 'For little ones', items: ['tee', 'p28', 'p37', 'p34', 'p30'] },
-      { id: 'story-kits', title: 'Story Kits', note: 'A tee that shows the scene, and pieces so they can tell the story. Only 10 made.', items: ['kit-danfo-days'] },
-      { id: 'for-the-group', title: 'For the group', note: 'Matching totes for the whole crew. Build one and we\u2019ll make as many as you need.', items: ['classic', 'pocket', 'tee'] },
-      { id: 'christmas-cards', title: 'Christmas cards', items: ['card-12', 'card-13', 'card-14'] },
-      { id: 'stocking-fillers', title: 'Stocking fillers', items: ['p19', 'p40', 'p22', 'p20', 'p37', 'card-11'] }
+      { id: 'for-her', title: 'For her', bg: '#FFC9E8', fg: '#1A0B45', accent: '#5D1AFA',
+        art: ['images/brand/hero-tote-patches.webp', 'images/patches/patch-chapman.webp', 'images/patches/patch-las-gidi.webp'],
+        shop: 'all-products.html',
+        items: ['card-02', 'pocket', 'p25', 'card-05', 'puzzle-owambe-wahala', 'p31', 'card-09', 'p48'] },
+      { id: 'for-him', title: 'For him', bg: '#013A27', fg: '#FDFDFD', accent: '#FEB800',
+        art: ['images/puzzles/lagos-traffic-box-cutout.webp', 'images/patches/patch-suya.webp', 'images/patches/print-no-condition.webp'],
+        shop: 'all-products.html',
+        items: ['puzzle-lagos-traffic', 'card-08', 'classic', 'p41', 'p19', 'p29', 'tee', 'p26'] },
+      { id: 'for-the-foodie', title: 'For the foodie', bg: '#E4EE3F', fg: '#1A0B45', accent: '#5D1AFA',
+        art: ['images/patches/patch-jollof.webp', 'images/patches/patch-puff-puff.webp', 'images/patches/print-zobo.webp'],
+        shop: 'collectibles.html',
+        items: ['p42', 'card-04', 'p29', 'p28', 'card-01', 'p43', 'card-06', 'p25'] },
+      { id: 'for-kids', title: 'For kids', bg: '#C9F0FF', fg: '#1A0B45', accent: '#5D1AFA',
+        art: ['images/products/tee-front.png', 'images/patches/print-lagos-taxi.webp', 'images/patches/print-pure-water.webp'],
+        shop: 'junior.html',
+        items: ['tee', 'kit-danfo-days', 'p28', 'p37', 'p34', 'p30', 'p32', 'p24'] },
+      { id: 'bestsellers', title: 'Bestsellers', bg: '#5D1AFA', fg: '#FDFDFD', accent: '#E4EE3F',
+        art: ['images/patches/danfo-busy.webp', 'images/patches/wahala.webp', 'images/patches/patch-suya.webp'],
+        shop: 'bestsellers.html',
+        items: ['card-05', 'classic', 'p19:patch', 'p29', 'card-04', 'puzzle-lagos-traffic', 'kit-danfo-days', 'p05'] }
     ]
   },
   'junior': {

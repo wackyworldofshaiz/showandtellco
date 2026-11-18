@@ -94,7 +94,7 @@
   // products matching any of them. Options and counts come from the products themselves.
   var FACETS = [
     { key: 'type', label: 'Product type', order: GROUPS.slice(1), of: function (it) { return [it.group]; } },
-    { key: 'cat', label: 'Category', order: ['Love', 'Christmas', 'Wedding', 'Cheeky'].concat(CAT_ORDER),
+    { key: 'cat', label: 'Category', order: ['Love', 'Anniversary', 'Wedding', 'Birthday', 'Graduation', 'Thank you & congrats', 'Christmas', 'Cheeky'].concat(CAT_ORDER),
       of: function (it) { return it.group === 'Cards' || it.group === 'Designs' ? [it.cat] : []; } },
     { key: 'as', label: 'Designs come as', order: ['print', 'patch', 'pin'], names: { print: 'Print', patch: 'Patch', pin: 'Pin' },
       of: function (it) {

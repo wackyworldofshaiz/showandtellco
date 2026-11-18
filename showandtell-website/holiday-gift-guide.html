@@ -4,26 +4,81 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Holiday Gift Guide: Show and Tell Co</title>
-<meta name="description" content="Gift ideas for everyone on your list: puzzles, Story Kits, pun cards, made-to-order totes and tees, patches, prints and stocking fillers.">
+<meta name="description" content="Holiday gift ideas for her, for him, for the foodie and for kids, plus our bestsellers: puzzles, Story Kits, pun cards, totes, tees, patches and prints.">
 <link rel="icon" type="image/png" href="images/brand/wordmark-violet.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&amp;family=DM+Sans:opsz,wght@9..40,400..700&amp;display=swap">
 <style>
 body{margin:0;background:#FDFDFD;font-family:'DM Sans',Helvetica,Arial,sans-serif;color:#1A0B45}
-.disp{font-family:'Fraunces',Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1}
-.product-tile:hover span:first-child img{transform:scale(1.04)}
-.product-tile img{transition:transform 0.2s}
+/* Holiday Gift Guide layout. The content comes from assets/gift-guide.js. */
+.gg-wide{margin:0;font-family:'Archivo',Helvetica,Arial,sans-serif;font-stretch:118%;font-weight:800;text-transform:uppercase;letter-spacing:-0.01em;line-height:0.92}
+.gg-script{font-family:'Pinyon Script',cursive;font-weight:400;line-height:0.9}
+.gg-hero{display:flex;flex-direction:column;align-items:center;gap:14px;padding:72px 24px 64px;background:#1A0B45;color:#FDFDFD;text-align:center}
+.gg-hero-kicker{margin:0;font-size:72px;color:#E4EE3F}
+.gg-hero .gg-wide{font-size:clamp(48px,7vw,104px)}
+.gg-hero-intro{margin:0;max-width:520px;font-size:19px;line-height:1.5;color:#E9E3FF}
+.gg-jump{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
+.gg-jump a{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:999px;font-size:15px;font-weight:700;text-decoration:none}
+.gg-jump a:hover{outline:2px solid #FDFDFD;outline-offset:2px}
+.gg-rows{display:flex;flex-direction:column}
+.gg-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);scroll-margin-top:0}
+.gg-row.is-flip .gg-panel{order:2}
+.gg-panel{position:relative;display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:24px;min-height:640px;padding:56px 40px 48px;box-sizing:border-box;overflow:hidden;text-align:center;text-decoration:none}
+.gg-panel-text{display:flex;flex-direction:column;align-items:center;gap:4px}
+.gg-panel .gg-script{font-size:64px}
+.gg-panel .gg-wide{font-size:clamp(40px,4.6vw,68px)}
+.gg-art{position:relative;flex:1;width:100%;max-width:440px;min-height:300px}
+.gg-art img{position:absolute;height:auto;filter:drop-shadow(0 18px 24px rgba(26,11,69,.22));transition:transform .3s}
+.gg-art-0{left:50%;top:50%;width:64%;max-height:100%;object-fit:contain;transform:translate(-50%,-50%) rotate(-3deg)}
+.gg-art-1{left:0;top:2%;width:30%;transform:rotate(-10deg)}
+.gg-art-2{right:0;bottom:0;width:32%;transform:rotate(8deg)}
+.gg-panel:hover .gg-art-0{transform:translate(-50%,-52%) rotate(-1deg)}
+.gg-shop{display:inline-flex;align-items:center;gap:8px;font-size:16px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid currentColor;padding-bottom:4px}
+.gg-products{display:flex;flex-direction:column;justify-content:center;gap:20px;padding:40px;min-width:0;box-sizing:border-box}
+.gg-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none}
+.gg-track::-webkit-scrollbar{display:none}
+.gg-track:focus-visible{outline:3px solid #5D1AFA;outline-offset:4px}
+.gg-page{flex:0 0 100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 20px;margin:0;padding:0;list-style:none;scroll-snap-align:start}
+.gg-tile{display:flex;flex-direction:column;gap:6px;color:#1A0B45;text-decoration:none}
+.gg-tile-img{position:relative;display:block;aspect-ratio:1/1;margin-bottom:6px;border-radius:18px;overflow:hidden;background:#F4F0FF}
+.gg-tile-img img{width:100%;height:100%;display:block;object-fit:contain;padding:12%;box-sizing:border-box;transition:transform .2s}
+.gg-tile-img.is-cover img{object-fit:cover;padding:0}
+.gg-tile-img.is-card img{padding:14% 22%;filter:drop-shadow(0 10px 14px rgba(26,11,69,.18))}
+.gg-tile:hover .gg-tile-img img{transform:scale(1.04)}
+.gg-badge{position:absolute;z-index:1;top:10px;left:10px;padding:4px 10px;border-radius:999px;background:#1A0B45;color:#FDFDFD;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.gg-kind{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#5D1AFA}
+.gg-name{font-size:16px;font-weight:700;line-height:1.3}
+.gg-price{font-size:15px;color:#3B2E6B}
+.gg-dots{display:flex;justify-content:center;gap:4px}
+.gg-dots button{width:44px;height:28px;padding:0;border:0;background:transparent;cursor:pointer;position:relative}
+.gg-dots button::after{content:'';position:absolute;left:8px;right:8px;top:12px;height:4px;border-radius:2px;background:#CFC6F2}
+.gg-dots button[aria-current=true]::after{background:#1A0B45}
+.gg-dots button:focus-visible{outline:3px solid #5D1AFA;outline-offset:0}
+.gg-all{display:flex;justify-content:center;padding:56px 16px 96px}
+.gg-all a{display:inline-flex;align-items:center;min-height:52px;padding:0 32px;border-radius:999px;background:#1A0B45;color:#FDFDFD;font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
+.gg-all a:hover{background:#5D1AFA}
+@media (max-width:900px){
+  .gg-row{grid-template-columns:minmax(0,1fr)}
+  .gg-row.is-flip .gg-panel{order:0}
+  .gg-panel{min-height:0;padding:40px 20px 32px;gap:16px}
+  .gg-panel .gg-script{font-size:52px}
+  .gg-art{min-height:240px;max-width:340px}
+  .gg-products{padding:28px 16px 40px}
+  .gg-page{gap:22px 12px}
+  .gg-hero{padding:52px 16px 44px}
+  .gg-hero-kicker{font-size:56px}
+  .gg-hero-intro{font-size:17px}
+}
 </style>
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
-<link rel="stylesheet" href="assets/filters.css">
 <link rel="stylesheet" href="assets/footer.css">
 </head>
 <body>
 <header style="background: #5D1AFA; color: #FDFDFD"><div id="site-header" data-page="holiday-gift-guide"></div></header>
 <script src="assets/header.js"></script>
 
-<main id="collection" data-collection="holiday-gift-guide">
+<main id="gift-guide">
 <noscript><p style="padding: 16px">Please turn on JavaScript to see these products.</p></noscript>
 </main>
 
@@ -53,7 +108,7 @@ body{margin:0;background:#FDFDFD;font-family:'DM Sans',Helvetica,Arial,sans-seri
 
 <script src="assets/prices.js"></script>
 <script src="assets/catalog.js"></script>
-<script src="assets/collection.js"></script>
+<script src="assets/gift-guide.js"></script>
 <script src="assets/menu.js"></script>
 <script src="assets/footer.js"></script>
 </body>
