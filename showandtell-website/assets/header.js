@@ -14,11 +14,21 @@ var ANNOUNCEMENTS = [
   'Prints from <span data-price="print"></span> · patches <span data-price="patch"></span> · pins from <span data-price="pin"></span>'
 ];
 
+// The help line shown beside the search icon. It's a WhatsApp number, so tapping it opens a WhatsApp chat.
+// HELP_PHONE is how it reads on the page; HELP_WHATSAPP is the same number, digits only, for the chat link.
+var HELP_PHONE = '+234 705 777 6753';
+var HELP_WHATSAPP = '2347057776753';
+
 var NAV = [
   { page: 'about', label: 'About us', href: 'about.html' },
   { page: 'new-arrivals', label: 'New arrivals', href: 'new-arrivals.html' },
   { page: 'story-kits', label: 'Story Kits', href: 'story-kit.html' },
-  { page: 'cards', label: 'Cards', href: 'cards.html' },
+  { page: 'cards', label: 'Cards', href: 'cards.html', children: [
+    // These open the cards page with the matching filter ticked (see GROUPS in cards.html).
+    { label: 'All cards', href: 'cards.html' },
+    { label: 'Adults', href: 'cards.html?for=adults' },
+    { label: 'Junior', href: 'cards.html?for=junior' }
+  ] },
   { page: 'totes', label: 'Totes', href: 'build-your-tote.html' },
   { page: 'games', label: 'Games', href: 'games.html' },
   { page: 'junior', label: 'Show and Tell Junior', href: 'junior.html' },
@@ -80,7 +90,10 @@ var NAV = [
     + regionSwitch('region-desktop')
     + '</div>'
     + '<a class="nav-logo" href="index.html" aria-label="Show and Tell Co home"><img src="images/brand/logo-horizontal-violet.png" alt="Show and Tell Co" width="299" height="42"></a>'
-    + '<div class="nav-right"><a class="nav-icon" href="all-products.html#search" aria-label="Search products">' + icon('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/>', 21) + '</a></div>'
+    + '<div class="nav-right">'
+    + '<a class="nav-help" href="https://wa.me/' + esc(HELP_WHATSAPP) + '" target="_blank" rel="noopener" aria-label="Do you need help? Message us on WhatsApp at ' + esc(HELP_PHONE) + '">' + icon('<circle cx="12" cy="12" r="9.5"/><path d="M9.4 9.3a2.7 2.7 0 0 1 5.2 1c0 1.8-2.6 2.4-2.6 3.9"/><circle cx="12" cy="17.3" r="0.6" fill="currentColor"/>', 22)
+    + '<span class="nav-help-text" aria-hidden="true"><span class="nav-help-q">Do you need help?</span><span class="nav-help-num">' + esc(HELP_PHONE) + '</span></span></a>'
+    + '<a class="nav-icon" href="all-products.html#search" aria-label="Search products">' + icon('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/>', 21) + '</a></div>'
     + '</div>'
     + '<nav id="site-links" class="site-links" aria-label="Main"><ul>' + items + '</ul>' + regionSwitch('region-mobile') + '</nav></div>';
 })();

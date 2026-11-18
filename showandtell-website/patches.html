@@ -18,12 +18,36 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </style>
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/footer.css">
 </head>
 <body>
 <header style="background: #5D1AFA; color: #FDFDFD"><div id="site-header" data-page="designs"></div></header>
 <script src="assets/header.js"></script>
 <noscript><p style="padding:16px;font-family:sans-serif">Please turn on JavaScript to use this page.</p></noscript>
 <div id="dc-root"></div>
+<footer class="home-footer">
+<div class="footer-cols">
+<div class="footer-news">
+<h2 class="wide footer-news-title">Hear about new drops <span class="script">first</span></h2>
+<form class="footer-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-signup>
+<input type="hidden" name="form-name" value="newsletter">
+<p hidden><label>Leave this empty <input name="bot-field"></label></p>
+<label class="visually-hidden" for="f-email">Email address</label>
+<input id="f-email" name="email" type="email" autocomplete="email" placeholder="Your email address" required>
+<button type="submit">Sign up</button>
+<p class="form-status" role="status"></p>
+</form>
+</div>
+<nav class="footer-links" aria-label="Shop"><h2 class="label">Shop</h2><a href="story-kit.html">Story Kits</a><a href="cards.html">Cards</a><a href="build-your-tote.html">Totes</a><a href="games.html">Games and puzzles</a><a href="patches.html" aria-current="page">Prints, patches and pins</a><a href="holiday-gift-guide.html">Holiday Gift Guide</a><a href="all-products.html">All products</a></nav>
+<nav class="footer-links" aria-label="Show and Tell"><h2 class="label">Show and Tell</h2><a href="about.html">About us</a><a href="popup.html">Patch bar pop-ups</a></nav>
+<nav class="footer-links" aria-label="Help"><h2 class="label">Help</h2><a href="faq.html">FAQ</a><a href="faq.html#care">Care for your tote</a><a href="https://wa.me/" data-whatsapp>Order on WhatsApp</a><a href="faq.html#groups">Group orders</a></nav>
+<nav class="footer-links" aria-label="Follow"><h2 class="label">Follow</h2><a href="https://www.instagram.com/showandtell.co/">Instagram</a></nav>
+</div>
+<div class="footer-base">
+<img src="images/brand/logo-stacked-violet.png" alt="Show and Tell Co" width="43" height="34">
+<span>© 2026 Show and Tell Co · Cards that tell it. Totes that show it.</span>
+</div>
+</footer>
 <template id="dc-template">
 <div style="width: 100%; min-height: 1000px; box-sizing: border-box; font-family: 'DM Sans', Helvetica, Arial, sans-serif; color: #1A0B45; background: #FDFDFD">
 
@@ -216,28 +240,6 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </div>
 </sc-if>
 </main>
-
-<footer style="background: #1A0B45; color: #FDFDFD">
-<div style="max-width: 1240px; margin: 0 auto; padding: 56px 5% 40px; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 36px">
-<div style="display: flex; flex-direction: column; gap: 14px">
-<a href="index.html" aria-label="Show and Tell Co home" style="line-height: 0"><img src="images/brand/wordmark-white.png" alt="Show and Tell Co" style="height: 72px; width: auto"></a>
-<p style="margin: 0; font-size: 16px; color: #FDFDFD">Pun-filled cards and pick-your-patch totes and tees.</p>
-<p style="margin: 0; font-size: 14px; color: #CFC6F2">Patch bar experience in Abuja and Barcelona</p>
-</div>
-<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 16px">
-<a href="about.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">About us</a>
-<a href="popup.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Patch bar pop-ups</a>
-<a href="cards.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Cards</a>
-<a href="build-your-tote.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Build a tote</a>
-<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Designs</a>
-<a href="faq.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">FAQ</a>
-<a href="https://www.instagram.com/showandtell.co/" target="_blank" rel="noopener" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Instagram</a>
-</nav>
-</div>
-<div style="max-width: 1240px; margin: 0 auto; padding: 0 5% 36px">
-<p style="margin: 0; padding-top: 22px; border-top: 1px solid #3B2E6B; font-size: 14px; color: #CFC6F2">© 2026 Show and Tell Co · Delivery charges apply</p>
-</div>
-</footer>
 </div>
 </template>
 <script src="assets/morphdom.min.js"></script>
@@ -248,7 +250,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <script>
 // ---------- Your settings ----------
 // WhatsApp number in international format, digits only (for example 2348012345678).
-var WHATSAPP_NUMBER = '';
+var WHATSAPP_NUMBER = '2347057776753';
 // Prices are in assets/prices.js.
 var QTYS = [1, 2, 3, 5, 10];
 
@@ -394,5 +396,6 @@ class Component extends DCLogic {
 
 DCLite.mount(Component);
 </script>
+<script src="assets/footer.js"></script>
 </body>
 </html>

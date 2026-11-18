@@ -16,6 +16,7 @@ body{margin:0;background:#FDFDFD;font-family:'DM Sans',Helvetica,Arial,sans-seri
 </style>
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/footer.css">
 </head>
 <body>
 <header style="background: #5D1AFA; color: #FDFDFD"><div id="site-header" data-page="all-products"></div></header>
@@ -25,25 +26,27 @@ body{margin:0;background:#FDFDFD;font-family:'DM Sans',Helvetica,Arial,sans-seri
 <noscript><p style="padding: 16px">Please turn on JavaScript to see these products.</p></noscript>
 </main>
 
-<footer style="background: #1A0B45; color: #FDFDFD">
-<div style="max-width: 1240px; margin: 0 auto; padding: 64px 5% 48px; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 40px">
-<div style="display: flex; flex-direction: column; gap: 16px">
-<img src="images/brand/wordmark-white.png" alt="Show and Tell Co" style="height: 80px; width: auto; align-self: flex-start">
-<p style="margin: 0; font-size: 16px; color: #FDFDFD">Pun-filled cards and pick-your-patch totes and tees.</p>
+<footer class="home-footer">
+<div class="footer-cols">
+<div class="footer-news">
+<h2 class="wide footer-news-title">Hear about new drops <span class="script">first</span></h2>
+<form class="footer-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-signup>
+<input type="hidden" name="form-name" value="newsletter">
+<p hidden><label>Leave this empty <input name="bot-field"></label></p>
+<label class="visually-hidden" for="f-email">Email address</label>
+<input id="f-email" name="email" type="email" autocomplete="email" placeholder="Your email address" required>
+<button type="submit">Sign up</button>
+<p class="form-status" role="status"></p>
+</form>
 </div>
-<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 16px">
-<a href="about.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">About us</a>
-<a href="popup.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Patch bar pop-ups</a>
-<a href="cards.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Cards</a>
-<a href="build-your-tote.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Totes</a>
-<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Designs</a>
-<a href="all-products.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">All products</a>
-<a href="faq.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">FAQ</a>
-<a href="https://www.instagram.com/showandtell.co/" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Instagram</a>
-</nav>
+<nav class="footer-links" aria-label="Shop"><h2 class="label">Shop</h2><a href="story-kit.html">Story Kits</a><a href="cards.html">Cards</a><a href="build-your-tote.html">Totes</a><a href="games.html">Games and puzzles</a><a href="patches.html">Prints, patches and pins</a><a href="holiday-gift-guide.html">Holiday Gift Guide</a><a href="all-products.html" aria-current="page">All products</a></nav>
+<nav class="footer-links" aria-label="Show and Tell"><h2 class="label">Show and Tell</h2><a href="about.html">About us</a><a href="popup.html">Patch bar pop-ups</a></nav>
+<nav class="footer-links" aria-label="Help"><h2 class="label">Help</h2><a href="faq.html">FAQ</a><a href="faq.html#care">Care for your tote</a><a href="https://wa.me/" data-whatsapp>Order on WhatsApp</a><a href="faq.html#groups">Group orders</a></nav>
+<nav class="footer-links" aria-label="Follow"><h2 class="label">Follow</h2><a href="https://www.instagram.com/showandtell.co/">Instagram</a></nav>
 </div>
-<div style="max-width: 1240px; margin: 0 auto; padding: 0 5% 40px">
-<p style="margin: 0; padding-top: 24px; border-top: 1px solid #3B2E6B; font-size: 14px; color: #CFC6F2">© 2026 Show and Tell Co</p>
+<div class="footer-base">
+<img src="images/brand/logo-stacked-violet.png" alt="Show and Tell Co" width="43" height="34">
+<span>© 2026 Show and Tell Co · Cards that tell it. Totes that show it.</span>
 </div>
 </footer>
 
@@ -51,5 +54,6 @@ body{margin:0;background:#FDFDFD;font-family:'DM Sans',Helvetica,Arial,sans-seri
 <script src="assets/catalog.js"></script>
 <script src="assets/collection.js"></script>
 <script src="assets/menu.js"></script>
+<script src="assets/footer.js"></script>
 </body>
 </html>

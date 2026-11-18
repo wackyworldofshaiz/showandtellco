@@ -4,8 +4,8 @@
 
 // ---------- Your settings ----------
 // WhatsApp number in international format, digits only (for example 2348012345678).
-// TODO: set it here and in build-your-tote.html, cards.html and patches.html.
-var WHATSAPP_NUMBER = '';
+// The same number is set in build-your-tote.html, cards.html, patches.html, story-kit.html and puzzle.html.
+var WHATSAPP_NUMBER = '2347057776753';
 // ---------- End of settings ----------
 
 (function () {

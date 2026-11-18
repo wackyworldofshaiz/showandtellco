@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Choose a card: Show and Tell Co</title>
+<title>Cards: Show and Tell Co</title>
 <meta name="description" content="Show and Tell Co: printed pun cards, pick-your-patch totes and tees, and iron-on patches. Order on WhatsApp.">
 <link rel="icon" type="image/png" href="images/brand/wordmark-violet.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&amp;family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Caveat:wght@500;700&amp;display=swap">
@@ -17,15 +17,94 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 .acc summary{cursor:pointer;list-style:none}
 .acc summary::-webkit-details-marker{display:none}
 .acc[open] .chev{transform:rotate(180deg)}
+/* Card list: search and filters in a left rail, cards on the right. Below 860px the rail folds behind a Filters button. */
+.cl{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;align-items:start}
+.cl-rail{position:sticky;top:16px;display:flex;flex-direction:column;gap:18px}
+.cl-search{position:relative}
+.cl-search input{width:100%;box-sizing:border-box;min-height:48px;padding:0 16px 0 44px;border-radius:999px;border:2px solid #CFC6F2;background:#FDFDFD;font-family:inherit;font-size:16px;color:#1A0B45}
+.cl-search input:focus{outline:3px solid #5D1AFA;outline-offset:1px;border-color:#5D1AFA}
+.cl-search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:20px;height:20px;pointer-events:none}
+.cl-panel{display:flex;flex-direction:column;border-top:1px solid #E3DCF7}
+.cl-head{display:flex;align-items:center;justify-content:space-between;min-height:48px}
+.cl-group{border-bottom:1px solid #E3DCF7}
+.cl-group summary{display:flex;align-items:center;justify-content:space-between;min-height:52px;font-size:16px;font-weight:700;cursor:pointer;list-style:none}
+.cl-group summary::-webkit-details-marker{display:none}
+.cl-group[open] .chev{transform:rotate(180deg)}
+.cl-opts{display:flex;flex-direction:column;gap:2px;padding:0 0 14px}
+.cl-opt{display:flex;align-items:center;gap:12px;width:100%;min-height:40px;padding:0 4px;border:0;border-radius:8px;background:transparent;font-family:inherit;font-size:15px;color:#1A0B45;text-align:left;cursor:pointer}
+.cl-opt:hover{background:#F4F0FF}
+.cl-opt:focus-visible,.cl-btn:focus-visible{outline:3px solid #5D1AFA;outline-offset:2px}
+.cl-box{flex:0 0 20px;width:20px;height:20px;box-sizing:border-box;border-radius:5px;border:2px solid #8C82B0;display:flex;align-items:center;justify-content:center}
+.cl-opt[aria-checked="true"] .cl-box{background:#5D1AFA;border-color:#5D1AFA}
+.cl-opt[aria-checked="true"] .cl-box svg{display:block}
+.cl-box svg{display:none;width:14px;height:14px}
+.cl-n{margin-left:auto;font-size:13px;color:#6B6290}
+.cl-opt[disabled]{color:#B4ACCF;cursor:default;background:transparent}
+.cl-btn{min-height:40px;padding:0 4px;border:0;background:transparent;font-family:inherit;font-size:14px;font-weight:700;color:#5D1AFA;text-decoration:underline;cursor:pointer}
+.cl-toggle{display:none}
+.cl-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:40px 28px}
+.cl-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:22px}
+.cl-chips{display:flex;flex-wrap:wrap;gap:8px}
+.cl-chip{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:0 12px;border-radius:999px;border:0;background:#F4F0FF;color:#1A0B45;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.cl-chip:focus-visible{outline:3px solid #5D1AFA;outline-offset:2px}
+@media (max-width:860px){
+  .cl{grid-template-columns:minmax(0,1fr);gap:20px}
+  .cl-rail{position:static}
+  .cl-toggle{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:999px;border:2px solid #1A0B45;background:#FDFDFD;color:#1A0B45;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer}
+  .cl-toggle:focus-visible{outline:3px solid #5D1AFA;outline-offset:2px}
+  .cl-panel[data-open="false"]{display:none}
+}
+@media (max-width:600px){
+  .cl-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 16px}
+  .cl-grid .disp{font-size:17px !important}
+}
+/* Custom cards banner at the bottom of the list */
+.cl-custom{display:grid;grid-template-columns:minmax(0,1fr) 300px;align-items:center;gap:32px;margin-top:40px;padding:48px 56px;border-radius:28px;background:#5D1AFA;overflow:hidden}
+.cl-custom-text{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.cl-custom-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;margin-top:6px;padding:0 26px;border-radius:999px;background:#E4EE3F;color:#1A0B45;font-size:16px;font-weight:700;text-decoration:none}
+.cl-custom-btn:hover{background:#FDFDFD;color:#1A0B45}
+.cl-custom-btn:focus-visible{outline:3px solid #FDFDFD;outline-offset:3px}
+.cl-custom-art{position:relative;height:260px}
+.cl-custom-art img{position:absolute;width:150px;height:auto;border-radius:4px;box-shadow:0 18px 30px rgba(26,11,69,.4)}
+.cl-custom-a{left:20px;top:30px;transform:rotate(-8deg)}
+.cl-custom-b{right:10px;top:10px;transform:rotate(7deg)}
+@media (max-width:760px){
+  .cl-custom{grid-template-columns:minmax(0,1fr);padding:36px 24px;gap:8px}
+  .cl-custom-art{display:none}
+}
 </style>
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/footer.css">
 </head>
 <body>
 <header style="background: #5D1AFA; color: #FDFDFD"><div id="site-header" data-page="cards"></div></header>
 <script src="assets/header.js"></script>
 <noscript><p style="padding:16px;font-family:sans-serif">Please turn on JavaScript to use this page.</p></noscript>
 <div id="dc-root"></div>
+<footer class="home-footer">
+<div class="footer-cols">
+<div class="footer-news">
+<h2 class="wide footer-news-title">Hear about new drops <span class="script">first</span></h2>
+<form class="footer-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-signup>
+<input type="hidden" name="form-name" value="newsletter">
+<p hidden><label>Leave this empty <input name="bot-field"></label></p>
+<label class="visually-hidden" for="f-email">Email address</label>
+<input id="f-email" name="email" type="email" autocomplete="email" placeholder="Your email address" required>
+<button type="submit">Sign up</button>
+<p class="form-status" role="status"></p>
+</form>
+</div>
+<nav class="footer-links" aria-label="Shop"><h2 class="label">Shop</h2><a href="story-kit.html">Story Kits</a><a href="cards.html" aria-current="page">Cards</a><a href="build-your-tote.html">Totes</a><a href="games.html">Games and puzzles</a><a href="patches.html">Prints, patches and pins</a><a href="holiday-gift-guide.html">Holiday Gift Guide</a><a href="all-products.html">All products</a></nav>
+<nav class="footer-links" aria-label="Show and Tell"><h2 class="label">Show and Tell</h2><a href="about.html">About us</a><a href="popup.html">Patch bar pop-ups</a></nav>
+<nav class="footer-links" aria-label="Help"><h2 class="label">Help</h2><a href="faq.html">FAQ</a><a href="faq.html#care">Care for your tote</a><a href="https://wa.me/" data-whatsapp>Order on WhatsApp</a><a href="faq.html#groups">Group orders</a></nav>
+<nav class="footer-links" aria-label="Follow"><h2 class="label">Follow</h2><a href="https://www.instagram.com/showandtell.co/">Instagram</a></nav>
+</div>
+<div class="footer-base">
+<img src="images/brand/logo-stacked-violet.png" alt="Show and Tell Co" width="43" height="34">
+<span>© 2026 Show and Tell Co · Cards that tell it. Totes that show it.</span>
+</div>
+</footer>
 <template id="dc-template">
 <div style="width: 100%; min-height: 1000px; box-sizing: border-box; font-family: 'DM Sans', Helvetica, Arial, sans-serif; color: #1A0B45; background: #FDFDFD">
 
@@ -36,17 +115,55 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <div style="display: flex; flex-direction: column; gap: 32px">
 <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 720px; margin: 0 auto; text-align: center">
 
-<h1 class="disp" style="margin: 0; font-size: 56px; line-height: 1.02; font-weight: 900; letter-spacing: -0.02em">Choose your card.</h1>
-<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3B2E6B; max-width: 640px">Tap a card to see the front, the back and the inside, then write your message. We'll handwrite it inside the card for you.</p>
+<h1 class="disp" style="margin: 0; font-size: 56px; line-height: 1.02; font-weight: 900; letter-spacing: -0.02em">Cards</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3B2E6B; max-width: 640px">Every Show and Tell card comes with a pun. Buy it blank and write your own message, or tell us what to say and we’ll handwrite it for you.</p>
 </div>
 
-<div role="group" aria-label="Filter cards" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px">
-<sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
-<button class="chip" type="button" aria-pressed="{{ f.on }}" onClick="{{ f.pick }}" style="min-height: 44px; padding: 0 20px; border-radius: 999px; border: 2px solid #5D1AFA; background: {{ f.bg }}; color: {{ f.fg }}; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">{{ f.label }}</button>
+<div class="cl">
+<!-- Left rail: search, then filter groups -->
+<aside class="cl-rail" aria-label="Search and filter cards">
+<div class="cl-search">
+<label for="card-search" class="sr-only" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">Search cards</label>
+<input id="card-search" type="search" value="{{ q }}" onChange="{{ onSearch }}" placeholder="Search cards" autocomplete="off">
+<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="#3B2E6B" stroke-width="2"></circle><path d="M16 16l5 5" stroke="#3B2E6B" stroke-width="2" stroke-linecap="round"></path></svg>
+</div>
+<button class="cl-toggle" type="button" aria-expanded="{{ railOpen }}" aria-controls="card-filters" onClick="{{ toggleRail }}">{{ toggleLabel }}</button>
+<div class="cl-panel" id="card-filters" data-open="{{ railOpen }}">
+<div class="cl-head">
+<h2 style="margin: 0; font-size: 18px; font-weight: 800">Filters</h2>
+<sc-if value="{{ anyFilter }}" hint-placeholder-val="{{ false }}"><button class="cl-btn" type="button" onClick="{{ clearAll }}">Clear all</button></sc-if>
+</div>
+<sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+<details class="cl-group" open="{{ true }}">
+<summary>{{ g.label }}<svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
+<div class="cl-opts" role="group" aria-label="{{ g.label }}">
+<sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="3">
+<button class="cl-opt" type="button" role="checkbox" aria-checked="{{ o.on }}" disabled="{{ o.off }}" onClick="{{ o.pick }}"><span class="cl-box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#FDFDFD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>{{ o.label }}<span class="cl-n">{{ o.n }}</span></button>
 </sc-for>
 </div>
+</details>
+</sc-for>
+</div>
+</aside>
 
-<ul aria-label="Cards" style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 40px 28px">
+<!-- Results -->
+<section aria-label="Cards" style="min-width: 0">
+<div class="cl-top">
+<p role="status" style="margin: 0; font-size: 15px; font-weight: 700; color: #3B2E6B">{{ countLabel }}</p>
+<div class="cl-chips">
+<sc-for list="{{ chips }}" as="ch" hint-placeholder-count="0">
+<button class="cl-chip" type="button" onClick="{{ ch.remove }}" aria-label="Remove filter: {{ ch.label }}">{{ ch.label }} <span aria-hidden="true">×</span></button>
+</sc-for>
+</div>
+</div>
+<sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 48px 24px; border-radius: 20px; background: #F4F0FF; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px">
+<p class="disp" style="margin: 0; font-size: 26px; font-weight: 800">{{ emptyTitle }}</p>
+<p style="margin: 0; font-size: 16px; color: #3B2E6B">{{ emptyText }}</p>
+<button class="chip" type="button" onClick="{{ clearAll }}" style="min-height: 44px; padding: 0 22px; border-radius: 999px; border: 2px solid #5D1AFA; background: #5D1AFA; color: #FDFDFD; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">Show all cards</button>
+</div>
+</sc-if>
+<ul class="cl-grid">
 <sc-for list="{{ cards }}" as="c" hint-placeholder-count="8">
 <li>
 <button class="thumb" type="button" aria-label="{{ c.title }}. Open to personalise." onClick="{{ c.pick }}" style="width: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; display: flex; flex-direction: column; gap: 14px; text-align: left; font-family: inherit; color: #1A0B45">
@@ -56,12 +173,28 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <span style="display: flex; flex-direction: column; gap: 4px">
 <span style="font-size: 13px; font-weight: 700; color: #5D1AFA">{{ c.cat }}</span>
 <span class="disp" style="font-size: 21px; line-height: 1.2; font-weight: 800; min-height: 2.4em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">{{ c.title }}</span>
-<span style="font-size: 16px; font-weight: 700">{{ c.price }}</span>
+<span style="font-size: 16px; font-weight: 700">{{ c.price }} <span style="font-size: 13px; font-weight: 500; color: #6B6290">· {{ c.sizes }}</span></span>
 </span>
 </button>
 </li>
 </sc-for>
 </ul>
+</section>
+</div>
+
+<!-- Custom cards banner -->
+<section class="cl-custom" aria-labelledby="custom-h">
+<div class="cl-custom-text">
+<p class="hand" style="margin: 0; font-size: 30px; line-height: 1; color: #E4EE3F">Made just for you</p>
+<h2 id="custom-h" class="disp" style="margin: 0; font-size: clamp(30px, 4vw, 44px); line-height: 1.05; font-weight: 900; color: #FDFDFD">Custom cards for any occasion</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #E9E3FF; max-width: 520px">Weddings, birthdays, events, or anything else worth celebrating. We’ll design personalised cards around your story and print them in the highest quality.</p>
+<a class="cl-custom-btn" href="special-orders.html">Contact us for special orders</a>
+</div>
+<div class="cl-custom-art" aria-hidden="true">
+<img src="images/cards/card-12.jpg" alt="" class="cl-custom-a">
+<img src="images/cards/card-07.jpg" alt="" class="cl-custom-b">
+</div>
+</section>
 </div>
 </sc-if>
 
@@ -147,6 +280,16 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <p style="margin: 0; font-size: 15px; color: #3B2E6B">{{ totalLine }}</p>
 </div>
 
+<!-- Size -->
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
+<legend style="padding: 0; margin-bottom: 10px; font-size: 16px; font-weight: 700">Size: <span style="font-weight: 500">{{ sizeName }}</span></legend>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{ sizes }}" as="sz" hint-placeholder-count="2">
+<button class="opt" type="button" aria-pressed="{{ sz.on }}" onClick="{{ sz.pick }}" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; min-height: 64px; padding: 10px 14px; border-radius: 14px; border: {{ sz.border }}; background: #FDFDFD; color: #1A0B45; font-family: inherit; text-align: left; cursor: pointer"><span style="font-size: 15px; font-weight: 700">{{ sz.name }}</span><span style="font-size: 13px; color: #3B2E6B">{{ sz.note }}</span></button>
+</sc-for>
+</div>
+</fieldset>
+
 <!-- Paper type -->
 <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
 <legend style="padding: 0; margin-bottom: 10px; font-size: 16px; font-weight: 700">Paper type: <span style="font-weight: 500">{{ paperName }}</span></legend>
@@ -219,7 +362,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <details class="acc" style="border-bottom: 1px solid #E3DCF7">
 <summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">Specifications</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
 <dl style="margin: 0 0 24px; display: grid; grid-template-columns: minmax(120px, 200px) minmax(0, 1fr); gap: 10px 24px; max-width: 760px; font-size: 16px">
-<dt style="font-weight: 700">Size</dt><dd style="margin: 0; color: #3B2E6B">[CARD SIZE, e.g. A6, 105 × 148 mm]</dd>
+<dt style="font-weight: 700">Size</dt><dd style="margin: 0; color: #3B2E6B">{{ sizeSpec }}</dd>
 <dt style="font-weight: 700">Paper</dt><dd style="margin: 0; color: #3B2E6B">{{ paperName }}</dd>
 <dt style="font-weight: 700">Envelope</dt><dd style="margin: 0; color: #3B2E6B">Included [ENVELOPE COLOUR]</dd>
 <dt style="font-weight: 700">Inside</dt><dd style="margin: 0; color: #3B2E6B">{{ insideName }} (choose blank, or your message handwritten by us)</dd>
@@ -245,28 +388,6 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </div>
 </sc-if>
 </main>
-
-<footer style="background: #1A0B45; color: #FDFDFD">
-<div style="max-width: 1240px; margin: 0 auto; padding: 56px 5% 40px; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 36px">
-<div style="display: flex; flex-direction: column; gap: 14px">
-<a href="index.html" aria-label="Show and Tell Co home" style="line-height: 0"><img src="images/brand/wordmark-white.png" alt="Show and Tell Co" style="height: 72px; width: auto"></a>
-<p style="margin: 0; font-size: 16px; color: #FDFDFD">Pun-filled cards and pick-your-patch totes and tees.</p>
-<p style="margin: 0; font-size: 14px; color: #CFC6F2">Patch bar experience in Abuja and Barcelona</p>
-</div>
-<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 16px">
-<a href="about.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">About us</a>
-<a href="popup.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Patch bar pop-ups</a>
-<a href="cards.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Cards</a>
-<a href="build-your-tote.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Build a tote</a>
-<a href="patches.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">Designs</a>
-<a href="faq.html" style="color: #FDFDFD; text-decoration: none; padding: 10px 0">FAQ</a>
-<a href="https://www.instagram.com/showandtell.co/" target="_blank" rel="noopener" style="color: #E4EE3F; text-decoration: none; padding: 10px 0">Instagram</a>
-</nav>
-</div>
-<div style="max-width: 1240px; margin: 0 auto; padding: 0 5% 36px">
-<p style="margin: 0; padding-top: 22px; border-top: 1px solid #3B2E6B; font-size: 14px; color: #CFC6F2">© 2026 Show and Tell Co · Delivery charges apply</p>
-</div>
-</footer>
 </div>
 </template>
 <script src="assets/morphdom.min.js"></script>
@@ -277,7 +398,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <script>
 // ---------- Your settings ----------
 // Your WhatsApp number in international format, digits only (for example 2348012345678).
-var WHATSAPP_NUMBER = '';
+var WHATSAPP_NUMBER = '2347057776753';
 // Card prices, including bulk prices and the textured paper extra, are in assets/prices.js.
 
 // Paper types. extra: 0 = no extra charge, 'texturedPaper' = the extra set in assets/prices.js.
@@ -293,7 +414,20 @@ var QTYS = [1, 5, 10, 25, 50];
 // The cards (CARDS) are in assets/catalog.js.
 // ---------- End of settings ----------
 
-var FILTERS = ['All', 'Love', 'Christmas', 'Wedding', 'Cheeky'];
+// The left rail. Each group filters on one field of the cards in assets/catalog.js;
+// ticking more than one option in a group shows cards that match any of them.
+// A link like cards.html?for=junior, ?cat=Love or ?size=A4 opens the list with that filter on (?q= searches).
+var GROUPS = [
+  { key: 'for', label: 'Who it’s for', opts: [['adults', 'Adults'], ['junior', 'Junior']] },
+  { key: 'cat', label: 'Category', opts: [['Love', 'Love'], ['Christmas', 'Christmas'], ['Wedding', 'Wedding'], ['Cheeky', 'Cheeky']] },
+  { key: 'size', label: 'Size', opts: [['A5', 'A5'], ['A4', 'A4']] }
+];
+var SIZES = {
+  A5: { name: 'A5', note: '148 × 210 mm, folded', spec: 'A5, 148 × 210 mm folded' },
+  A4: { name: 'A4', note: '210 × 297 mm, folded', spec: 'A4, 210 × 297 mm folded' }
+};
+function cardValues(c, key) { return key === 'for' ? (c.for || ['adults']) : key === 'size' ? (c.sizes || ['A5']) : [c.cat]; }
+function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’']/g, ''); }
 
 
 function paperExtra(p) { return p.extra === 0 ? 0 : priceFor(p.extra); }
@@ -303,10 +437,19 @@ class Component extends DCLogic {
     super(props);
     var self0 = this;
     window.addEventListener('regionchange', function () { self0.setState({}); });
-    this.state = { mode: 'list', card: '01', view: 'front', filter: 'All', paper: 'matte', qty: 1, inside: 'blank', msg: '', from: '' };
-    // A link like cards.html?card=03 opens that card.
-    var want = new URLSearchParams(location.search).get('card');
+    this.state = { mode: 'list', card: '01', view: 'front', picked: { for: [], cat: [], size: [] }, q: '', railOpen: false, size: 'A5', paper: 'matte', qty: 1, inside: 'blank', msg: '', from: '' };
+    // A link like cards.html?card=03 opens that card; ?for=, ?cat=, ?size= and ?q= set the list filters.
+    var params = new URLSearchParams(location.search);
+    var want = params.get('card');
     if (CARDS.some(function (c) { return c.no === want; })) Object.assign(this.state, { mode: 'detail', card: want });
+    var st0 = this.state;
+    GROUPS.forEach(function (g) {
+      var v = params.get(g.key);
+      if (!v) return;
+      var hit = g.opts.find(function (o) { return o[0].toLowerCase() === v.toLowerCase(); });
+      if (hit) st0.picked[g.key] = [hit[0]];
+    });
+    if (params.get('q')) st0.q = params.get('q');
   }
 
   renderVals() {
@@ -321,30 +464,71 @@ class Component extends DCLogic {
     };
 
     var paper = PAPERS.find(function (p) { return p.id === st.paper; }) || PAPERS[0];
+    var cardSizes = c0.sizes || ['A5'];
+    var size = cardSizes.indexOf(st.size) >= 0 ? st.size : cardSizes[0];
     function unitFor(qty) {
       var extra = paperExtra(paper);
+      var sizeExtra = size === 'A4' ? priceFor('cardA4Extra') : 0;
       var bulk = priceFor('cardBulk') || {};
       var base = bulk[qty] != null ? bulk[qty] : priceFor('card');
-      if (extra == null || base == null) return null;
-      return base + extra;
+      if (extra == null || base == null || sizeExtra == null) return null;
+      return base + extra + sizeExtra;
     }
     var unit = unitFor(st.qty);
     var total = unit == null ? null : unit * st.qty;
 
-    var filters = FILTERS.map(function (f) {
-      var on = f === st.filter;
+    // ----- List: search + filters -----
+    var words = norm(st.q).split(/\s+/).filter(Boolean);
+    function matchesSearch(c) {
+      if (!words.length) return true;
+      var hay = norm([c.title, c.cat, c.desc, (c.for || []).join(' '), (c.sizes || []).join(' ')].join(' '));
+      return words.every(function (w) { return hay.indexOf(w) >= 0; });
+    }
+    function matchesGroup(c, key) {
+      var want = st.picked[key];
+      if (!want.length) return true;
+      var have = cardValues(c, key);
+      return want.some(function (v) { return have.indexOf(v) >= 0; });
+    }
+    function matchesAllBut(c, skip) {
+      return matchesSearch(c) && GROUPS.every(function (g) { return g.key === skip || matchesGroup(c, g.key); });
+    }
+    function setPicked(key, list) {
+      var p = Object.assign({}, self.state.picked); p[key] = list;
+      self.setState({ picked: p });
+    }
+    var groups = GROUPS.map(function (g) {
       return {
-        label: f, on: on ? 'true' : 'false',
-        bg: on ? '#5D1AFA' : '#FDFDFD', fg: on ? '#FDFDFD' : '#5D1AFA',
-        pick: function () { self.setState({ filter: f }); }
+        label: g.label,
+        opts: g.opts.map(function (o) {
+          var on = st.picked[g.key].indexOf(o[0]) >= 0;
+          var n = CARDS.filter(function (c) { return matchesAllBut(c, g.key) && cardValues(c, g.key).indexOf(o[0]) >= 0; }).length;
+          return {
+            label: o[1], n: n, on: on ? 'true' : 'false', off: !on && n === 0,
+            pick: function () {
+              var cur = self.state.picked[g.key];
+              setPicked(g.key, cur.indexOf(o[0]) >= 0 ? cur.filter(function (x) { return x !== o[0]; }) : cur.concat(o[0]));
+            }
+          };
+        })
       };
     });
+    var chips = [];
+    GROUPS.forEach(function (g) {
+      st.picked[g.key].forEach(function (v) {
+        var o = g.opts.find(function (x) { return x[0] === v; });
+        chips.push({ label: o ? o[1] : v, remove: function () { setPicked(g.key, self.state.picked[g.key].filter(function (x) { return x !== v; })); } });
+      });
+    });
+    if (st.q.trim()) chips.push({ label: '“' + st.q.trim() + '”', remove: function () { self.setState({ q: '' }); } });
+    var juniorSoon = st.picked.for.indexOf('junior') >= 0 && !st.q.trim() && !CARDS.some(function (c) { return cardValues(c, 'for').indexOf('junior') >= 0; });
+    var nPicked = GROUPS.reduce(function (n, g) { return n + st.picked[g.key].length; }, 0);
 
-    var visible = CARDS.filter(function (c) { return st.filter === 'All' || c.cat === st.filter; });
+    var visible = CARDS.filter(function (c) { return matchesAllBut(c, null); });
     var cards = visible.map(function (c) {
       return {
-        title: c.title, src: c.src, cat: c.cat, price: money(priceFor('card')),
-        pick: function () { self.setState({ mode: 'detail', card: c.no, view: 'front' }); }
+        title: c.title, src: c.src, cat: c.cat, price: money(priceFor('card')), sizes: (c.sizes || ['A5']).join(' · '),
+        pick: function () { self.setState({ mode: 'detail', card: c.no, view: 'front' }); window.scrollTo(0, 0); }
       };
     });
     var pool = visible.length ? visible : CARDS;
@@ -389,16 +573,36 @@ class Component extends DCLogic {
       return { name: o.name, note: o.note, on: on ? 'true' : 'false', border: on ? '2px solid #5D1AFA' : '2px solid #E3DCF7', pick: function () { self.setState({ inside: o.id, view: o.id === 'message' ? 'inside' : self.state.view }); } };
     });
     var hasMsg = write && st.msg.trim().length > 0;
-    var orderMsg = "Hi Show and Tell! I'd like " + st.qty + ' x the card "' + card.title + '" on ' + paper.name + ' paper'
+    var sizes = cardSizes.map(function (id) {
+      var on = id === size, z = SIZES[id] || { name: id, note: '' };
+      var ex = id === 'A4' ? priceFor('cardA4Extra') : 0;
+      return {
+        name: z.name, note: z.note + (id === 'A4' ? (ex == null ? ' · [PRICE]' : ' · +' + money(ex)) : ''),
+        on: on ? 'true' : 'false', border: on ? '2px solid #5D1AFA' : '2px solid #E3DCF7',
+        pick: function () { self.setState({ size: id }); }
+      };
+    });
+    var orderMsg = "Hi Show and Tell! I'd like " + st.qty + ' x the card "' + card.title + '" in ' + size + ' on ' + paper.name + ' paper'
       + (total != null ? ' (' + money(total) + ')' : '') + '.'
       + (!write ? ' Please leave it blank inside.' : (hasMsg ? ' Please write inside: "' + st.msg.trim() + '"' : ' I\'d like a handwritten message (I\'ll send the words).'))
       + (write && st.from.trim() ? ' From: ' + st.from.trim() + '.' : '') + regionNote();
 
     return {
-      filters: filters, cards: cards, card: card,
+      cards: cards, card: card, groups: groups, chips: chips, q: st.q,
+      anyFilter: nPicked > 0 || !!st.q.trim(),
+      noResults: visible.length === 0,
+      emptyTitle: juniorSoon ? 'Junior cards are on the way' : 'No cards match',
+      emptyText: juniorSoon ? 'Cards for little ones are coming soon. Until then, have a look at the rest.' : 'Try another word, or clear the filters to see every card.',
+      countLabel: visible.length === 1 ? '1 card' : visible.length + ' cards',
+      railOpen: st.railOpen ? 'true' : 'false',
+      toggleLabel: (st.railOpen ? 'Hide filters' : 'Filters') + (nPicked ? ' (' + nPicked + ')' : ''),
+      toggleRail: function () { self.setState({ railOpen: !self.state.railOpen }); },
+      onSearch: function (e) { self.setState({ q: e.target.value }); },
+      clearAll: function () { self.setState({ picked: { for: [], cat: [], size: [] }, q: '' }); },
+      sizes: sizes, sizeName: size, sizeSpec: (SIZES[size] || { spec: size }).spec,
       isList: st.mode === 'list', isDetail: st.mode === 'detail',
       toList: function () { self.setState({ mode: 'list' }); },
-      toCat: function () { self.setState({ mode: 'list', filter: c0.cat }); },
+      toCat: function () { self.setState({ mode: 'list', picked: { for: [], cat: [c0.cat], size: [] }, q: '' }); },
       prev: function () { go(-1); },
       next: function () { go(1); },
       vFront: view('front'), vInside: view('inside'), vBack: view('back'),
@@ -429,5 +633,6 @@ class Component extends DCLogic {
 
 DCLite.mount(Component);
 </script>
+<script src="assets/footer.js"></script>
 </body>
 </html>
