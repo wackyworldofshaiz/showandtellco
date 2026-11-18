@@ -12,7 +12,7 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | `story-kit.html` | Story Kits: a printed tee plus iron-on pieces, with limited stock per size |
 | `puzzle.html` | Puzzle sets (Owambe Wahala, Lagos Traffic Chronicles): two 120-piece puzzles per box. Open one with `puzzle.html?puzzle=owambe-wahala` or `?puzzle=lagos-traffic`. Stock, text and photos are in `PUZZLES` in `assets/catalog.js` (change `stock` as boxes sell); the price is `puzzle` in `assets/prices.js`. |
 | `build-your-tote.html` | Build your tote (Classic tote, Premium tote bag, T-shirt) |
-| `cards.html` | Card list and card product pages |
+| `cards.html` | Card list and card product pages. The list has a search box and a left rail of filters: who it's for (Adults, Junior), category and size (A5, A4). Each card's `for` and `sizes` are in `CARDS` in `assets/catalog.js`; the rail's groups are `GROUPS` in `cards.html`. Links like `cards.html?for=junior`, `?cat=Love`, `?size=A4` or `?q=santa` open the list filtered (the menu's Cards › Adults and Junior use these). The A4 price is `cardA4Extra` in `assets/prices.js`, added to the A5 price. |
 | `patches.html` | The design menu and design product pages (prints, patches and pins) |
 | `holiday-gift-guide.html` | Holiday Gift Guide, in sections (the menu dropdown links to each one) |
 | `junior.html` | Show and Tell Junior |
@@ -22,10 +22,12 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | `bestsellers.html` | Bestsellers |
 | `new-arrivals.html` | New arrivals |
 | `about.html` | About us: who we are, show and tell, give / wear / play / keep, how we make things, a note from the team, the patch bar. Styles in `assets/about.css`. |
+| `special-orders.html` | Custom card request form, opened only from the "Contact us for special orders" button at the bottom of the cards page (it isn't in the menu). Requests arrive in Netlify under **Forms › special-orders**, with any uploaded inspiration file attached. |
 | `popup.html` | Patch bar pop-up sign-up (linked from every footer, the FAQ and About). Edit `POPUP` near the bottom of the file for each event: city, date, time, venue, entry, `spots` (35) and `taken`. Raise `taken` as you confirm people; when it reaches `spots` the page switches to a waitlist. Sign-ups arrive in Netlify under **Forms › popup** (the `list` field says spot or waitlist). |
 | `faq.html` | Frequently asked questions: tote care, cards, prints vs patches vs pins, group orders, ordering and delivery, patch bar. Answers in [square brackets] are placeholders to fill in. |
 
 Images are in `images/`. Shared files in `assets/`:
+- `footer.css` and `footer.js`: the footer's look, newsletter sign-up and WhatsApp link on the pages that don't load `home.css` and `home.js` (cards, designs, tote builder and the collection pages). Every page uses the same footer HTML; to change a link, change it on every page.
 - `catalog.js`: every card, design and blank, and which collection pages they appear on.
 - `prices.js`: all prices, in naira and euros.
 - `header.js`: the header on every page: the scrolling announcement bar, then the currency switch, logo and search, with the menu underneath. Edit `ANNOUNCEMENTS` or `NAV` in it to change them. Bestsellers and Collectibles are off the menu for now; their pages still exist.
@@ -72,13 +74,14 @@ To use your own domain (for example showandtell.co), add it under **Settings ›
 
 ## Things to fill in before launch
 
-**WhatsApp number.** Orders open WhatsApp with the order already written. Near the bottom of each of these files, set `var WHATSAPP_NUMBER = '';` to your number, digits only in international format (for example `'2348012345678'`):
+**WhatsApp number.** Orders open WhatsApp with the order already written. The number (+234 705 777 6753) is set as `var WHATSAPP_NUMBER = '2347057776753';`, digits only in international format, in each of these files; change it in all of them if it ever changes:
 - `build-your-tote.html`
 - `cards.html`
 - `patches.html`
 - `story-kit.html`
 - `puzzle.html`
-- `assets/home.js` (the homepage footer's "Order on WhatsApp" link)
+- `assets/home.js` (every footer's "Order on WhatsApp" link and the FAQ button)
+- `assets/header.js` (the "Do you need help?" line in the header: `HELP_PHONE` and `HELP_WHATSAPP`)
 
 **Prices to check.** Every price in `assets/prices.js` has a placeholder so the site shows real numbers. Only the classic tote (₦80,000), patch (₦9,500) and card (₦3,500) prices are confirmed; replace the rest with your own. A price set to `null` shows as [PRICE], and totals that include it show [TOTAL].
 

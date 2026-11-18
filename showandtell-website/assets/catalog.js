@@ -4,21 +4,23 @@
 
 // ---------- Cards ----------
 // One line per card. w and h are the design's pixel size, so each card keeps its own shape.
+// for: who the card suits, 'adults' and/or 'junior' (the Adults and Junior filters on the cards page).
+// sizes: the sizes it comes in, 'A5' and/or 'A4'. The A4 price is cardA4Extra in assets/prices.js.
 var CARDS = [
-  { no: '01', cat: 'Love', title: 'I love you from my head to-ma-toes', src: 'images/cards/card-13.jpg', w: 1060, h: 1484, patchNo: '05', desc: 'Three shiny tomatoes and one very sincere pun, for the person you love from your head to your toes.' },
-  { no: '02', cat: 'Love', title: 'Life is butter with you', src: 'images/cards/card-04.jpg', w: 800, h: 1231, desc: 'A golden block of butter on a blue dish, for the person who makes everything better. Perfect for anniversaries, birthdays or a random Tuesday.' },
-  { no: '03', cat: 'Love', title: 'To the loaf of my life (wheat belong together)', src: 'images/cards/card-05.jpg', w: 1053, h: 1494, desc: 'A loaf in a heart-print bag for the one you can’t live without. Wheat belong together, after all.' },
-  { no: '04', cat: 'Love', title: 'Love you a brunch', src: 'images/cards/card-06.jpg', w: 1098, h: 1433, desc: 'Pancakes, bacon, eggs and coffee, for the person you’d share your last pancake with.' },
-  { no: '05', cat: 'Love', title: 'Love you so matcha', src: 'images/cards/card-07.jpg', w: 1086, h: 1448, desc: 'A checkered pink mug of matcha, for the one you love so, so matcha.' },
-  { no: '06', cat: 'Love', title: 'Love you soy much', src: 'images/cards/card-08.jpg', w: 1122, h: 1402, desc: 'A hand-lettered soy sauce bottle for someone you love soy much.' },
-  { no: '07', cat: 'Love', title: 'You make my heart go pop!', src: 'images/cards/card-10.jpg', w: 1121, h: 1403, desc: 'A pink toaster popping two iced pastries, for the one who makes your heart go pop.' },
-  { no: '08', cat: 'Love', title: "You're hot stuff!", src: 'images/cards/card-11.jpg', w: 1055, h: 1491, desc: 'A bottle of hot sauce for someone who’s simply too hot to handle.' },
-  { no: '09', cat: 'Love', title: 'You are the one that I want', src: 'images/cards/card-14.jpg', w: 1122, h: 1402, desc: 'A box of a dozen doughnuts, and only one of them is the one you want.' },
-  { no: '10', cat: 'Wedding', title: 'To the happy couple', src: 'images/cards/card-12.jpg', w: 1051, h: 1496, desc: 'A bold red heart on soft blue stripes, made for weddings, engagements and anniversaries.' },
-  { no: '11', cat: 'Cheeky', title: 'Nice bum', src: 'images/cards/card-09.jpg', w: 1054, h: 1492, desc: 'A goose with no shame and a compliment to match. For partners, best friends and anyone who’ll laugh.' },
-  { no: '12', cat: 'Christmas', title: 'Fa la la la la', src: 'images/cards/card-01.jpg', w: 1060, h: 1484, desc: 'Colourful hand-lettered fa la las on pink. A cheerful Christmas card for anyone on your list.' },
-  { no: '13', cat: 'Christmas', title: 'Dear Santa, define nice', src: 'images/cards/card-02.jpg', w: 1052, h: 1495, desc: 'Candy-cane stripes and an important question for Santa. For the friend who’s been mostly nice.' },
-  { no: '14', cat: 'Christmas', title: 'Dear Santa, pls just leave your credit card under the tree. Thx!', src: 'images/cards/card-03.jpg', w: 1122, h: 1402, desc: 'A Christmas tree, gold stars and one simple request to Santa. For anyone with expensive taste.' }
+  { no: '01', cat: 'Love', for: ['adults'], sizes: ['A5'], title: 'I love you from my head to-ma-toes', src: 'images/cards/card-13.jpg', w: 1060, h: 1484, patchNo: '05', desc: 'Three shiny tomatoes and one very sincere pun, for the person you love from your head to your toes.' },
+  { no: '02', cat: 'Love', for: ['adults'], sizes: ['A5'], title: 'Life is butter with you', src: 'images/cards/card-04.jpg', w: 800, h: 1231, desc: 'A golden block of butter on a blue dish, for the person who makes everything better. Perfect for anniversaries, birthdays or a random Tuesday.' },
+  { no: '03', cat: 'Love', for: ['adults'], sizes: ['A5'], title: 'To the loaf of my life (wheat belong together)', src: 'images/cards/card-05.jpg', w: 1053, h: 1494, desc: 'A loaf in a heart-print bag for the one you can’t live without. Wheat belong together, after all.' },
+  { no: '04', cat: 'Love', for: ['adults'], sizes: ['A5'], title: 'Love you a brunch', src: 'images/cards/card-06.jpg', w: 1098, h: 1433, desc: 'Pancakes, bacon, eggs and coffee, for the person you’d share your last pancake with.' },
+  { no: '05', cat: 'Love', for: ['adults'], sizes: ['A5'], title: 'Love you so matcha', src: 'images/cards/card-07.jpg', w: 1086, h: 1448, desc: 'A checkered pink mug of matcha, for the one you love so, so matcha.' },
+  { no: '06', cat: 'Love', for: ['adults'], sizes: ['A5'], title: 'Love you soy much', src: 'images/cards/card-08.jpg', w: 1122, h: 1402, desc: 'A hand-lettered soy sauce bottle for someone you love soy much.' },
+  { no: '07', cat: 'Love', for: ['adults'], sizes: ['A5'], title: 'You make my heart go pop!', src: 'images/cards/card-10.jpg', w: 1121, h: 1403, desc: 'A pink toaster popping two iced pastries, for the one who makes your heart go pop.' },
+  { no: '08', cat: 'Love', for: ['adults'], sizes: ['A5'], title: "You're hot stuff!", src: 'images/cards/card-11.jpg', w: 1055, h: 1491, desc: 'A bottle of hot sauce for someone who’s simply too hot to handle.' },
+  { no: '09', cat: 'Love', for: ['adults'], sizes: ['A5'], title: 'You are the one that I want', src: 'images/cards/card-14.jpg', w: 1122, h: 1402, desc: 'A box of a dozen doughnuts, and only one of them is the one you want.' },
+  { no: '10', cat: 'Wedding', for: ['adults'], sizes: ['A5'], title: 'To the happy couple', src: 'images/cards/card-12.jpg', w: 1051, h: 1496, desc: 'A bold red heart on soft blue stripes, made for weddings, engagements and anniversaries.' },
+  { no: '11', cat: 'Cheeky', for: ['adults'], sizes: ['A5'], title: 'Nice bum', src: 'images/cards/card-09.jpg', w: 1054, h: 1492, desc: 'A goose with no shame and a compliment to match. For partners, best friends and anyone who’ll laugh.' },
+  { no: '12', cat: 'Christmas', for: ['adults'], sizes: ['A5'], title: 'Fa la la la la', src: 'images/cards/card-01.jpg', w: 1060, h: 1484, desc: 'Colourful hand-lettered fa la las on pink. A cheerful Christmas card for anyone on your list.' },
+  { no: '13', cat: 'Christmas', for: ['adults'], sizes: ['A5'], title: 'Dear Santa, define nice', src: 'images/cards/card-02.jpg', w: 1052, h: 1495, desc: 'Candy-cane stripes and an important question for Santa. For the friend who’s been mostly nice.' },
+  { no: '14', cat: 'Christmas', for: ['adults'], sizes: ['A5'], title: 'Dear Santa, pls just leave your credit card under the tree. Thx!', src: 'images/cards/card-03.jpg', w: 1122, h: 1402, desc: 'A Christmas tree, gold stars and one simple request to Santa. For anyone with expensive taste.' }
 ];
 
 // ---------- Designs (prints, patches and pins) ----------
@@ -169,7 +171,7 @@ var COLLECTIONS = {
   },
   'new-arrivals': {
     title: 'New arrivals',
-    intro: 'Fresh cards and designs, just in.',
+    intro: 'The latest from Show and Tell, from puzzles and Story Kits to cards, patches and prints.',
     colour: '#E4EE3F',
     items: ['puzzle-owambe-wahala', 'puzzle-lagos-traffic', 'kit-danfo-days', 'p31', 'p40', 'card-10', 'p24', 'card-11', 'p32', 'card-02', 'p25', 'card-12', 'p41']
   },
