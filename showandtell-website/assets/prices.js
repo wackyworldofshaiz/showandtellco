@@ -4,8 +4,7 @@
 var PRICES = {
   ng: {
     card: 3500,           // each card
-    cardBulk: { 5: 3250, 10: 3100, 25: 2900, 50: 2650 }, // price per card at that quantity (null = the normal card price)
-    texturedPaper: 1000,  // added to each card on textured premium paper
+    cardBulk: { 5: 3250, 10: 3100 }, // price per card at that quantity (null = the normal card price). 10 cards is the most per order
     cardA4Extra: null,    // added to each A4 card (A5 is the normal card price). null shows [PRICE] until you set it
     classicTote: 10000,
     premiumTote: 20000,
@@ -18,8 +17,7 @@ var PRICES = {
   },
   eu: {
     card: 6,
-    cardBulk: { 5: 5.5, 10: 5.25, 25: 5, 50: 4.5 },
-    texturedPaper: 1.5,
+    cardBulk: { 5: 5.5, 10: 5.25 },
     cardA4Extra: null,
     classicTote: 10,
     premiumTote: 40,

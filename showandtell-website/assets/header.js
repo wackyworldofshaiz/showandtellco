@@ -8,7 +8,6 @@
 // Prices go in as <span data-price="..."></span> and assets/prices.js fills them in NGN or EUR.
 var ANNOUNCEMENTS = [
   'New: Story Kits. Only 10 made',
-  'Hand-lettered message inside any card',
   'Totes ready in 3 working days',
   'Patch bar in Abuja and Barcelona',
   'Prints from <span data-price="print"></span> · patches <span data-price="patch"></span> · pins from <span data-price="pin"></span>'

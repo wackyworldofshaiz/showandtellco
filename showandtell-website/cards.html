@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cards: Show and Tell Co</title>
-<meta name="description" content="Pun cards for every feeling: love, birthdays, anniversaries, weddings, graduations, thank-yous and Christmas. Blank inside or hand-lettered for you.">
+<meta name="description" content="Pun cards for every feeling: love, birthdays, anniversaries, weddings, graduations, thank-yous and Christmas. Blank inside for your own words.">
 <link rel="canonical" href="https://showandtellco.shop/cards.html">
 <!-- Share previews (WhatsApp, Instagram, Facebook, X, iMessage). Images are in images/share/, 1200 x 630.
      If the domain ever changes, change https://showandtellco.shop here on every page. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Show and Tell Co">
 <meta property="og:title" content="Cards: Show and Tell Co">
-<meta property="og:description" content="Pun cards for every feeling: love, birthdays, anniversaries, weddings, graduations, thank-yous and Christmas. Blank inside or hand-lettered for you.">
+<meta property="og:description" content="Pun cards for every feeling: love, birthdays, anniversaries, weddings, graduations, thank-yous and Christmas. Blank inside for your own words.">
 <meta property="og:url" content="https://showandtellco.shop/cards.html">
 <meta property="og:image" content="https://showandtellco.shop/images/share/share-cards.jpg">
 <meta property="og:image:width" content="1200">
@@ -75,7 +75,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 720px; margin: 0 auto; text-align: center">
 
 <h1 class="disp" style="margin: 0; font-size: 56px; line-height: 1.02; font-weight: 900; letter-spacing: -0.02em">Cards</h1>
-<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3B2E6B; max-width: 640px">Every Show and Tell card comes with a pun. Buy it blank and write your own message, or tell us what to say and we’ll handwrite it for you.</p>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3B2E6B; max-width: 640px">Every Show and Tell card comes with a pun. It comes blank inside, ready for your own words.</p>
 </div>
 
 <div class="cl">
@@ -202,8 +202,6 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <svg viewBox="-44 -44 88 88" aria-hidden="true" style="width: 22px; height: 22px"><path d="M0 -44 C4 -12 12 -4 44 0 C12 4 4 12 0 44 C-4 12 -12 4 -44 0 C-12 -4 -4 -12 0 -44 Z" fill="#5D1AFA"></path></svg>
 </div>
 <div style="flex: 1 1 50%; background: #FDFDFD; border-left: 1px solid #E3DCF7; padding: 28px 24px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; gap: 12px">
-<p class="hand" style="margin: 0; font-size: 26px; line-height: 1.25; color: {{ msgColor }}; white-space: pre-wrap; overflow-wrap: anywhere">{{ msgShown }}</p>
-<p class="hand" style="margin: 0; font-size: 26px; font-weight: 700; color: {{ msgColor }}">{{ fromShown }}</p>
 </div>
 </div>
 </sc-if>
@@ -249,24 +247,11 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </div>
 </fieldset>
 
-<!-- Paper type -->
-<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
-<legend style="padding: 0; margin-bottom: 10px; font-size: 16px; font-weight: 700">Paper type: <span style="font-weight: 500">{{ paperName }}</span></legend>
-<div style="display: flex; flex-direction: column; gap: 8px">
-<sc-for list="{{ papers }}" as="pp" hint-placeholder-count="3">
-<button class="opt" type="button" aria-pressed="{{ pp.on }}" onClick="{{ pp.pick }}" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 60px; padding: 10px 16px; border-radius: 14px; border: {{ pp.border }}; background: #FDFDFD; color: #1A0B45; font-family: inherit; text-align: left; cursor: pointer">
-<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700">{{ pp.name }}</span><span style="font-size: 13px; color: #3B2E6B">{{ pp.note }}</span></span>
-<span style="font-size: 14px; font-weight: 600; color: #3B2E6B; white-space: nowrap">{{ pp.extra }}</span>
-</button>
-</sc-for>
-</div>
-</fieldset>
-
 <!-- Quantity -->
 <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
 <legend style="padding: 0; margin-bottom: 10px; font-size: 16px; font-weight: 700">Quantity: <span style="font-weight: 500">{{ qtyName }}</span></legend>
-<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px">
-<sc-for list="{{ qtys }}" as="q" hint-placeholder-count="5">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{ qtys }}" as="q" hint-placeholder-count="3">
 <button class="opt" type="button" aria-pressed="{{ q.on }}" onClick="{{ q.pick }}" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 64px; padding: 8px; border-radius: 14px; border: {{ q.border }}; background: #FDFDFD; color: #1A0B45; font-family: inherit; cursor: pointer">
 <span style="font-size: 16px; font-weight: 700">{{ q.label }}</span>
 <span style="font-size: 12px; color: #3B2E6B">{{ q.total }}</span>
@@ -274,31 +259,6 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </sc-for>
 </div>
 </fieldset>
-
-<!-- Inside -->
-<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px">
-<legend style="padding: 0; margin-bottom: 10px; font-size: 16px; font-weight: 700">Inside: <span style="font-weight: 500">{{ insideName }}</span></legend>
-<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
-<sc-for list="{{ insides }}" as="io" hint-placeholder-count="2">
-<button class="opt" type="button" aria-pressed="{{ io.on }}" onClick="{{ io.pick }}" style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; min-height: 64px; padding: 10px 14px; border-radius: 14px; border: {{ io.border }}; background: #FDFDFD; color: #1A0B45; font-family: inherit; text-align: left; cursor: pointer"><span style="font-size: 15px; font-weight: 700">{{ io.name }}</span><span style="font-size: 13px; color: #3B2E6B">{{ io.note }}</span></button>
-</sc-for>
-</div>
-</fieldset>
-
-<!-- Message -->
-<sc-if value="{{ writeInside }}" hint-placeholder-val="{{ false }}">
-<div style="display: flex; flex-direction: column; gap: 14px">
-<div style="display: flex; flex-direction: column; gap: 8px">
-<label for="card-msg" style="font-size: 16px; font-weight: 700">Your message <span style="font-weight: 500; color: #3B2E6B">(we'll handwrite it)</span></label>
-<textarea id="card-msg" class="field" rows="4" maxlength="220" value="{{ msg }}" onChange="{{ onMsg }}" onFocus="{{ goInside }}" placeholder="Write what you want to say." style="width: 100%; box-sizing: border-box; padding: 14px 16px; border-radius: 14px; border: 2px solid #CFC6F2; background: #FDFDFD; font-family: inherit; font-size: 16px; line-height: 1.5; color: #1A0B45; resize: vertical"></textarea>
-<p style="margin: 0; font-size: 13px; color: #3B2E6B">{{ msgCount }}</p>
-</div>
-<div style="display: flex; flex-direction: column; gap: 8px">
-<label for="card-from" style="font-size: 16px; font-weight: 700">Sign it from</label>
-<input id="card-from" class="field" type="text" maxlength="40" value="{{ from }}" onChange="{{ onFrom }}" onFocus="{{ goInside }}" placeholder="Your name" style="width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 16px; border-radius: 14px; border: 2px solid #CFC6F2; background: #FDFDFD; font-family: inherit; font-size: 16px; color: #1A0B45">
-</div>
-</div>
-</sc-if>
 
 <!-- Order -->
 <div style="display: flex; flex-direction: column; gap: 10px">
@@ -315,7 +275,7 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">Product description</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
 <div style="padding: 0 0 24px; display: flex; flex-direction: column; gap: 12px; max-width: 760px; font-size: 16px; line-height: 1.65; color: #3B2E6B">
 <p style="margin: 0">{{ card.desc }}</p>
-<p style="margin: 0">Every Show and Tell card is designed in-house and printed in bright colour, with a pun worth keeping. It comes with an envelope and is blank inside, so you can write your own message or let us hand-letter it for you.</p>
+<p style="margin: 0">Every Show and Tell card is designed in-house and printed in bright colour, with a pun worth keeping. It comes with an envelope and is blank inside, so you can write your own message.</p>
 </div>
 </details>
 <details class="acc" style="border-bottom: 1px solid #E3DCF7">
@@ -324,17 +284,20 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <dt style="font-weight: 700">Size</dt><dd style="margin: 0; color: #3B2E6B">{{ sizeSpec }}</dd>
 <dt style="font-weight: 700">Paper</dt><dd style="margin: 0; color: #3B2E6B">{{ paperName }}</dd>
 <dt style="font-weight: 700">Envelope</dt><dd style="margin: 0; color: #3B2E6B">Included [ENVELOPE COLOUR]</dd>
-<dt style="font-weight: 700">Inside</dt><dd style="margin: 0; color: #3B2E6B">{{ insideName }} (choose blank, or your message handwritten by us)</dd>
+<dt style="font-weight: 700">Inside</dt><dd style="margin: 0; color: #3B2E6B">Blank, for your own message</dd>
 <dt style="font-weight: 700">Category</dt><dd style="margin: 0; color: #3B2E6B">{{ card.cat }}</dd>
 </dl>
 </details>
 <details class="acc" style="border-bottom: 1px solid #E3DCF7">
-<summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">Paper types</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
-<ul style="margin: 0 0 24px; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; max-width: 760px; font-size: 16px; line-height: 1.55; color: #3B2E6B">
-<sc-for list="{{ papers }}" as="pp" hint-placeholder-count="3">
-<li><strong style="color: #1A0B45">{{ pp.name }}.</strong> {{ pp.note }}</li>
+<summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">Paper</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
+<div style="padding: 0 0 24px; display: flex; flex-direction: column; gap: 8px; max-width: 760px; font-size: 16px; line-height: 1.55; color: #3B2E6B">
+<p style="margin: 0; font-weight: 700; color: #1A0B45">{{ paperName }}</p>
+<ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{ paperPoints }}" as="pt" hint-placeholder-count="3">
+<li>{{ pt }}</li>
 </sc-for>
 </ul>
+</div>
 </details>
 <details class="acc" style="border-bottom: 1px solid #E3DCF7">
 <summary style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-size: 20px; font-weight: 700"><span class="disp">Delivery</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 22px; height: 22px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
@@ -357,17 +320,20 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <script>
 // ---------- Your settings ----------
 // The WhatsApp number is WHATSAPP_NUMBER in assets/header.js.
-// Card prices, including bulk prices and the textured paper extra, are in assets/prices.js.
+// Card prices, including bulk prices, are in assets/prices.js.
 
-// Paper types. extra: 0 = no extra charge, 'texturedPaper' = the extra set in assets/prices.js.
-var PAPERS = [
-  { id: 'matte', name: 'Matte', note: 'Smooth with no shine, and easy to write on.', extra: 0 },
-  { id: 'gloss', name: 'Gloss', note: 'Extra-bright colours with a soft shine.', extra: 0 },
-  { id: 'textured', name: 'Textured premium', note: 'Thicker card with a linen-like feel.', extra: 'texturedPaper' }
-];
+// The paper every card is printed on, shown under "Paper" on each card's page.
+var PAPER = {
+  name: 'Premium Brilliant',
+  points: [
+    'A bright, elegant front, made for colourful designs.',
+    'Thick and smooth on the front, silky on the back.',
+    'Weight: 400 g/m²'
+  ]
+};
 
-// Quantity options. Bulk prices per card are set in cardBulk in assets/prices.js.
-var QTYS = [1, 5, 10, 25, 50];
+// Quantity options. 10 is the most one order can have. Bulk prices per card are set in cardBulk in assets/prices.js.
+var QTYS = [1, 5, 10];
 
 // The cards (CARDS) are in assets/catalog.js.
 // ---------- End of settings ----------
@@ -388,14 +354,13 @@ function cardValues(c, key) { return key === 'for' ? (c.for || ['adults']) : key
 function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’']/g, ''); }
 
 
-function paperExtra(p) { return p.extra === 0 ? 0 : priceFor(p.extra); }
 
 class Component extends DCLogic {
   constructor(props) {
     super(props);
     var self0 = this;
     window.addEventListener('regionchange', function () { self0.setState({}); });
-    this.state = { mode: 'list', card: '01', view: 'front', picked: { for: [], cat: [], size: [] }, q: '', railOpen: false, size: 'A5', paper: 'matte', qty: 1, inside: 'blank', msg: '', from: '' };
+    this.state = { mode: 'list', card: '01', view: 'front', picked: { for: [], cat: [], size: [] }, q: '', railOpen: false, size: 'A5', qty: 1 };
     // A link like cards.html?card=03 opens that card; ?for=, ?cat=, ?size= and ?q= set the list filters.
     var params = new URLSearchParams(location.search);
     var want = params.get('card');
@@ -421,16 +386,14 @@ class Component extends DCLogic {
       hasPatch: !!c0.patchNo
     };
 
-    var paper = PAPERS.find(function (p) { return p.id === st.paper; }) || PAPERS[0];
     var cardSizes = c0.sizes || ['A5'];
     var size = cardSizes.indexOf(st.size) >= 0 ? st.size : cardSizes[0];
     function unitFor(qty) {
-      var extra = paperExtra(paper);
       var sizeExtra = size === 'A4' ? priceFor('cardA4Extra') : 0;
       var bulk = priceFor('cardBulk') || {};
       var base = bulk[qty] != null ? bulk[qty] : priceFor('card');
-      if (extra == null || base == null || sizeExtra == null) return null;
-      return base + extra + sizeExtra;
+      if (base == null || sizeExtra == null) return null;
+      return base + sizeExtra;
     }
     var unit = unitFor(st.qty);
     var total = unit == null ? null : unit * st.qty;
@@ -501,15 +464,6 @@ class Component extends DCLogic {
       return { on: on ? 'true' : 'false', border: on ? '2px solid #5D1AFA' : '2px solid #E3DCF7', pick: function () { self.setState({ view: id }); } };
     }
 
-    var papers = PAPERS.map(function (p) {
-      var on = p.id === paper.id;
-      return {
-        name: p.name, note: p.note, on: on ? 'true' : 'false',
-        extra: p.extra === 0 ? 'Included' : '+' + money(paperExtra(p)),
-        border: on ? '2px solid #5D1AFA' : '2px solid #E3DCF7',
-        pick: function () { self.setState({ paper: p.id }); }
-      };
-    });
 
     var qtys = QTYS.map(function (n) {
       var on = n === st.qty;
@@ -522,15 +476,6 @@ class Component extends DCLogic {
       };
     });
 
-    var write = st.inside === 'message';
-    var insides = [
-      { id: 'blank', name: 'Leave it blank', note: 'Write your own words inside' },
-      { id: 'message', name: 'Handwritten message', note: 'We write your message for you' }
-    ].map(function (o) {
-      var on = o.id === st.inside;
-      return { name: o.name, note: o.note, on: on ? 'true' : 'false', border: on ? '2px solid #5D1AFA' : '2px solid #E3DCF7', pick: function () { self.setState({ inside: o.id, view: o.id === 'message' ? 'inside' : self.state.view }); } };
-    });
-    var hasMsg = write && st.msg.trim().length > 0;
     var sizes = cardSizes.map(function (id) {
       var on = id === size, z = SIZES[id] || { name: id, note: '' };
       var ex = id === 'A4' ? priceFor('cardA4Extra') : 0;
@@ -540,10 +485,8 @@ class Component extends DCLogic {
         pick: function () { self.setState({ size: id }); }
       };
     });
-    var orderMsg = "Hi Show and Tell! I'd like " + st.qty + ' x the card "' + card.title + '" in ' + size + ' on ' + paper.name + ' paper'
-      + (total != null ? ' (' + money(total) + ')' : '') + '.'
-      + (!write ? ' Please leave it blank inside.' : (hasMsg ? ' Please write inside: "' + st.msg.trim() + '"' : ' I\'d like a handwritten message (I\'ll send the words).'))
-      + (write && st.from.trim() ? ' From: ' + st.from.trim() + '.' : '') + regionNote();
+    var orderMsg = "Hi Show and Tell! I'd like " + st.qty + ' x the card "' + card.title + '" in ' + size + ' on ' + PAPER.name + ' paper'
+      + (total != null ? ' (' + money(total) + ')' : '') + '.' + regionNote();
 
     return {
       cards: cards, card: card, groups: groups, chips: chips, q: st.q,
@@ -569,22 +512,13 @@ class Component extends DCLogic {
       rot: st.view === 'back' ? 180 : 0,
       frontHidden: st.view === 'back' ? 'true' : 'false',
       backHidden: st.view === 'back' ? 'false' : 'true',
-      viewHint: st.view === 'inside' ? (write ? 'Your message appears on the right-hand page.' : 'Blank inside, ready for your own words.') : 'Tap Inside to see the inside of the card.',
-      insides: insides, writeInside: write, insideName: write ? 'Handwritten message' : 'Blank',
-      papers: papers, paperName: paper.name,
+      viewHint: st.view === 'inside' ? 'Blank inside, ready for your own words.' : 'Tap Inside to see the inside of the card.',
+      paperName: PAPER.name, paperPoints: PAPER.points,
       qtys: qtys, qtyName: st.qty === 1 ? '1 card' : st.qty + ' cards',
       unitLabel: money(unit),
-      totalLine: total == null ? 'Total shown once the paper price is set' : 'Total for ' + (st.qty === 1 ? '1 card' : st.qty + ' cards') + ': ' + money(total),
+      totalLine: total == null ? 'Total shown once the card price is set' : 'Total for ' + (st.qty === 1 ? '1 card' : st.qty + ' cards') + ': ' + money(total),
       totalShort: total == null ? '[TOTAL]' : money(total),
-      msg: st.msg, from: st.from,
-      msgShown: !write ? '' : (hasMsg ? st.msg : 'Your message will appear here, handwritten.'),
-      fromShown: write && st.from.trim() ? 'Love, ' + st.from.trim() : '',
-      msgColor: hasMsg ? '#1A0B45' : '#8C82B0',
-      msgCount: st.msg.length + ' / 220 characters',
       waLink: 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(orderMsg),
-      onMsg: function (e) { self.setState({ msg: e.target.value }); },
-      onFrom: function (e) { self.setState({ from: e.target.value }); },
-      goInside: function () { if (self.state.view !== 'inside') self.setState({ view: 'inside' }); }
     };
   }
 }
