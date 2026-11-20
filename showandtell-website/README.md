@@ -88,7 +88,6 @@ To use your own domain (for example showandtell.co), add it under **Settings ›
 **Prices to check.** Every price in `assets/prices.js` has a placeholder so the site shows real numbers. Confirmed so far: classic tote ₦10,000 / €10, premium tote bag ₦20,000 / €40, T-shirt ₦15,000 / €15, patch ₦9,500 and card ₦3,500; replace the rest with your own. A price set to `null` shows as [PRICE], and totals that include it show [TOTAL].
 
 **Text placeholders in square brackets:**
-- Cards page: card size, envelope colour, ready-in days, delivery areas and pickup city
 - Design menu: the size of each type
 
 ## Prices for Nigeria and Europe
