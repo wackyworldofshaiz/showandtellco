@@ -85,6 +85,8 @@ To use your own domain (for example showandtell.co), add it under **Settings ›
 
 **WhatsApp number.** Orders open WhatsApp with the order already written. The number (+234 705 777 6753) is set once, at the top of `assets/header.js`: `HELP_PHONE` is how it reads in the header's "Do you need help?" line, and `WHATSAPP_NUMBER` is the same number, digits only in international format, used by every order button, the footer and the FAQ. Every page loads `header.js` first, so changing it there changes it everywhere.
 
+**Ordering on or off.** `SHOP_OPEN` at the top of `assets/header.js` turns every order button on or off. While it's `false`, the buttons on cards, designs, totes, Story Kits and puzzles say "Available soon" (greyed out) with a note underneath (`SOON_LABEL` and `SOON_NOTE`). Set it to `true` after the pop-up to start taking orders again.
+
 **Prices to check.** Every price in `assets/prices.js` has a placeholder so the site shows real numbers. Confirmed so far: classic tote ₦10,000 / €10, premium tote bag ₦20,000 / €40, T-shirt ₦15,000 / €15, patch ₦9,500 and card ₦3,500; replace the rest with your own. A price set to `null` shows as [PRICE], and totals that include it show [TOTAL].
 
 **Text placeholders in square brackets:**

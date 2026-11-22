@@ -150,7 +150,13 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 
 <div style="display: flex; flex-direction: column; gap: 10px">
 <sc-if value="{{ soldAlone }}" hint-placeholder-val="{{ true }}">
+<sc-if value="{{ shopOpen }}" hint-placeholder-val="{{ false }}">
 <a href="{{ waLink }}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 24px; border-radius: 999px; background: #5D1AFA; color: #FDFDFD; font-size: 17px; font-weight: 700; text-decoration: none">Buy the {{ typeWord }} only · {{ totalShort }}</a>
+</sc-if>
+<sc-if value="{{ shopClosed }}" hint-placeholder-val="{{ true }}">
+<span aria-disabled="true" style="display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 24px; border-radius: 999px; background: #E6E6E3; color: #6B6B68; font-size: 17px; font-weight: 700; cursor: not-allowed">{{ soonLabel }}</span>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #3B2E6B; text-align: center">{{ soonNote }}</p>
+</sc-if>
 </sc-if>
 <sc-if value="{{ notSoldAlone }}" hint-placeholder-val="{{ false }}">
 <p style="margin: 0; padding: 14px 18px; border-radius: 16px; background: #EFE9FF; font-size: 15px; line-height: 1.5; font-weight: 700; text-align: center">Prints are pressed on by us. Add it to a tote or tee.</p>
@@ -291,9 +297,11 @@ class Component extends DCLogic {
     window.addEventListener('regionchange', function () { self0.setState({}); });
     this.state = { mode: 'list', patch: PATCHES[0].id, filter: 'All', typeFilter: 'all', type: 'patch', qty: 1 };
     // A link like patches.html?design=p24 opens that design; &type=print opens it as a print.
+    // Without a design, patches.html?type=print (or patch, or pin) opens the list filtered to that type.
     var q = new URLSearchParams(location.search);
     var want = PATCHES.find(function (d) { return d.id === q.get('design'); });
     if (want) Object.assign(this.state, { mode: 'detail', patch: want.id, type: startType(want, q.get('type') || 'all') });
+    else if (['print', 'patch'].indexOf(q.get('type')) >= 0 || (q.get('type') === 'pin' && hasPins())) this.state.typeFilter = q.get('type');
   }
 
   renderVals() {
@@ -377,6 +385,7 @@ class Component extends DCLogic {
       totalShort: total == null ? '[TOTAL]' : money(total),
       qtyName: plural(type, st.qty),
       addHint: 'In the builder, pick a tote or tee, choose Add as: ' + TYPES[type].label + ', and find ' + p0.name + ' under ' + p0.cat + '.',
+      shopOpen: SHOP_OPEN, shopClosed: !SHOP_OPEN, soonLabel: SOON_LABEL, soonNote: SOON_NOTE,
       waLink: 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(orderMsg),
       toList: function () { self.setState({ mode: 'list' }); },
       toCat: function () { self.setState({ mode: 'list', filter: p0.cat }); },

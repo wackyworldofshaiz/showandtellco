@@ -257,11 +257,38 @@ var COLLECTIONS = {
     ]
   },
   'junior': {
-    title: 'Show and Tell Junior',
+    title: 'ST Junior',
     intro: 'Bright, playful things for little ones: junior cards, patches for school bags, prints and tees, and the snacks and rides they know by heart.',
     colour: '#FFC9E8',
     filters: true,
     items: ['card-55', 'card-54', 'card-56', 'tee', 'p28', 'p37', 'p34', 'p32', 'p30', 'p24', 'p33', 'p25']
+  },
+  'stationery': {
+    title: 'Stationery',
+    intro: 'Stickers and sketchbooks with our favourite designs, for your desk, your bag and everything in between.',
+    colour: '#FFE3F2',
+    items: [],
+    emptyTitle: 'Coming soon',
+    emptyText: 'Our first stickers and sketchbooks are on the way. Follow us on Instagram to see them first. In the meantime, here are some favourites.',
+    fallback: ['p19', 'p05', 'card-11', 'classic']
+  },
+  'sketchbooks': {
+    title: 'Sketchbooks',
+    intro: 'Sketchbooks with our designs on the cover, for doodles, plans, lists and big ideas.',
+    colour: '#FFF6C9',
+    items: [],
+    emptyTitle: 'Coming soon',
+    emptyText: 'Our first sketchbooks are on the way. Follow us on Instagram to see them first. In the meantime, here are some favourites.',
+    fallback: ['p19', 'p05', 'card-11', 'classic']
+  },
+  'stickers': {
+    title: 'Stickers',
+    intro: 'Our favourite designs as stickers, for your laptop, water bottle, phone case and everything in between.',
+    colour: '#FFE3F2',
+    items: [],
+    emptyTitle: 'Coming soon',
+    emptyText: 'Our first stickers are on the way. Follow us on Instagram to see them first. In the meantime, here are some favourites.',
+    fallback: ['p19', 'p05', 'card-11', 'classic']
   },
   'games': {
     title: 'Games',

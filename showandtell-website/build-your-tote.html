@@ -274,9 +274,17 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <div style="display: flex; flex-direction: column; gap: 12px; padding: 22px; border-radius: 20px; background: #E4EE3F">
 <p style="margin: 0; font-size: 15px; line-height: 1.5">Send us your design and a screenshot. We'll confirm the price and timing, then press every print and patch on by hand.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
+<sc-if value="{{ shopOpen }}" hint-placeholder-val="{{ false }}">
 <a href="{{ waLink }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; min-height: 50px; padding: 0 24px; border-radius: 999px; background: #5D1AFA; color: #FDFDFD; font-size: 16px; font-weight: 700; text-decoration: none">Order on WhatsApp</a>
+</sc-if>
+<sc-if value="{{ shopClosed }}" hint-placeholder-val="{{ true }}">
+<span aria-disabled="true" style="display: inline-flex; align-items: center; min-height: 50px; padding: 0 24px; border-radius: 999px; background: #E6E6E3; color: #6B6B68; font-size: 16px; font-weight: 700; cursor: not-allowed">{{ soonLabel }}</span>
+</sc-if>
 <a href="cards.html" style="display: inline-flex; align-items: center; min-height: 50px; padding: 0 22px; border-radius: 999px; border: 2px solid #1A0B45; color: #1A0B45; font-size: 16px; font-weight: 700; text-decoration: none; box-sizing: border-box">Add a matching card</a>
 </div>
+<sc-if value="{{ shopClosed }}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #1A0B45">{{ soonNote }}</p>
+</sc-if>
 </div>
 </div>
 </sc-if>
@@ -567,6 +575,7 @@ class Component extends DCLogic {
       maxLabel: st.placed.length + ' of ' + MAX_DESIGNS + ' added',
       hint: full ? 'That’s the limit. Remove a design to add another.' : (st.placed.length ? 'Drag designs to move them. Tap one to edit it.' : 'Ready for designs.'),
       total: total, notes: st.notes,
+      shopOpen: SHOP_OPEN, shopClosed: !SHOP_OPEN, soonLabel: SOON_LABEL, soonNote: SOON_NOTE,
       waLink: 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg),
       toStep2: function () { self.setState({ step: 2 }); },
       toStep3: function () { self.setState({ step: 3, sel: null }); },
