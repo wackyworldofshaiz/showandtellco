@@ -262,8 +262,13 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 
 <!-- Order -->
 <div style="display: flex; flex-direction: column; gap: 10px">
+<sc-if value="{{ shopOpen }}" hint-placeholder-val="{{ false }}">
 <a href="{{ waLink }}" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 24px; border-radius: 999px; background: #5D1AFA; color: #FDFDFD; font-size: 17px; font-weight: 700; text-decoration: none">Order on WhatsApp · {{ totalShort }}</a>
-<a href="build-your-tote.html" style="display: flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 22px; border-radius: 999px; border: 2px solid #1A0B45; color: #1A0B45; font-size: 16px; font-weight: 700; text-decoration: none; box-sizing: border-box">Add a matching tote</a>
+</sc-if>
+<sc-if value="{{ shopClosed }}" hint-placeholder-val="{{ true }}">
+<span aria-disabled="true" style="display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 24px; border-radius: 999px; background: #E6E6E3; color: #6B6B68; font-size: 17px; font-weight: 700; cursor: not-allowed">{{ soonLabel }}</span>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #3B2E6B; text-align: center">{{ soonNote }}</p>
+</sc-if>
 <p style="margin: 4px 0 0; font-size: 14px; color: #3B2E6B; text-align: center">Ready same day · Delivery available · Pickup available</p>
 </div>
 </section>
@@ -517,6 +522,7 @@ class Component extends DCLogic {
       unitLabel: money(unit),
       totalLine: total == null ? 'Total shown once the card price is set' : 'Total for ' + (st.qty === 1 ? '1 card' : st.qty + ' cards') + ': ' + money(total),
       totalShort: total == null ? '[TOTAL]' : money(total),
+      shopOpen: SHOP_OPEN, shopClosed: !SHOP_OPEN, soonLabel: SOON_LABEL, soonNote: SOON_NOTE,
       waLink: 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(orderMsg),
     };
   }

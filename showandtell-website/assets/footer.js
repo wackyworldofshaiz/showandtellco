@@ -11,6 +11,7 @@
 var FOOTER_LINKS = [
   { label: 'Shop', links: [
     ['Story Kits', 'story-kit.html'],
+    ['Stationery', 'stationery.html'],
     ['Cards', 'cards.html'],
     ['Totes', 'build-your-tote.html'],
     ['Games and puzzles', 'games.html'],

@@ -22,6 +22,13 @@ var HELP_PHONE = '+234 705 777 6753';
 var WHATSAPP_NUMBER = '2347057776753';
 var HELP_WHATSAPP = WHATSAPP_NUMBER; // older name, kept so nothing breaks
 
+// ---------- Ordering on or off ----------
+// While SHOP_OPEN is false, every order button (cards, designs, totes, Story Kits, puzzles)
+// shows SOON_LABEL, greyed out, with SOON_NOTE underneath. Set it to true to turn ordering back on.
+var SHOP_OPEN = false;
+var SOON_LABEL = 'Available soon';
+var SOON_NOTE = 'After the pop-up event, all items will be available to purchase.';
+
 // ---------- Smaller images for grids and thumbnails ----------
 // imgAt('images/cards/card-07.jpg', 600) gives a copy of the image 600 px wide, made by Netlify's
 // image service the first time it's asked for and then kept. Netlify also picks the lightest format
@@ -35,12 +42,21 @@ function imgAt(src, width) {
 
 var NAV = [
   { page: 'about', label: 'About us', href: 'about.html' },
-  { page: 'new-arrivals', label: 'New arrivals', href: 'new-arrivals.html' },
-  { page: 'story-kits', label: 'Story Kits', href: 'story-kit.html' },
+  { page: 'stationery', label: 'Stationery', href: 'stationery.html', children: [
+    { label: 'Stickers', href: 'stickers.html' },
+    { label: 'Sketchbooks', href: 'sketchbooks.html' }
+  ] },
   { page: 'cards', label: 'Cards', href: 'cards.html' }, // no dropdown: the cards page has its own filters
-  { page: 'totes', label: 'Totes', href: 'build-your-tote.html' },
+  { page: 'totes', label: 'Tote bags', href: 'build-your-tote.html' },
+  { page: 'designs', label: 'Accessories', href: 'patches.html', children: [
+    // ?type= opens the designs page already filtered to that type.
+    { label: 'Prints', href: 'patches.html?type=print' },
+    { label: 'Patches', href: 'patches.html?type=patch' },
+    { label: 'Pins', href: 'patches.html?type=pin' }
+  ] },
   { page: 'games', label: 'Games', href: 'games.html' },
-  { page: 'junior', label: 'Show and Tell Junior', href: 'junior.html' },
+  { page: 'story-kits', label: 'Story Kits', href: 'story-kit.html' },
+  { page: 'junior', label: 'ST Junior', href: 'junior.html' },
   { page: 'holiday-gift-guide', label: 'Holiday Gift Guide', href: 'holiday-gift-guide.html', children: [
     // These match the sections in COLLECTIONS in assets/catalog.js.
     { label: 'For her', href: 'holiday-gift-guide.html#for-her' },
@@ -49,8 +65,8 @@ var NAV = [
     { label: 'For kids', href: 'holiday-gift-guide.html#for-kids' },
     { label: 'Bestsellers', href: 'holiday-gift-guide.html#bestsellers' }
   ] },
-  { page: 'all-products', label: 'All products', href: 'all-products.html' },
-  { page: 'faq', label: 'FAQ', href: 'faq.html' }
+  { page: 'all-products', label: 'All products', href: 'all-products.html' }
+  // FAQ is in the footer, under Help.
 ];
 
 (function () {

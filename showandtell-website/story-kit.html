@@ -193,8 +193,11 @@ var CHEST_CM = { XS: 48, S: 50, M: 53, L: 58, XL: 62, '2XL': 67 };
       +     (soldOut
               ? '<a class="btn kit-order" aria-disabled="true">Sold out</a><p class="kit-total">This edition has sold out. Follow <a href="https://www.instagram.com/showandtell.co/">@showandtell.co</a> to hear about the next scene first.</p>'
               : '<p class="kit-total">Total: <strong>' + esc(price == null ? '[TOTAL]' : money(price * state.qty)) + '</strong></p>'
-      +         '<a class="btn kit-order" href="' + esc(orderLink()) + '" target="_blank" rel="noopener">Order on WhatsApp</a>'
-      +         '<p class="kit-hint">Your order opens in WhatsApp, already written. We reply to confirm your size and delivery.</p>')
+      +         (SHOP_OPEN
+                  ? '<a class="btn kit-order" href="' + esc(orderLink()) + '" target="_blank" rel="noopener">Order on WhatsApp</a>'
+                  +   '<p class="kit-hint">Your order opens in WhatsApp, already written. We reply to confirm your size and delivery.</p>'
+                  : '<a class="btn kit-order" aria-disabled="true">' + esc(SOON_LABEL) + '</a>'
+                  +   '<p class="kit-hint">' + esc(SOON_NOTE) + '</p>'))
       +   '</div>'
       + '</div></div>'
 
