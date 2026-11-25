@@ -54,6 +54,23 @@ var PACKS = [
   var orderBtn = document.querySelector('[data-order]');
   if (!tabsEl || !gridEl || !detail) return;
 
+  // While ordering is paused (SHOP_OPEN in assets/header.js), the order button says SOON_LABEL,
+  // greyed out, with SOON_NOTE underneath, like every other order button on the site.
+  if (orderBtn && typeof SHOP_OPEN !== 'undefined' && !SHOP_OPEN) {
+    var soon = document.createElement('div');
+    soon.className = 'sk-soon';
+    orderBtn.parentNode.replaceChild(soon, orderBtn);
+    orderBtn.removeAttribute('href');
+    orderBtn.removeAttribute('target');
+    orderBtn.setAttribute('aria-disabled', 'true');
+    orderBtn.textContent = SOON_LABEL;
+    var note = document.createElement('p');
+    note.textContent = SOON_NOTE;
+    soon.appendChild(orderBtn);
+    soon.appendChild(note);
+    orderBtn = null;
+  }
+
   var state = { pack: PACKS[0].id, sticker: PACKS[0].items[0] };
 
   function esc(s) {

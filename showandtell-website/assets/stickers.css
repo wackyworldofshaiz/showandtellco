@@ -4,6 +4,10 @@
 .sk .lockup { font-size:34px; }
 .home .sk-btn-lime { background:#E4EE3F; color:#1A0B45; }
 .home .sk-btn-lime:hover { background:#FFFFFF; color:#1A0B45; }
+/* Order button while ordering is paused (see SHOP_OPEN in assets/header.js) */
+.sk-soon { display:flex; flex-direction:column; align-items:center; gap:10px; max-width:280px; text-align:center; }
+.home .sk-soon .btn[aria-disabled="true"] { background:#E6E6E3; color:#6B6B68; pointer-events:none; cursor:not-allowed; }
+.sk-soon p { margin:0; font-size:14px; line-height:1.5; color:#F6F1E7; opacity:.85; }
 .sk-wrap { max-width:1240px; margin:0 auto; padding:0 40px; box-sizing:border-box; }
 
 /* Hero */
