@@ -1,33 +1,13 @@
-// Digital invitations: draws an invitation from its details, with the envelope to tap open first.
-// invitation.html passes in the details. Everything a host types goes through invEsc before it
-// reaches the page, so their words show as plain text.
+// Digital invitations: draws the "Luxe" wedding invitation from one set of details.
+// invitation.html passes the details in. Everything a host types goes through invEsc before it
+// reaches the page, so their words always show as plain text.
+// Screens: the doorbell → the envelope opening → the collage. The collage opens three pages:
+// #details, #story and #rsvp.
+
+var LX_ART = 'images/invitations/luxe/';
 
 function invEsc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
-
-var INV_STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.7 6.6 4.9 10.9 12 12-7.1 1.1-11.3 5.4-12 12-.7-6.6-4.9-10.9-12-12C7.1 10.9 11.3 6.6 12 0z"/></svg>';
-
-// A little leafy sprig, drawn rather than an image so it takes the template's colour.
-function invSprig(cls) {
-  var leaves = '';
-  // Leaves grow out from the middle towards both ends, getting smaller as they go.
-  // They take turns above and below the stem, like a real sprig.
-  var leaf = 'd="M0 0C4-4.5 11-5 17 0 11 5 4 4.5 0 0Z"';
-  [64, 55, 46, 37, 28, 20].forEach(function (x, i) {
-    var s = 1 - i * 0.11, up = i % 2 === 0 ? -1 : 1;
-    leaves += '<path transform="translate(' + x + ' 18) rotate(' + (180 - up * 38) + ') scale(' + s + ')" ' + leaf + '/>'
-      + '<path transform="translate(' + (150 - x) + ' 18) rotate(' + (up * 38) + ') scale(' + s + ')" ' + leaf + '/>';
-  });
-  return '<svg class="inv-sprig ' + (cls || '') + '" viewBox="0 0 150 40" aria-hidden="true">'
-    + '<path d="M14 18H136" fill="none" stroke="currentColor" stroke-width="1.1"/>'
-    + '<g fill="currentColor" opacity="0.85">' + leaves + '</g>'
-    + '<path d="M75 11l2.2 4.8 4.8 2.2-4.8 2.2-2.2 4.8-2.2-4.8-4.8-2.2 4.8-2.2z" fill="currentColor"/></svg>';
-}
-var INV_RULE = '<svg class="inv-rule" viewBox="0 0 120 18" aria-hidden="true"><path d="M0 9h48M72 9h48" stroke="currentColor" stroke-width="1"/><path d="M60 3l6 6-6 6-6-6z" fill="currentColor"/></svg>';
-var INV_ICON = {
-  cal: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
-  map: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
-  gift: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M12 8v13M3 12h18M12 8C10 4 6 4 6 6.5S10 8 12 8zM12 8c2-4 6-4 6-1.5S14 8 12 8z"/></svg>'
-};
+function invLines(s) { return invEsc(s).replace(/\n/g, '<br>'); }
 
 // ---------- Dates ----------
 // The moment a date and time happens in a place's time zone (for example 2027-06-12, 14:00, Africa/Lagos).
@@ -49,207 +29,254 @@ function invCalendar(inv) {
   var start = invMoment(inv.date, inv.time, inv.tz);
   var end = inv.endTime ? invMoment(inv.date, inv.endTime, inv.tz) : new Date(start.getTime() + 6 * 3600e3);
   if (end <= start) end = new Date(end.getTime() + 24 * 3600e3); // a party that runs past midnight
-  var title = inv.calendarTitle || (inv.names.join(' & ') + "'s wedding");
-  var where = [inv.venue.name, inv.venue.address].filter(Boolean).join(', ');
+  var title = inv.names.join(' & ') + "'s wedding";
+  var where = [inv.venue.name, inv.venue.address].filter(Boolean).join(', ').replace(/\n/g, ', ');
   var google = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-    + '&text=' + encodeURIComponent(title)
-    + '&dates=' + invStamp(start) + '/' + invStamp(end)
-    + '&location=' + encodeURIComponent(where)
-    + '&details=' + encodeURIComponent('Your invitation: ' + location.href);
-  var icsText = function (s) { return String(s).replace(/[\\;,]/g, function (c) { return '\\' + c; }).replace(/\n/g, '\\n'); };
+    + '&text=' + encodeURIComponent(title) + '&dates=' + invStamp(start) + '/' + invStamp(end)
+    + '&location=' + encodeURIComponent(where) + '&details=' + encodeURIComponent('Your invitation: ' + location.href.split('#')[0]);
+  var esc = function (s) { return String(s).replace(/[\\;,]/g, function (c) { return '\\' + c; }).replace(/\n/g, '\\n'); };
   var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Show and Tell Co//Invitations//EN', 'BEGIN:VEVENT',
     'UID:' + invStamp(start) + '-' + Math.random().toString(36).slice(2) + '@showandtellco.shop',
     'DTSTAMP:' + invStamp(new Date()), 'DTSTART:' + invStamp(start), 'DTEND:' + invStamp(end),
-    'SUMMARY:' + icsText(title), 'LOCATION:' + icsText(where), 'DESCRIPTION:' + icsText('Your invitation: ' + location.href),
+    'SUMMARY:' + esc(title), 'LOCATION:' + esc(where), 'DESCRIPTION:' + esc('Your invitation: ' + location.href.split('#')[0]),
     'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
   return { start: start, google: google, ics: ics };
 }
 
-// ---------- Drawing ----------
-function invDraw(inv, root) {
-  var tz = inv.tz;
-  var cal = invCalendar(inv);
-  var start = cal.start;
-  var daysLeft = Math.ceil((start - Date.now()) / 86400e3);
-  var mapsUrl = inv.venue.maps || ('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent([inv.venue.name, inv.venue.address].filter(Boolean).join(', ')));
-  var replyBy = inv.rsvp.by ? invFmt(invMoment(inv.rsvp.by, '12:00', tz), tz, { day: 'numeric', month: 'long', year: 'numeric' }) : '';
-  var lines = function (s) { return invEsc(s).replace(/\n/g, '<br>'); };
+// ---------- Small pieces ----------
+function lxImg(name, cls, alt) { return '<img class="' + (cls || '') + '" src="' + LX_ART + name + '.webp" alt="' + (alt || '') + '" draggable="false">'; }
+// A photo slot. box is where it sits inside its frame, in %: [left, top, width, height, turn].
+function lxPhoto(inv, src, box) {
+  var style = box ? 'left:' + box[0] + '%;top:' + box[1] + '%;width:' + box[2] + '%;height:' + box[3] + '%;' + (box[4] ? 'transform:rotate(' + box[4] + 'deg)' : '') : '';
+  var inner = src ? '<img src="' + invEsc(src) + '" alt="">' : '<span class="mono">' + invEsc(inv.monogram) + '</span>';
+  return '<span class="lx-photo" style="' + style + '">' + inner + '</span>';
+}
+// Where the see-through windows are in each frame.
+var LX_HOLES = {
+  locket: [[58, 40, 39, 40, 8], [27, 61, 36, 36, -6]],
+  strip: [[29, 3, 67.1, 29.9, 7.4], [21.6, 30.2, 67.1, 30, 7.4], [13.9, 57.6, 67.3, 29.9, 7.4]],
+  polaroid: [[9, 5.8, 80.9, 74.7, -17]]
+};
+function lxFramed(inv, frame, photos, cls, extra) {
+  var holes = LX_HOLES[frame === 'photo-strip' ? 'strip' : frame];
+  // The photos sit behind the frame, cut to the shape of its windows so nothing peeks out round the edges.
+  var mask = 'url(' + LX_ART + frame + '-holes.png) center / 100% 100% no-repeat';
+  return '<div class="' + cls + '"><span class="lx-holes" style="-webkit-mask:' + mask + ';mask:' + mask + '">'
+    + holes.map(function (b, i) { return lxPhoto(inv, (photos || [])[i], b); }).join('') + '</span>' + lxImg(frame) + (extra || '') + '</div>';
+}
+var LX_ICONS = { church: 'icon-church', rings: 'icon-rings', drinks: 'icon-champagne', dinner: 'icon-dinner', party: 'icon-disco', cake: 'icon-cake', car: 'icon-car' };
 
-  var html = '';
-  // Cover
-  html += '<section class="inv-card inv-cover inv-reveal">' + invSprig()
-    + '<p class="inv-lead">' + lines(inv.lead) + '</p>'
-    + '<h1 class="inv-names">' + invEsc(inv.names[0]) + '<span class="amp">&amp;</span>' + invEsc(inv.names[1]) + '</h1>'
-    + '<p class="inv-what">' + lines(inv.what) + '</p>'
-    + (inv.photo ? '<div class="inv-photo"><img src="' + invEsc(inv.photo) + '" alt="' + invEsc(inv.names.join(' and ')) + '"></div>' : '')
-    + invSprig('flip') + '</section>';
-
-  // Date
-  html += '<section class="inv-card inv-reveal" aria-label="Date">'
-    + '<p class="inv-eyebrow">Save the date</p>'
-    + '<div class="inv-date"><span class="side">' + invFmt(start, tz, { weekday: 'long' }) + '</span>'
-    + '<span class="day">' + invFmt(start, tz, { day: 'numeric' }) + '</span>'
-    + '<span class="side">' + invFmt(start, tz, { month: 'long' }) + '</span></div>'
-    + '<p class="inv-date-year">' + invFmt(start, tz, { year: 'numeric' }) + '</p>'
-    + '<p class="inv-body">' + invFmt(start, tz, { hour: 'numeric', minute: '2-digit', hour12: true }).replace(':00', '').replace(' ', '') + ' onwards</p>'
-    + (daysLeft > 1 ? '<span class="inv-count">' + daysLeft + ' days to go</span>' : daysLeft === 1 ? '<span class="inv-count">Tomorrow!</span>' : '')
-    + '<div class="inv-btns"><a class="inv-btn" href="' + invEsc(cal.google) + '" target="_blank" rel="noopener">' + INV_ICON.cal + 'Google Calendar</a>'
-    + '<button class="inv-btn line" type="button" data-ics>' + INV_ICON.cal + 'Apple / Outlook</button></div>'
-    + '</section>';
-
-  // Order of the day
-  if (inv.schedule && inv.schedule.length) {
-    html += '<section class="inv-card inv-reveal" aria-label="Order of the day"><p class="inv-eyebrow">On the day</p><h2>The order of things</h2><ul class="inv-times">'
-      + inv.schedule.map(function (s) { return '<li><span class="t">' + invEsc(s.time) + '</span><span class="w">' + invEsc(s.what) + '</span></li>'; }).join('')
-      + '</ul></section>';
-  }
-
-  // Venue
-  html += '<section class="inv-card inv-reveal" aria-label="Venue"><p class="inv-eyebrow">Where</p><h2>' + invEsc(inv.venue.name) + '</h2>'
-    + '<p class="inv-body">' + lines(inv.venue.address) + '</p>'
-    + (inv.venue.note ? '<p class="inv-small">' + lines(inv.venue.note) + '</p>' : '')
-    + '<div class="inv-btns"><a class="inv-btn line" href="' + invEsc(mapsUrl) + '" target="_blank" rel="noopener">' + INV_ICON.map + 'Open in Maps</a></div></section>';
-
-  // Dress code
-  if (inv.dress) {
-    html += '<section class="inv-card inv-reveal" aria-label="Dress code"><p class="inv-eyebrow">What to wear</p><h2>' + invEsc(inv.dress.title || 'Dress code') + '</h2>'
-      + '<p class="inv-body">' + lines(inv.dress.text) + '</p>'
-      + (inv.dress.colours && inv.dress.colours.length ? '<div class="inv-swatches">' + inv.dress.colours.map(function (c) { return /^#[0-9a-f]{3,8}$/i.test(c) ? '<span style="background:' + c + '"></span>' : ''; }).join('') + '</div>' : '')
-      + '</section>';
-  }
-
-  // A note from the couple
-  if (inv.note) {
-    html += '<section class="inv-card inv-reveal" aria-label="A note from us"><p class="inv-eyebrow">' + invEsc(inv.note.eyebrow || 'A note from us') + '</p>'
-      + '<h2>' + invEsc(inv.note.title) + '</h2><p class="inv-body">' + lines(inv.note.text) + '</p>' + INV_RULE + '</section>';
-  }
-
-  // RSVP
-  var seats = Math.max(1, Math.min(10, +inv.rsvp.seats || 1));
-  var seatOpts = '';
-  for (var i = 1; i <= seats; i++) seatOpts += '<option value="' + i + '">' + i + (i === 1 ? ' (just me)' : '') + '</option>';
-  html += '<section class="inv-card inv-reveal" id="rsvp" aria-label="RSVP"><p class="inv-eyebrow">Kindly reply</p><h2>Will you join us?</h2>'
-    + (replyBy ? '<p class="inv-small">Please let us know by ' + replyBy + '.</p>' : '')
-    + '<form class="inv-form" novalidate>'
-    + '<div class="inv-field"><label for="inv-name">Your name</label><input id="inv-name" name="name" type="text" autocomplete="name" maxlength="80" required></div>'
-    + '<div class="inv-field"><fieldset><legend>Will you be there?</legend><div class="inv-choice">'
-    + '<label><input type="radio" name="coming" value="yes"><span>Joyfully yes</span><small>Can\'t wait</small></label>'
-    + '<label><input type="radio" name="coming" value="no"><span>Sadly no</span><small>Celebrating from afar</small></label>'
-    + '</div></fieldset></div>'
-    + '<div class="inv-if-yes" hidden>'
-    + (seats > 1 ? '<div class="inv-field"><label for="inv-seats">How many of you? <span style="text-transform:none;letter-spacing:0">(we\'ve saved ' + seats + ' seats)</span></label><select id="inv-seats" name="seats">' + seatOpts + '</select></div>' : '')
-    + '<div class="inv-field"><label for="inv-diet">Anything we should know about food?</label><input id="inv-diet" name="diet" type="text" maxlength="200" placeholder="Allergies, vegetarian…"></div>'
-    + (inv.rsvp.question ? '<div class="inv-field"><label for="inv-q">' + invEsc(inv.rsvp.question) + '</label><input id="inv-q" name="answer" type="text" maxlength="200"></div>' : '')
+// ---------- Screen 3: the collage ----------
+function lxCollage(inv) {
+  var p = inv.photos || {};
+  var start = invMoment(inv.date, inv.time, inv.tz);
+  var dateLine = invFmt(start, inv.tz, { day: 'numeric', month: 'long', year: 'numeric' });
+  return '<div class="lx-stage">'
+    + '<div class="lx-piece lx-p-env">' + lxImg('env-back') + lxImg('env-flap-up') + lxPhoto(inv, p.cover) + lxImg('env-pocket') + '</div>'
+    + '<div class="lx-piece lx-p-lilies">' + lxImg('lilies') + '</div>'
+    + '<button class="lx-piece lx-p-oval" type="button" data-go="details" aria-label="The details">' + lxImg('card-oval')
+    + '<span class="lx-on"><span class="lx-caps">Join us for<br>the wedding of</span><span class="lx-script">' + invEsc(inv.names[0]) + '<br>&amp; ' + invEsc(inv.names[1]) + '</span>'
+    + '<span class="lx-caps">' + dateLine + '<br>' + invEsc(inv.place) + '</span></span></button>'
+    + lxFramed(inv, 'locket', p.locket, 'lx-piece lx-p-locket')
+    + '<button class="lx-piece lx-p-heart" type="button" data-go="details">' + lxImg('heart')
+    + '<span class="lx-on"><span class="lx-script">The Details</span><span class="lx-caps lx-click">Click here</span></span></button>'
+    + '<div class="lx-piece lx-p-moss1">' + lxImg('moss-a') + '</div>'
+    + lxFramed(inv, 'photo-strip', p.strip, 'lx-piece lx-p-strip')
+    + '<div class="lx-piece lx-p-tray">' + lxImg('tray') + '</div>'
+    + '<button class="lx-piece lx-p-rsvp" type="button" data-go="rsvp">' + lxImg('envelope-closed')
+    + '<span class="lx-on"><span class="lx-script">Kindly<br>Rsvp</span><span class="lx-caps lx-click">Click here</span></span></button>'
+    + '<div class="lx-piece lx-p-lily">' + lxImg('lily') + '</div>'
+    + '<div class="lx-piece lx-p-seal">' + lxImg('seal') + '</div>'
+    + '<div class="lx-piece lx-p-moss2">' + lxImg('moss-b') + '</div>'
+    + lxFramed(inv, 'polaroid', p.polaroid ? [p.polaroid] : null, 'lx-piece lx-p-polaroid')
+    + '<button class="lx-piece lx-p-flower" type="button" data-go="story">' + lxImg('flower')
+    + '<span class="lx-on"><span class="lx-script">Our<br>Love Story</span><span class="lx-caps lx-click">Click here</span></span></button>'
     + '</div>'
-    + '<div class="inv-field"><label for="inv-msg">A note for ' + invEsc(inv.names.join(' & ')) + ' (optional)</label><textarea id="inv-msg" name="message" maxlength="500"></textarea></div>'
-    + '<p class="inv-error" role="alert"></p>'
-    + '<button class="inv-btn" type="submit">Send my reply</button>'
-    + '</form>'
-    + '<div class="inv-thanks" hidden aria-live="polite"></div>'
-    + '</section>';
+    + '<div class="lx-after">'
+    + '<p class="lx-caps" style="font-size:15px">The countdown is on!</p>'
+    + '<div class="lx-countdown" aria-live="off" data-countdown></div>'
+    + (inv.contact ? '<p class="lx-contact">For any questions, please contact us at:<br><a href="mailto:' + invEsc(inv.contact) + '">' + invEsc(inv.contact) + '</a></p>' : '')
+    + '<p class="lx-caps lx-love">With love</p>'
+    + '<p class="lx-script lx-sign">' + invEsc(inv.names.join(' & ')) + '</p>'
+    + '</div>';
+}
 
-  // Gifts
-  if (inv.gifts) {
-    html += '<section class="inv-card inv-reveal" aria-label="Gifts"><p class="inv-eyebrow">Gifts</p><h2>' + invEsc(inv.gifts.title || 'With thanks') + '</h2>'
-      + '<p class="inv-body">' + lines(inv.gifts.text) + '</p>'
-      + (inv.gifts.link ? '<div class="inv-btns"><a class="inv-btn line" href="' + invEsc(inv.gifts.link) + '" target="_blank" rel="noopener">' + INV_ICON.gift + invEsc(inv.gifts.label || 'See our gift list') + '</a></div>' : '')
-      + '</section>';
+// ---------- The inner pages ----------
+function lxBand(inv, title, photo) {
+  return '<div class="lx-band">' + lxPhoto(inv, photo) + '<div class="lx-band-card">' + lxImg('tray', 'lx-tray') + lxImg('envelope-closed', 'lx-card')
+    + '<span class="lx-on"><span class="lx-script">' + title + '</span></span></div></div>';
+}
+function lxSignoff(inv) {
+  return '<p class="lx-script lx-mono">' + invEsc(inv.monogram) + '</p>'
+    + (inv.contact ? '<p class="lx-contact">For any questions, please contact us at:<br><a href="mailto:' + invEsc(inv.contact) + '">' + invEsc(inv.contact) + '</a></p>' : '')
+    + '<p class="lx-caps lx-love">With love</p><p class="lx-script lx-sign">' + invEsc(inv.names.join(' & ')) + '</p>'
+    + '<button class="lx-back" type="button" data-go="">Go back</button>';
+}
+
+function lxDetails(inv, cal) {
+  var tz = inv.tz, start = cal.start;
+  var mapsUrl = inv.venue.maps || ('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent([inv.venue.name, inv.venue.address].join(', ').replace(/\n/g, ', ')));
+  var html = lxBand(inv, 'The<br>Details', (inv.photos || {}).band);
+  html += '<section class="lx-sec"><h2>Date and Location</h2>'
+    + '<p class="lx-caps">Date</p><p class="lx-txt">' + invFmt(start, tz, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + '</p>'
+    + (inv.parts || []).map(function (pt) { return '<p class="lx-caps">' + invEsc(pt.label) + '</p><p class="lx-txt">' + invLines(pt.text) + '</p>'; }).join('')
+    + '<div><a class="lx-btn-line" href="' + invEsc(mapsUrl) + '" target="_blank" rel="noopener">Open in Maps</a></div>'
+    + '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">'
+    + '<a class="lx-btn-line" href="' + invEsc(cal.google) + '" target="_blank" rel="noopener">Google Calendar</a>'
+    + '<button class="lx-btn-line" type="button" data-ics>Apple / Outlook</button></div></section>';
+  if (inv.schedule && inv.schedule.length) {
+    html += '<section class="lx-sec"><h2>Our Timeline</h2><div class="lx-timeline">'
+      + '<svg class="wave" viewBox="0 0 28 400" preserveAspectRatio="none" aria-hidden="true"><path d="M14 0' + (function () { var d = ''; for (var i = 0; i < 8; i++) d += ' Q' + (i % 2 ? 2 : 26) + ' ' + (i * 50 + 25) + ' 14 ' + (i * 50 + 50); return d; })() + '" fill="none" stroke="#F3EDE4" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg><ol>'
+      + inv.schedule.map(function (s) { return '<li>' + (LX_ICONS[s.icon] ? lxImg(LX_ICONS[s.icon]) : '') + '<p class="lx-caps t">' + invEsc(s.time) + '</p><p class="w">' + invEsc(s.what) + '</p></li>'; }).join('')
+      + '</ol></div></section>';
   }
+  if (inv.stay && inv.stay.length) {
+    html += '<section class="lx-sec"><h2>Where To Stay</h2>' + (inv.stayNote ? '<p class="lx-txt">' + invLines(inv.stayNote) + '</p>' : '')
+      + inv.stay.map(function (h) {
+        return '<p class="lx-caps">' + invEsc(h.name) + '</p><p class="lx-txt">' + invLines(h.text) + '</p>'
+          + (h.link ? '<a class="lx-btn-line" href="' + invEsc(h.link) + '" target="_blank" rel="noopener">Visit website</a>' : '');
+      }).join('') + '</section>';
+  }
+  if (inv.gifts) {
+    html += '<div class="lx-gift">' + lxImg('card-in-envelope')
+      + '<span class="lx-on"><span class="lx-script">Gifts</span><span class="lx-txt">' + invLines(inv.gifts.text) + '</span></span>'
+      + (inv.gifts.link ? '<a href="' + invEsc(inv.gifts.link) + '" target="_blank" rel="noopener"><span class="lx-script">' + invEsc(inv.gifts.label || 'Shop Our Registry') + '</span><span class="lx-caps">Click here</span></a>' : '')
+      + '</div>';
+  }
+  if (inv.other && inv.other.length) {
+    html += '<section class="lx-sec"><h2>Other Details</h2>' + inv.other.map(function (o) {
+      return '<p class="lx-caps">' + invEsc(o.label) + '</p><p class="lx-txt">' + invLines(o.text) + '</p>'
+        + (o.colours ? '<div class="lx-swatches">' + o.colours.map(function (c) { return /^#[0-9a-f]{3,8}$/i.test(c) ? '<span style="background:' + c + '"></span>' : ''; }).join('') + '</div>' : '');
+    }).join('') + '</section>';
+  }
+  return '<div class="lx-page">' + html + '<section class="lx-sec" style="padding-top:0">' + lxSignoff(inv) + '</section></div>';
+}
 
-  // Sign-off
-  html += '<section class="inv-card inv-reveal" aria-label="Sign-off">' + invSprig()
-    + '<p class="inv-body">' + lines(inv.signoff.text) + '</p>'
-    + '<p class="inv-sign">' + invEsc(inv.signoff.from) + '</p></section>';
+function lxStory(inv) {
+  var s = inv.story || {}, ph = (inv.photos || {}).story || [];
+  var pol = function (src) { return lxFramed(inv, 'polaroid', [src], 'lx-pol'); };
+  return '<div class="lx-page"><section class="lx-sec"><h2>' + invEsc(s.title || 'Our Love Story') + '</h2>'
+    + '<div class="lx-pair">' + pol(ph[0]) + pol(ph[1]) + '</div>'
+    + '<p class="lx-txt" style="margin-top:20px">' + invLines(s.text) + '</p>'
+    + '<p class="lx-caps lx-love">With love</p><p class="lx-script lx-sign">' + invEsc(inv.names.join(' & ')) + '</p>'
+    + '<button class="lx-back" type="button" data-go="">Go back</button></section></div>';
+}
 
-  html += '<p class="inv-foot">' + INV_STAR + 'Invitation by <a href="index.html">Show and Tell Co</a></p>';
-  root.innerHTML = html;
-
-  // Apple / Outlook: hand over a calendar file.
-  root.querySelector('[data-ics]').addEventListener('click', function () {
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([cal.ics], { type: 'text/calendar' }));
-    a.download = 'wedding.ics';
-    document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
-  });
-
-  invRsvp(inv, root);
+function lxRsvp(inv) {
+  var r = inv.rsvp, tz = inv.tz;
+  var replyBy = r.by ? invFmt(invMoment(r.by, '12:00', tz), tz, { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+  var seats = Math.max(1, Math.min(10, +r.seats || 1)), seatOpts = '';
+  for (var i = 1; i <= seats; i++) seatOpts += '<option value="' + i + '">' + i + (i === 1 ? ' (just me)' : '') + '</option>';
+  var opt = function (name, value, label) { return '<label><input type="radio" name="' + name + '" value="' + invEsc(value) + '">' + invEsc(label) + '</label>'; };
+  return '<div class="lx-page"><section class="lx-sec">'
+    + lxFramed(inv, 'locket', (inv.photos || {}).locket, 'lx-locket-big')
+    + '<h2 style="margin-top:24px">Kindly Rsvp</h2>'
+    + '<p class="lx-txt">We\'d love for you to be part of our celebration! Let us know below if you can make it.</p>'
+    + (replyBy ? '<p class="lx-caps" style="margin-top:16px">Please reply by ' + replyBy + '</p>' : '')
+    + '<form class="lx-form" novalidate>'
+    + '<div class="lx-field"><label for="lx-name">Your name</label><input id="lx-name" name="name" type="text" autocomplete="name" maxlength="80"></div>'
+    + '<div class="lx-field"><fieldset><legend>Will you be attending our wedding?</legend><div class="lx-opts">'
+    + opt('coming', 'yes', 'Joyfully accepts') + opt('coming', 'no', 'Regretfully declines') + '</div></fieldset></div>'
+    + '<div class="lx-yes" hidden>'
+    + (seats > 1 ? '<div class="lx-field"><label for="lx-seats">How many of you are coming? We\'ve saved ' + seats + ' seats.</label><select id="lx-seats" name="seats">' + seatOpts + '</select></div>' : '')
+    + (r.meals && r.meals.length ? '<div class="lx-field"><fieldset><legend>Choice of meal</legend><div class="lx-opts">' + r.meals.map(function (m) { return opt('meal', m, m); }).join('') + '</div></fieldset></div>' : '')
+    + '<div class="lx-field"><label for="lx-diet">Any allergies we should know about?</label><input id="lx-diet" name="diet" type="text" maxlength="200"></div>'
+    + (r.question ? '<div class="lx-field"><label for="lx-q">' + invEsc(r.question) + '</label><input id="lx-q" name="answer" type="text" maxlength="200"></div>' : '')
+    + '</div>'
+    + '<div class="lx-field"><label for="lx-msg">A note for the couple (optional)</label><textarea id="lx-msg" name="message" maxlength="500"></textarea></div>'
+    + '<p class="lx-error" role="alert"></p>'
+    + '<button class="lx-send" type="submit">Rsvp</button></form>'
+    + '<div class="lx-thanks" hidden aria-live="polite"></div>'
+    + '<button class="lx-back" type="button" data-go="">Go back</button></section></div>';
 }
 
 // ---------- RSVP ----------
-// send(reply, done) saves the reply. Without one (the sample), the reply only shows on screen.
-function invRsvp(inv, root) {
-  var form = root.querySelector('.inv-form');
-  var yesBits = form.querySelector('.inv-if-yes');
-  var err = form.querySelector('.inv-error');
-  var thanks = root.querySelector('.inv-thanks');
-  var btn = form.querySelector('button[type="submit"]');
-
-  form.addEventListener('change', function (e) {
-    if (e.target.name === 'coming') yesBits.hidden = e.target.value !== 'yes';
-  });
+// inv.sendReply(reply, done) saves a reply. Without one (the sample), the reply only shows on screen.
+function lxRsvpWire(inv, root) {
+  var form = root.querySelector('.lx-form'); if (!form) return;
+  var yes = form.querySelector('.lx-yes'), err = form.querySelector('.lx-error'), btn = form.querySelector('.lx-send');
+  var thanks = root.querySelector('.lx-thanks');
+  form.addEventListener('change', function (e) { if (e.target.name === 'coming') yes.hidden = e.target.value !== 'yes'; });
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var data = new FormData(form);
-    var reply = { name: (data.get('name') || '').trim(), coming: data.get('coming'), seats: +(data.get('seats') || 1),
-      diet: (data.get('diet') || '').trim(), answer: (data.get('answer') || '').trim(), message: (data.get('message') || '').trim() };
-    if (!reply.name) { err.textContent = 'Please add your name.'; form.querySelector('#inv-name').focus(); return; }
-    if (!reply.coming) { err.textContent = 'Please choose yes or no.'; return; }
-    err.textContent = '';
-    btn.disabled = true; btn.textContent = 'Sending…';
+    var d = new FormData(form);
+    var reply = { name: String(d.get('name') || '').trim(), coming: d.get('coming'), seats: +(d.get('seats') || 1), meal: d.get('meal') || '',
+      diet: String(d.get('diet') || '').trim(), answer: String(d.get('answer') || '').trim(), message: String(d.get('message') || '').trim() };
+    if (!reply.name) { err.textContent = 'Please add your name.'; form.querySelector('#lx-name').focus(); return; }
+    if (!reply.coming) { err.textContent = 'Please let us know if you can come.'; return; }
+    err.textContent = ''; btn.disabled = true; btn.textContent = 'Sending…';
     var send = inv.sendReply || function (r, done) { setTimeout(function () { done(null); }, 500); };
     send(reply, function (problem) {
-      btn.disabled = false; btn.textContent = 'Send my reply';
+      btn.disabled = false; btn.textContent = 'Rsvp';
       if (problem) { err.textContent = problem; return; }
-      var first = invEsc(reply.name.split(' ')[0]);
-      thanks.innerHTML = reply.coming === 'yes'
-        ? '<p class="inv-big">See you there, ' + first + '!</p><p class="inv-body">' + (reply.seats > 1 ? 'We\'ve got you down for ' + reply.seats + '. ' : '') + 'Your reply is on its way to ' + invEsc(inv.names.join(' & ')) + '.</p>'
-        : '<p class="inv-big">You\'ll be missed, ' + first + '</p><p class="inv-body">Thank you for letting ' + invEsc(inv.names.join(' & ')) + ' know.</p>';
-      thanks.innerHTML += '<button class="inv-link" type="button">Change my reply</button>';
+      var first = invEsc(reply.name.split(' ')[0]), couple = invEsc(inv.names.join(' & '));
+      thanks.innerHTML = (reply.coming === 'yes'
+        ? '<p class="lx-script">See you there, ' + first + '!</p><p>' + (reply.seats > 1 ? 'We\'ve saved ' + reply.seats + ' seats for you. ' : '') + 'Your reply is on its way to ' + couple + '.</p>'
+        : '<p class="lx-script">You\'ll be missed, ' + first + '</p><p>Thank you for letting ' + couple + ' know.</p>')
+        + '<button class="lx-link" type="button">Change my reply</button>';
       form.hidden = true; thanks.hidden = false;
-      thanks.querySelector('.inv-link').addEventListener('click', function () { thanks.hidden = true; form.hidden = false; });
+      thanks.querySelector('.lx-link').addEventListener('click', function () { thanks.hidden = true; form.hidden = false; });
     });
   });
 }
 
-// ---------- Opening the envelope ----------
-function invOpen(opener, main, after) {
-  var env = opener.querySelector('.inv-env');
-  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var opened = false;
-  function open() {
-    if (opened) return; opened = true;
-    opener.classList.add('opening');
-    var t = still ? [0, 0, 0] : [600, 950, 1900];
-    setTimeout(function () { opener.classList.add('flap-down'); }, t[0]);
-    setTimeout(function () { opener.classList.add('letter-up'); }, t[1]);
-    setTimeout(function () {
-      main.hidden = false;
-      window.scrollTo(0, 0);
-      opener.classList.add('gone');
-      document.body.style.overflow = '';
-      after();
-      setTimeout(function () { opener.remove(); }, 800);
-    }, t[2]);
+function lxCountdown(el, start) {
+  function draw() {
+    var s = Math.max(0, Math.floor((start - Date.now()) / 1000));
+    var parts = [[Math.floor(s / 86400), 'Days'], [Math.floor(s / 3600) % 24, 'Hours'], [Math.floor(s / 60) % 60, 'Minutes'], [s % 60, 'Seconds']];
+    el.innerHTML = parts.map(function (p) { return '<div><b>' + (p[0] < 10 ? '0' : '') + p[0] + '</b><span>' + p[1] + '</span></div>'; }).join('<i>:</i>');
   }
-  document.body.style.overflow = 'hidden';
-  env.addEventListener('click', open);
+  draw(); setInterval(draw, 1000);
 }
 
-// Sections fade up as they scroll into view; the RSVP pill hides once the form is on screen.
-function invReveal(root, floatBtn) {
-  var cards = root.querySelectorAll('.inv-reveal');
-  if (!('IntersectionObserver' in window)) { cards.forEach(function (c) { c.classList.add('in'); }); return; }
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  cards.forEach(function (c) { io.observe(c); });
-  var rsvp = root.querySelector('#rsvp');
-  if (floatBtn && rsvp) {
-    floatBtn.hidden = false;
-    new IntersectionObserver(function (entries) {
-      floatBtn.classList.toggle('away', entries[0].isIntersecting);
-    }, { threshold: 0.05 }).observe(rsvp);
-    floatBtn.addEventListener('click', function () { rsvp.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+// ---------- Putting it together ----------
+function invDraw(inv, root) {
+  var cal = invCalendar(inv);
+  var views = { '': lxCollage(inv), details: lxDetails(inv, cal), story: lxStory(inv), rsvp: lxRsvp(inv) };
+  root.innerHTML = Object.keys(views).map(function (k) { return '<div data-view="' + k + '"' + (k ? ' hidden' : '') + '>' + views[k] + '</div>'; }).join('')
+    + '<p class="lx-mark">Invitation by <a href="index.html">Show and Tell Co</a></p>';
+
+  lxCountdown(root.querySelector('[data-countdown]'), cal.start);
+  lxRsvpWire(inv, root);
+
+  function show() {
+    var want = location.hash.replace('#', '');
+    if (!views.hasOwnProperty(want)) want = '';
+    root.querySelectorAll('[data-view]').forEach(function (v) { v.hidden = v.getAttribute('data-view') !== want; });
+    window.scrollTo(0, 0);
   }
+  window.addEventListener('hashchange', show);
+  root.addEventListener('click', function (e) {
+    var go = e.target.closest('[data-go]');
+    if (go) { e.preventDefault(); var to = go.getAttribute('data-go'); if (to) location.hash = to; else history.replaceState(null, '', location.pathname + location.search), show(); }
+    if (e.target.closest('[data-ics]')) {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([cal.ics], { type: 'text/calendar' }));
+      a.download = 'wedding.ics'; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+    }
+  });
+  return show;
+}
+
+// The doorbell, then the envelope. after() runs once the guest taps "Open invitation".
+function invOpen(inv, bellScreen, welcome, after) {
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var bell = bellScreen.querySelector('.lx-bell'), env = welcome.querySelector('.lx-env');
+  document.body.style.overflow = 'hidden';
+  bell.addEventListener('click', function () {
+    if (bell.classList.contains('pressed')) return;
+    bell.classList.add('pressed');
+    setTimeout(function () {
+      bellScreen.classList.add('gone');
+      setTimeout(function () { env.classList.add('open'); }, still ? 0 : 700);
+      setTimeout(function () { env.classList.add('out'); }, still ? 0 : 1600);
+      setTimeout(function () { welcome.classList.add('ready'); }, still ? 0 : 2500);
+    }, still ? 0 : 650);
+  }, { once: false });
+  welcome.querySelector('[data-open]').addEventListener('click', function () {
+    document.body.style.overflow = '';
+    welcome.classList.add('gone');
+    after();
+  });
 }
