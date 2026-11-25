@@ -1,8 +1,7 @@
 // Digital invitations: draws the "Luxe" wedding invitation from one set of details.
 // invitation.html passes the details in. Everything a host types goes through invEsc before it
 // reaches the page, so their words always show as plain text.
-// Screens: the doorbell → the envelope opening → the collage. The collage opens three pages:
-// #details, #story and #rsvp.
+// Screens: the doorbell → the envelope opening → one long invitation, section by section.
 
 var LX_ART = 'images/invitations/luxe/';
 
@@ -92,100 +91,93 @@ function lxMusicWire(inv, root) {
   document.addEventListener('visibilitychange', function () { if (document.hidden && audio) audio.pause(); });
 }
 
-// ---------- Screen 3: the collage ----------
-function lxCollage(inv) {
+// ---------- The one-page invitation ----------
+// Sections, top to bottom: the envelope and "join us", the details, the order of the day, our
+// story, where to stay, gifts, other details, RSVP, and the sign-off. Each one is dressed with
+// a piece of the art.
+
+// A piece of art used as a section heading, with words written on it.
+function lxHead(cls, art, words, extra) {
+  return '<div class="lx-head ' + cls + ' lx-reveal">' + (extra || '') + lxImg(art, 'lx-head-art') + '<span class="lx-on">' + words + '</span></div>';
+}
+
+function lxHero(inv) {
   var p = inv.photos || {};
   var start = invMoment(inv.date, inv.time, inv.tz);
   var dateLine = invFmt(start, inv.tz, { day: 'numeric', month: 'long', year: 'numeric' });
-  return '<div class="lx-stage">'
+  return '<section class="lx-hero">'
+    + '<div class="lx-stage">'
     + '<div class="lx-piece lx-p-env">' + lxImg('env-back') + lxImg('env-flap-up') + lxPhoto(inv, p.cover) + lxImg('env-pocket') + lxRecord(inv) + '</div>'
     + '<div class="lx-piece lx-p-lilies">' + lxImg('lilies') + '</div>'
-    + '<button class="lx-piece lx-p-oval" type="button" data-go="details" aria-label="The details">' + lxImg('card-oval')
+    + '<div class="lx-piece lx-p-oval">' + lxImg('card-oval')
     + '<span class="lx-on"><span class="lx-caps">Join us for<br>the wedding of</span><span class="lx-script">' + invEsc(inv.names[0]) + '<br>&amp; ' + invEsc(inv.names[1]) + '</span>'
-    + '<span class="lx-caps">' + dateLine + '<br>' + invEsc(inv.place) + '</span></span></button>'
+    + '<span class="lx-caps">' + dateLine + '<br>' + invEsc(inv.place) + '</span></span></div>'
     + lxFramed(inv, 'locket', p.locket, 'lx-piece lx-p-locket')
-    + '<button class="lx-piece lx-p-heart" type="button" data-go="details">' + lxImg('heart')
-    + '<span class="lx-on"><span class="lx-script">The Details</span><span class="lx-caps lx-click">Click here</span></span></button>'
     + '<div class="lx-piece lx-p-moss1">' + lxImg('moss-a') + '</div>'
-    + lxFramed(inv, 'photo-strip', p.strip, 'lx-piece lx-p-strip')
-    + '<div class="lx-piece lx-p-tray">' + lxImg('tray') + '</div>'
-    + '<button class="lx-piece lx-p-rsvp" type="button" data-go="rsvp">' + lxImg('envelope-closed')
-    + '<span class="lx-on"><span class="lx-script">Kindly<br>Rsvp</span><span class="lx-caps lx-click">Click here</span></span></button>'
-    + '<div class="lx-piece lx-p-lily">' + lxImg('lily') + '</div>'
-    + '<div class="lx-piece lx-p-seal">' + lxImg('seal') + '</div>'
-    + '<div class="lx-piece lx-p-moss2">' + lxImg('moss-b') + '</div>'
-    + lxFramed(inv, 'polaroid', p.polaroid ? [p.polaroid] : null, 'lx-piece lx-p-polaroid')
-    + '<button class="lx-piece lx-p-flower" type="button" data-go="story">' + lxImg('flower')
-    + '<span class="lx-on"><span class="lx-script">Our<br>Love Story</span><span class="lx-caps lx-click">Click here</span></span></button>'
     + '</div>'
-    + '<div class="lx-after">'
-    + '<p class="lx-caps" style="font-size:15px">The countdown is on!</p>'
-    + '<div class="lx-countdown" aria-live="off" data-countdown></div>'
-    + (inv.contact ? '<p class="lx-contact">For any questions, please contact us at:<br><a href="mailto:' + invEsc(inv.contact) + '">' + invEsc(inv.contact) + '</a></p>' : '')
-    + '<p class="lx-caps lx-love">With love</p>'
-    + '<p class="lx-script lx-sign">' + invEsc(inv.names.join(' & ')) + '</p>'
-    + '</div>';
-}
-
-// ---------- The inner pages ----------
-function lxBand(inv, title, photo) {
-  return '<div class="lx-band">' + lxPhoto(inv, photo) + '<div class="lx-band-card">' + lxImg('tray', 'lx-tray') + lxImg('envelope-closed', 'lx-card')
-    + '<span class="lx-on"><span class="lx-script">' + title + '</span></span></div></div>';
-}
-function lxSignoff(inv) {
-  return '<p class="lx-script lx-mono">' + invEsc(inv.monogram) + '</p>'
-    + (inv.contact ? '<p class="lx-contact">For any questions, please contact us at:<br><a href="mailto:' + invEsc(inv.contact) + '">' + invEsc(inv.contact) + '</a></p>' : '')
-    + '<p class="lx-caps lx-love">With love</p><p class="lx-script lx-sign">' + invEsc(inv.names.join(' & ')) + '</p>'
-    + '<button class="lx-back" type="button" data-go="">Go back</button>';
+    + '<div class="lx-sec lx-reveal"><p class="lx-caps">The countdown is on!</p><div class="lx-countdown" aria-live="off" data-countdown></div>'
+    + '<a class="lx-btn-line lx-jump" href="#rsvp">Kindly Rsvp</a></div>'
+    + '</section>';
 }
 
 function lxDetails(inv, cal) {
   var tz = inv.tz, start = cal.start;
   var mapsUrl = inv.venue.maps || ('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent([inv.venue.name, inv.venue.address].join(', ').replace(/\n/g, ', ')));
-  var html = lxBand(inv, 'The<br>Details', (inv.photos || {}).band);
-  html += '<section class="lx-sec"><h2>Date and Location</h2>'
+  return '<section id="details">'
+    + lxHead('lx-h-heart', 'heart', '<span class="lx-script">The Details</span>')
+    + '<div class="lx-sec lx-reveal"><h2>Date and Location</h2>'
     + '<p class="lx-caps">Date</p><p class="lx-txt">' + invFmt(start, tz, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + '</p>'
     + (inv.parts || []).map(function (pt) { return '<p class="lx-caps">' + invEsc(pt.label) + '</p><p class="lx-txt">' + invLines(pt.text) + '</p>'; }).join('')
-    + '<div><a class="lx-btn-line" href="' + invEsc(mapsUrl) + '" target="_blank" rel="noopener">Open in Maps</a></div>'
-    + '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">'
+    + '<div class="lx-btns"><a class="lx-btn-line" href="' + invEsc(mapsUrl) + '" target="_blank" rel="noopener">Open in Maps</a>'
     + '<a class="lx-btn-line" href="' + invEsc(cal.google) + '" target="_blank" rel="noopener">Google Calendar</a>'
-    + '<button class="lx-btn-line" type="button" data-ics>Apple / Outlook</button></div></section>';
-  if (inv.schedule && inv.schedule.length) {
-    html += '<section class="lx-sec"><h2>Our Timeline</h2><div class="lx-timeline">'
-      + '<svg class="wave" viewBox="0 0 28 400" preserveAspectRatio="none" aria-hidden="true"><path d="M14 0' + (function () { var d = ''; for (var i = 0; i < 8; i++) d += ' Q' + (i % 2 ? 2 : 26) + ' ' + (i * 50 + 25) + ' 14 ' + (i * 50 + 50); return d; })() + '" fill="none" stroke="#F3EDE4" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg><ol>'
-      + inv.schedule.map(function (s) { return '<li>' + (LX_ICONS[s.icon] ? lxImg(LX_ICONS[s.icon]) : '') + '<p class="lx-caps t">' + invEsc(s.time) + '</p><p class="w">' + invEsc(s.what) + '</p></li>'; }).join('')
-      + '</ol></div></section>';
-  }
-  if (inv.stay && inv.stay.length) {
-    html += '<section class="lx-sec"><h2>Where To Stay</h2>' + (inv.stayNote ? '<p class="lx-txt">' + invLines(inv.stayNote) + '</p>' : '')
-      + inv.stay.map(function (h) {
-        return '<p class="lx-caps">' + invEsc(h.name) + '</p><p class="lx-txt">' + invLines(h.text) + '</p>'
-          + (h.link ? '<a class="lx-btn-line" href="' + invEsc(h.link) + '" target="_blank" rel="noopener">Visit website</a>' : '');
-      }).join('') + '</section>';
-  }
-  if (inv.gifts) {
-    html += '<div class="lx-gift">' + lxImg('card-in-envelope')
-      + '<span class="lx-on"><span class="lx-script">Gifts</span><span class="lx-txt">' + invLines(inv.gifts.text) + '</span></span>'
-      + (inv.gifts.link ? '<a href="' + invEsc(inv.gifts.link) + '" target="_blank" rel="noopener"><span class="lx-script">' + invEsc(inv.gifts.label || 'Shop Our Registry') + '</span><span class="lx-caps">Click here</span></a>' : '')
-      + '</div>';
-  }
-  if (inv.other && inv.other.length) {
-    html += '<section class="lx-sec"><h2>Other Details</h2>' + inv.other.map(function (o) {
-      return '<p class="lx-caps">' + invEsc(o.label) + '</p><p class="lx-txt">' + invLines(o.text) + '</p>'
-        + (o.colours ? '<div class="lx-swatches">' + o.colours.map(function (c) { return /^#[0-9a-f]{3,8}$/i.test(c) ? '<span style="background:' + c + '"></span>' : ''; }).join('') + '</div>' : '');
-    }).join('') + '</section>';
-  }
-  return '<div class="lx-page">' + html + '<section class="lx-sec" style="padding-top:0">' + lxSignoff(inv) + '</section></div>';
+    + '<button class="lx-btn-line" type="button" data-ics>Apple / Outlook</button></div></div>'
+    + '</section>';
+}
+
+function lxTimeline(inv) {
+  if (!inv.schedule || !inv.schedule.length) return '';
+  var wave = ''; for (var i = 0; i < 8; i++) wave += ' Q' + (i % 2 ? 2 : 26) + ' ' + (i * 50 + 25) + ' 14 ' + (i * 50 + 50);
+  return '<section class="lx-sec lx-reveal" id="timeline"><h2>Our Timeline</h2><div class="lx-timeline">'
+    + '<svg class="wave" viewBox="0 0 28 400" preserveAspectRatio="none" aria-hidden="true"><path d="M14 0' + wave + '" fill="none" stroke="#F3EDE4" stroke-width="1.2" vector-effect="non-scaling-stroke"/></svg><ol>'
+    + inv.schedule.map(function (s) { return '<li>' + (LX_ICONS[s.icon] ? lxImg(LX_ICONS[s.icon]) : '') + '<p class="lx-caps t">' + invEsc(s.time) + '</p><p class="w">' + invEsc(s.what) + '</p></li>'; }).join('')
+    + '</ol></div></section>';
 }
 
 function lxStory(inv) {
-  var s = inv.story || {}, ph = (inv.photos || {}).story || [];
-  var pol = function (src) { return lxFramed(inv, 'polaroid', [src], 'lx-pol'); };
-  return '<div class="lx-page"><section class="lx-sec"><h2>' + invEsc(s.title || 'Our Love Story') + '</h2>'
-    + '<div class="lx-pair">' + pol(ph[0]) + pol(ph[1]) + '</div>'
-    + '<p class="lx-txt" style="margin-top:20px">' + invLines(s.text) + '</p>'
-    + '<p class="lx-caps lx-love">With love</p><p class="lx-script lx-sign">' + invEsc(inv.names.join(' & ')) + '</p>'
-    + '<button class="lx-back" type="button" data-go="">Go back</button></section></div>';
+  if (!inv.story) return '';
+  var p = inv.photos || {}, ph = p.story || [];
+  return '<section id="story">'
+    + lxHead('lx-h-flower', 'flower', '<span class="lx-script">' + invEsc(inv.story.title || 'Our Love Story').replace(' ', '<br>') + '</span>')
+    + '<div class="lx-sec lx-reveal">'
+    + '<div class="lx-pair">' + lxFramed(inv, 'polaroid', [ph[0]], 'lx-pol') + lxFramed(inv, 'photo-strip', p.strip, 'lx-strip') + lxFramed(inv, 'polaroid', [ph[1]], 'lx-pol')
+    + '<span class="lx-moss">' + lxImg('moss-b') + '</span></div>'
+    + '<p class="lx-txt">' + invLines(inv.story.text) + '</p></div>'
+    + '</section>';
+}
+
+function lxStay(inv) {
+  if (!inv.stay || !inv.stay.length) return '';
+  return '<section class="lx-sec lx-reveal" id="stay"><h2>Where To Stay</h2>' + (inv.stayNote ? '<p class="lx-txt">' + invLines(inv.stayNote) + '</p>' : '')
+    + inv.stay.map(function (h) {
+      return '<p class="lx-caps">' + invEsc(h.name) + '</p><p class="lx-txt">' + invLines(h.text) + '</p>'
+        + (h.link ? '<a class="lx-btn-line" href="' + invEsc(h.link) + '" target="_blank" rel="noopener">Visit website</a>' : '');
+    }).join('') + '</section>';
+}
+
+function lxGifts(inv) {
+  if (!inv.gifts) return '';
+  return '<section id="gifts"><div class="lx-gift lx-reveal">' + lxImg('card-in-envelope')
+    + '<span class="lx-on"><span class="lx-script">Gifts</span><span class="lx-txt">' + invLines(inv.gifts.text) + '</span></span>'
+    + (inv.gifts.link ? '<a href="' + invEsc(inv.gifts.link) + '" target="_blank" rel="noopener"><span class="lx-script">' + invEsc(inv.gifts.label || 'Shop Our Registry') + '</span><span class="lx-caps">Click here</span></a>' : '')
+    + '</div></section>';
+}
+
+function lxOther(inv) {
+  if (!inv.other || !inv.other.length) return '';
+  return '<section class="lx-sec lx-reveal" id="other"><h2>Other Details</h2>' + inv.other.map(function (o) {
+    return '<p class="lx-caps">' + invEsc(o.label) + '</p><p class="lx-txt">' + invLines(o.text) + '</p>'
+      + (o.colours ? '<div class="lx-swatches">' + o.colours.map(function (c) { return /^#[0-9a-f]{3,8}$/i.test(c) ? '<span style="background:' + c + '"></span>' : ''; }).join('') + '</div>' : '');
+  }).join('') + '</section>';
 }
 
 function lxRsvp(inv) {
@@ -194,9 +186,9 @@ function lxRsvp(inv) {
   var seats = Math.max(1, Math.min(10, +r.seats || 1)), seatOpts = '';
   for (var i = 1; i <= seats; i++) seatOpts += '<option value="' + i + '">' + i + (i === 1 ? ' (just me)' : '') + '</option>';
   var opt = function (name, value, label) { return '<label><input type="radio" name="' + name + '" value="' + invEsc(value) + '">' + invEsc(label) + '</label>'; };
-  return '<div class="lx-page"><section class="lx-sec">'
-    + lxFramed(inv, 'locket', (inv.photos || {}).locket, 'lx-locket-big')
-    + '<h2 style="margin-top:24px">Kindly Rsvp</h2>'
+  return '<section id="rsvp">'
+    + lxHead('lx-h-rsvp', 'envelope-closed', '<span class="lx-script">Kindly<br>Rsvp</span>', lxImg('tray', 'lx-head-tray')) .replace('</div>', lxImg('lily', 'lx-head-lily') + '</div>')
+    + '<div class="lx-sec lx-reveal">'
     + '<p class="lx-txt">We\'d love for you to be part of our celebration! Let us know below if you can make it.</p>'
     + (replyBy ? '<p class="lx-caps" style="margin-top:16px">Please reply by ' + replyBy + '</p>' : '')
     + '<form class="lx-form" novalidate>'
@@ -212,8 +204,17 @@ function lxRsvp(inv) {
     + '<div class="lx-field"><label for="lx-msg">A note for the couple (optional)</label><textarea id="lx-msg" name="message" maxlength="500"></textarea></div>'
     + '<p class="lx-error" role="alert"></p>'
     + '<button class="lx-send" type="submit">Rsvp</button></form>'
-    + '<div class="lx-thanks" hidden aria-live="polite"></div>'
-    + '<button class="lx-back" type="button" data-go="">Go back</button></section></div>';
+    + '<div class="lx-thanks" hidden aria-live="polite"></div></div>'
+    + '</section>';
+}
+
+function lxSignoff(inv) {
+  return '<section class="lx-sec lx-reveal lx-end">'
+    + '<div class="lx-end-seal">' + lxImg('seal') + '</div>'
+    + '<p class="lx-script lx-mono">' + invEsc(inv.monogram) + '</p>'
+    + (inv.contact ? '<p class="lx-contact">For any questions, please contact us at:<br><a href="mailto:' + invEsc(inv.contact) + '">' + invEsc(inv.contact) + '</a></p>' : '')
+    + '<p class="lx-caps lx-love">With love</p><p class="lx-script lx-sign">' + invEsc(inv.names.join(' & ')) + '</p>'
+    + '</section>';
 }
 
 // ---------- RSVP ----------
@@ -258,24 +259,16 @@ function lxCountdown(el, start) {
 // ---------- Putting it together ----------
 function invDraw(inv, root) {
   var cal = invCalendar(inv);
-  var views = { '': lxCollage(inv), details: lxDetails(inv, cal), story: lxStory(inv), rsvp: lxRsvp(inv) };
-  root.innerHTML = Object.keys(views).map(function (k) { return '<div data-view="' + k + '"' + (k ? ' hidden' : '') + '>' + views[k] + '</div>'; }).join('')
+  root.innerHTML = lxHero(inv) + lxDetails(inv, cal) + lxTimeline(inv) + lxStory(inv) + lxStay(inv) + lxGifts(inv) + lxOther(inv) + lxRsvp(inv) + lxSignoff(inv)
     + '<p class="lx-mark">Invitation by <a href="index.html">Show and Tell Co</a></p>';
 
   lxCountdown(root.querySelector('[data-countdown]'), cal.start);
   lxRsvpWire(inv, root);
   lxMusicWire(inv, root);
 
-  function show() {
-    var want = location.hash.replace('#', '');
-    if (!views.hasOwnProperty(want)) want = '';
-    root.querySelectorAll('[data-view]').forEach(function (v) { v.hidden = v.getAttribute('data-view') !== want; });
-    window.scrollTo(0, 0);
-  }
-  window.addEventListener('hashchange', show);
   root.addEventListener('click', function (e) {
-    var go = e.target.closest('[data-go]');
-    if (go) { e.preventDefault(); var to = go.getAttribute('data-go'); if (to) location.hash = to; else history.replaceState(null, '', location.pathname + location.search), show(); }
+    var jump = e.target.closest('.lx-jump');
+    if (jump) { e.preventDefault(); root.querySelector(jump.getAttribute('href')).scrollIntoView({ behavior: 'smooth' }); }
     if (e.target.closest('[data-ics]')) {
       var a = document.createElement('a');
       a.href = URL.createObjectURL(new Blob([cal.ics], { type: 'text/calendar' }));
@@ -283,7 +276,17 @@ function invDraw(inv, root) {
       setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
     }
   });
-  return show;
+
+  // Sections drift up gently as they scroll into view.
+  return function () {
+    window.scrollTo(0, 0);
+    var parts = root.querySelectorAll('.lx-reveal');
+    if (!('IntersectionObserver' in window)) { parts.forEach(function (el) { el.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.1 });
+    parts.forEach(function (el) { io.observe(el); });
+  };
 }
 
 // The doorbell, then the envelope. after() runs once the guest taps "Open invitation".
