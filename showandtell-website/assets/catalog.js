@@ -325,9 +325,12 @@ var COLLECTIONS = {
   },
   'digital-invitations': {
     title: 'Digital invitations',
-    intro: 'Invitations you send by link, for weddings and every kind of celebration. Guests open them on their phone and RSVP right on the invitation.',
+    intro: 'Invitations you send by link, for every kind of celebration. Guests open them on their phone and RSVP right on the invitation.',
     colour: '#FFE3F2',
     items: ['invite-luxe-wedding'],
+    filters: true,
+    occasions: ['Wedding', 'Engagement', 'Birthday'],  // the Occasion filter; add one here when it gets a design
+    searchHint: 'Try wedding or birthday',
     emptyTitle: 'Coming soon',
     emptyText: 'Our first invitations are on the way. In the meantime, here are some favourites.',
     fallback: ['card-11', 'p19', 'p05', 'classic']
@@ -405,7 +408,7 @@ function catalogItem(id) {
     var v = INVITATIONS.find(function (x) { return 'invite-' + x.id === id; });
     if (!v) return null;
     return { id: id, group: 'Cards', kind: 'Digital invitation', name: v.name, img: v.img, fit: 'contain',
-      href: 'digital-invitation.html?design=' + v.id, price: priceFor(v.priceKey), from: false, cat: 'Digital invitation' };
+      href: 'digital-invitation.html?design=' + v.id, price: priceFor(v.priceKey), from: false, cat: v.occasion, occasion: v.occasion };
   }
   if (id.indexOf('puzzle-') === 0) {
     var z = PUZZLES.find(function (x) { return 'puzzle-' + x.id === id; });
