@@ -30,12 +30,9 @@
 .dc-step[hidden] { display: none; }
 .dc-step-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 22px; }
 .dc-step-head .lockup { font-size: 34px; }
-.dc-sub { font-size: 17px; color: #3A3A38; }
 
 /* Step 1: choose */
-.dc-cats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-.dc-cats button { padding: 9px 16px; border: 1.5px solid #E6E6E3; border-radius: 999px; background: #FFFFFF; font: 500 14px 'Jost', Helvetica, Arial, sans-serif; color: #1F1F1F; cursor: pointer; }
-.dc-cats button[aria-pressed="true"] { border-color: #5D1AFA; background: #5D1AFA; color: #FFFFFF; }
+.dc-none { padding: 40px 20px; border-radius: 16px; background: #F4F0FF; text-align: center; font-size: 16px; color: #3B2E6B; }
 .dc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 26px 18px; }
 .dc-pick { display: flex; flex-direction: column; gap: 10px; padding: 0; border: 0; background: none; text-align: left; cursor: pointer; font: inherit; color: inherit; }
 .dc-pick-img { display: grid; place-items: center; aspect-ratio: 4 / 5; padding: 16px; background: #F4F4F2; border-radius: 14px; box-sizing: border-box; transition: background 0.2s; }
