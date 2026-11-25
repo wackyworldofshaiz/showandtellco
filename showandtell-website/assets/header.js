@@ -41,12 +41,14 @@ function imgAt(src, width) {
 }
 
 var NAV = [
-  { page: 'about', label: 'About us', href: 'about.html' },
   { page: 'stationery', label: 'Stationery', href: 'stationery.html', children: [
     { label: 'Stickers', href: 'stickers.html' },
     { label: 'Sketchbooks', href: 'sketchbooks.html' }
   ] },
-  { page: 'cards', label: 'Cards', href: 'cards.html' }, // no dropdown: the cards page has its own filters
+  { page: 'cards', label: 'Cards', href: 'cards.html', children: [
+    { label: 'Physical cards', href: 'cards.html' },
+    { label: 'Digital cards', href: 'digital-cards.html' }
+  ] },
   { page: 'totes', label: 'Tote bags', href: 'build-your-tote.html' },
   { page: 'designs', label: 'Accessories', href: 'patches.html', children: [
     // ?type= opens the designs page already filtered to that type.
@@ -66,7 +68,7 @@ var NAV = [
     { label: 'Bestsellers', href: 'holiday-gift-guide.html#bestsellers' }
   ] },
   { page: 'all-products', label: 'All products', href: 'all-products.html' }
-  // FAQ is in the footer, under Help.
+  // About us and FAQ are in the footer.
 ];
 
 (function () {

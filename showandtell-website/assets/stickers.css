@@ -1,0 +1,140 @@
+/* Sticker packs page (stickers.html). Uses the homepage's fonts, buttons, lockups and footer from home.css.
+   The page's interactive part (pack tabs, sticker grid, sticker details) is drawn by assets/stickers.js. */
+.sk p { margin:0; }
+.sk .lockup { font-size:34px; }
+.home .sk-btn-lime { background:#E4EE3F; color:#1A0B45; }
+.home .sk-btn-lime:hover { background:#FFFFFF; color:#1A0B45; }
+/* Order button while ordering is paused (see SHOP_OPEN in assets/header.js) */
+.sk-soon { display:flex; flex-direction:column; align-items:center; gap:10px; max-width:280px; text-align:center; }
+.home .sk-soon .btn[aria-disabled="true"] { background:#E6E6E3; color:#6B6B68; pointer-events:none; cursor:not-allowed; }
+.sk-soon p { margin:0; font-size:14px; line-height:1.5; color:#F6F1E7; opacity:.85; }
+.sk-wrap { max-width:1240px; margin:0 auto; padding:0 40px; box-sizing:border-box; }
+
+/* Hero */
+.sk-hero { position:relative; overflow:hidden; background:repeating-linear-gradient(90deg,#5D1AFA 0 46px,#6B30FF 46px 92px); color:#F6F1E7; }
+.sk-hero-inner { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); align-items:center; gap:40px; padding:72px 40px 64px; }
+.sk-kicker { font-size:64px; line-height:0.9; color:#E4EE3F; }
+.sk-title { margin:6px 0 0; font-size:clamp(48px,6vw,92px); line-height:0.92; color:#FFFFFF; }
+.sk-intro { max-width:500px; margin-top:22px !important; font-size:20px; line-height:1.5; }
+.sk-hero-ctas { display:flex; flex-wrap:wrap; align-items:center; gap:16px 20px; margin-top:30px; }
+.sk-hero-note { font-size:15px; color:#E9E2FF; }
+.sk-rail-wrap { position:relative; padding-top:26px; }
+.sk-rail { position:absolute; left:0; right:0; top:14px; height:12px; border-radius:6px; background:#F6F1E7; box-shadow:0 6px 0 rgba(26,11,69,0.25); }
+.sk-rail-bags { position:relative; display:flex; justify-content:center; gap:clamp(14px,2.2vw,30px); }
+.sk-sparks svg { position:absolute; fill:#E4EE3F; }
+.sk-sparks svg:nth-child(1) { left:44%; top:56px; width:26px; }
+.sk-sparks svg:nth-child(2) { right:4%; bottom:44px; width:20px; opacity:.8; }
+.sk-sparks svg:nth-child(3) { left:3%; bottom:60px; width:16px; opacity:.7; }
+
+/* The bag mockup: 14 x 20 cm bag, 13.7 x 4.8 cm topper, A6 card inside */
+.sk-bag { position:relative; flex:none; aspect-ratio:14/20; width:clamp(120px,14.5vw,205px); }
+.sk-bag-sm { width:min(100%,190px); }
+.sk-bag-body { position:absolute; left:0; right:0; top:3%; bottom:0; border-radius:4px; background:rgba(255,255,255,0.42); border:1.5px solid rgba(255,255,255,0.95); box-shadow:0 18px 30px rgba(26,11,69,0.25); }
+.sk-bag-card { position:absolute; left:12.5%; top:25%; width:75%; height:74%; object-fit:cover; box-shadow:0 6px 14px rgba(26,11,69,0.2); }
+.sk-bag-sheen { position:absolute; left:0; right:0; top:3%; bottom:0; border-radius:4px; pointer-events:none; background:linear-gradient(115deg,rgba(255,255,255,.34) 0 14%,rgba(255,255,255,0) 14% 62%,rgba(255,255,255,.18) 62% 67%,rgba(255,255,255,0) 67%); }
+.sk-bag-top { position:absolute; left:1%; right:1%; top:0; height:24%; overflow:hidden; border-radius:2px; box-shadow:0 6px 10px rgba(26,11,69,0.25); }
+.sk-bag-top img { width:102.2%; height:106.25%; margin:-1.1% 0 0 -1.1%; max-width:none; }
+.sk-slot { position:absolute; left:39%; top:2.75%; width:22%; fill:#4E14D8; }
+.sk-hook { position:absolute; left:calc(50% - 3px); top:-22px; width:6px; height:calc(22px + 6%); border-radius:3px; background:#CFC6F2; z-index:2; }
+.sk-bag-0 { transform:rotate(-2deg); transform-origin:50% 5%; }
+.sk-bag-1 { transform:rotate(1.2deg); transform-origin:50% 5%; }
+.sk-bag-2 { transform:rotate(-0.8deg); transform-origin:50% 5%; }
+
+/* Packs */
+.sk-packs { padding:96px 0 40px; }
+.sk-sec-head { display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px 40px; margin-bottom:36px; }
+.sk-sec-head p { max-width:460px; font-size:17px; line-height:1.55; color:#4A3F6B; }
+.sk-pack-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
+.sk-pack { display:flex; flex-direction:column; border-radius:14px; overflow:hidden; background:#F4F4F2; }
+.sk-pack-art { display:flex; justify-content:center; padding:52px 24px 34px; background:var(--pk-bg); }
+.sk-pack-art .sk-slot { fill:var(--pk-bg); }
+.sk-pack-art .sk-hook { background:rgba(26,11,69,0.35); }
+.sk-pack-info { display:flex; flex-direction:column; gap:10px; padding:24px 24px 28px; flex:1; }
+.sk-pack-name { display:flex; align-items:baseline; flex-wrap:wrap; column-gap:10px; margin:0; line-height:1; color:#1A0B45; }
+.sk-pack-name .script { font-size:44px; line-height:0.8; color:#5D1AFA; }
+.sk-pack-name .wide { font-size:26px; }
+.sk-pack-tag { font-size:16px; line-height:1.5; color:#3A3A38; }
+.sk-pack-meta { font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#6B6B68; }
+.sk-pack-price { font-size:18px; font-weight:500; color:#1A0B45; }
+.sk-pack-ctas { display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; margin-top:auto; padding-top:10px; }
+.sk-link { display:inline-flex; align-items:center; min-height:44px; font-size:14px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; }
+.home .sk-link { color:#1A0B45; }
+.home .sk-link:hover { color:#5D1AFA; }
+
+/* Inside a pack */
+.sk-inside { padding:64px 0 96px; }
+.sk-tabs { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 22px; padding:0; list-style:none; }
+.sk-tab { display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 18px; border-radius:999px; border:1.5px solid #1A0B45; background:#FFFFFF; color:#1A0B45; font-family:'Jost',Helvetica,Arial,sans-serif; font-size:14px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; cursor:pointer; }
+.sk-tab:hover { background:#EFE9FF; }
+.sk-tab.is-on { background:#1A0B45; color:#F6F1E7; }
+.sk-tab-dot { width:12px; height:12px; border-radius:50%; border:1.5px solid #1A0B45; }
+.sk-viewer { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:6px; align-items:stretch; }
+.sk-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:6px; margin:0; padding:0; list-style:none; }
+.sk-tile { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; width:100%; height:100%; min-height:170px; padding:16px 10px 12px; box-sizing:border-box; border:2px solid transparent; border-radius:14px; background:#F4F4F2; cursor:pointer; font-family:'Jost',Helvetica,Arial,sans-serif; text-align:center; }
+.sk-tile:hover { background:#EFE9FF; }
+.sk-tile.is-on { border-color:#5D1AFA; background:#EFE9FF; }
+.sk-tile img { width:100%; height:112px; object-fit:contain; filter:drop-shadow(0 5px 0 rgba(26,11,69,0.16)); transition:transform .15s; }
+.sk-tile:hover img { transform:rotate(-3deg) scale(1.04); }
+.sk-tile span { font-size:14px; font-weight:400; line-height:1.25; color:#1F1F1F; }
+.sk-detail { position:relative; display:flex; flex-direction:column; gap:16px; padding:36px 36px 34px; border-radius:14px; overflow:hidden; }
+.sk-detail-art { display:flex; align-items:center; justify-content:center; height:240px; }
+.sk-detail-art img { max-width:100%; max-height:100%; object-fit:contain; transform:rotate(-4deg); filter:drop-shadow(0 10px 0 rgba(26,11,69,0.22)); }
+.sk-detail-name { margin:0; font-size:30px; line-height:1; }
+.sk-detail-story { font-size:18px; line-height:1.5; }
+.sk-detail-in { display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; }
+.sk-pill { padding:6px 12px; border-radius:999px; background:rgba(255,255,255,0.85); color:#1A0B45; letter-spacing:0.06em; }
+.sk-detail-note { font-size:14px; opacity:.85; }
+
+/* What comes in the bag */
+.sk-box { background:#F6F1E7; padding:88px 0; }
+.sk-box-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; margin:40px 0 0; padding:0; list-style:none; }
+.sk-box-item { display:flex; flex-direction:column; gap:12px; }
+.sk-box-art { display:flex; align-items:center; justify-content:center; height:220px; border-radius:14px; background:#FFFFFF; overflow:hidden; }
+.sk-box-item:nth-child(odd) .sk-box-art { transform:rotate(-1.2deg); }
+.sk-box-item:nth-child(even) .sk-box-art { transform:rotate(1.2deg); }
+.sk-box-item h3 { margin:0; font-size:15px; line-height:1.2; color:#1A0B45; }
+.sk-box-item p { font-size:15px; line-height:1.5; color:#3A3A38; }
+.sk-fan { position:relative; width:200px; height:170px; }
+.sk-fan img { position:absolute; filter:drop-shadow(0 6px 0 rgba(26,11,69,0.16)); }
+
+/* Order strip + FAQ */
+.sk-order { background:#1A0B45; color:#F6F1E7; }
+.sk-order-inner { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:32px; padding:56px 40px; }
+.sk-order .lockup { color:#FFFFFF; }
+.sk-order .lockup .script { color:#E4EE3F; }
+.sk-order p { margin-top:12px !important; max-width:620px; font-size:17px; line-height:1.55; color:#E9E2FF; }
+.sk-faq { padding:80px 0 96px; }
+.sk-faq-list { max-width:820px; margin:32px 0 0; border-top:1px solid #E6E6E3; }
+.sk-faq details { border-bottom:1px solid #E6E6E3; }
+.sk-faq summary { display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:60px; cursor:pointer; list-style:none; font-size:18px; font-weight:500; color:#1A0B45; }
+.sk-faq summary::-webkit-details-marker { display:none; }
+.sk-faq summary::after { content:'+'; font-size:24px; font-weight:300; }
+.sk-faq details[open] summary::after { content:'−'; }
+.sk-faq details p { padding:0 0 22px; font-size:16px; line-height:1.6; color:#3A3A38; }
+
+@media (max-width:1000px) {
+  .sk-hero-inner { grid-template-columns:minmax(0,1fr); padding:56px 40px 64px; }
+  .sk-pack-grid { grid-template-columns:1fr; }
+  .sk-pack { display:grid; grid-template-columns:minmax(0,260px) minmax(0,1fr); }
+  .sk-viewer { grid-template-columns:1fr; }
+  .sk-box-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+@media (max-width:700px) {
+  .sk-wrap { padding:0 16px; }
+  .sk-hero-inner { padding:44px 16px 52px; }
+  .sk-kicker { font-size:46px; }
+  .sk-intro { font-size:17px; }
+  .sk-hero-ctas .btn { width:100%; }
+  .sk-rail-bags { gap:12px; }
+  .sk-bag-hero { width:calc((100vw - 32px - 24px) / 3); }
+  .sk-tile { min-height:150px; }
+  .sk-tile img { height:96px; }
+  .sk-pack { display:flex; }
+  .sk-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .sk-detail { padding:26px 20px; }
+  .sk-detail-art { height:200px; }
+  .sk-box-grid { grid-template-columns:1fr; }
+  .sk-order-inner { grid-template-columns:1fr; padding:44px 16px; }
+  .sk .lockup { font-size:24px; }
+  .sk-packs { padding-top:64px; }
+}

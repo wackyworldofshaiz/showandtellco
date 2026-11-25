@@ -13,7 +13,7 @@ var FOOTER_LINKS = [
     ['Story Kits', 'story-kit.html'],
     ['Stationery', 'stationery.html'],
     ['Cards', 'cards.html'],
-    ['Totes', 'build-your-tote.html'],
+    ['Tote bags', 'build-your-tote.html'],
     ['Games and puzzles', 'games.html'],
     ['Prints, patches and pins', 'patches.html'],
     ['Holiday Gift Guide', 'holiday-gift-guide.html'],

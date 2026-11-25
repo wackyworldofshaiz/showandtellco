@@ -263,6 +263,15 @@ var COLLECTIONS = {
     filters: true,
     items: ['card-55', 'card-54', 'card-56', 'tee', 'p28', 'p37', 'p34', 'p32', 'p30', 'p24', 'p33', 'p25']
   },
+  'digital-cards': {
+    title: 'Digital cards',
+    intro: 'Our pun cards, made to send by WhatsApp, text or email. Perfect for last-minute wishes and friends far away.',
+    colour: '#D9F7E8',
+    items: [],
+    emptyTitle: 'Coming soon',
+    emptyText: 'Our first digital cards are on the way. Follow us on Instagram to see them first. In the meantime, here are some of our printed cards.',
+    fallback: ['card-25', 'card-07', 'card-39', 'card-24']
+  },
   'stationery': {
     title: 'Stationery',
     intro: 'Stickers and sketchbooks with our favourite designs, for your desk, your bag and everything in between.',
