@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Gochi+Hand&family=Homemade+Apple&family=Nothing+You+Could+Do&family=Reenie+Beanie&display=swap">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/home.css">
+<link rel="stylesheet" href="assets/filters.css">
 <link rel="stylesheet" href="assets/digital-cards.css">
 </head>
 <body class="home">
@@ -51,10 +52,35 @@
     <section class="dc-step" id="step-1" aria-labelledby="step-1-title">
       <div class="dc-step-head">
         <h2 class="lockup" id="step-1-title"><span class="wide">Choose</span><span class="script">a card</span></h2>
-        <p class="dc-sub">Tap a card to start writing.</p>
       </div>
-      <div class="dc-cats" id="dc-cats" role="group" aria-label="Show cards for"></div>
-      <div class="dc-grid" id="dc-grid"></div>
+      <!-- The same left rail as the cards page (styles in assets/filters.css) -->
+      <div class="cl">
+        <aside class="cl-rail" aria-label="Search and filter cards">
+          <div class="cl-search">
+            <label for="dc-q" class="cl-sr">Search cards</label>
+            <input id="dc-q" type="search" placeholder="Search cards" autocomplete="off">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="#3B2E6B" stroke-width="2"></circle><path d="M16 16l5 5" stroke="#3B2E6B" stroke-width="2" stroke-linecap="round"></path></svg>
+          </div>
+          <button class="cl-toggle" id="dc-toggle" type="button" aria-expanded="false" aria-controls="dc-filters">Filters</button>
+          <div class="cl-panel" id="dc-filters" data-open="false">
+            <div class="cl-head">
+              <h2 style="margin: 0; font-size: 18px; font-weight: 800">Filters</h2>
+              <button class="cl-btn" id="dc-clear" type="button" hidden>Clear all</button>
+            </div>
+            <details class="cl-group" open>
+              <summary>Category<svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
+              <div class="cl-opts" id="dc-cats" role="group" aria-label="Category"></div>
+            </details>
+          </div>
+        </aside>
+        <div style="min-width: 0">
+          <div class="cl-top">
+            <p role="status" id="dc-shown" style="margin: 0; font-size: 15px; font-weight: 700; color: #3B2E6B"></p>
+            <div class="cl-chips" id="dc-chips"></div>
+          </div>
+          <div class="dc-grid" id="dc-grid"></div>
+        </div>
+      </div>
     </section>
 
     <!-- 2. Write -->
@@ -165,7 +191,7 @@
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var DRAFT_KEY = 'stc-digital-card-draft';
-  var state = { step: 1, cardNo: null, message: '', font: 'neat', ink: 'ink', cat: 'All' };
+  var state = { step: 1, cardNo: null, message: '', font: 'neat', ink: 'ink' };
 
   // Keep a draft in this browser so a refresh doesn't lose the message.
   try { Object.assign(state, JSON.parse(localStorage.getItem(DRAFT_KEY) || '{}'), { step: 1 }); } catch (e) {}
@@ -206,25 +232,56 @@
   });
 
   // ---------- 1. Choose ----------
-  var cats = ['All'];
+  // Search and the Category filter in the left rail, like the cards page.
+  var filter = { q: '', cats: [] };
+  var cats = [];
   CARDS.forEach(function (c) { if (cats.indexOf(c.cat) < 0) cats.push(c.cat); });
+  var TICK = '<span class="cl-box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#FDFDFD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>';
+  function matchesSearch(c) {
+    var q = filter.q.trim().toLowerCase();
+    return !q || (c.title + ' ' + c.cat).toLowerCase().indexOf(q) >= 0;
+  }
+  function shown() {
+    return CARDS.filter(function (c) { return matchesSearch(c) && (!filter.cats.length || filter.cats.indexOf(c.cat) >= 0); });
+  }
   function drawCats() {
-    $('dc-cats').innerHTML = cats.map(function (c) {
-      return '<button type="button" aria-pressed="' + (c === state.cat) + '" data-cat="' + dcEsc(c) + '">' + dcEsc(c) + '</button>';
+    $('dc-cats').innerHTML = cats.map(function (cat) {
+      var n = CARDS.filter(function (c) { return c.cat === cat && matchesSearch(c); }).length;
+      var on = filter.cats.indexOf(cat) >= 0;
+      return '<button class="cl-opt" type="button" role="checkbox" data-cat="' + dcEsc(cat) + '" aria-checked="' + on + '"' + (n || on ? '' : ' disabled') + '>'
+        + TICK + dcEsc(cat) + '<span class="cl-n">' + n + '</span></button>';
     }).join('');
+    $('dc-chips').innerHTML = filter.cats.map(function (cat) {
+      return '<button class="cl-chip" type="button" data-cat="' + dcEsc(cat) + '" aria-label="Remove filter: ' + dcEsc(cat) + '">' + dcEsc(cat) + ' <span aria-hidden="true">×</span></button>';
+    }).join('');
+    $('dc-clear').hidden = !filter.cats.length && !filter.q;
+    $('dc-toggle').textContent = filter.cats.length ? 'Filters (' + filter.cats.length + ')' : 'Filters';
   }
   function drawGrid() {
-    $('dc-grid').innerHTML = CARDS.filter(function (c) { return state.cat === 'All' || c.cat === state.cat; }).map(function (c) {
+    var list = shown();
+    $('dc-shown').textContent = list.length === 1 ? '1 card' : list.length + ' cards';
+    $('dc-grid').innerHTML = list.length ? list.map(function (c) {
       return '<button type="button" class="dc-pick" data-card="' + c.no + '" aria-pressed="' + (c.no === state.cardNo) + '">'
         + '<span class="dc-pick-img"><img src="' + dcEsc(imgAt(c.src, 400)) + '" alt="" loading="lazy"></span>'
         + '<span class="dc-pick-cat">' + dcEsc(c.cat) + '</span><span class="dc-pick-title">' + dcEsc(c.title) + '</span></button>';
-    }).join('');
+    }).join('') : '<p class="dc-none">No cards match. <button type="button" class="cl-btn" data-clear>Show all cards</button></p>';
   }
-  $('dc-cats').addEventListener('click', function (e) {
-    var b = e.target.closest('[data-cat]'); if (!b) return;
-    state.cat = b.getAttribute('data-cat'); drawCats(); drawGrid();
+  function toggleCat(cat) {
+    var i = filter.cats.indexOf(cat);
+    if (i >= 0) filter.cats.splice(i, 1); else filter.cats.push(cat);
+    drawCats(); drawGrid();
+  }
+  function clearAll() { filter.q = ''; filter.cats = []; $('dc-q').value = ''; drawCats(); drawGrid(); }
+  $('dc-cats').addEventListener('click', function (e) { var b = e.target.closest('[data-cat]'); if (b && !b.disabled) toggleCat(b.getAttribute('data-cat')); });
+  $('dc-chips').addEventListener('click', function (e) { var b = e.target.closest('[data-cat]'); if (b) toggleCat(b.getAttribute('data-cat')); });
+  $('dc-clear').addEventListener('click', clearAll);
+  $('dc-q').addEventListener('input', function () { filter.q = this.value; drawCats(); drawGrid(); });
+  $('dc-toggle').addEventListener('click', function () {
+    var open = $('dc-filters').getAttribute('data-open') !== 'true';
+    $('dc-filters').setAttribute('data-open', String(open)); this.setAttribute('aria-expanded', String(open));
   });
   $('dc-grid').addEventListener('click', function (e) {
+    if (e.target.closest('[data-clear]')) { clearAll(); return; }
     var b = e.target.closest('[data-card]'); if (!b) return;
     state.cardNo = b.getAttribute('data-card'); saveDraft(); drawGrid(); go(2);
   });
