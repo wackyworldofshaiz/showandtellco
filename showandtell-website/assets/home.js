@@ -27,6 +27,15 @@
     newArrivals: function () { return COLLECTIONS['new-arrivals'].items; }
   };
 
+  // Keeps the light homepage copy (images/home/) already in the page when it is the same picture,
+  // so the browser doesn't download a second, bigger copy. Otherwise loads a resized one.
+  function setImg(img, src, width) {
+    if (!img || !src) return;
+    var name = src.split('/').pop().replace(/\.\w+$/, '');
+    var now = (img.getAttribute('src') || '').split('/').pop().replace(/\.\w+$/, '');
+    if (name !== now) img.src = imgAt(src, width);
+  }
+
   function render() {
     var els = document.querySelectorAll('[data-list]');
     for (var i = 0; i < els.length; i++) {
@@ -36,7 +45,7 @@
     var card = document.querySelector('[data-pun-card]');
     if (pun && card) {
       card.href = pun.href;
-      card.querySelector('img').src = pun.img;
+      setImg(card.querySelector('img'), pun.img, 600);
       card.querySelector('[data-pun-name]').textContent = pun.name;
       card.querySelector('[data-pun-price]').textContent = pun.price == null ? '[PRICE]' : money(pun.price);
     }
@@ -60,7 +69,7 @@
       set(box, '[data-kit-price]', price == null ? '[PRICE]' : money(price));
       set(box, '[data-kit-left]', n ? 'Only ' + n + ' left' : 'Sold out');
       set(box, '[data-kit-link]', n ? 'Shop the kit' : 'See the kit');
-      [0, 1].forEach(function (i) { var g = k.gallery[i], img = box.querySelector('[data-kit-img="' + i + '"]'); if (g && img) { img.src = img.loading === 'lazy' ? imgAt(g.src, 800) : g.src; /* the hero photo keeps the original */ if (g.alt && img.alt) img.alt = g.alt; } });
+      [0, 1].forEach(function (i) { var g = k.gallery[i], img = box.querySelector('[data-kit-img="' + i + '"]'); if (g && img) { setImg(img, g.src, img.loading === 'lazy' ? 800 : 1000); if (g.alt && img.alt) img.alt = g.alt; } });
     });
   }
 
