@@ -93,6 +93,20 @@ button.lx-piece:focus-visible { outline: 2px solid var(--cream); outline-offset:
 .lx-photo .mono { align-items: start; padding-top: 6%; }
 .lx-p-env img { filter: drop-shadow(0 1.4cqw 2.4cqw rgba(0, 0, 0, 0.38)); }
 .lx-p-env .lx-photo + img { filter: none; }
+/* the record on the envelope */
+.lx-p-env .lx-record { left: 5%; top: 55%; width: 31%; aspect-ratio: 1; padding: 0; border: 0; background: none; cursor: pointer; }
+.lx-p-env .lx-record.idle { cursor: default; pointer-events: none; }
+.lx-record .disc { position: absolute; inset: 0; border-radius: 50%; filter: drop-shadow(0 1cqw 1.6cqw rgba(0, 0, 0, 0.45)); animation: lx-spin 2.4s linear infinite; animation-play-state: paused; }
+.lx-record .disc img { width: 100%; }
+.lx-record .label { position: absolute; left: 29.5%; top: 29.5%; width: 41%; height: 41%; border-radius: 50%; overflow: hidden; }
+.lx-record .label img { width: 100%; height: 100%; object-fit: cover; }
+.lx-record .hole { position: absolute; left: 47%; top: 47%; width: 6%; height: 6%; border-radius: 50%; background: #2A0A14; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6); }
+.lx-record.playing .disc { animation-play-state: running; }
+.lx-record.idle .disc { animation-duration: 14s; animation-play-state: running; }
+.lx-record .arc { position: absolute; left: -30%; top: -30%; width: 160%; height: 160%; overflow: visible; pointer-events: none; }
+.lx-record .arc text { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 7.4px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; fill: var(--ink); }
+.lx-record:not(.playing) .arc { animation: lx-breathe 2.6s ease-in-out infinite; }
+.lx-record:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; border-radius: 50%; }
 .lx-p-lilies { left: 64%; top: 4.8%; width: 24%; transform: rotate(8deg); }
 .lx-p-oval { left: 43%; top: 11.6%; width: 55%; }
 .lx-p-oval .lx-on { left: 18%; right: 18%; top: 20%; bottom: 22%; }
@@ -216,6 +230,7 @@ button.lx-piece:focus-visible { outline: 2px solid var(--cream); outline-offset:
 
 @keyframes lx-ring { 0% { box-shadow: 0 0 0 0 rgba(243, 237, 228, 0.55); } 70%, 100% { box-shadow: 0 0 0 5cqw rgba(243, 237, 228, 0); } }
 @keyframes lx-shake { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } 75% { transform: rotate(-1deg); } }
+@keyframes lx-spin { to { transform: rotate(360deg); } }
 @keyframes lx-breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 @keyframes lx-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 

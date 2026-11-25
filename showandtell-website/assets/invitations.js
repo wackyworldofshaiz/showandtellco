@@ -66,13 +66,39 @@ function lxFramed(inv, frame, photos, cls, extra) {
 }
 var LX_ICONS = { church: 'icon-church', rings: 'icon-rings', drinks: 'icon-champagne', dinner: 'icon-dinner', party: 'icon-disco', cake: 'icon-cake', car: 'icon-car' };
 
+// The record on the envelope. With a song (inv.music) it says "Tap to play" and spins while the
+// song plays. Without one it just turns slowly, as decoration.
+function lxRecord(inv) {
+  var label = (inv.photos || {}).record;
+  return '<button class="lx-record' + (inv.music ? '' : ' idle') + '" type="button" ' + (inv.music ? 'data-music aria-label="Play our song" aria-pressed="false"' : 'tabindex="-1" aria-hidden="true"') + '>'
+    + '<span class="disc">' + lxImg('vinyl') + (label ? '<span class="label"><img src="' + invEsc(label) + '" alt=""></span>' : '') + '<span class="hole"></span></span>'
+    + (inv.music ? '<svg class="arc" viewBox="0 0 100 100" aria-hidden="true"><defs><path id="lx-arc" d="M9 50 A41 41 0 0 0 91 50"/></defs>'
+      + '<text><textPath href="#lx-arc" startOffset="50%" text-anchor="middle">Tap to play</textPath></text></svg>' : '')
+    + '</button>';
+}
+function lxMusicWire(inv, root) {
+  var btn = root.querySelector('[data-music]'); if (!btn) return;
+  var audio = null, word = btn.querySelector('textPath');
+  function set(on) {
+    btn.classList.toggle('playing', on); btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.setAttribute('aria-label', on ? 'Pause our song' : 'Play our song');
+    if (word) word.textContent = on ? 'Tap to pause' : 'Tap to play';
+  }
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (!audio) { audio = new Audio(inv.music); audio.loop = true; audio.addEventListener('pause', function () { set(false); }); audio.addEventListener('play', function () { set(true); }); }
+    if (audio.paused) audio.play().catch(function () { set(false); }); else audio.pause();
+  });
+  document.addEventListener('visibilitychange', function () { if (document.hidden && audio) audio.pause(); });
+}
+
 // ---------- Screen 3: the collage ----------
 function lxCollage(inv) {
   var p = inv.photos || {};
   var start = invMoment(inv.date, inv.time, inv.tz);
   var dateLine = invFmt(start, inv.tz, { day: 'numeric', month: 'long', year: 'numeric' });
   return '<div class="lx-stage">'
-    + '<div class="lx-piece lx-p-env">' + lxImg('env-back') + lxImg('env-flap-up') + lxPhoto(inv, p.cover) + lxImg('env-pocket') + '</div>'
+    + '<div class="lx-piece lx-p-env">' + lxImg('env-back') + lxImg('env-flap-up') + lxPhoto(inv, p.cover) + lxImg('env-pocket') + lxRecord(inv) + '</div>'
     + '<div class="lx-piece lx-p-lilies">' + lxImg('lilies') + '</div>'
     + '<button class="lx-piece lx-p-oval" type="button" data-go="details" aria-label="The details">' + lxImg('card-oval')
     + '<span class="lx-on"><span class="lx-caps">Join us for<br>the wedding of</span><span class="lx-script">' + invEsc(inv.names[0]) + '<br>&amp; ' + invEsc(inv.names[1]) + '</span>'
@@ -238,6 +264,7 @@ function invDraw(inv, root) {
 
   lxCountdown(root.querySelector('[data-countdown]'), cal.start);
   lxRsvpWire(inv, root);
+  lxMusicWire(inv, root);
 
   function show() {
     var want = location.hash.replace('#', '');
