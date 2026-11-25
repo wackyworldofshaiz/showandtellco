@@ -48,7 +48,8 @@
 .lx-env-back { left: 0; top: 0; width: 100%; height: 100%; }
 .lx-env-flapup { left: 0; top: 0; width: 100%; height: 42.6%; transform-origin: 50% 100%; transform: rotateX(90deg); backface-visibility: hidden; }
 .lx-env-clip { left: 0; top: 0; width: 100%; height: 96.5%; overflow: hidden; }
-.lx-env-letter { position: absolute; left: 5%; top: 4%; width: 88%; height: 92%; -webkit-mask: url('../images/invitations/luxe/env-mask.png') center / 100% 100% no-repeat; mask: url('../images/invitations/luxe/env-mask.png') center / 100% 100% no-repeat; transform: translateY(46%); transition: transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1); }
+/* The photo takes the envelope's own outline, shrunk evenly about the middle of its shape. */
+.lx-env-letter { position: absolute; left: 0; top: 0; width: 100%; height: 100%; -webkit-mask: url('../images/invitations/luxe/env-mask.png') center / 100% 100% no-repeat; mask: url('../images/invitations/luxe/env-mask.png') center / 100% 100% no-repeat; transform-origin: 49.1% 47%; transform: translateY(46%) scale(0.9); transition: transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1); }
 .lx-env-letter .lx-photo { inset: 0; font-size: 16cqw; }
 .lx-env-letter .lx-holes { position: absolute; inset: 0; }
 .lx-holes + img { position: relative; }
@@ -59,7 +60,7 @@
 .lx-env.open .lx-env-seal { opacity: 0; transform: scale(1.3); }
 .lx-env.open .lx-env-flapdown { transform: rotateX(-90deg); }
 .lx-env.open .lx-env-flapup { transform: rotateX(0); transition: transform 0.45s ease-out 0.45s; }
-.lx-env.out .lx-env-letter { transform: translateY(0); }
+.lx-env.out .lx-env-letter { transform: translateY(0) scale(0.9); }
 .lx-env.out .lx-env-flapdown { opacity: 0; }
 .lx-env.out .lx-env-back { z-index: 0; }
 .lx-env-letter-wrap { z-index: 1; }
@@ -86,7 +87,7 @@
 /* the envelope with the photo, top left */
 .lx-p-env { left: 2%; top: 0.6%; width: 60%; aspect-ratio: 1333 / 1395; }
 .lx-p-env > * { position: absolute; left: 0; top: 0; width: 100%; }
-.lx-p-env .lx-photo { left: 5%; top: 4%; width: 88%; height: 70%; -webkit-mask: url('../images/invitations/luxe/env-mask.png') center top / 100% 132% no-repeat; mask: url('../images/invitations/luxe/env-mask.png') center top / 100% 132% no-repeat; font-size: 12cqw; }
+.lx-p-env .lx-photo { left: 0; top: 0; width: 100%; height: 100%; -webkit-mask: url('../images/invitations/luxe/env-mask.png') center / 100% 100% no-repeat; mask: url('../images/invitations/luxe/env-mask.png') center / 100% 100% no-repeat; transform-origin: 49.1% 47%; transform: scale(0.9); font-size: 12cqw; }
 .lx-p-env .lx-holes { position: absolute; inset: 0; }
 .lx-holes + img { position: relative; }
 .lx-photo .mono { align-items: start; padding-top: 6%; }
