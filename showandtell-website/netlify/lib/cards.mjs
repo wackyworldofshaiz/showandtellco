@@ -109,14 +109,25 @@ export function dueKey(card) { return 'due/' + card.sendAt + '__' + card.id; }
 // ---------- Email ----------
 function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
-export async function sendEmail({ to, subject, html, text, replyTo }) {
+// Who an email is from. With personName, it reads like a person sent it
+// ("Tolu via Show and Tell Co"), which helps Gmail put it in Primary rather than Promotions.
+function fromLine(personName) {
+  const from = env('CARDS_FROM', 'Show and Tell Co <onboarding@resend.dev>');
+  const name = String(personName || '').replace(/[<>"\r\n,;]/g, '').trim().slice(0, 60);
+  if (!name) return from;
+  const m = from.match(/<([^>]+)>/);
+  const address = m ? m[1] : from.trim();
+  return '"' + name + ' via Show and Tell Co" <' + address + '>';
+}
+
+export async function sendEmail({ to, subject, html, text, replyTo, fromName }) {
   const key = env('RESEND_API_KEY');
   if (!key) return { skipped: true, note: 'No email sent: RESEND_API_KEY is not set yet.' };
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { authorization: 'Bearer ' + key, 'content-type': 'application/json' },
     body: JSON.stringify({
-      from: env('CARDS_FROM', 'Show and Tell Co <onboarding@resend.dev>'),
+      from: fromLine(fromName),
       to: [to], subject, html, text, reply_to: replyTo || undefined
     })
   });
@@ -144,15 +155,19 @@ export function recipientEmail(card, site) {
   const link = site + '/open-card.html?id=' + encodeURIComponent(card.id);
   const img = site + '/' + card.cardSrc;
   const subject = card.fromName + ' sent you a card';
-  const html = shell(
-    '<tr><td align="center" style="padding:36px 32px 8px;font:700 13px/1 Helvetica,Arial,sans-serif;letter-spacing:0.14em;text-transform:uppercase;color:#5D1AFA;">You have post</td></tr>'
-    + '<tr><td align="center" style="padding:10px 32px 0;font:800 30px/1.1 Helvetica,Arial,sans-serif;color:#1A0B45;">' + esc(card.fromName) + ' sent you a card</td></tr>'
-    + '<tr><td align="center" style="padding:10px 32px 0;font:16px/1.5 Helvetica,Arial,sans-serif;color:#3A3A38;">Hi ' + esc(card.toName) + ', there is a card waiting for you, with a message written inside.</td></tr>'
-    + '<tr><td align="center" style="padding:26px 32px 0;"><a href="' + esc(link) + '"><img src="' + esc(img) + '" width="220" alt="' + esc(card.cardTitle || 'Your card') + '" style="display:block;width:220px;max-width:100%;height:auto;border-radius:6px;box-shadow:0 10px 24px rgba(26,11,69,0.18);"></a></td></tr>'
-    + '<tr><td align="center" style="padding:30px 32px 40px;">' + button(link, 'Open your card') + '</td></tr>',
-    'A card from ' + card.fromName + ' is waiting for you.'
-  );
-  const text = 'Hi ' + card.toName + ',\n\n' + card.fromName + ' sent you a card. Open it here:\n' + link + '\n\nShow and Tell Co';
+  // Kept plain and personal on purpose: a short note, one picture and one link. Heavy,
+  // branded layouts are what Gmail files under Promotions.
+  const p = 'margin:0 0 16px;font:16px/1.55 Helvetica,Arial,sans-serif;color:#1F1F1F;';
+  const html = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"></head>'
+    + '<body style="margin:0;padding:24px 16px;background:#FFFFFF;"><div style="max-width:520px;">'
+    + '<p style="' + p + '">Hi ' + esc(card.toName) + ',</p>'
+    + '<p style="' + p + '">' + esc(card.fromName) + ' sent you a card, with a message written inside.</p>'
+    + '<p style="' + p + '"><a href="' + esc(link) + '"><img src="' + esc(img) + '" width="160" alt="' + esc(card.cardTitle || 'Your card') + '" style="display:block;width:160px;max-width:100%;height:auto;border-radius:6px;border:0;"></a></p>'
+    + '<p style="' + p + '"><a href="' + esc(link) + '" style="color:#5D1AFA;font-weight:bold;">Open your card</a></p>'
+    + '<p style="margin:24px 0 0;font:13px/1.5 Helvetica,Arial,sans-serif;color:#6B6B68;">Sent with Show and Tell Co. Reply to this email to answer ' + esc(card.fromName) + '.</p>'
+    + '</div></body></html>';
+  const text = 'Hi ' + card.toName + ',\n\n' + card.fromName + ' sent you a card, with a message written inside. Open it here:\n' + link
+    + '\n\nSent with Show and Tell Co. Reply to this email to answer ' + card.fromName + '.';
   return { to: card.toEmail, subject, html, text };
 }
 
@@ -192,7 +207,7 @@ export function senderUpdateEmail(card, site, kind) {
 // Sends a card that is due: the recipient's email first, then a note to the sender.
 // Saves the result on the card and removes it from the queue.
 export async function deliver(s, card, site, { notifySender }) {
-  const r = await sendEmail({ ...recipientEmail(card, site), replyTo: card.fromEmail });
+  const r = await sendEmail({ ...recipientEmail(card, site), replyTo: card.fromEmail, fromName: card.fromName });
   if (r.error) {
     card.delivery = { ...(card.delivery || {}), error: r.error, tries: ((card.delivery && card.delivery.tries) || 0) + 1, lastTry: new Date().toISOString() };
     // Give up after 5 tries (about 50 minutes), so a bad address doesn't retry for ever.
