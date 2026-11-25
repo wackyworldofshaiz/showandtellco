@@ -149,7 +149,7 @@
 .lx-sec { padding: 56px 28px 0; }
 .lx-head + .lx-sec { padding-top: 34px; }
 .lx-sec h2 { font-family: 'Pinyon Script', cursive; font-size: 46px; line-height: 1.1; color: #FFFFFF; }
-.lx-sec .lx-caps { margin-top: 26px; font-size: 14px; }
+.lx-sec .lx-caps { margin-top: 28px; font-size: 17px; }
 .lx-sec h2 + .lx-caps { margin-top: 20px; }
 .lx-sec .lx-txt { margin: 8px auto 0; max-width: 430px; font-style: italic; font-size: 19px; line-height: 1.45; color: var(--cream); }
 .lx-sec .lx-btn-line { margin-top: 20px; }
