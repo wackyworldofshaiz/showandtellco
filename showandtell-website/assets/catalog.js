@@ -200,6 +200,30 @@ var PUZZLES = [
   }
 ];
 
+// Digital invitations. Each design has a live sample guests would see (live) and a product page:
+// digital-invitation.html?design=<id>. The gallery pictures are phone screenshots of the sample.
+var INVITATIONS = [
+  {
+    id: 'luxe-wedding',
+    name: 'Luxe Wedding',
+    occasion: 'Wedding',
+    priceKey: 'digitalInvitation',
+    live: 'invitation.html',
+    tagline: 'Guests ring a silver doorbell, watch the envelope open, and read your invitation while your song plays.',
+    desc: 'A wedding invitation you send by link. It opens with a silver doorbell and an envelope with your photo inside, then everything your guests need on one page: the date and a live countdown, the venue with directions, the order of the day, your story, where to stay, your gift list, the dress code and the RSVP form. Deep wine and ivory, with lace, calla lilies and a spinning record that plays your song.',
+    img: 'images/invitations/shop/luxe-wedding-tile.webp',
+    gallery: [
+      { src: 'images/invitations/shop/luxe-wedding-tile.webp', alt: 'Two phones showing the Luxe Wedding invitation: the doorbell, and the first page with the envelope, oval card and countdown' },
+      { src: 'images/invitations/shop/luxe-wedding-1-doorbell.webp', alt: 'A silver doorbell with a lace heart that says Click the Button' },
+      { src: 'images/invitations/shop/luxe-wedding-2-envelope.webp', alt: 'The envelope open, with the couple\'s names above it' },
+      { src: 'images/invitations/shop/luxe-wedding-3-invitation.webp', alt: 'The first page: the envelope with a record, the oval card and the countdown' },
+      { src: 'images/invitations/shop/luxe-wedding-4-details.webp', alt: 'The details: date, ceremony and reception, with Maps and calendar buttons' },
+      { src: 'images/invitations/shop/luxe-wedding-5-rsvp.webp', alt: 'The RSVP form on the invitation' }
+    ]
+  }
+];
+
+
 // ---------- Collections ----------
 // Each menu page shows the products listed here. Refer to products by id:
 // cards as 'card-01', designs as 'p24', blanks as 'classic', 'pocket' or 'tee',
@@ -299,6 +323,15 @@ var COLLECTIONS = {
     emptyText: 'Our first stickers are on the way. Follow us on Instagram to see them first. In the meantime, here are some favourites.',
     fallback: ['p19', 'p05', 'card-11', 'classic']
   },
+  'digital-invitations': {
+    title: 'Digital invitations',
+    intro: 'Invitations you send by link, for weddings and every kind of celebration. Guests open them on their phone and RSVP right on the invitation.',
+    colour: '#FFE3F2',
+    items: ['invite-luxe-wedding'],
+    emptyTitle: 'Coming soon',
+    emptyText: 'Our first invitations are on the way. In the meantime, here are some favourites.',
+    fallback: ['card-11', 'p19', 'p05', 'classic']
+  },
   'games': {
     title: 'Games',
     intro: 'Coffee-table puzzles and games for the table. Our first jigsaw sets are here, with more games on the way.',
@@ -367,6 +400,12 @@ function catalogItem(id) {
     if (!k) return null;
     return { id: id, group: 'Story kits', kind: kitLeft(k) ? 'Story kit · ' + kitLeft(k) + ' left' : 'Story kit · sold out', name: k.name, img: k.img, fit: 'contain',
       href: 'story-kit.html?kit=' + k.id, price: priceFor(k.priceKey), from: false, cat: 'Story kit' };
+  }
+  if (id.indexOf('invite-') === 0) {
+    var v = INVITATIONS.find(function (x) { return 'invite-' + x.id === id; });
+    if (!v) return null;
+    return { id: id, group: 'Cards', kind: 'Digital invitation', name: v.name, img: v.img, fit: 'contain',
+      href: 'digital-invitation.html?design=' + v.id, price: priceFor(v.priceKey), from: false, cat: 'Digital invitation' };
   }
   if (id.indexOf('puzzle-') === 0) {
     var z = PUZZLES.find(function (x) { return 'puzzle-' + x.id === id; });

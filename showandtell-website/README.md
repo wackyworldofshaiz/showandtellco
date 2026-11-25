@@ -27,6 +27,9 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | `popup.html` | Patch bar pop-up sign-up (linked from every footer, the FAQ and About). Edit `POPUP` near the bottom of the file for each event: city, date, time, venue, entry, `spots` (35) and `taken`. Raise `taken` as you confirm people; when it reaches `spots` the page switches to a waitlist. Sign-ups arrive in Netlify under **Forms › popup** (the `list` field says spot or waitlist). |
 | `corporate-gifting.html` | Corporate gifting: how it works, an enquiry form and FAQs. Linked from the footer. Enquiries arrive in Netlify under **Forms › corporate-gifting**, with any uploaded logo attached. |
 | `send-a-card.html` | Digital cards: choose a card, write inside it, send now or schedule. Testing only for now; see **Digital cards** below. |
+| `digital-invitations.html` | Digital invitations (Cards › Digital invitations in the menu): a collection page of invitation designs. See **Digital invitations** below. |
+| `digital-invitation.html` | One invitation design's product page, e.g. `digital-invitation.html?design=luxe-wedding`. |
+| `invitation.html` | The live sample invitation guests would receive (Luxe Wedding). Hidden from search engines. |
 | `open-card.html` | A digital card as the recipient sees it (the link in their email). |
 | `faq.html` | Frequently asked questions: tote care, cards, prints vs patches vs pins, group orders, ordering and delivery, patch bar. Answers in [square brackets] are placeholders to fill in. |
 
@@ -70,6 +73,15 @@ People pick a card, write inside it in a handwriting style and ink colour, and w
 **Trying it on your computer:** run `npm install` once, then `CARDS_TEST_CODE=letmein npx netlify dev` in this folder and open http://localhost:8888/send-a-card.html. To send scheduled cards that are due, run `npx netlify functions:invoke cards-send-due` in a second terminal; scheduled functions don't run on their own locally.
 
 **When payments go in:** `card-create.mjs` is the step that will wait for a confirmed Paystack (NGN) or Stripe (EUR) payment in place of the test code. Then remove the test code box in step 4 of `send-a-card.html` and add a price for digital cards to `assets/prices.js`.
+
+## Digital invitations
+
+Invitations sent by link, starting with **Luxe Wedding**.
+
+- **Shop pages:** `digital-invitations.html` lists the designs (COLLECTIONS `'digital-invitations'` in `assets/catalog.js`), and each one opens `digital-invitation.html?design=<id>`. The designs' names, text and pictures are in `INVITATIONS` in `assets/catalog.js`. Set the price as `digitalInvitation` in `assets/prices.js`. Ordering works like the other products: a WhatsApp message, or "Available soon" while `SHOP_OPEN` is false.
+- **The sample guests see:** `invitation.html`, drawn by `assets/invitations.js` and `assets/invitations.css` from the `SAMPLE` details in the page. The art is in `images/invitations/luxe/`, trimmed web copies of the purchased art. The originals stay in `images/invitations/new-art/` and are never committed. The sample song is a music-box Pachelbel's Canon made for it.
+- **Not built yet:** saving RSVPs, a host's private guest list, and hosts making their own invitation. For now, each invitation is set up by hand.
+- **Shop pictures:** `images/invitations/shop/` holds phone screenshots of the sample. Make new ones if the design changes.
 
 ## Share previews
 

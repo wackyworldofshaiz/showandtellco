@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital invitations · Show and Tell Co</title>
+<meta name="description" content="Wedding and event invitations from Show and Tell Co that you send by link, with RSVP, music and photos.">
+<link rel="canonical" href="https://showandtellco.shop/digital-invitation.html">
+<!-- Share previews (WhatsApp, Instagram, Facebook, X, iMessage). Images are in images/share/, 1200 x 630.
+     If the domain ever changes, change https://showandtellco.shop here on every page. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Show and Tell Co">
+<meta property="og:title" content="Digital invitations · Show and Tell Co">
+<meta property="og:description" content="Wedding and event invitations from Show and Tell Co that you send by link, with RSVP, music and photos.">
+<meta property="og:url" content="https://showandtellco.shop/digital-invitation.html">
+<meta property="og:image" content="https://showandtellco.shop/images/share/share-cards.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="images/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jost-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/home.css">
+<style>
+/* Digital invitation product page, laid out like the puzzle page (puzzle.html).
+   The design's text and pictures are INVITATIONS in assets/catalog.js; the price is digitalInvitation in assets/prices.js. */
+.iv-wrap { max-width: 1240px; margin: 0 auto; padding: 0 40px; box-sizing: border-box; }
+.iv-crumb { padding: 20px 0 0; font-size: 14px; color: #6B6B68; }
+.home .iv-crumb a { color: #6B6B68; }
+.iv-main { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 56px; padding: 24px 0 80px; align-items: start; }
+
+.iv-gallery { display: flex; flex-direction: column; gap: 12px; position: sticky; top: 16px; }
+.iv-photo { aspect-ratio: 1 / 1; background: #F4F0FF; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.iv-photo img { width: 100%; height: 100%; object-fit: contain; box-sizing: border-box; padding: 5%; }
+.iv-thumbs { display: flex; gap: 10px; flex-wrap: wrap; }
+.iv-thumb { flex: 0 1 84px; min-width: 0; aspect-ratio: 1; padding: 4px; border: 2px solid transparent; border-radius: 4px; background: #F4F0FF; cursor: pointer; overflow: hidden; box-sizing: border-box; }
+.iv-thumb img { width: 100%; height: 100%; object-fit: contain; }
+.iv-thumb[aria-pressed="true"] { border-color: #5D1AFA; }
+
+.iv-info { display: flex; flex-direction: column; gap: 18px; }
+.iv-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.iv-new { display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: 999px; background: #1A0B45; color: #F6F1E7; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.iv-title { margin: 0; font-size: clamp(40px, 4.4vw, 60px); line-height: 0.95; color: #1A0B45; }
+.iv-title .script { display: block; margin-top: -0.05em; font-size: 1.05em; line-height: 0.9; color: #5D1AFA; }
+.iv-tagline { margin: 0; font-size: 20px; line-height: 1.45; }
+.iv-price { font-size: 26px; font-weight: 500; color: #1A0B45; }
+.iv-facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.iv-facts li { display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px; border: 1.5px solid #CFC6F2; border-radius: 999px; font-size: 13px; font-weight: 500; color: #1A0B45; }
+.iv-btns { display: flex; flex-direction: column; gap: 10px; }
+.iv-btns .btn { width: 100%; box-sizing: border-box; }
+.home .iv-order { background: #1A0B45; color: #F6F1E7; }
+.home .iv-order:hover { background: #5D1AFA; color: #FFFFFF; }
+.home .iv-order[aria-disabled="true"] { background: #E6E6E3; color: #6B6B68; pointer-events: none; }
+.home .iv-live { border: 2px solid #1A0B45; background: transparent; color: #1A0B45; }
+.home .iv-live:hover { background: #1A0B45; color: #FFFFFF; }
+.iv-hint { margin: 0; font-size: 14px; color: #6B6B68; }
+
+.iv-acc { margin-top: 8px; border-top: 1px solid #E6E6E3; }
+.iv-acc details { border-bottom: 1px solid #E6E6E3; }
+.iv-acc summary { display: flex; align-items: center; justify-content: space-between; min-height: 56px; cursor: pointer; list-style: none; font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #1A0B45; }
+.iv-acc summary::-webkit-details-marker { display: none; }
+.iv-acc summary::after { content: '+'; font-size: 22px; font-weight: 300; letter-spacing: 0; }
+.iv-acc details[open] summary::after { content: '−'; }
+.iv-acc-body { padding: 0 0 22px; font-size: 16px; line-height: 1.6; }
+.iv-acc-body p { margin: 0 0 12px; }
+.iv-acc-body p:last-child { margin-bottom: 0; }
+.iv-acc-body ol { margin: 0; padding-left: 20px; }
+.iv-acc-body li { margin-bottom: 8px; }
+.iv-spec { display: grid; grid-template-columns: max-content 1fr; gap: 8px 24px; margin: 0; }
+.iv-spec dt { font-weight: 500; color: #1A0B45; }
+.iv-spec dd { margin: 0; }
+
+.iv-more { padding: 30px 0 96px; }
+.iv-more .lockup { margin-bottom: 28px; }
+.iv-more-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
+
+@media (max-width: 900px) {
+  .iv-wrap { padding: 0 16px; }
+  .iv-main { grid-template-columns: 1fr; gap: 28px; padding-bottom: 56px; }
+  .iv-gallery { position: static; }
+  .iv-thumbs { flex-wrap: nowrap; gap: 8px; }
+  .iv-thumb { flex: 1 1 0; }
+  .iv-tagline { font-size: 18px; }
+  .iv-more { padding: 10px 0 64px; }
+  .iv-more-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+</style>
+</head>
+<body class="home">
+<header><div id="site-header" data-page="cards"></div></header>
+<script src="assets/header.js"></script>
+
+<main id="invite">
+<noscript><p style="padding: 16px">Please turn on JavaScript to see this product.</p></noscript>
+</main>
+
+<footer class="home-footer" id="site-footer"></footer>
+<script src="assets/footer.js"></script>
+
+<script src="assets/prices.js"></script>
+<script src="assets/catalog.js"></script>
+<script src="assets/home.js"></script>
+<script>
+// ---------- Your settings ----------
+// The WhatsApp number is WHATSAPP_NUMBER in assets/header.js.
+// Products under "You might also like", after any other invitation designs.
+var ALSO_LIKE = ['card-11', 'puzzle-owambe-wahala', 'p19:patch'];
+// ---------- End of settings ----------
+
+(function () {
+  var root = document.getElementById('invite');
+  var want = null;
+  try { want = new URLSearchParams(location.search).get('design'); } catch (e) {}
+  var iv = INVITATIONS.find(function (x) { return x.id === want; }) || INVITATIONS[0];
+  var state = { photo: 0 };
+  document.title = iv.name + ': digital invitation · Show and Tell Co';
+
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function titleHtml(name) {
+    var words = name.split(' ');
+    if (words.length < 2) return esc(name);
+    var last = words.pop();
+    return esc(words.join(' ')) + '<span class="script">' + esc(last) + '</span>';
+  }
+  function isNew() { return badgesOf('invite-' + iv.id).indexOf('New') >= 0; }
+
+  function orderLink() {
+    var price = priceFor(iv.priceKey);
+    var lines = ["Hi Show and Tell! I'd like a digital invitation:",
+      '- Design: ' + iv.name,
+      '- Price: ' + (price == null ? '[PRICE]' : money(price)),
+      '- Event date: ',
+      '- Names on the invitation: '];
+    return 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n') + regionNote());
+  }
+
+  function tile(it) {
+    var badges = badgesOf(it.id);
+    var shape = it.group === 'Cards' ? 'is-card' : (it.group === 'Designs' ? 'is-design' : 'is-blank');
+    return '<li><a class="ptile" href="' + esc(it.href) + '">'
+      + '<span class="ptile-img ' + shape + (it.bg ? ' has-bg" style="background:' + esc(it.bg) : '') + '">'
+      + (badges.length ? '<span class="ptile-badge">' + esc(badges.join(' | ')) + '</span>' : '')
+      + '<img src="' + esc(imgAt(it.img, 600)) + '" alt="" loading="lazy"></span>'
+      + '<span class="ptile-info"><span class="ptile-text"><span class="ptile-kind">' + esc(it.kind) + '</span>'
+      + '<span class="ptile-name">' + esc(it.name) + '</span></span>'
+      + '<span class="ptile-price">' + esc(it.price == null ? '[PRICE]' : money(it.price)) + '</span></span>'
+      + '</a></li>';
+  }
+
+  function render() {
+    var wasOpen = Array.prototype.map.call(root.querySelectorAll('.iv-acc details'), function (d) { return d.open; });
+    var price = priceFor(iv.priceKey);
+    var photo = iv.gallery[state.photo] || iv.gallery[0];
+    var others = INVITATIONS.filter(function (x) { return x.id !== iv.id; }).map(function (x) { return 'invite-' + x.id; });
+    var more = catalogItems(others.concat(ALSO_LIKE)).slice(0, 4);
+
+    root.innerHTML =
+      '<div class="iv-wrap">'
+      + '<nav class="iv-crumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / <a href="digital-invitations.html">Digital invitations</a> / <span aria-current="page">' + esc(iv.name) + '</span></nav>'
+      + '<div class="iv-main">'
+      +   '<div class="iv-gallery">'
+      +     '<div class="iv-photo"><img src="' + esc(photo.src) + '" alt="' + esc(photo.alt) + '"></div>'
+      +     '<div class="iv-thumbs" role="group" aria-label="Pictures">'
+      +       iv.gallery.map(function (g, i) { return '<button type="button" class="iv-thumb" data-photo="' + i + '" aria-pressed="' + (i === state.photo) + '" aria-label="Picture ' + (i + 1) + ' of ' + iv.gallery.length + '"><img src="' + esc(g.src) + '" alt=""></button>'; }).join('')
+      +     '</div>'
+      +   '</div>'
+      +   '<div class="iv-info">'
+      +     '<div class="iv-tags"><span class="label">Digital invitation · ' + esc(iv.occasion) + '</span>' + (isNew() ? '<span class="iv-new">New</span>' : '') + '</div>'
+      +     '<h1 class="wide iv-title">' + titleHtml(iv.name) + '</h1>'
+      +     '<p class="iv-tagline">' + esc(iv.tagline) + '</p>'
+      +     '<span class="iv-price">' + esc(price == null ? '[PRICE]' : money(price)) + '</span>'
+      +     '<ul class="iv-facts"><li>Sent by link</li><li>RSVP</li><li>Your song</li><li>Your photos</li><li>Countdown</li><li>Maps and calendar</li></ul>'
+      +     '<div class="iv-btns">'
+      +       (SHOP_OPEN
+                ? '<a class="btn iv-order" href="' + esc(orderLink()) + '" target="_blank" rel="noopener">Order on WhatsApp</a>'
+                : '<a class="btn iv-order" aria-disabled="true">' + esc(SOON_LABEL) + '</a>')
+      +       '<a class="btn iv-live" href="' + esc(iv.live) + '" target="_blank" rel="noopener">See it live</a>'
+      +       '<p class="iv-hint">' + (SHOP_OPEN ? 'Your order opens in WhatsApp, already written. We reply to collect your details.' : esc(SOON_NOTE)) + ' See it live opens a sample invitation, the way your guests will get it.</p>'
+      +     '</div>'
+      +     '<div class="iv-acc">'
+      +       '<details open><summary>Description</summary><div class="iv-acc-body"><p>' + esc(iv.desc) + '</p></div></details>'
+      +       '<details><summary>What’s included</summary><div class="iv-acc-body"><dl class="iv-spec">'
+      +         '<dt>Opening</dt><dd>A silver doorbell, then an envelope that opens with your photo inside</dd>'
+      +         '<dt>Music</dt><dd>A record on the envelope that plays your song</dd>'
+      +         '<dt>Date</dt><dd>A live countdown, with Add to calendar for Google, Apple and Outlook</dd>'
+      +         '<dt>Venue</dt><dd>Ceremony and reception details, with Open in Maps</dd>'
+      +         '<dt>The day</dt><dd>A timeline with hand-drawn icons</dd>'
+      +         '<dt>Extras</dt><dd>Your story and photos, where to stay, gifts and registry, dress code colours</dd>'
+      +         '<dt>RSVP</dt><dd>Name, yes or no, number of guests, meal choice, allergies and a fun question</dd>'
+      +       '</dl></div></details>'
+      +       '<details><summary>How it works</summary><div class="iv-acc-body"><ol>'
+      +         '<li>Order and send us your names, date, venue, photos, story and song.</li>'
+      +         '<li>We set up your invitation and send you a preview to check.</li>'
+      +         '<li>You get one link to share by WhatsApp, text or email.</li>'
+      +         '<li>Guests open it on their phone and RSVP right on the invitation.</li>'
+      +       '</ol></div></details>'
+      +       '<details><summary>Music and photos</summary><div class="iv-acc-body"><p>Send us the photos you’d like to use and the song you’d like to play. Please only send music you have permission to use. If you’re not sure, we can suggest one.</p></div></details>'
+      +     '</div>'
+      +   '</div>'
+      + '</div></div>'
+
+      + (more.length ? '<section class="iv-more" aria-labelledby="more-h"><div class="iv-wrap">'
+      +   '<h2 id="more-h" class="lockup"><span class="script">You might</span><span class="wide">also like</span></h2>'
+      +   '<ul class="iv-more-grid">' + more.map(tile).join('') + '</ul>'
+      + '</div></section>' : '');
+    if (wasOpen.length) Array.prototype.forEach.call(root.querySelectorAll('.iv-acc details'), function (d, i) { d.open = !!wasOpen[i]; });
+  }
+
+  root.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-photo]');
+    if (b) { state.photo = +b.getAttribute('data-photo'); render(); var el = root.querySelector('[data-photo="' + state.photo + '"]'); if (el) el.focus(); }
+  });
+  window.addEventListener('regionchange', render);
+  render();
+})();
+</script>
+<script src="assets/menu.js"></script>
+</body>
+</html>
