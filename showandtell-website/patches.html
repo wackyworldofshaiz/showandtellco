@@ -29,9 +29,16 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 .acc summary{cursor:pointer;list-style:none}
 .acc summary::-webkit-details-marker{display:none}
 .acc[open] .chev{transform:rotate(180deg)}
+/* Design grid beside the left filter rail (the rail itself is in assets/filters.css). */
+.cl-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:40px 28px}
+@media (max-width:600px){
+  .cl-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 16px}
+  .cl-grid .disp{font-size:17px !important}
+}
 </style>
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/filters.css">
 <link rel="stylesheet" href="assets/footer.css">
 </head>
 <body>
@@ -55,20 +62,51 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3B2E6B; max-width: 640px">Our embroidered designs come as patches and our sticker-style designs as prints, and a few come as both. Add them to a tote or tee and we'll press them on, or buy patches and pins on their own.</p>
 </div>
 
-<div style="display: flex; flex-direction: column; align-items: center; gap: 12px">
-<div role="group" aria-label="Filter by category" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px">
-<sc-for list="{{ filters }}" as="f" hint-placeholder-count="7">
-<button class="chip" type="button" aria-pressed="{{ f.on }}" onClick="{{ f.pick }}" style="min-height: 44px; padding: 0 20px; border-radius: 999px; border: 2px solid #5D1AFA; background: {{ f.bg }}; color: {{ f.fg }}; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">{{ f.label }}</button>
+<div class="cl">
+<!-- Left rail: search, then filter groups -->
+<aside class="cl-rail" aria-label="Search and filter designs">
+<div class="cl-search">
+<label for="design-search" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">Search designs</label>
+<input id="design-search" type="search" value="{{ q }}" onChange="{{ onSearch }}" placeholder="Search designs" autocomplete="off">
+<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="#3B2E6B" stroke-width="2"></circle><path d="M16 16l5 5" stroke="#3B2E6B" stroke-width="2" stroke-linecap="round"></path></svg>
+</div>
+<button class="cl-toggle" type="button" aria-expanded="{{ railOpen }}" aria-controls="design-filters" onClick="{{ toggleRail }}">{{ toggleLabel }}</button>
+<div class="cl-panel" id="design-filters" data-open="{{ railOpen }}">
+<div class="cl-head">
+<h2 style="margin: 0; font-size: 18px; font-weight: 800">Filters</h2>
+<sc-if value="{{ anyFilter }}" hint-placeholder-val="{{ false }}"><button class="cl-btn" type="button" onClick="{{ clearAll }}">Clear all</button></sc-if>
+</div>
+<sc-for list="{{ groups }}" as="g" hint-placeholder-count="2">
+<details class="cl-group" open="{{ true }}">
+<summary>{{ g.label }}<svg class="chev" viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; transition: transform 0.2s"><path d="M6 9 L12 15 L18 9" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary>
+<div class="cl-opts" role="group" aria-label="{{ g.label }}">
+<sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="3">
+<button class="cl-opt" type="button" role="checkbox" aria-checked="{{ o.on }}" disabled="{{ o.off }}" onClick="{{ o.pick }}"><span class="cl-box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#FDFDFD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>{{ o.label }}<span class="cl-n">{{ o.n }}</span></button>
 </sc-for>
 </div>
-<div role="group" aria-label="Filter by type" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px">
-<sc-for list="{{ typeFilters }}" as="f" hint-placeholder-count="3">
-<button class="chip" type="button" aria-pressed="{{ f.on }}" onClick="{{ f.pick }}" style="min-height: 40px; padding: 0 18px; border-radius: 999px; border: 2px solid #1A0B45; background: {{ f.bg }}; color: {{ f.fg }}; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer">{{ f.label }}</button>
+</details>
 </sc-for>
 </div>
-</div>
+</aside>
 
-<ul aria-label="Designs"style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 40px 28px">
+<!-- Results -->
+<section aria-label="Designs" style="min-width: 0">
+<div class="cl-top">
+<p role="status" style="margin: 0; font-size: 15px; font-weight: 700; color: #3B2E6B">{{ countLabel }}</p>
+<div class="cl-chips">
+<sc-for list="{{ chips }}" as="ch" hint-placeholder-count="0">
+<button class="cl-chip" type="button" onClick="{{ ch.remove }}" aria-label="Remove filter: {{ ch.label }}">{{ ch.label }} <span aria-hidden="true">×</span></button>
+</sc-for>
+</div>
+</div>
+<sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 48px 24px; border-radius: 20px; background: #F4F0FF; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px">
+<p class="disp" style="margin: 0; font-size: 26px; font-weight: 800">No designs match</p>
+<p style="margin: 0; font-size: 16px; color: #3B2E6B">Try another word, or clear the filters to see every design.</p>
+<button class="chip" type="button" onClick="{{ clearAll }}" style="min-height: 44px; padding: 0 22px; border-radius: 999px; border: 2px solid #5D1AFA; background: #5D1AFA; color: #FDFDFD; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer">Show all designs</button>
+</div>
+</sc-if>
+<ul class="cl-grid" aria-label="Designs">
 <sc-for list="{{ patches }}" as="p" hint-placeholder-count="12">
 <li>
 <button class="thumb" type="button" aria-label="{{ p.name }}. Open details." onClick="{{ p.pick }}" style="width: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; display: flex; flex-direction: column; gap: 14px; text-align: left; font-family: inherit; color: #1A0B45">
@@ -82,6 +120,8 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </li>
 </sc-for>
 </ul>
+</section>
+</div>
 </div>
 </sc-if>
 
@@ -265,7 +305,17 @@ var TYPES = {
 
 // ---------- End of settings ----------
 
-var FILTERS = ['All', 'Food', 'Snacks & drinks', 'Rides', 'Places', 'Culture', 'Sayings'];
+// The left rail. Ticking more than one option in a group shows designs that match any of them.
+// A link like patches.html?type=print (or patch, or pin) or ?cat=Food opens the list with that filter on (?q= searches).
+var CATS = ['Food', 'Snacks & drinks', 'Rides', 'Places', 'Culture', 'Sayings'];
+function designGroups() {
+  return [
+    { key: 'type', label: 'Type', opts: [['print', 'Prints'], ['patch', 'Patches']].concat(hasPins() ? [['pin', 'Pins']] : []) },
+    { key: 'cat', label: 'Category', opts: CATS.map(function (c) { return [c, c]; }) }
+  ];
+}
+function designValues(d, key) { return key === 'type' ? typesOf(d) : [d.cat]; }
+function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’']/g, ''); }
 
 // The lowest price set across a design's types, shown as "from ...".
 function fromLabel(d) {
@@ -282,7 +332,6 @@ function startType(d, want) {
   return t.indexOf(want) >= 0 ? want : (t.indexOf('patch') >= 0 ? 'patch' : t[0]);
 }
 
-var TYPE_FILTERS = [['all', 'All types'], ['print', 'Prints'], ['patch', 'Patches'], ['pin', 'Pins']];
 var SPEC_TYPE = { print: 'Print: full-colour heat transfer (DTF), pressed on by us', patch: 'Embroidered patch, iron-on backing', pin: 'Enamel pin, locking back' };
 var MORE_LINE = {
   print: "Choose it as a print and we'll press it onto one of our totes or tees for you.",
@@ -295,13 +344,18 @@ class Component extends DCLogic {
     super(props);
     var self0 = this;
     window.addEventListener('regionchange', function () { self0.setState({}); });
-    this.state = { mode: 'list', patch: PATCHES[0].id, filter: 'All', typeFilter: 'all', type: 'patch', qty: 1 };
+    this.state = { mode: 'list', patch: PATCHES[0].id, picked: { type: [], cat: [] }, q: '', railOpen: false, type: 'patch', qty: 1 };
     // A link like patches.html?design=p24 opens that design; &type=print opens it as a print.
     // Without a design, patches.html?type=print (or patch, or pin) opens the list filtered to that type.
     var q = new URLSearchParams(location.search);
     var want = PATCHES.find(function (d) { return d.id === q.get('design'); });
     if (want) Object.assign(this.state, { mode: 'detail', patch: want.id, type: startType(want, q.get('type') || 'all') });
-    else if (['print', 'patch'].indexOf(q.get('type')) >= 0 || (q.get('type') === 'pin' && hasPins())) this.state.typeFilter = q.get('type');
+    else {
+      var g = designGroups();
+      if (g[0].opts.some(function (o) { return o[0] === q.get('type'); })) this.state.picked.type = [q.get('type')];
+      if (CATS.indexOf(q.get('cat')) >= 0) this.state.picked.cat = [q.get('cat')];
+      if (q.get('q')) this.state.q = q.get('q');
+    }
   }
 
   renderVals() {
@@ -309,7 +363,9 @@ class Component extends DCLogic {
     var st = this.state;
     var p0 = PATCHES.find(function (p) { return p.id === st.patch; }) || PATCHES[0];
     var types = typesOf(p0);
-    var type = types.indexOf(st.type) >= 0 ? st.type : startType(p0, st.typeFilter);
+    // With exactly one type ticked, tiles and new designs open as that type.
+    var typeFilter = st.picked.type.length === 1 ? st.picked.type[0] : 'all';
+    var type = types.indexOf(st.type) >= 0 ? st.type : startType(p0, typeFilter);
     var word = TYPES[type].label.toLowerCase();
     var unit = priceOf(p0, type);
     var total = unit == null ? null : unit * st.qty;
@@ -317,33 +373,66 @@ class Component extends DCLogic {
     function open(id) {
       return function () {
         var d = PATCHES.find(function (p) { return p.id === id; });
-        self.setState({ mode: 'detail', patch: id, type: startType(d, st.typeFilter), qty: 1 });
+        self.setState({ mode: 'detail', patch: id, type: startType(d, typeFilter), qty: 1 });
       };
     }
 
-    var filters = FILTERS.map(function (f) {
-      var on = f === st.filter;
-      return { label: f, on: on ? 'true' : 'false', bg: on ? '#5D1AFA' : '#FDFDFD', fg: on ? '#FDFDFD' : '#5D1AFA', pick: function () { self.setState({ filter: f }); } };
+    var GROUPS = designGroups();
+    var words = norm(st.q).split(/\s+/).filter(Boolean);
+    function matchesSearch(d) {
+      if (!words.length) return true;
+      var hay = norm([d.name, d.cat, d.desc, typesOf(d).join(' ')].join(' '));
+      return words.every(function (w) { return hay.indexOf(w) >= 0; });
+    }
+    function matchesGroup(d, key) {
+      var want = st.picked[key];
+      if (!want.length) return true;
+      var have = designValues(d, key);
+      return want.some(function (v) { return have.indexOf(v) >= 0; });
+    }
+    function matchesAllBut(d, skip) {
+      return matchesSearch(d) && GROUPS.every(function (g) { return g.key === skip || matchesGroup(d, g.key); });
+    }
+    function setPicked(key, list) {
+      var p = Object.assign({}, self.state.picked); p[key] = list;
+      self.setState({ picked: p });
+    }
+    var groups = GROUPS.map(function (g) {
+      return {
+        label: g.label,
+        opts: g.opts.map(function (o) {
+          var on = st.picked[g.key].indexOf(o[0]) >= 0;
+          var n = PATCHES.filter(function (d) { return matchesAllBut(d, g.key) && designValues(d, g.key).indexOf(o[0]) >= 0; }).length;
+          return {
+            label: o[1], n: n, on: on ? 'true' : 'false', off: !on && n === 0,
+            pick: function () {
+              var cur = self.state.picked[g.key];
+              setPicked(g.key, cur.indexOf(o[0]) >= 0 ? cur.filter(function (x) { return x !== o[0]; }) : cur.concat(o[0]));
+            }
+          };
+        })
+      };
     });
+    var chips = [];
+    GROUPS.forEach(function (g) {
+      st.picked[g.key].forEach(function (v) {
+        var o = g.opts.find(function (x) { return x[0] === v; });
+        chips.push({ label: o ? o[1] : v, remove: function () { setPicked(g.key, self.state.picked[g.key].filter(function (x) { return x !== v; })); } });
+      });
+    });
+    if (st.q.trim()) chips.push({ label: '“' + st.q.trim() + '”', remove: function () { self.setState({ q: '' }); } });
+    var nPicked = st.picked.type.length + st.picked.cat.length;
 
-    // The Pins chip only shows once at least one design has a pin image.
-    var typeFilters = TYPE_FILTERS.filter(function (f) { return f[0] !== 'pin' || hasPins(); }).map(function (f) {
-      var on = f[0] === st.typeFilter;
-      return { label: f[1], on: on ? 'true' : 'false', bg: on ? '#1A0B45' : '#FDFDFD', fg: on ? '#FDFDFD' : '#1A0B45', pick: function () { self.setState({ typeFilter: f[0] }); } };
-    });
-
-    var visible = PATCHES.filter(function (p) {
-      return (st.filter === 'All' || p.cat === st.filter) && (st.typeFilter === 'all' || typesOf(p).indexOf(st.typeFilter) >= 0);
-    });
+    var visible = PATCHES.filter(function (d) { return matchesAllBut(d, null); });
     var patches = visible.map(function (p) {
-      return { name: p.name, cat: p.cat, src: imgOf(p, st.typeFilter), thumb: imgAt(imgOf(p, st.typeFilter), 600), price: fromLabel(p), pick: open(p.id) };
+      return { name: p.name, cat: p.cat, src: imgOf(p, typeFilter), thumb: imgAt(imgOf(p, typeFilter), 600), price: fromLabel(p), pick: open(p.id) };
     });
     var pool = visible.length ? visible : PATCHES;
     var idx = pool.findIndex(function (p) { return p.id === st.patch; });
     function go(step) {
       var i = idx < 0 ? 0 : (idx + step + pool.length) % pool.length;
       var d = pool[i];
-      self.setState({ patch: d.id, type: typesOf(d).indexOf(type) >= 0 ? type : startType(d, st.typeFilter), qty: 1 });
+      self.setState({ patch: d.id, type: typesOf(d).indexOf(type) >= 0 ? type : startType(d, typeFilter), qty: 1 });
     }
 
     var related = PATCHES.filter(function (p) { return p.cat === p0.cat && p.id !== p0.id; }).slice(0, 4).map(function (p) {
@@ -374,7 +463,16 @@ class Component extends DCLogic {
 
     return {
       isList: st.mode === 'list', isDetail: st.mode === 'detail',
-      filters: filters, typeFilters: typeFilters, patches: patches, related: related, typeOpts: typeOpts, qtys: qtys,
+      groups: groups, chips: chips, q: st.q,
+      anyFilter: nPicked > 0 || !!st.q.trim(),
+      noResults: visible.length === 0,
+      countLabel: visible.length === 1 ? '1 design' : visible.length + ' designs',
+      railOpen: st.railOpen ? 'true' : 'false',
+      toggleLabel: (st.railOpen ? 'Hide filters' : 'Filters') + (nPicked ? ' (' + nPicked + ')' : ''),
+      toggleRail: function () { self.setState({ railOpen: !self.state.railOpen }); },
+      onSearch: function (e) { self.setState({ q: e.target.value }); },
+      clearAll: function () { self.setState({ picked: { type: [], cat: [] }, q: '' }); },
+      patches: patches, related: related, typeOpts: typeOpts, qtys: qtys,
       patch: p0,
       mainImg: imgOf(p0, type), typeWord: word, typeLabel: TYPES[type].label,
       isPrint: type === 'print', isPatch: type === 'patch', isPin: type === 'pin',
@@ -388,7 +486,7 @@ class Component extends DCLogic {
       shopOpen: SHOP_OPEN, shopClosed: !SHOP_OPEN, soonLabel: SOON_LABEL, soonNote: SOON_NOTE,
       waLink: 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(orderMsg),
       toList: function () { self.setState({ mode: 'list' }); },
-      toCat: function () { self.setState({ mode: 'list', filter: p0.cat }); },
+      toCat: function () { self.setState({ mode: 'list', picked: { type: [], cat: [p0.cat] }, q: '' }); },
       prev: function () { go(-1); },
       next: function () { go(1); }
     };
