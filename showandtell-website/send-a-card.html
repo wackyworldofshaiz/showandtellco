@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Send a digital card · Show and Tell Co</title>
+<meta name="description" content="Pick a Show and Tell card, write inside it in a handwriting style you like, and we'll email it now or on the day you choose.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://showandtellco.shop/send-a-card.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Show and Tell Co">
+<meta property="og:title" content="Send a digital card · Show and Tell Co">
+<meta property="og:description" content="Pick a card, write inside it in a handwriting style you like, and we'll email it now or on the day you choose.">
+<meta property="og:url" content="https://showandtellco.shop/send-a-card.html">
+<meta property="og:image" content="https://showandtellco.shop/images/share/share-cards.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="images/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jost-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<!-- Handwriting fonts for the message (Pinyon Script is already in fonts.css). The list is DC_FONTS in assets/digital-cards.js. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Gochi+Hand&family=Homemade+Apple&family=Nothing+You+Could+Do&family=Reenie+Beanie&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/home.css">
+<link rel="stylesheet" href="assets/digital-cards.css">
+</head>
+<body class="home">
+<header><div id="site-header" data-page="cards"></div></header>
+<script src="assets/header.js"></script>
+
+<main class="dc">
+  <section class="dc-hero">
+    <div class="dc-hero-inner">
+      <h1 class="wide"><span class="script">Send a</span>Digital card</h1>
+      <p class="dc-hero-intro">Pick a card, write inside it in a handwriting style you like, and we'll email it to them now or on the day you choose.</p>
+    </div>
+  </section>
+
+  <div class="dc-wrap">
+    <ol class="dc-steps" id="dc-steps" aria-label="Steps">
+      <li><button type="button" data-go="1"><span class="n">1</span><span class="dc-step-label">Choose a card</span></button></li>
+      <li><button type="button" data-go="2"><span class="n">2</span><span class="dc-step-label">Write it</span></button></li>
+      <li><button type="button" data-go="3"><span class="n">3</span><span class="dc-step-label">Who and when</span></button></li>
+      <li><button type="button" data-go="4"><span class="n">4</span><span class="dc-step-label">Check and send</span></button></li>
+    </ol>
+
+    <!-- 1. Choose -->
+    <section class="dc-step" id="step-1" aria-labelledby="step-1-title">
+      <div class="dc-step-head">
+        <h2 class="lockup" id="step-1-title"><span class="wide">Choose</span><span class="script">a card</span></h2>
+        <p class="dc-sub">Tap a card to start writing.</p>
+      </div>
+      <div class="dc-cats" id="dc-cats" role="group" aria-label="Show cards for"></div>
+      <div class="dc-grid" id="dc-grid"></div>
+    </section>
+
+    <!-- 2. Write -->
+    <section class="dc-step" id="step-2" aria-labelledby="step-2-title" hidden>
+      <div class="dc-two">
+        <div class="dc-preview" data-preview>
+          <div class="dc-preview-pages"></div>
+          <p class="dc-preview-note"><span data-card-title></span> · <button type="button" class="dc-change" data-go="1">Change card</button></p>
+        </div>
+        <div>
+          <div class="dc-step-head">
+            <h2 class="lockup" id="step-2-title"><span class="wide">Write</span><span class="script">inside</span></h2>
+          </div>
+          <div class="dc-field">
+            <label for="dc-message">Your message</label>
+            <textarea id="dc-message" class="dc-textarea" maxlength="600" placeholder="Dear Ada,&#10;&#10;Happy birthday! Another year, another excuse for cake.&#10;&#10;Love,&#10;Tolu"></textarea>
+            <span class="dc-count" id="dc-count" aria-live="polite"></span>
+          </div>
+          <fieldset class="dc-fieldset">
+            <legend class="dc-legend">Handwriting</legend>
+            <div class="dc-fonts" id="dc-fonts"></div>
+          </fieldset>
+          <fieldset class="dc-fieldset">
+            <legend class="dc-legend">Ink</legend>
+            <div class="dc-inks" id="dc-inks"></div>
+          </fieldset>
+          <p class="dc-error" id="err-2" role="alert" hidden></p>
+          <div class="dc-actions">
+            <button type="button" class="btn btn-violet" id="to-3">Next: who it's for</button>
+            <button type="button" class="dc-back" data-go="1">Back</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Who and when -->
+    <section class="dc-step" id="step-3" aria-labelledby="step-3-title" hidden>
+      <div class="dc-step-head">
+        <h2 class="lockup" id="step-3-title"><span class="wide">Who</span><span class="script">and when</span></h2>
+      </div>
+      <div style="max-width: 760px">
+        <p class="dc-group-title wide">Send it to</p>
+        <div class="dc-row">
+          <div class="dc-field"><label for="to-name">Their name</label><input id="to-name" class="dc-input" maxlength="60" autocomplete="off"></div>
+          <div class="dc-field"><label for="to-email">Their email</label><input id="to-email" class="dc-input" type="email" maxlength="200" autocomplete="off"></div>
+        </div>
+        <p class="dc-group-title wide">From</p>
+        <div class="dc-row">
+          <div class="dc-field"><label for="from-name">Your name</label><input id="from-name" class="dc-input" maxlength="60" autocomplete="name"><span class="dc-hint">How they'll see it: "Tolu sent you a card".</span></div>
+          <div class="dc-field"><label for="from-email">Your email</label><input id="from-email" class="dc-input" type="email" maxlength="200" autocomplete="email"><span class="dc-hint">For your receipt and your link to the card.</span></div>
+        </div>
+        <p class="dc-group-title wide">When should it arrive?</p>
+        <div class="dc-when" role="radiogroup" aria-label="When to send">
+          <label><input type="radio" name="when" value="now" checked><span><b>Send it now</b><span>It arrives in a minute or two.</span></span></label>
+          <label><input type="radio" name="when" value="later"><span><b>Pick a day and time</b><span>Up to a year ahead. Great for birthdays.</span></span></label>
+        </div>
+        <div class="dc-later" id="dc-later" hidden>
+          <div class="dc-field"><label for="send-date">Date</label><input id="send-date" class="dc-input" type="date"></div>
+          <div class="dc-field"><label for="send-time">Time</label><input id="send-time" class="dc-input" type="time" value="09:00" step="600"></div>
+          <div class="dc-field"><label for="send-tz">In their time zone</label><select id="send-tz" class="dc-select"></select></div>
+        </div>
+        <p class="dc-arrives" id="dc-arrives" aria-live="polite"></p>
+        <p class="dc-error" id="err-3" role="alert" hidden></p>
+        <div class="dc-actions">
+          <button type="button" class="btn btn-violet" id="to-4">Next: check and send</button>
+          <button type="button" class="dc-back" data-go="2">Back</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Check and send -->
+    <section class="dc-step" id="step-4" aria-labelledby="step-4-title" hidden>
+      <div class="dc-two" id="dc-review">
+        <div class="dc-preview" data-preview>
+          <div class="dc-preview-pages"></div>
+          <p class="dc-preview-note">This is what they'll see when they open it.</p>
+        </div>
+        <div>
+          <div class="dc-step-head">
+            <h2 class="lockup" id="step-4-title"><span class="wide">Check</span><span class="script">and send</span></h2>
+          </div>
+          <dl class="dc-summary" id="dc-summary"></dl>
+          <div class="dc-testcode">
+            <div class="dc-field">
+              <label for="test-code">Test code</label>
+              <input id="test-code" class="dc-input" autocomplete="off">
+              <span class="dc-hint">Payments aren't on yet. The test code sends a card without paying.</span>
+            </div>
+          </div>
+          <p class="dc-error" id="err-4" role="alert" hidden></p>
+          <div class="dc-actions">
+            <button type="button" class="btn btn-violet" id="dc-send">Send card</button>
+            <button type="button" class="dc-back" data-go="3">Back</button>
+          </div>
+        </div>
+      </div>
+      <div class="dc-done" id="dc-done" hidden></div>
+    </section>
+  </div>
+</main>
+
+<footer class="home-footer" id="site-footer"></footer>
+<script src="assets/footer.js"></script>
+<script src="assets/prices.js"></script>
+<script src="assets/catalog.js"></script>
+<script src="assets/digital-cards.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var DRAFT_KEY = 'stc-digital-card-draft';
+  var state = { step: 1, cardNo: null, message: '', font: 'neat', ink: 'ink', cat: 'All' };
+
+  // Keep a draft in this browser so a refresh doesn't lose the message.
+  try { Object.assign(state, JSON.parse(localStorage.getItem(DRAFT_KEY) || '{}'), { step: 1 }); } catch (e) {}
+  function saveDraft() {
+    try {
+      localStorage.setItem(DRAFT_KEY, JSON.stringify({ cardNo: state.cardNo, message: state.message, font: state.font, ink: state.ink,
+        toName: $('to-name').value, toEmail: $('to-email').value, fromName: $('from-name').value, fromEmail: $('from-email').value }));
+    } catch (e) {}
+  }
+  var linkCard = new URLSearchParams(location.search).get('card');
+  if (linkCard && dcCard(linkCard)) state.cardNo = linkCard;
+
+  // ---------- Steps ----------
+  function showError(n, msg) { var el = $('err-' + n); if (!el) return; el.textContent = msg || ''; el.hidden = !msg; }
+  function canReach(n) {
+    if (n >= 2 && !state.cardNo) return false;
+    if (n >= 3 && !state.message.trim()) return false;
+    if (n >= 4 && checkWho()) return false;
+    return true;
+  }
+  function go(n, scroll) {
+    if (!canReach(n)) return;
+    state.step = n;
+    for (var i = 1; i <= 4; i++) $('step-' + i).hidden = i !== n;
+    document.querySelectorAll('#dc-steps button').forEach(function (b) {
+      var s = +b.getAttribute('data-go');
+      if (s === n) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+      b.classList.toggle('done', s < n);
+      b.disabled = s !== n && !canReach(s);
+    });
+    if (n === 2 || n === 4) drawPreviews();
+    if (n === 4) drawSummary();
+    if (scroll !== false) $('dc-steps').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-go]');
+    if (b && !b.disabled) go(+b.getAttribute('data-go'));
+  });
+
+  // ---------- 1. Choose ----------
+  var cats = ['All'];
+  CARDS.forEach(function (c) { if (cats.indexOf(c.cat) < 0) cats.push(c.cat); });
+  function drawCats() {
+    $('dc-cats').innerHTML = cats.map(function (c) {
+      return '<button type="button" aria-pressed="' + (c === state.cat) + '" data-cat="' + dcEsc(c) + '">' + dcEsc(c) + '</button>';
+    }).join('');
+  }
+  function drawGrid() {
+    $('dc-grid').innerHTML = CARDS.filter(function (c) { return state.cat === 'All' || c.cat === state.cat; }).map(function (c) {
+      return '<button type="button" class="dc-pick" data-card="' + c.no + '" aria-pressed="' + (c.no === state.cardNo) + '">'
+        + '<span class="dc-pick-img"><img src="' + dcEsc(imgAt(c.src, 400)) + '" alt="" loading="lazy"></span>'
+        + '<span class="dc-pick-cat">' + dcEsc(c.cat) + '</span><span class="dc-pick-title">' + dcEsc(c.title) + '</span></button>';
+    }).join('');
+  }
+  $('dc-cats').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-cat]'); if (!b) return;
+    state.cat = b.getAttribute('data-cat'); drawCats(); drawGrid();
+  });
+  $('dc-grid').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-card]'); if (!b) return;
+    state.cardNo = b.getAttribute('data-card'); saveDraft(); drawGrid(); go(2);
+  });
+
+  // ---------- 2. Write ----------
+  var PLACEHOLDER = 'Your message will appear here as you type…';
+  function drawPreviews() {
+    var c = dcCard(state.cardNo); if (!c) return;
+    document.querySelectorAll('[data-card-title]').forEach(function (el) { el.textContent = c.title; });
+    document.querySelectorAll('[data-preview] .dc-preview-pages').forEach(function (box) {
+      if (box.getAttribute('data-for') !== c.no) {
+        box.innerHTML = dcInsideHTML(c.w + ' / ' + c.h) + '<img class="dc-front-thumb" src="' + dcEsc(imgAt(c.src, 400)) + '" alt="The front: ' + dcEsc(c.title) + '">';
+        box.setAttribute('data-for', c.no);
+      }
+      dcWrite(box.querySelector('.dc-page'), state.message, state.font, state.ink, PLACEHOLDER);
+    });
+  }
+  function drawFonts() {
+    $('dc-fonts').innerHTML = DC_FONTS.map(function (f) {
+      return '<button type="button" class="dc-font" data-font="' + f.key + '" aria-pressed="' + (f.key === state.font) + '">'
+        + '<span class="sample" style="font-family:' + dcEsc(f.family) + ';font-size:' + Math.round(26 * f.scale) + 'px">Hello you</span><span class="name">' + f.label + '</span></button>';
+    }).join('');
+    $('dc-inks').innerHTML = DC_INKS.map(function (i) {
+      return '<button type="button" class="dc-ink" data-ink="' + i.key + '" aria-pressed="' + (i.key === state.ink) + '"><span class="dot" style="background:' + i.color + '"></span>' + i.label + '</button>';
+    }).join('');
+  }
+  $('dc-fonts').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-font]'); if (!b) return;
+    state.font = b.getAttribute('data-font'); drawFonts(); drawPreviews(); saveDraft();
+  });
+  $('dc-inks').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-ink]'); if (!b) return;
+    state.ink = b.getAttribute('data-ink'); drawFonts(); drawPreviews(); saveDraft();
+  });
+  function drawCount() {
+    var n = state.message.length;
+    $('dc-count').textContent = n + ' / ' + DC_MESSAGE_MAX;
+    $('dc-count').classList.toggle('near', n > DC_MESSAGE_MAX - 60);
+  }
+  $('dc-message').value = state.message || '';
+  $('dc-message').addEventListener('input', function () {
+    state.message = this.value; drawCount(); drawPreviews(); saveDraft(); showError(2, '');
+  });
+  $('to-3').addEventListener('click', function () {
+    if (!state.message.trim()) { showError(2, 'Write a message first. It goes inside the card.'); $('dc-message').focus(); return; }
+    go(3);
+  });
+
+  // ---------- 3. Who and when ----------
+  ['to-name', 'to-email', 'from-name', 'from-email'].forEach(function (id) {
+    var key = { 'to-name': 'toName', 'to-email': 'toEmail', 'from-name': 'fromName', 'from-email': 'fromEmail' }[id];
+    if (state[key]) $(id).value = state[key];
+    $(id).addEventListener('input', function () { saveDraft(); showError(3, ''); });
+  });
+  var myTz = dcMyZone();
+  (function fillZones() {
+    var common = [myTz, 'Africa/Lagos', 'Europe/Madrid', 'Europe/London', 'America/New_York', 'America/Toronto', 'Asia/Dubai'];
+    common = common.filter(function (z, i) { return common.indexOf(z) === i; });
+    var all = [];
+    try { all = Intl.supportedValuesOf('timeZone'); } catch (e) {}
+    var html = '<optgroup label="Common">' + common.map(function (z) { return '<option value="' + z + '">' + dcPlace(z) + (z === myTz ? ' (your time)' : '') + '</option>'; }).join('') + '</optgroup>';
+    if (all.length) html += '<optgroup label="All time zones">' + all.filter(function (z) { return common.indexOf(z) < 0; }).map(function (z) { return '<option value="' + z + '">' + z.replace(/_/g, ' ') + '</option>'; }).join('') + '</optgroup>';
+    $('send-tz').innerHTML = html;
+    $('send-tz').value = myTz;
+  })();
+  function todayIn(tz) { return new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()); }
+  $('send-date').min = todayIn(myTz);
+  function when() { return document.querySelector('input[name="when"]:checked').value; }
+  function sendAtDate() {
+    if (when() !== 'later' || !$('send-date').value || !$('send-time').value) return null;
+    return dcZonedToDate($('send-date').value, $('send-time').value, $('send-tz').value);
+  }
+  function drawArrives() {
+    var later = when() === 'later';
+    $('dc-later').hidden = !later;
+    var d = sendAtDate(), tz = $('send-tz').value, out = '';
+    if (later && d) {
+      out = 'Arrives ' + dcWhenLabel(d, tz) + '.';
+      if (tz !== myTz) out += ' That\'s ' + new Intl.DateTimeFormat('en-GB', { timeZone: myTz, weekday: 'short', hour: '2-digit', minute: '2-digit' }).format(d) + ' where you are.';
+    }
+    $('dc-arrives').textContent = out;
+  }
+  document.querySelectorAll('input[name="when"]').forEach(function (r) { r.addEventListener('change', function () { showError(3, ''); drawArrives(); }); });
+  ['send-date', 'send-time', 'send-tz'].forEach(function (id) { $(id).addEventListener('input', function () { showError(3, ''); drawArrives(); }); });
+
+  var EMAIL = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]{2,}$/;
+  function checkWho() {
+    if (!$('to-name').value.trim()) return ['to-name', 'Who is the card for? Add their name.'];
+    if (!EMAIL.test($('to-email').value.trim())) return ['to-email', 'Please check their email address.'];
+    if (!$('from-name').value.trim()) return ['from-name', 'Add your name so they know who it\'s from.'];
+    if (!EMAIL.test($('from-email').value.trim())) return ['from-email', 'Please check your email address.'];
+    if (when() === 'later') {
+      var d = sendAtDate();
+      if (!d) return ['send-date', 'Pick a date and time to send it.'];
+      if (d.getTime() < Date.now()) return ['send-date', 'That time has already passed. Pick a later time, or send it now.'];
+      if (d.getTime() > Date.now() + 366 * 864e5) return ['send-date', 'Cards can be scheduled up to a year ahead.'];
+    }
+    return null;
+  }
+  $('to-4').addEventListener('click', function () {
+    var bad = checkWho();
+    if (bad) { showError(3, bad[1]); $(bad[0]).focus(); return; }
+    go(4);
+  });
+
+  // ---------- 4. Check and send ----------
+  function drawSummary() {
+    var c = dcCard(state.cardNo), d = sendAtDate();
+    var rows = [
+      ['Card', dcEsc(c.title), 1],
+      ['Handwriting', dcFont(state.font).label + ', ' + dcInk(state.ink).label.toLowerCase() + ' ink', 2],
+      ['To', dcEsc($('to-name').value.trim()) + '<br>' + dcEsc($('to-email').value.trim()), 3],
+      ['From', dcEsc($('from-name').value.trim()) + '<br>' + dcEsc($('from-email').value.trim()), 3],
+      ['Arrives', d ? dcEsc(dcWhenLabel(d, $('send-tz').value)) : 'Now', 3],
+      ['Price', 'Free while testing', 0]
+    ];
+    $('dc-summary').innerHTML = rows.map(function (r) {
+      return '<dt>' + r[0] + '</dt><dd>' + r[1] + (r[2] ? ' <button type="button" class="dc-change edit" data-go="' + r[2] + '">Change</button>' : '') + '</dd>';
+    }).join('');
+    $('dc-send').textContent = d ? 'Schedule card' : 'Send card';
+  }
+  $('dc-send').addEventListener('click', function () {
+    var btn = this, d = sendAtDate(), c = dcCard(state.cardNo);
+    if (!$('test-code').value.trim()) { showError(4, 'Enter the test code to send.'); $('test-code').focus(); return; }
+    showError(4, '');
+    btn.disabled = true; btn.textContent = d ? 'Scheduling…' : 'Sending…';
+    fetch('/api/cards/create', {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        cardNo: c.no, cardSrc: c.src, cardTitle: c.title, message: state.message, font: state.font, ink: state.ink,
+        toName: $('to-name').value, toEmail: $('to-email').value, fromName: $('from-name').value, fromEmail: $('from-email').value,
+        when: d ? 'later' : 'now', sendAt: d ? d.toISOString() : null, sendAtLabel: d ? dcWhenLabel(d, $('send-tz').value) : '',
+        tz: d ? $('send-tz').value : myTz, testCode: $('test-code').value
+      })
+    }).then(function (r) {
+      return r.json().catch(function () { return { error: 'The card service isn\'t answering. If you\'re testing on your computer, run "netlify dev".' }; });
+    }).then(function (res) {
+      if (res.error) throw new Error(res.error);
+      done(res);
+    }).catch(function (err) {
+      showError(4, err.message || 'Something went wrong. Please try again.');
+      btn.disabled = false; drawSummary();
+    });
+  });
+  function done(res) {
+    try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
+    var to = dcEsc($('to-name').value.trim());
+    var view = 'open-card.html?id=' + encodeURIComponent(res.id) + '&k=' + encodeURIComponent(res.key);
+    var scheduled = res.status === 'scheduled';
+    var head = scheduled ? '<span class="script">All set,</span>Scheduled' : '<span class="script">Off it goes,</span>Card sent';
+    var line = scheduled ? to + ' will get it ' + dcEsc(res.sendAtLabel || 'on the day') + '.' : 'We\'ve sent it to ' + to + '.';
+    var note = res.receipt === 'sent'
+      ? 'We\'ve also emailed you a receipt with your private link to the card' + (scheduled ? ', where you can cancel it before it goes.' : '.')
+      : 'Email isn\'t switched on yet, so no emails went out. Use "See the card" to see what they\'ll get' + (scheduled ? ', or to cancel it.' : '.');
+    $('dc-review').hidden = true;
+    $('dc-done').hidden = false;
+    $('dc-done').innerHTML = '<h2 class="wide">' + head + '</h2><p>' + line + '</p><p class="note">' + note + '</p>'
+      + '<div class="dc-actions"><a class="btn btn-cream" href="' + view + '">See the card</a><a class="btn btn-line" href="send-a-card.html">Send another</a></div>';
+    document.querySelectorAll('#dc-steps button').forEach(function (b) { b.disabled = true; });
+    $('dc-steps').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ---------- Start ----------
+  drawCats(); drawGrid(); drawFonts(); drawCount(); drawArrives();
+  dcRefitWhenFontsLoad(function () { if (state.step === 2 || state.step === 4) drawPreviews(); });
+  go(state.cardNo && linkCard ? 2 : 1, false);
+})();
+</script>
+<script src="assets/menu.js"></script>
+</body>
+</html>

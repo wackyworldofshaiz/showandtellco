@@ -47,7 +47,7 @@ var NAV = [
   ] },
   { page: 'cards', label: 'Cards', href: 'cards.html', children: [
     { label: 'Physical cards', href: 'cards.html' },
-    { label: 'Digital cards', href: 'digital-cards.html' }
+    { label: 'Digital cards', href: 'send-a-card.html' }
   ] },
   { page: 'totes', label: 'Tote bags', href: 'build-your-tote.html' },
   { page: 'designs', label: 'Accessories', href: 'patches.html', children: [
