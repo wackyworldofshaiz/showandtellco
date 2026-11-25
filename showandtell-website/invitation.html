@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're invited · Show and Tell Co</title>
+<meta name="description" content="You're invited. Tap to open your invitation.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1A0B45">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Show and Tell Co">
+<meta property="og:title" content="You're invited!">
+<meta property="og:description" content="Tap to open your invitation.">
+<meta property="og:image" content="https://showandtellco.shop/images/share/share-cards.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="images/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/invitations.css">
+</head>
+<body class="inv-page">
+<!-- A sample wedding invitation. For now the details live in SAMPLE below and replies are not saved.
+     Later, invitation.html?id=... will fetch a host's own invitation instead. -->
+
+<div class="inv-opener" id="inv-opener">
+  <div class="inv-opener-top">
+    <p class="inv-eyebrow">You have mail</p>
+    <span class="inv-script">You're invited</span>
+  </div>
+  <button class="inv-env" type="button" aria-label="Open your invitation">
+    <span class="inv-env-back"></span>
+    <span class="inv-env-letter"><span class="inv-script" id="inv-mono"></span><span class="inv-eyebrow">are getting married</span></span>
+    <span class="inv-env-side"></span>
+    <span class="inv-env-side r"></span>
+    <span class="inv-env-bottom"></span>
+    <span class="inv-env-flap"></span>
+    <span class="inv-env-seal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.7 6.6 4.9 10.9 12 12-7.1 1.1-11.3 5.4-12 12-.7-6.6-4.9-10.9-12-12C7.1 10.9 11.3 6.6 12 0z"/></svg></span>
+  </button>
+  <p class="inv-opener-hint">Tap the seal to open</p>
+</div>
+
+<main class="inv-main" id="inv-main" hidden></main>
+<button class="inv-btn inv-float away" id="inv-float" type="button" hidden>RSVP</button>
+
+<script src="assets/invitations.js"></script>
+<script>
+var SAMPLE = {
+  names: ['Amara', 'Tobi'],
+  lead: 'Together with their families',
+  what: 'invite you to celebrate their wedding',
+  date: '2027-06-12', time: '14:00', endTime: '23:30', tz: 'Africa/Lagos',
+  schedule: [
+    { time: '2:00 pm', what: 'The ceremony' },
+    { time: '4:00 pm', what: 'Cocktails in the garden' },
+    { time: '6:00 pm', what: 'Dinner and speeches' },
+    { time: '8:00 pm', what: 'Dancing until late' }
+  ],
+  venue: { name: 'The Garden House', address: '14 Jacaranda Close\nMaitama, Abuja', note: 'Parking is on site. The ceremony is outdoors, so bring a fan!' },
+  dress: { title: 'Garden formal', text: 'Our aso ebi colours are sage and gold.\nWear them if you can, or anything that feels like a celebration.', colours: ['#8FA58A', '#C9A961', '#F3EBDD'] },
+  note: { eyebrow: 'A note from us', title: 'Our story', text: 'We met in a queue for suya in 2019 and haven\'t stopped talking since.\nWe can\'t wait to celebrate with the people we love most.' },
+  rsvp: { by: '2027-05-01', seats: 2, question: 'Which song gets you on the dance floor?' },
+  gifts: { title: 'With thanks', text: 'Having you there is the best gift.\nIf you\'d like to give something, our list is below.', link: 'https://showandtellco.shop', label: 'See our gift list' },
+  signoff: { text: 'With love and a lot of excitement,', from: 'Amara & Tobi' }
+};
+
+(function () {
+  var inv = SAMPLE;
+  var main = document.getElementById('inv-main');
+  document.getElementById('inv-mono').textContent = inv.names[0].charAt(0) + ' & ' + inv.names[1].charAt(0);
+  invDraw(inv, main);
+  invOpen(document.getElementById('inv-opener'), main, function () {
+    invReveal(main, document.getElementById('inv-float'));
+  });
+})();
+</script>
+</body>
+</html>
