@@ -27,6 +27,11 @@ body{margin:0;background:#FDFDFD;font-family:'DM Sans',Helvetica,Arial,sans-seri
 .disp{font-family:'Fraunces',Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1}
 .product-tile:hover span:first-child img{transform:scale(1.04)}
 .product-tile img{transition:transform 0.2s}
+.di-custom{background:#1A0B45;color:#F6F1E7}
+.di-custom a{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 14px;max-width:1240px;margin:0 auto;padding:11px 16px;color:#F6F1E7;text-decoration:none;font-size:15px;line-height:1.35;text-align:center}
+.di-custom .script{font-family:'Pinyon Script',cursive;font-weight:400;font-size:26px;line-height:1;color:#E4EE3F;margin-right:4px}
+.di-custom .go{display:inline-flex;align-items:center;min-height:30px;padding:0 14px;border-radius:999px;background:#E4EE3F;color:#1A0B45;font-size:13px;font-weight:700;letter-spacing:.04em;white-space:nowrap}
+.di-custom a:hover .go{background:#FFFFFF}
 </style>
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
@@ -36,6 +41,11 @@ body{margin:0;background:#FDFDFD;font-family:'DM Sans',Helvetica,Arial,sans-seri
 <body>
 <header style="background: #5D1AFA; color: #FDFDFD"><div id="site-header" data-page="cards"></div></header>
 <script src="assets/header.js"></script>
+
+<!-- Slim banner: custom wedding invitations, printed or digital. Opens the custom orders form with Wedding picked. -->
+<aside class="di-custom" aria-label="Custom invitations">
+<a href="special-orders.html?occasion=Wedding&amp;format=Printed%20and%20digital"><span><span class="script">Custom</span> We design wedding invitations just for you, printed and digital.</span><span class="go">Tell us about yours</span></a>
+</aside>
 
 <main id="collection" data-collection="digital-invitations">
 <noscript><p style="padding: 16px">Please turn on JavaScript to see these products.</p></noscript>

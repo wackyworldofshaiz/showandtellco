@@ -109,6 +109,12 @@
 <label class="so-pill"><input type="radio" name="quantity" value="Over 100"><span>100+</span></label>
 <label class="so-pill"><input type="radio" name="quantity" value="Not sure yet" checked><span>Not sure yet</span></label>
 </div></fieldset>
+<fieldset class="so-field is-wide"><legend>Printed or digital?</legend><div class="so-pills">
+<label class="so-pill"><input type="radio" name="format" value="Printed"><span>Printed</span></label>
+<label class="so-pill"><input type="radio" name="format" value="Digital"><span>Digital</span></label>
+<label class="so-pill"><input type="radio" name="format" value="Printed and digital"><span>Both</span></label>
+<label class="so-pill"><input type="radio" name="format" value="Not sure" checked><span>Not sure yet</span></label>
+</div></fieldset>
 <fieldset class="so-field"><legend>Size</legend><div class="so-pills">
 <label class="so-pill"><input type="radio" name="size" value="A5"><span>A5</span></label>
 <label class="so-pill"><input type="radio" name="size" value="A4"><span>A4</span></label>
@@ -140,6 +146,16 @@
 <script>
 // Sends the request to Netlify Forms without leaving the page. multipart/form-data keeps the file upload.
 // Without JavaScript the form still posts, and Netlify shows its own thank-you page.
+// A link can pick answers in advance, e.g. special-orders.html?occasion=Wedding&format=Digital
+// (the banner on digital-invitations.html does this).
+(function () {
+  var q; try { q = new URLSearchParams(location.search); } catch (e) { return; }
+  ['occasion', 'format'].forEach(function (name) {
+    var v = q.get(name); if (!v) return;
+    var box = document.querySelector('.so-form input[name="' + name + '"][value="' + v.replace(/"/g, '') + '"]');
+    if (box) box.checked = true;
+  });
+})();
 (function () {
   var form = document.querySelector('.so-form'), status = form.querySelector('.so-status'),
       btn = form.querySelector('[type=submit]'), done = document.querySelector('.so-done'),
