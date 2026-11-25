@@ -108,9 +108,9 @@
 .lx-record:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; border-radius: 50%; }
 .lx-p-lilies { left: 64%; top: 6%; width: 24%; transform: rotate(8deg); }
 .lx-p-oval { left: 43%; top: 26%; width: 55%; }
-.lx-p-oval .lx-on { left: 18%; right: 18%; top: 20%; bottom: 22%; }
-.lx-p-oval .lx-caps { font-size: 2.6cqw; line-height: 1.5; margin: 0; }
-.lx-p-oval .lx-script { margin: 2.4cqw 0 2.8cqw; font-size: 9.6cqw; line-height: 0.95; }
+.lx-p-oval .lx-on { left: 22%; right: 22%; top: 22%; bottom: 24%; }
+.lx-p-oval .lx-caps { font-size: 2.05cqw; line-height: 1.5; letter-spacing: 0.12em; margin: 0; }
+.lx-p-oval .lx-script { margin: 2cqw 0 2.4cqw; font-size: 7.8cqw; line-height: 0.95; }
 .lx-p-locket { left: 1%; top: 59%; width: 40%; }
 .lx-p-locket .lx-photo { font-size: 4.6cqw; }
 .lx-p-moss1 { left: 35%; top: 66%; width: 8%; transform: rotate(-10deg); }
