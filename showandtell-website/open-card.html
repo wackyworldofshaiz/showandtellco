@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You have a card · Show and Tell Co</title>
+<meta name="description" content="Someone sent you a card from Show and Tell Co. Open it to read the message inside.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Show and Tell Co">
+<meta property="og:title" content="You have a card">
+<meta property="og:description" content="Someone sent you a card from Show and Tell Co. Open it to read the message inside.">
+<meta property="og:image" content="https://showandtellco.shop/images/share/share-cards.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="images/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Gochi+Hand&family=Homemade+Apple&family=Nothing+You+Could+Do&family=Reenie+Beanie&display=swap">
+<link rel="stylesheet" href="assets/home.css">
+<link rel="stylesheet" href="assets/digital-cards.css">
+</head>
+<body class="home oc">
+<!-- The card someone was sent. open-card.html?id=... is the link in their email.
+     The sender's own link adds &k=..., which shows the card before it sends and lets them cancel it. -->
+<div class="oc-top"><a href="index.html"><img src="images/brand/logo-horizontal-violet.png" alt="Show and Tell Co" width="299" height="42"></a></div>
+<div id="oc-sender"></div>
+<main class="oc-stage" id="oc-stage" aria-live="polite">
+  <p class="oc-hint">Fetching your card…</p>
+</main>
+<p class="oc-foot">Cards by <a href="index.html">Show and Tell Co</a>, a little print studio between Abuja and Barcelona.</p>
+
+<script src="assets/catalog.js"></script>
+<script src="assets/digital-cards.js"></script>
+<script>
+(function () {
+  var stage = document.getElementById('oc-stage');
+  var q = new URLSearchParams(location.search);
+  var id = q.get('id') || '', k = q.get('k') || '';
+
+  function message(title, body, cta) {
+    stage.innerHTML = '<div class="oc-msg-box"><h1 class="oc-title wide">' + title + '</h1><p>' + body + '</p>'
+      + (cta ? '<div class="oc-after show"><a class="btn btn-ink" href="send-a-card.html">' + cta + '</a></div>' : '') + '</div>';
+  }
+  if (!id) { message('<span class="script">Hmm,</span>No card here', 'This link is missing part of its address. Try opening it again from your email.', 'Send a card'); return; }
+
+  fetch('/api/cards/get?id=' + encodeURIComponent(id) + (k ? '&k=' + encodeURIComponent(k) : ''))
+    .then(function (r) { return r.json(); })
+    .then(function (res) {
+      if (res.error === 'not-yet') return message('<span class="script">Not yet,</span>Nearly there', 'This card isn\'t ready to open yet. Check back when it lands in your inbox.');
+      if (!res.card) return message('<span class="script">Hmm,</span>We can\'t find it', 'This card may have been cancelled, or the link is not quite right. Try opening it again from your email.', 'Send a card');
+      if (res.sender) drawSenderBar(res.card);
+      drawEnvelope(res.card);
+    })
+    .catch(function () { message('<span class="script">Oh no,</span>Try again', 'We couldn\'t fetch your card just now. Please refresh the page in a moment.'); });
+
+  // The sender's own view: status, and cancel while it's still scheduled.
+  function drawSenderBar(card) {
+    var bar = document.getElementById('oc-sender');
+    var status = {
+      scheduled: 'Scheduled for <b>' + dcEsc(card.sendAtLabel || new Date(card.sendAt).toLocaleString()) + '</b>',
+      sent: 'Sent to ' + dcEsc(card.toName) + (card.openedAt ? ' · <b>opened</b>' : ' · not opened yet'),
+      cancelled: '<b>Cancelled.</b> This card won\'t be sent.',
+      failed: '<b>We couldn\'t deliver this card.</b> Please check the email address.'
+    }[card.status] || '';
+    var note = card.status === 'sent' && !card.emailed && card.emailNote ? '<br><small>' + dcEsc(card.emailNote) + '</small>' : '';
+    bar.innerHTML = '<div class="oc-sender"><span>Your private link. ' + status + note + '</span>'
+      + (card.status === 'scheduled' ? '<button type="button" id="oc-cancel">Cancel card</button>' : '') + '</div>';
+    var c = document.getElementById('oc-cancel');
+    if (c) c.addEventListener('click', function () {
+      if (c.getAttribute('data-sure') !== '1') { c.setAttribute('data-sure', '1'); c.textContent = 'Tap again to cancel'; return; }
+      c.disabled = true; c.textContent = 'Cancelling…';
+      fetch('/api/cards/cancel', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ id: id, k: k }) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res.error) throw new Error(res.error);
+          card.status = 'cancelled'; drawSenderBar(card);
+        })
+        .catch(function (e) { c.disabled = false; c.textContent = 'Cancel card'; alert(e.message); });
+    });
+  }
+
+  function drawEnvelope(card) {
+    var art = dcCard(card.cardNo);
+    var src = art ? art.src : card.cardSrc;
+    var ratio = art ? art.w + ' / ' + art.h : '1060 / 1500';
+    stage.innerHTML =
+      '<div class="oc-env-wrap" id="oc-env-wrap">'
+      + '<h1 class="oc-title wide"><span class="script">You have</span>A card</h1>'
+      + '<button type="button" class="oc-env" id="oc-env" aria-label="Open the envelope">'
+      + '<span class="oc-env-back"></span>'
+      + '<span class="oc-env-card"><img src="' + dcEsc(src) + '" alt=""></span>'
+      + '<span class="oc-env-front"></span><span class="oc-env-flap"></span>'
+      + '<span class="oc-env-stamp"><img src="' + dcEsc(src) + '" alt=""></span>'
+      + '<span class="oc-env-label"><span class="to">For ' + dcEsc(card.toName) + '</span><span class="from">From ' + dcEsc(card.fromName) + '</span></span>'
+      + '</button>'
+      + '<p class="oc-hint">Tap the envelope to open it</p></div>'
+      + '<div class="oc-book-wrap" id="oc-book-wrap" hidden>'
+      + '<div class="oc-book-stage"><div class="oc-book" id="oc-book">'
+      + dcInsideHTML(ratio)
+      + '<button type="button" class="oc-cover" id="oc-cover" aria-label="Open the card">'
+      + '<span class="oc-face front"><img src="' + dcEsc(src) + '" alt="' + dcEsc(card.cardTitle || 'The card') + '"></span>'
+      + '<span class="oc-face back"><span>Show and Tell Co</span></span>'
+      + '</button></div></div>'
+      + '<p class="oc-hint" id="oc-book-hint">Tap the card to open it</p>'
+      + '<div class="oc-after" id="oc-after"><a class="btn btn-violet" href="send-a-card.html">Send ' + dcEsc(card.fromName) + ' one back</a></div>'
+      + '</div>';
+
+    var page = stage.querySelector('.dc-inside');
+    function write() { dcWrite(page, card.message, card.font, card.ink); }
+    dcRefitWhenFontsLoad(write);
+
+    var env = document.getElementById('oc-env');
+    env.addEventListener('click', function () {
+      if (env.classList.contains('open')) return;
+      env.classList.add('open');
+      setTimeout(function () {
+        document.getElementById('oc-env-wrap').classList.add('gone');
+        setTimeout(function () {
+          document.getElementById('oc-env-wrap').hidden = true;
+          document.getElementById('oc-book-wrap').hidden = false;
+          write();
+          document.getElementById('oc-book').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 450);
+      }, 1500);
+    });
+    document.getElementById('oc-cover').addEventListener('click', function () {
+      var book = document.getElementById('oc-book');
+      if (book.classList.contains('open')) return;
+      book.classList.add('open');
+      write();
+      document.getElementById('oc-book-hint').style.visibility = 'hidden';
+      document.getElementById('oc-after').classList.add('show');
+      this.setAttribute('aria-label', 'The card is open');
+    });
+  }
+})();
+</script>
+</body>
+</html>

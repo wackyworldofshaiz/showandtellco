@@ -26,6 +26,8 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | `special-orders.html` | Custom card request form, opened only from the "Contact us for special orders" button at the bottom of the cards page (it isn't in the menu). Requests arrive in Netlify under **Forms › special-orders**, with any uploaded inspiration file attached. |
 | `popup.html` | Patch bar pop-up sign-up (linked from every footer, the FAQ and About). Edit `POPUP` near the bottom of the file for each event: city, date, time, venue, entry, `spots` (35) and `taken`. Raise `taken` as you confirm people; when it reaches `spots` the page switches to a waitlist. Sign-ups arrive in Netlify under **Forms › popup** (the `list` field says spot or waitlist). |
 | `corporate-gifting.html` | Corporate gifting: how it works, an enquiry form and FAQs. Linked from the footer. Enquiries arrive in Netlify under **Forms › corporate-gifting**, with any uploaded logo attached. |
+| `send-a-card.html` | Digital cards: choose a card, write inside it, send now or schedule. Testing only for now; see **Digital cards** below. |
+| `open-card.html` | A digital card as the recipient sees it (the link in their email). |
 | `faq.html` | Frequently asked questions: tote care, cards, prints vs patches vs pins, group orders, ordering and delivery, patch bar. Answers in [square brackets] are placeholders to fill in. |
 
 Images are in `images/`. Shared files in `assets/`:
@@ -41,6 +43,33 @@ Images are in `images/`. Shared files in `assets/`:
 - `menu.js`: the phone menu and the header dropdown.
 - `site.css`: the header, phone tweaks and the currency switch.
 - `dc-lite.js` and `morphdom.min.js`: the engine behind the builder, cards and design pages.
+
+
+## Digital cards (testing, payments off)
+
+People pick a card, write inside it in a handwriting style and ink colour, and we email it to someone now or at a date and time they choose (up to a year ahead, in the recipient's time zone). The recipient gets an email with an **Open your card** button. On the card page the envelope opens, then the card opens like a book to show the message.
+
+**Pages (Cards › Digital cards in the menu opens `send-a-card.html`; both are hidden from search engines):**
+- `send-a-card.html`: the four steps (choose, write, who and when, check and send). `send-a-card.html?card=58` opens with that card chosen.
+- `open-card.html?id=…`: the card as the recipient sees it. The sender's link adds `&k=…`, which shows the card before it sends and has a **Cancel card** button while it's still scheduled.
+- Handwriting fonts and ink colours are `DC_FONTS` and `DC_INKS` in `assets/digital-cards.js`; styles are in `assets/digital-cards.css`. Every card in `CARDS` in `assets/catalog.js` can be sent. The inside is one shared cream page.
+
+**Behind the scenes (`netlify/`):** this is the first part of the site that needs Netlify Functions. `package.json` and `netlify.toml` are only for these; the pages still need no build.
+- `functions/card-create.mjs` saves a card and sends it straight away or queues it. `card-get.mjs` serves a card to `open-card.html`. `card-cancel.mjs` cancels a scheduled card.
+- `functions/cards-send-due.mjs` runs every 10 minutes and sends any scheduled card whose time has come. A card is sent up to 10 minutes after the time picked.
+- Cards are kept in Netlify Blobs (store `digital-cards`), so you don't need a database. Shared code and the email designs are in `lib/cards.mjs`.
+- The recipient gets "Tolu sent you a card". The sender gets a receipt with their private link, then "delivered" (for scheduled cards) and "opened" emails.
+
+**Settings** (Netlify › Site configuration › Environment variables):
+- `CARDS_TEST_CODE`: needed. While payments are off, a card only sends with this code, so strangers can't use the site to send free emails. Until it's set, sending is switched off.
+- `RESEND_API_KEY`: turns real emails on (resend.com). Without it, cards are still saved and "sent", but no email goes out. Use **See the card** after sending to check what they'd get.
+- `CARDS_FROM`: who the emails come from, for example `Show and Tell Co <cards@showandtellco.shop>`. To send from your own domain, add the domain in Resend and the DNS records it gives you. Until then, Resend's test sender only delivers to your own Resend account email.
+
+**Netlify's Base directory** has to be this folder, or Netlify won't find `netlify.toml` and the functions (Site configuration › Build & deploy › Build settings).
+
+**Trying it on your computer:** run `npm install` once, then `CARDS_TEST_CODE=letmein npx netlify dev` in this folder and open http://localhost:8888/send-a-card.html. To send scheduled cards that are due, run `npx netlify functions:invoke cards-send-due` in a second terminal; scheduled functions don't run on their own locally.
+
+**When payments go in:** `card-create.mjs` is the step that will wait for a confirmed Paystack (NGN) or Stripe (EUR) payment in place of the test code. Then remove the test code box in step 4 of `send-a-card.html` and add a price for digital cards to `assets/prices.js`.
 
 ## Share previews
 

@@ -1,0 +1,7 @@
+# Netlify settings for the digital cards back end (netlify/functions).
+# Only the functions are set here, so the build and publish settings in the Netlify
+# dashboard stay as they are. If the dashboard's Base directory is not this folder,
+# set it to this folder so Netlify finds this file and the functions.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"

@@ -1,0 +1,8 @@
+{
+  "name": "showandtell-website",
+  "private": true,
+  "description": "Show and Tell Co website. The site itself needs no build; these packages are only for the digital cards functions in netlify/functions.",
+  "dependencies": {
+    "@netlify/blobs": "^11.1.11"
+  }
+}
