@@ -136,7 +136,7 @@
 .lx-h-heart .lx-on { left: 16%; right: 16%; top: 20%; bottom: 30%; }
 .lx-h-heart .lx-script { font-size: 17cqw; line-height: 0.95; color: var(--cream); transform: rotate(-12deg); }
 .lx-h-flower { width: min(78%, 380px); margin-top: 90px; }
-.lx-h-flower .lx-on { left: 14%; right: 6%; top: 6%; bottom: 58%; }
+.lx-h-flower .lx-on { left: 21%; right: 0%; top: 6%; bottom: 58%; }
 .lx-h-flower .lx-script { font-size: 13cqw; line-height: 0.92; transform: rotate(-8deg); }
 .lx-h-rsvp { width: min(80%, 400px); margin-top: 110px; rotate: -5deg; }
 .lx-h-rsvp .lx-head-tray { position: absolute; left: 50%; top: 50%; width: 64%; transform: translate(-50%, -50%) rotate(-84deg); filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4)); }
@@ -184,7 +184,6 @@
 .lx-pair .lx-pol:first-child { left: 0; transform: rotate(-7deg); }
 .lx-pair .lx-pol:last-of-type { right: 0; top: 10%; transform: rotate(12deg); }
 .lx-pair .lx-strip { position: absolute; left: 38%; top: -6%; width: 24%; z-index: 1; }
-.lx-pair .lx-moss { position: absolute; left: 60%; top: -10%; width: 7%; z-index: 2; }
 .lx-pol .lx-photo { font-size: 7cqw; }
 .lx-strip .lx-photo { font-size: 4cqw; }
 .lx-pair img { position: relative; width: 100%; filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.4)); }

@@ -150,7 +150,7 @@ function lxStory(inv) {
     + lxHead('lx-h-flower', 'flower', '<span class="lx-script">' + invEsc(inv.story.title || 'Our Love Story').replace(' ', '<br>') + '</span>')
     + '<div class="lx-sec lx-reveal">'
     + '<div class="lx-pair">' + lxFramed(inv, 'polaroid', [ph[0]], 'lx-pol') + lxFramed(inv, 'photo-strip', p.strip, 'lx-strip') + lxFramed(inv, 'polaroid', [ph[1]], 'lx-pol')
-    + '<span class="lx-moss">' + lxImg('moss-b') + '</span></div>'
+    + '</div>'
     + '<p class="lx-txt">' + invLines(inv.story.text) + '</p></div>'
     + '</section>';
 }
