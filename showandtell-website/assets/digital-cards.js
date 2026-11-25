@@ -82,3 +82,64 @@ function dcWhenLabel(date, tz) {
   return s.replace(' at ', ', ') + ' (' + dcPlace(tz) + ' time)';
 }
 function dcMyZone() { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; } catch (e) { return 'UTC'; } }
+
+// ---------- Download ----------
+// Draws the card as one picture, the front next to the message inside, and hands back a PNG.
+// frontImg is the card's front <img>; page is the inside page (.dc-inside) with the message on it.
+function dcCardImage(frontImg, page, done) {
+  var img = new Image();
+  img.onload = function () {
+    var W = 1000, H = Math.round(W * img.naturalHeight / img.naturalWidth), PAD = 70, GAP = 30;
+    var c = document.createElement('canvas');
+    c.width = PAD * 2 + W * 2 + GAP; c.height = PAD * 2 + H;
+    var x = c.getContext('2d');
+    x.fillStyle = '#EFE8FF'; x.fillRect(0, 0, c.width, c.height);
+
+    function shadowed(draw) {
+      x.save(); x.shadowColor = 'rgba(26, 11, 69, 0.18)'; x.shadowBlur = 40; x.shadowOffsetY = 16; draw(); x.restore();
+    }
+    // The front
+    shadowed(function () { x.fillStyle = '#FFFFFF'; x.fillRect(PAD, PAD, W, H); });
+    x.drawImage(img, PAD, PAD, W, H);
+
+    // The inside: cream paper with a fine dot pattern
+    var ix = PAD + W + GAP;
+    shadowed(function () { x.fillStyle = '#FBF8F1'; x.fillRect(ix, PAD, W, H); });
+    x.fillStyle = 'rgba(26, 11, 69, 0.035)';
+    for (var dy = 3; dy < H; dy += 9) for (var dx = 3; dx < W; dx += 9) x.fillRect(ix + dx, PAD + dy, 1.5, 1.5);
+
+    // The message, at the same size and place as on screen
+    var msg = page.querySelector('.dc-msg');
+    var pr = page.getBoundingClientRect(), mr = msg.getBoundingClientRect();
+    var k = W / pr.width, cs = getComputedStyle(msg);
+    var size = parseFloat(cs.fontSize) * k, lineH = size * 1.28, maxW = mr.width * k;
+    x.font = size + 'px ' + cs.fontFamily; x.fillStyle = cs.color; x.textBaseline = 'top';
+    var lines = [];
+    String(msg.textContent).split('\n').forEach(function (para) {
+      var line = '';
+      para.split(' ').forEach(function (word) {
+        var test = line ? line + ' ' + word : word;
+        if (line && x.measureText(test).width > maxW) { lines.push(line); line = word; } else line = test;
+      });
+      lines.push(line);
+    });
+    var tx = ix + (mr.left - pr.left) * k, ty = PAD + (mr.top - pr.top) * k;
+    lines.forEach(function (l, i) { x.fillText(l, tx, ty + i * lineH + (lineH - size) / 2); });
+
+    // The little mark at the bottom
+    x.font = '500 ' + Math.round(W * 0.026) + 'px Jost, Helvetica, Arial, sans-serif';
+    x.fillStyle = '#9A93B5'; x.textAlign = 'center'; x.textBaseline = 'alphabetic';
+    if ('letterSpacing' in x) x.letterSpacing = Math.round(W * 0.026 * 0.14) + 'px';
+    var markY = PAD + H - H * 0.055, markW = x.measureText('SHOW AND TELL CO').width, s = W * 0.03;
+    x.fillText('SHOW AND TELL CO', ix + W / 2 + s * 0.8, markY);
+    // The green star before it (the same shape as on screen)
+    var sx = ix + W / 2 - markW / 2 - s * 0.4, sy = markY - s * 0.85;
+    x.save(); x.translate(sx, sy); x.scale(s / 24, s / 24); x.fillStyle = '#C8F000';
+    x.fill(new Path2D('M12 0c.7 6.6 4.9 10.9 12 12-7.1 1.1-11.3 5.4-12 12-.7-6.6-4.9-10.9-12-12C7.1 10.9 11.3 6.6 12 0z'));
+    x.restore();
+
+    c.toBlob(function (b) { done(b); }, 'image/png');
+  };
+  img.onerror = function () { done(null); };
+  img.src = frontImg.currentSrc || frontImg.src;
+}

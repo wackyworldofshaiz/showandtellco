@@ -103,7 +103,8 @@
       + '<span class="oc-face back"><span>Show and Tell Co</span></span>'
       + '</button></div></div>'
       + '<p class="oc-hint" id="oc-book-hint">Tap the card to open it</p>'
-      + '<div class="oc-after" id="oc-after"><a class="btn btn-violet" href="send-a-card.html">Send ' + dcEsc(card.fromName) + ' one back</a></div>'
+      + '<div class="oc-after" id="oc-after"><button type="button" class="btn btn-ink" id="oc-download">Download the card</button>'
+      + '<a class="btn btn-violet" href="send-a-card.html">Send ' + dcEsc(card.fromName) + ' one back</a></div>'
       + '</div>';
 
     var page = stage.querySelector('.dc-inside');
@@ -120,18 +121,36 @@
           document.getElementById('oc-env-wrap').hidden = true;
           document.getElementById('oc-book-wrap').hidden = false;
           write();
-          document.getElementById('oc-book').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          document.getElementById('oc-book-wrap').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 450);
       }, 1500);
     });
-    document.getElementById('oc-cover').addEventListener('click', function () {
-      var book = document.getElementById('oc-book');
-      if (book.classList.contains('open')) return;
-      book.classList.add('open');
-      write();
-      document.getElementById('oc-book-hint').style.visibility = 'hidden';
+    // Tap the card to open it, and tap it again to close it and see the front.
+    var book = document.getElementById('oc-book');
+    var hint = document.getElementById('oc-book-hint');
+    function toggle() {
+      var open = !book.classList.contains('open');
+      book.classList.toggle('open', open);
+      if (open) write();
+      hint.textContent = open ? 'Tap the card to close it' : 'Tap the card to open it';
+      document.getElementById('oc-cover').setAttribute('aria-label', open ? 'Close the card' : 'Open the card');
       document.getElementById('oc-after').classList.add('show');
-      this.setAttribute('aria-label', 'The card is open');
+    }
+    document.getElementById('oc-cover').addEventListener('click', toggle);
+    stage.querySelector('.oc-book .dc-inside').addEventListener('click', function () { if (book.classList.contains('open')) toggle(); });
+
+    document.getElementById('oc-download').addEventListener('click', function () {
+      var btn = this;
+      btn.disabled = true; btn.textContent = 'Making your picture…';
+      dcCardImage(book.querySelector('.oc-face.front img'), page, function (blob) {
+        btn.disabled = false; btn.textContent = 'Download the card';
+        if (!blob) { alert('Sorry, we couldn\'t make the picture. Please try again.'); return; }
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'card-from-' + String(card.fromName || 'a-friend').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '.png';
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+      });
     });
   }
 })();
