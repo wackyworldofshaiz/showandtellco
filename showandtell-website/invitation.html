@@ -19,12 +19,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap">
 <link rel="stylesheet" href="assets/invitations.css">
-<link rel="preload" as="image" href="images/invitations/luxe/doorbell.webp">
 </head>
 <body class="lx">
 <!-- A sample wedding invitation in the Luxe template. For now the details live in SAMPLE below
      and replies are not saved. Later, invitation.html?id=... will fetch a host's own invitation. -->
 
+<!-- The doorbell opening, switched off for now. To bring it back, remove this comment around it.
 <div class="lx-screen" id="lx-bell">
   <button class="lx-bell" type="button" aria-label="Tap to open your invitation">
     <img src="images/invitations/luxe/doorbell.webp" alt="" draggable="false">
@@ -32,6 +32,7 @@
     <span class="lx-bell-btn"></span>
   </button>
 </div>
+-->
 
 <div class="lx-screen lx-welcome" id="lx-welcome">
   <p class="lx-caps">We are getting married!</p>
@@ -94,7 +95,7 @@ var SAMPLE = {
   document.getElementById('lx-names').textContent = inv.names.join(' & ');
   document.getElementById('lx-letter').innerHTML = lxPhoto(inv, inv.photos.cover);
   var show = invDraw(inv, main);
-  invOpen(inv, document.getElementById('lx-bell'), document.getElementById('lx-welcome'), function () {
+  invOpen(inv, document.getElementById('lx-bell'), /* null while the doorbell is switched off */ document.getElementById('lx-welcome'), function () {
     main.hidden = false; show();
   });
 })();

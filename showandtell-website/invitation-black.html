@@ -19,12 +19,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap">
 <link rel="stylesheet" href="assets/invitations.css">
-<link rel="preload" as="image" href="images/invitations/luxe-black/doorbell.webp">
 </head>
 <body class="lx lx-black">
 <!-- A sample wedding invitation in Black Luxe: the Luxe invitation in black, silver and ivory, opening
      with a photo booth that prints a strip of the couple's photos. Details live in SAMPLE below; replies are not saved. -->
 
+<!-- The doorbell opening, switched off for now. To bring it back, remove this comment around it.
 <div class="lx-screen" id="lx-bell">
   <button class="lx-bell" type="button" aria-label="Tap to open your invitation">
     <img src="images/invitations/luxe-black/doorbell.webp" alt="" draggable="false">
@@ -32,6 +32,7 @@
     <span class="lx-bell-btn"></span>
   </button>
 </div>
+-->
 
 <div class="lx-screen lx-welcome" id="lx-welcome">
   <p class="lx-caps">We are getting married!</p>
@@ -98,7 +99,7 @@ var SAMPLE = {
   document.getElementById('lx-names').textContent = inv.names.join(' & ');
   document.getElementById('lx-booth-out').innerHTML = lxBoothStrip(inv);
   var show = invDraw(inv, main);
-  invOpen(inv, document.getElementById('lx-bell'), document.getElementById('lx-welcome'), function () {
+  invOpen(inv, document.getElementById('lx-bell'), /* null while the doorbell is switched off */ document.getElementById('lx-welcome'), function () {
     main.hidden = false; show();
   });
 })();

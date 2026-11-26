@@ -304,27 +304,30 @@ function invDraw(inv, root) {
   };
 }
 
-// The doorbell, then the second screen: the envelope opening, or the photo booth printing a strip.
+// The doorbell (if the page has one), then the second screen: the envelope opening, or the photo
+// booth printing a strip. Without a doorbell the second screen starts as soon as the page opens.
 // after() runs once the guest taps "Open invitation".
 function invOpen(inv, bellScreen, welcome, after) {
   var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var bell = bellScreen.querySelector('.lx-bell'), env = welcome.querySelector('.lx-env'), booth = welcome.querySelector('.lx-booth');
+  var env = welcome.querySelector('.lx-env'), booth = welcome.querySelector('.lx-booth');
   document.body.style.overflow = 'hidden';
-  bell.addEventListener('click', function () {
+  function play() {
+    if (env) {
+      setTimeout(function () { env.classList.add('open'); }, still ? 0 : 700);
+      setTimeout(function () { env.classList.add('out'); }, still ? 0 : 1600);
+      setTimeout(function () { welcome.classList.add('ready'); }, still ? 0 : 2500);
+    }
+    if (booth) {
+      setTimeout(function () { booth.classList.add('printing'); }, still ? 0 : 700);
+      setTimeout(function () { welcome.classList.add('ready'); }, still ? 0 : 3600);
+    }
+  }
+  var bell = bellScreen && bellScreen.querySelector('.lx-bell');
+  if (!bell) play();
+  else bell.addEventListener('click', function () {
     if (bell.classList.contains('pressed')) return;
     bell.classList.add('pressed');
-    setTimeout(function () {
-      bellScreen.classList.add('gone');
-      if (env) {
-        setTimeout(function () { env.classList.add('open'); }, still ? 0 : 700);
-        setTimeout(function () { env.classList.add('out'); }, still ? 0 : 1600);
-        setTimeout(function () { welcome.classList.add('ready'); }, still ? 0 : 2500);
-      }
-      if (booth) {
-        setTimeout(function () { booth.classList.add('printing'); }, still ? 0 : 700);
-        setTimeout(function () { welcome.classList.add('ready'); }, still ? 0 : 3600);
-      }
-    }, still ? 0 : 650);
+    setTimeout(function () { bellScreen.classList.add('gone'); play(); }, still ? 0 : 650);
   });
   welcome.querySelector('[data-open]').addEventListener('click', function () {
     document.body.style.overflow = '';
