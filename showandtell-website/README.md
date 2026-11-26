@@ -26,6 +26,7 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | `special-orders.html` | Custom card request form, opened only from the "Contact us for special orders" button at the bottom of the cards page (it isn't in the menu). Requests arrive in Netlify under **Forms › special-orders**, with any uploaded inspiration file attached. |
 | `popup.html` | Patch bar pop-up sign-up (linked from every footer, the FAQ and About). Edit `POPUP` near the bottom of the file for each event: city, date, time, venue, entry, `spots` (35) and `taken`. Raise `taken` as you confirm people; when it reaches `spots` the page switches to a waitlist. Sign-ups arrive in Netlify under **Forms › popup** (the `list` field says spot or waitlist). |
 | `corporate-gifting.html` | Corporate gifting: how it works, an enquiry form and FAQs. Linked from the footer. Enquiries arrive in Netlify under **Forms › corporate-gifting**, with any uploaded logo attached. |
+| `portal.html` | The staff portal (doorway icon in the header). Staff sign in with the code; see **Staff portal** below. Hidden from search engines. |
 | `send-a-card.html` | Digital cards: choose a card, write inside it, send now or schedule. Testing only for now; see **Digital cards** below. |
 | `digital-invitations.html` | Digital invitations (Cards › Digital invitations in the menu): a collection page of invitation designs. See **Digital invitations** below. |
 | `digital-invitation.html` | One invitation design's product page, e.g. `digital-invitation.html?design=luxe-wedding`. |
@@ -85,6 +86,14 @@ Invitations sent by link, starting with **Luxe Wedding**.
 - **The doorbell opening is switched off.** Its markup is still in `invitation.html` and `invitation-black.html`, inside an HTML comment. Remove the comment around it to bring it back; `invOpen` plays the doorbell first when it's there, and otherwise starts the envelope or photo booth as soon as the page opens.
 - **Not built yet:** saving RSVPs, a host's private guest list, and hosts making their own invitation. For now, each invitation is set up by hand.
 - **Shop pictures:** `images/invitations/shop/` holds phone screenshots of the sample. Make new ones if the design changes.
+
+## Staff portal
+
+`portal.html`, behind the doorway icon beside search in the header. Staff sign in with one shared code.
+
+- **Setting the code:** add `PORTAL_CODE` in Netlify (Site configuration › Environment variables), then redeploy. Until it is set, the portal says it isn't set up. To change the code, change `PORTAL_CODE` and redeploy; everyone signs in again with the new one. The code is checked on the server for every action (`netlify/lib/portal.mjs`), and a wrong code is slowed down.
+- **Receipts:** enter the customer's name and email, the products (typing suggests the shop's products and fills in today's price, which you can change), quantities, delivery, discount and payment, and see the receipt as you go. **Send receipt** gives it a number (STC-2026-0001, counting up each year), saves it and emails it to the customer from the same address as digital cards (`CARDS_FROM`). Replies go to `RECEIPTS_REPLY_TO` if you set it. Recent receipts are listed underneath, with **Send again**.
+- **Files:** `portal.html`, `netlify/lib/portal.mjs`, `netlify/functions/portal-check.mjs` and `portal-receipts.mjs`. Receipts are kept in Netlify Blobs (store `portal`).
 
 ## Share previews
 
