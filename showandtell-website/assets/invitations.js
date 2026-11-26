@@ -127,7 +127,6 @@ function lxHero(inv) {
     + '<span class="lx-on"><span class="lx-caps">Join us for<br>the wedding of</span><span class="lx-script">' + invEsc(inv.names[0]) + '<br>&amp; ' + invEsc(inv.names[1]) + '</span>'
     + '<span class="lx-caps">' + dateLine + '<br>' + invEsc(inv.place) + '</span></span></div>'
     + lxFramed(inv, 'locket', p.locket, 'lx-piece lx-p-locket')
-    + '<div class="lx-piece lx-p-moss1">' + lxImg('moss-a') + '</div>'
     + '</div>'
     + '<div class="lx-sec lx-reveal"><p class="lx-caps">The countdown is on!</p><div class="lx-countdown" aria-live="off" data-countdown></div>'
     + '<a class="lx-btn-line lx-jump" href="#rsvp">Kindly Rsvp</a></div>'
