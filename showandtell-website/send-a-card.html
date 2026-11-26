@@ -89,6 +89,8 @@
         <div class="dc-preview" data-preview>
           <div class="dc-preview-pages"></div>
           <p class="dc-preview-note"><span data-card-title></span> · <button type="button" class="dc-change" data-go="1">Change card</button></p>
+          <!-- The same card in print (cards.html opens with it chosen) -->
+          <a class="dc-printed" href="cards.html" data-printed-link>Prefer it printed? <span>Order this card in print</span></a>
         </div>
         <div>
           <div class="dc-step-head">
@@ -291,6 +293,7 @@
   function drawPreviews() {
     var c = dcCard(state.cardNo); if (!c) return;
     document.querySelectorAll('[data-card-title]').forEach(function (el) { el.textContent = c.title; });
+    document.querySelectorAll('[data-printed-link]').forEach(function (el) { el.href = 'cards.html?card=' + encodeURIComponent(c.no); });
     document.querySelectorAll('[data-preview] .dc-preview-pages').forEach(function (box) {
       if (box.getAttribute('data-for') !== c.no) {
         box.innerHTML = dcInsideHTML(c.w + ' / ' + c.h) + '<img class="dc-front-thumb" src="' + dcEsc(imgAt(c.src, 400)) + '" alt="The front: ' + dcEsc(c.title) + '">';

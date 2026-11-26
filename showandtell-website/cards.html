@@ -68,16 +68,18 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <div style="width: 100%; min-height: 1000px; box-sizing: border-box; font-family: 'DM Sans', Helvetica, Arial, sans-serif; color: #1A0B45; background: #FDFDFD">
 
 
+<sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+<section class="st-hero" aria-labelledby="cards-title">
+<div class="st-hero-inner">
+<h1 id="cards-title"><span>Show and Tell</span>Cards</h1>
+<p>Every Show and Tell card comes with a pun. It comes blank inside, ready for your own words.</p>
+</div>
+</section>
+</sc-if>
 <main style="max-width: 1240px; margin: 0 auto; padding: 48px 5% 80px; display: flex; flex-direction: column; gap: 32px">
 <!-- LIST: all cards, big -->
 <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
 <div style="display: flex; flex-direction: column; gap: 32px">
-<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 720px; margin: 0 auto; text-align: center">
-
-<h1 class="disp" style="margin: 0; font-size: 56px; line-height: 1.02; font-weight: 900; letter-spacing: -0.02em">Cards</h1>
-<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3B2E6B; max-width: 640px">Every Show and Tell card comes with a pun. It comes blank inside, ready for your own words.</p>
-</div>
-
 <div class="cl">
 <!-- Left rail: search, then filter groups -->
 <aside class="cl-rail" aria-label="Search and filter cards">
@@ -267,9 +269,10 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </sc-if>
 <sc-if value="{{ shopClosed }}" hint-placeholder-val="{{ true }}">
 <span aria-disabled="true" style="display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 24px; border-radius: 999px; background: #E6E6E3; color: #6B6B68; font-size: 17px; font-weight: 700; cursor: not-allowed">{{ soonLabel }}</span>
-<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #3B2E6B; text-align: center">{{ soonNote }}</p>
 </sc-if>
-<p style="margin: 4px 0 0; font-size: 14px; color: #3B2E6B; text-align: center">Ready same day · Delivery available · Pickup available</p>
+<!-- The same card as a digital card (send-a-card.html opens with it chosen) -->
+<a href="{{ digitalLink }}" style="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; margin-top: 6px; padding: 0 24px; border-radius: 999px; border: 2px solid #1A0B45; background: #FDFDFD; color: #1A0B45; font-size: 16px; font-weight: 700; text-decoration: none"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 20px; height: 20px; flex: none"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="#1A0B45" stroke-width="2"></rect><path d="M4 7l8 6 8-6" fill="none" stroke="#1A0B45" stroke-width="2" stroke-linejoin="round"></path></svg>Send it as a digital card</a>
+<p style="margin: 0; font-size: 14px; color: #3B2E6B; text-align: center">Write your message and we’ll email it to them, now or on the day.</p>
 </div>
 </section>
 </div>
@@ -522,8 +525,9 @@ class Component extends DCLogic {
       unitLabel: money(unit),
       totalLine: total == null ? 'Total shown once the card price is set' : 'Total for ' + (st.qty === 1 ? '1 card' : st.qty + ' cards') + ': ' + money(total),
       totalShort: total == null ? '[TOTAL]' : money(total),
-      shopOpen: SHOP_OPEN, shopClosed: !SHOP_OPEN, soonLabel: SOON_LABEL, soonNote: SOON_NOTE,
+      shopOpen: SHOP_OPEN, shopClosed: !SHOP_OPEN, soonLabel: SOON_LABEL,
       waLink: 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(orderMsg),
+      digitalLink: 'send-a-card.html?card=' + encodeURIComponent(c0.no),
     };
   }
 }

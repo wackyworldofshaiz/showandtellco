@@ -24,10 +24,9 @@ var HELP_WHATSAPP = WHATSAPP_NUMBER; // older name, kept so nothing breaks
 
 // ---------- Ordering on or off ----------
 // While SHOP_OPEN is false, every order button (cards, designs, totes, Story Kits, puzzles)
-// shows SOON_LABEL, greyed out, with SOON_NOTE underneath. Set it to true to turn ordering back on.
+// shows SOON_LABEL, greyed out. Set it to true to turn ordering back on.
 var SHOP_OPEN = false;
 var SOON_LABEL = 'Available soon';
-var SOON_NOTE = 'After the pop-up event, all items will be available to purchase.';
 
 // ---------- Smaller images for grids and thumbnails ----------
 // imgAt('images/cards/card-07.jpg', 600) gives a copy of the image 600 px wide, made by Netlify's

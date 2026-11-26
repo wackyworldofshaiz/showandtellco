@@ -256,12 +256,14 @@ var INVITATIONS = [
 var COLLECTIONS = {
   'bestsellers': {
     title: 'Bestsellers',
+    kicker: 'Our',           // the script line above the title in the banner
     intro: 'The ones everyone keeps coming back for.',
     colour: '#F6F1E7',
     items: ['card-05', 'classic', 'p19:patch', 'p29', 'card-04']
   },
   'new-arrivals': {
     title: 'New arrivals',
+    kicker: 'Just landed',           // the script line above the title in the banner
     intro: 'The latest from Show and Tell, from puzzles and Story Kits to cards, patches and prints.',
     colour: '#E4EE3F',
     filters: true,
@@ -300,6 +302,7 @@ var COLLECTIONS = {
   },
   'junior': {
     title: 'ST Junior',
+    kicker: 'For little ones',           // the script line above the title in the banner
     intro: 'Bright, playful things for little ones: junior cards, patches for school bags, prints and tees, and the snacks and rides they know by heart.',
     colour: '#FFC9E8',
     filters: true,
@@ -307,6 +310,7 @@ var COLLECTIONS = {
   },
   'digital-cards': {
     title: 'Digital cards',
+    kicker: 'Send a',           // the script line above the title in the banner
     intro: 'Our pun cards, made to send by WhatsApp, text or email. Perfect for last-minute wishes and friends far away.',
     colour: '#D9F7E8',
     items: [],
@@ -316,6 +320,7 @@ var COLLECTIONS = {
   },
   'stationery': {
     title: 'Stationery',
+    kicker: 'Show and Tell',           // the script line above the title in the banner
     intro: 'Stickers and sketchbooks with our favourite designs, for your desk, your bag and everything in between.',
     colour: '#FFE3F2',
     items: [],
@@ -325,6 +330,7 @@ var COLLECTIONS = {
   },
   'sketchbooks': {
     title: 'Sketchbooks',
+    kicker: 'Show and Tell',           // the script line above the title in the banner
     intro: 'Sketchbooks with our designs on the cover, for doodles, plans, lists and big ideas.',
     colour: '#FFF6C9',
     items: [],
@@ -343,6 +349,7 @@ var COLLECTIONS = {
   },
   'digital-invitations': {
     title: 'Digital invitations',
+    kicker: 'You\'re invited',           // the script line above the title in the banner
     intro: 'Invitations you send by link, for every kind of celebration. Guests open them on their phone and RSVP right on the invitation.',
     colour: '#FFE3F2',
     items: ['invite-luxe-wedding', 'invite-black-luxe-wedding'],
@@ -355,6 +362,7 @@ var COLLECTIONS = {
   },
   'games': {
     title: 'Games',
+    kicker: "Let's play",           // the script line above the title in the banner
     intro: 'Coffee-table puzzles and games for the table. Our first jigsaw sets are here, with more games on the way.',
     colour: '#C9F0FF',
     items: ['puzzle-owambe-wahala', 'puzzle-lagos-traffic'],
@@ -364,6 +372,7 @@ var COLLECTIONS = {
   },
   'collectibles': {
     title: 'Collectibles',
+    kicker: 'Collect them all',           // the script line above the title in the banner
     intro: 'Collect the set: embroidered patches and sticker-style prints, with pins on the way. Swap them, stack them, start a collection.',
     colour: '#EFE9FF',
     byCategory: true,
@@ -372,6 +381,7 @@ var COLLECTIONS = {
   },
   'all-products': {
     title: 'All products',
+    kicker: 'Shop',           // the script line above the title in the banner
     intro: 'Everything we make, in one place.',
     colour: '#F4F0FF',
     filters: true,

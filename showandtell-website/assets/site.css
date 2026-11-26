@@ -99,3 +99,15 @@ img { max-width: 100%; }
 @media (max-width: 640px) {
   .announce-set { font-size: 12px; padding: 8px 11px; }
 }
+
+/* The banner at the top of the shop pages (cards, digital cards, the collections, the design menu):
+   violet stripes, a small script line in lime above a big title, and the intro beside it. */
+.st-hero { overflow: hidden; background: #5D1AFA; background-image: repeating-linear-gradient(90deg, #5D1AFA 0 46px, #6B30FF 46px 92px); color: #FFFFFF; }
+.st-hero-inner { max-width: 1240px; margin: 0 auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; padding: 56px 5% 50px; box-sizing: border-box; }
+.st-hero h1 { margin: 0; font-family: 'Archivo', Helvetica, Arial, sans-serif; font-stretch: 118%; font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em; font-size: clamp(40px, 5vw, 72px); line-height: 0.92; color: #FFFFFF; }
+.st-hero h1 span { display: block; font-family: 'Pinyon Script', cursive; font-stretch: normal; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 0.95em; line-height: 0.95; color: #E4EE3F; }
+.st-hero p { margin: 0; max-width: 470px; font-size: 19px; line-height: 1.5; color: #F3EEFF; }
+@media (max-width: 760px) {
+  .st-hero-inner { flex-direction: column; align-items: flex-start; gap: 16px; padding: 40px 20px 36px; }
+  .st-hero p { font-size: 17px; }
+}

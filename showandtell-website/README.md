@@ -109,9 +109,11 @@ Its product rows come from `assets/catalog.js`:
 
 ## Collections (the menu pages)
 
-Like a shop's collections, each menu page lists products from `assets/catalog.js`. In `COLLECTIONS` there, each page has a title, an intro, a background colour and a list of product ids: cards as `'card-01'`, designs as `'p24'`, blanks as `'classic'`, `'pocket'` or `'tee'`. `'all-cards'` and `'all-designs'` add every card or design. To put a product on a page, add its id to that page's list.
+Like a shop's collections, each menu page lists products from `assets/catalog.js`. In `COLLECTIONS` there, each page has a title, a `kicker` (the script line above the title in the banner), an intro and a list of product ids: cards as `'card-01'`, designs as `'p24'`, blanks as `'classic'`, `'pocket'` or `'tee'`. `'all-cards'` and `'all-designs'` add every card or design. To put a product on a page, add its id to that page's list.
 
 The Holiday Gift Guide is split into `sections`. Each has an `id` (the #link), a `title`, panel colours (`bg`, `fg`, `accent`), up to three cut-out images for the panel (`art`, the first is the big one), where its Shop now link goes (`shop`) and eight product ids (`items`). If you add or rename a section, update the dropdown under Holiday Gift Guide in `NAV` in `assets/header.js` to match. Intros in [square brackets] are placeholders to replace.
+
+**The banner** at the top of the shop pages (the collections, Cards, the design menu) is `.st-hero` in `assets/site.css`: violet stripes, the script line in lime, the title and the intro. Change it there and every one of those pages follows. Tote bags, the Holiday Gift Guide, Sticker packs and the form pages keep their own headers.
 
 Add a type to a design id to show it as one kind only, with that kind's price: `'p22:print'` or `'p19:patch'`.
 
@@ -130,7 +132,7 @@ To use your own domain (for example showandtell.co), add it under **Settings ›
 
 **WhatsApp number.** Orders open WhatsApp with the order already written. The number (+234 705 777 6753) is set once, at the top of `assets/header.js`: `HELP_PHONE` is how it reads in the header's "Do you need help?" line, and `WHATSAPP_NUMBER` is the same number, digits only in international format, used by every order button, the footer and the FAQ. Every page loads `header.js` first, so changing it there changes it everywhere.
 
-**Ordering on or off.** `SHOP_OPEN` at the top of `assets/header.js` turns every order button on or off. While it's `false`, the buttons on cards, designs, totes, Story Kits and puzzles say "Available soon" (greyed out) with a note underneath (`SOON_LABEL` and `SOON_NOTE`). Set it to `true` after the pop-up to start taking orders again.
+**Ordering on or off.** `SHOP_OPEN` at the top of `assets/header.js` turns every order button on or off. While it's `false`, the buttons on cards, designs, totes, Story Kits and puzzles say "Available soon" (greyed out, `SOON_LABEL`). Set it to `true` after the pop-up to start taking orders again.
 
 **Prices to check.** Every price in `assets/prices.js` has a placeholder so the site shows real numbers. Confirmed so far: classic tote ₦10,000 / €10, premium tote bag ₦20,000 / €40, T-shirt ₦15,000 / €15, patch ₦9,500 and card ₦3,500; replace the rest with your own. A price set to `null` shows as [PRICE], and totals that include it show [TOTAL].
 
