@@ -85,6 +85,13 @@
 .pt-rc-note { margin-top: 14px !important; font-size: 14px; color: #3B2E6B; white-space: pre-line; }
 .pt-preview-label { margin: 0 0 10px !important; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #6B6B68; }
 
+/* Confirming before a receipt goes out (on the page, since some browsers block pop-ups) */
+.pt-confirm { padding: 16px; border-radius: 14px; background: #F4F0FF; }
+.pt-confirm p { font-size: 16px; color: #1A0B45; }
+.pt-confirm-btns { display: flex; align-items: center; gap: 14px; margin-top: 12px; }
+.pt-confirm-btns .pt-go { width: auto; padding: 0 26px; }
+.pt-cancel { border: 0; background: none; font: inherit; font-size: 15px; color: #4A3F6B; text-decoration: underline; cursor: pointer; }
+.pt-row-msg { display: block; margin-top: 4px; font-size: 13px; color: #7A4A00; }
 .pt-done { padding: 14px 16px; border-radius: 12px; background: #EAF7EE; font-size: 15px; color: #14532D; }
 .pt-done.is-warn { background: #FFF4E5; color: #7A4A00; }
 
@@ -191,6 +198,10 @@
           <p class="pt-error" id="pt-form-error" role="alert"></p>
           <div class="pt-done" id="pt-done" hidden aria-live="polite"></div>
           <button class="btn pt-go" type="submit" id="pt-send">Send receipt</button>
+          <div class="pt-confirm" id="pt-confirm" hidden role="alertdialog" aria-labelledby="pt-confirm-q">
+            <p id="pt-confirm-q"></p>
+            <div class="pt-confirm-btns"><button class="btn pt-go" type="button" id="pt-yes">Yes, send it</button><button class="pt-cancel" type="button" id="pt-no">Cancel</button></div>
+          </div>
         </form>
       </section>
 
@@ -337,7 +348,15 @@
     if (!d.name) { err.textContent = 'Add the customer’s name.'; $('r-name').focus(); return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)) { err.textContent = 'Add the customer’s email address.'; $('r-email').focus(); return; }
     if (!d.items.length) { err.textContent = 'Add at least one product.'; return; }
-    if (!window.confirm('Send this receipt to ' + d.email + '?')) return;
+    $('pt-confirm-q').innerHTML = 'Send this receipt to <b>' + esc(d.email) + '</b>?';
+    $('pt-confirm').hidden = false; btn.hidden = true; $('pt-yes').focus();
+  });
+  function closeConfirm() { $('pt-confirm').hidden = true; $('pt-send').hidden = false; }
+  $('pt-no').addEventListener('click', function () { closeConfirm(); $('pt-send').focus(); });
+  $('pt-form').addEventListener('input', function () { if (!$('pt-confirm').hidden) closeConfirm(); });
+  $('pt-yes').addEventListener('click', function () {
+    var d = data(), err = $('pt-form-error'), btn = $('pt-send'), done = $('pt-done');
+    closeConfirm();
     btn.disabled = true; btn.textContent = 'Sending…';
     api('/api/portal/receipts', { method: 'POST', body: Object.assign({ action: 'create' }, d) }).then(function (res) {
       btn.disabled = false; btn.textContent = 'Send receipt';
@@ -379,12 +398,15 @@
   $('pt-list').addEventListener('click', function (e) {
     var b = e.target.closest('[data-resend]'); if (!b) return;
     var n = b.getAttribute('data-resend');
-    if (!window.confirm('Email receipt ' + n + ' to the customer again?')) return;
+    if (!b.hasAttribute('data-sure')) { b.setAttribute('data-sure', ''); b.textContent = 'Tap again to send'; return; } // a second tap confirms
     b.disabled = true; b.textContent = 'Sending…';
     api('/api/portal/receipts', { method: 'POST', body: { action: 'resend', number: n } }).then(function (res) {
       if (signedOut(res)) return;
-      if (!res.sent) window.alert(res.message || 'The email didn’t go. Please try again.');
       loadList();
+      if (!res.sent) setTimeout(function () {
+        var again = document.querySelector('[data-resend="' + n + '"]');
+        if (again) again.insertAdjacentHTML('afterend', '<span class="pt-row-msg">' + esc(res.message || 'The email didn’t go. Please try again.') + '</span>');
+      }, 400);
     });
   });
 
