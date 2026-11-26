@@ -282,9 +282,6 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 </sc-if>
 <a href="cards.html" style="display: inline-flex; align-items: center; min-height: 50px; padding: 0 22px; border-radius: 999px; border: 2px solid #1A0B45; color: #1A0B45; font-size: 16px; font-weight: 700; text-decoration: none; box-sizing: border-box">Add a matching card</a>
 </div>
-<sc-if value="{{ shopClosed }}" hint-placeholder-val="{{ true }}">
-<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #1A0B45">{{ soonNote }}</p>
-</sc-if>
 </div>
 </div>
 </sc-if>
@@ -575,7 +572,7 @@ class Component extends DCLogic {
       maxLabel: st.placed.length + ' of ' + MAX_DESIGNS + ' added',
       hint: full ? 'That’s the limit. Remove a design to add another.' : (st.placed.length ? 'Drag designs to move them. Tap one to edit it.' : 'Ready for designs.'),
       total: total, notes: st.notes,
-      shopOpen: SHOP_OPEN, shopClosed: !SHOP_OPEN, soonLabel: SOON_LABEL, soonNote: SOON_NOTE,
+      shopOpen: SHOP_OPEN, shopClosed: !SHOP_OPEN, soonLabel: SOON_LABEL,
       waLink: 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg),
       toStep2: function () { self.setState({ step: 2 }); },
       toStep3: function () { self.setState({ step: 3, sel: null }); },

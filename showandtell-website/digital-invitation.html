@@ -178,7 +178,7 @@ var ALSO_LIKE = ['card-11', 'puzzle-owambe-wahala', 'p19:patch'];
                 ? '<a class="btn iv-order" href="' + esc(orderLink()) + '" target="_blank" rel="noopener">Order on WhatsApp</a>'
                 : '<a class="btn iv-order" aria-disabled="true">' + esc(SOON_LABEL) + '</a>')
       +       '<a class="btn iv-live" href="' + esc(iv.live) + '" target="_blank" rel="noopener">See it live</a>'
-      +       '<p class="iv-hint">' + (SHOP_OPEN ? 'Your order opens in WhatsApp, already written. We reply to collect your details.' : esc(SOON_NOTE)) + ' See it live opens a sample invitation, the way your guests will get it.</p>'
+      +       (SHOP_OPEN ? '<p class="iv-hint">Your order opens in WhatsApp, already written. We reply to collect your details.</p>' : '')
       +     '</div>'
       +     '<div class="iv-acc">'
       +       '<details open><summary>Description</summary><div class="iv-acc-body"><p>' + esc(iv.desc) + '</p></div></details>'
