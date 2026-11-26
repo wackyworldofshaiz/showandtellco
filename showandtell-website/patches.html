@@ -52,16 +52,19 @@ a{color:#5D1AFA}a:hover{color:#3D0CB0}
 <div style="width: 100%; min-height: 1000px; box-sizing: border-box; font-family: 'DM Sans', Helvetica, Arial, sans-serif; color: #1A0B45; background: #FDFDFD">
 
 
+<sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+<section class="st-hero" aria-labelledby="designs-title">
+<div class="st-hero-inner">
+<h1 id="designs-title"><span>The</span>Design menu</h1>
+<p>Our embroidered designs come as patches and our sticker-style designs as prints, and a few come as both. Add them to a tote or tee and we'll press them on, or buy patches and pins on their own.</p>
+</div>
+</section>
+</sc-if>
 <main style="max-width: 1240px; margin: 0 auto; padding: 48px 5% 80px; display: flex; flex-direction: column; gap: 32px">
 
 <!-- LIST -->
 <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
 <div style="display: flex; flex-direction: column; gap: 32px">
-<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 720px; margin: 0 auto; text-align: center">
-<h1 class="disp" style="margin: 0; font-size: 56px; line-height: 1.02; font-weight: 900; letter-spacing: -0.02em">The design menu.</h1>
-<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3B2E6B; max-width: 640px">Our embroidered designs come as patches and our sticker-style designs as prints, and a few come as both. Add them to a tote or tee and we'll press them on, or buy patches and pins on their own.</p>
-</div>
-
 <div class="cl">
 <!-- Left rail: search, then filter groups -->
 <aside class="cl-rail" aria-label="Search and filter designs">

@@ -109,9 +109,11 @@ Its product rows come from `assets/catalog.js`:
 
 ## Collections (the menu pages)
 
-Like a shop's collections, each menu page lists products from `assets/catalog.js`. In `COLLECTIONS` there, each page has a title, an intro, a background colour and a list of product ids: cards as `'card-01'`, designs as `'p24'`, blanks as `'classic'`, `'pocket'` or `'tee'`. `'all-cards'` and `'all-designs'` add every card or design. To put a product on a page, add its id to that page's list.
+Like a shop's collections, each menu page lists products from `assets/catalog.js`. In `COLLECTIONS` there, each page has a title, a `kicker` (the script line above the title in the banner), an intro and a list of product ids: cards as `'card-01'`, designs as `'p24'`, blanks as `'classic'`, `'pocket'` or `'tee'`. `'all-cards'` and `'all-designs'` add every card or design. To put a product on a page, add its id to that page's list.
 
 The Holiday Gift Guide is split into `sections`. Each has an `id` (the #link), a `title`, panel colours (`bg`, `fg`, `accent`), up to three cut-out images for the panel (`art`, the first is the big one), where its Shop now link goes (`shop`) and eight product ids (`items`). If you add or rename a section, update the dropdown under Holiday Gift Guide in `NAV` in `assets/header.js` to match. Intros in [square brackets] are placeholders to replace.
+
+**The banner** at the top of the shop pages (the collections, Cards, the design menu) is `.st-hero` in `assets/site.css`: violet stripes, the script line in lime, the title and the intro. Change it there and every one of those pages follows. Tote bags, the Holiday Gift Guide, Sticker packs and the form pages keep their own headers.
 
 Add a type to a design id to show it as one kind only, with that kind's price: `'p22:print'` or `'p19:patch'`.
 

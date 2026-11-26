@@ -212,15 +212,14 @@
         + col.sections.map(function (s) { return '<a href="#' + esc(s.id) + '" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; background: #FDFDFD; color: #1A0B45; font-size: 15px; font-weight: 600; text-decoration: none">' + esc(s.title) + '</a>'; }).join('')
         + '</nav>'
       : '';
+    // The banner at the top (.st-hero in assets/site.css): a script line (col.kicker) above the title.
     root.innerHTML =
-      '<div style="background: ' + col.colour + '">'
-      + '<div style="max-width: 1240px; margin: 0 auto; padding: 20px 5% 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px">'
-      + '<nav aria-label="Breadcrumb" style="font-size: 14px; color: #3B2E6B"><a href="index.html" style="color: #3B2E6B">Home</a> / <span aria-current="page">' + esc(col.title) + '</span></nav>'
-      + '<h1 class="disp" style="margin: 0; font-size: 60px; line-height: 1; font-weight: 900; letter-spacing: -0.02em">' + esc(col.title) + '</h1>'
-      + '<p style="margin: 0; max-width: 640px; font-size: 19px; line-height: 1.5; color: #1A0B45">' + esc(col.intro) + '</p>'
-      + jump
-      + '</div></div>'
+      '<section class="st-hero" aria-labelledby="collection-title"><div class="st-hero-inner">'
+      + '<h1 id="collection-title"><span>' + esc(col.kicker || 'Show and Tell') + '</span>' + esc(col.title) + '</h1>'
+      + '<p>' + esc(col.intro) + '</p>'
+      + '</div></section>'
       + '<div style="max-width: 1240px; margin: 0 auto; padding: 48px 5% 96px; box-sizing: border-box; display: flex; flex-direction: column; gap: 56px">'
+      + jump
       + body() + '</div>';
   }
 
