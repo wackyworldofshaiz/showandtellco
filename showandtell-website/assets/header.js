@@ -117,7 +117,9 @@ var NAV = [
     + '<div class="nav-right">'
     + '<a class="nav-help" href="https://wa.me/' + esc(HELP_WHATSAPP) + '" target="_blank" rel="noopener" aria-label="Do you need help? Message us on WhatsApp at ' + esc(HELP_PHONE) + '">' + icon('<circle cx="12" cy="12" r="9.5"/><path d="M9.4 9.3a2.7 2.7 0 0 1 5.2 1c0 1.8-2.6 2.4-2.6 3.9"/><circle cx="12" cy="17.3" r="0.6" fill="currentColor"/>', 22)
     + '<span class="nav-help-text" aria-hidden="true"><span class="nav-help-q">Do you need help?</span><span class="nav-help-num">' + esc(HELP_PHONE) + '</span></span></a>'
-    + '<a class="nav-icon" href="all-products.html#search" aria-label="Search products">' + icon('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/>', 21) + '</a></div>'
+    + '<a class="nav-icon" href="all-products.html#search" aria-label="Search products">' + icon('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/>', 21) + '</a>'
+    // The staff portal (portal.html): an arched doorway. Staff sign in there with the code.
+    + '<a class="nav-icon" href="portal.html" aria-label="Staff portal" title="Staff portal">' + icon('<path d="M6 21V9a6 6 0 0 1 12 0v12"/><path d="M3.5 21h17"/><circle cx="14.6" cy="14.2" r="0.7" fill="currentColor"/>', 21) + '</a></div>'
     + '</div>'
     + '<nav id="site-links" class="site-links" aria-label="Main"><ul>' + items + '</ul>' + regionSwitch('region-mobile') + '</nav></div>';
 })();
