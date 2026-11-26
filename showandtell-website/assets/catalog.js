@@ -200,6 +200,48 @@ var PUZZLES = [
   }
 ];
 
+// Digital invitations. Each design has a live sample guests would see (live) and a product page:
+// digital-invitation.html?design=<id>. The gallery pictures are phone screenshots of the sample.
+var INVITATIONS = [
+  {
+    id: 'luxe-wedding',
+    name: 'Luxe Wedding',
+    occasion: 'Wedding',
+    priceKey: 'digitalInvitation',
+    live: 'invitation.html',
+    tagline: 'Guests watch an envelope open with your photo inside, then read your invitation while your song plays.',
+    opening: 'An envelope that opens, with your photo sliding out',
+    desc: 'A wedding invitation you send by link. It opens with an envelope and your photo inside, then everything your guests need on one page: the date and a live countdown, the venue with directions, the order of the day, your story, where to stay, your gift list, the dress code and the RSVP form. Deep wine and ivory, with lace, calla lilies and a spinning record that plays your song.',
+    img: 'images/invitations/shop/luxe-wedding-tile.webp',
+    gallery: [
+      { src: 'images/invitations/shop/luxe-wedding-tile.webp', alt: 'Two phones showing the Luxe Wedding invitation: the envelope opening, and the first page with the oval card and countdown' },
+      { src: 'images/invitations/shop/luxe-wedding-2-envelope.webp', alt: 'The envelope open, with the couple\'s names above it' },
+      { src: 'images/invitations/shop/luxe-wedding-3-invitation.webp', alt: 'The first page: the envelope with a record, the oval card and the countdown' },
+      { src: 'images/invitations/shop/luxe-wedding-4-details.webp', alt: 'The details: date, ceremony and reception, with Maps and calendar buttons' },
+      { src: 'images/invitations/shop/luxe-wedding-5-rsvp.webp', alt: 'The RSVP form on the invitation' }
+    ]
+  },
+  {
+    id: 'black-luxe-wedding',
+    name: 'Black Luxe Wedding',
+    occasion: 'Wedding',
+    priceKey: 'digitalInvitation',
+    live: 'invitation-black.html',
+    tagline: 'A photo booth prints a strip of your photos, then your invitation opens in black, silver and ivory.',
+    opening: 'A photo booth that prints a strip of your photos, with your date written underneath',
+    desc: 'The Luxe Wedding invitation in black, silver and ivory, with a photo booth opening. Guests watch a strip of your photos print out of a slot in a silver plate, with your date written underneath. Inside, everything is on one page: your photos in the envelope, a locket and polaroids, a record that plays your song, the date and a live countdown, the venue with directions, the order of the day, your story, where to stay, your gift list, the dress code and the RSVP form.',
+    img: 'images/invitations/shop/black-luxe-wedding-tile.webp',
+    gallery: [
+      { src: 'images/invitations/shop/black-luxe-wedding-tile.webp', alt: 'Two phones showing the Black Luxe Wedding invitation: the photo booth strip, and the first page with the couple\'s photo' },
+      { src: 'images/invitations/shop/black-luxe-wedding-2-photobooth.webp', alt: 'A strip of three photos printing out of a slot in a silver plate, with the date written underneath' },
+      { src: 'images/invitations/shop/black-luxe-wedding-3-invitation.webp', alt: 'The first page: the couple\'s photo in the envelope, a record, the oval card and the countdown' },
+      { src: 'images/invitations/shop/black-luxe-wedding-4-details.webp', alt: 'The details under an ivory lace heart: date, ceremony and reception' },
+      { src: 'images/invitations/shop/black-luxe-wedding-5-story.webp', alt: 'Our love story with two polaroids and a photo strip' }
+    ]
+  }
+];
+
+
 // ---------- Collections ----------
 // Each menu page shows the products listed here. Refer to products by id:
 // cards as 'card-01', designs as 'p24', blanks as 'classic', 'pocket' or 'tee',
@@ -299,6 +341,18 @@ var COLLECTIONS = {
     emptyText: 'Our first stickers are on the way. Follow us on Instagram to see them first. In the meantime, here are some favourites.',
     fallback: ['p19', 'p05', 'card-11', 'classic']
   },
+  'digital-invitations': {
+    title: 'Digital invitations',
+    intro: 'Invitations you send by link, for every kind of celebration. Guests open them on their phone and RSVP right on the invitation.',
+    colour: '#FFE3F2',
+    items: ['invite-luxe-wedding', 'invite-black-luxe-wedding'],
+    filters: true,
+    occasions: ['Wedding', 'Engagement', 'Birthday'],  // the Occasion filter; add one here when it gets a design
+    searchHint: 'Try wedding or birthday',
+    emptyTitle: 'Coming soon',
+    emptyText: 'Our first invitations are on the way. In the meantime, here are some favourites.',
+    fallback: ['card-11', 'p19', 'p05', 'classic']
+  },
   'games': {
     title: 'Games',
     intro: 'Coffee-table puzzles and games for the table. Our first jigsaw sets are here, with more games on the way.',
@@ -367,6 +421,12 @@ function catalogItem(id) {
     if (!k) return null;
     return { id: id, group: 'Story kits', kind: kitLeft(k) ? 'Story kit · ' + kitLeft(k) + ' left' : 'Story kit · sold out', name: k.name, img: k.img, fit: 'contain',
       href: 'story-kit.html?kit=' + k.id, price: priceFor(k.priceKey), from: false, cat: 'Story kit' };
+  }
+  if (id.indexOf('invite-') === 0) {
+    var v = INVITATIONS.find(function (x) { return 'invite-' + x.id === id; });
+    if (!v) return null;
+    return { id: id, group: 'Cards', kind: 'Digital invitation', name: v.name, img: v.img, fit: 'contain',
+      href: 'digital-invitation.html?design=' + v.id, price: priceFor(v.priceKey), from: false, cat: v.occasion, occasion: v.occasion };
   }
   if (id.indexOf('puzzle-') === 0) {
     var z = PUZZLES.find(function (x) { return 'puzzle-' + x.id === id; });

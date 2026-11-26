@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're invited · Show and Tell Co</title>
+<meta name="description" content="You're invited. Tap to open your invitation.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#3B0018">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Show and Tell Co">
+<meta property="og:title" content="You're invited!">
+<meta property="og:description" content="Tap to open your invitation.">
+<meta property="og:image" content="https://showandtellco.shop/images/share/share-cards.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="images/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+<link rel="stylesheet" href="assets/invitations.css">
+</head>
+<body class="lx">
+<!-- A sample wedding invitation in the Luxe template. For now the details live in SAMPLE below
+     and replies are not saved. Later, invitation.html?id=... will fetch a host's own invitation. -->
+
+<!-- The doorbell opening, switched off for now. To bring it back, remove this comment around it.
+<div class="lx-screen" id="lx-bell">
+  <button class="lx-bell" type="button" aria-label="Tap to open your invitation">
+    <img src="images/invitations/luxe/doorbell.webp" alt="" draggable="false">
+    <span class="lx-bell-words">Click the<br>Button</span>
+    <span class="lx-bell-btn"></span>
+  </button>
+</div>
+-->
+
+<div class="lx-screen lx-welcome" id="lx-welcome">
+  <p class="lx-caps">We are getting married!</p>
+  <h1 class="lx-script" id="lx-names"></h1>
+  <div class="lx-env">
+    <img class="lx-env-back" src="images/invitations/luxe/env-back.webp" alt="">
+    <img class="lx-env-flapup" src="images/invitations/luxe/env-flap-up.webp" alt="">
+    <div class="lx-env-clip"><div class="lx-env-letter" id="lx-letter"></div></div>
+    <img class="lx-env-pocket" src="images/invitations/luxe/env-pocket.webp" alt="">
+    <img class="lx-env-flapdown" src="images/invitations/luxe/env-flap-down.webp" alt="">
+    <img class="lx-env-seal" src="images/invitations/luxe/seal.webp" alt="">
+  </div>
+  <button class="lx-btn-line" type="button" data-open>Open invitation</button>
+</div>
+
+<main class="lx-main" id="lx-main" hidden></main>
+
+<script src="assets/invitations.js"></script>
+<script>
+var SAMPLE = {
+  template: 'luxe',
+  names: ['Amara', 'Tobi'],
+  monogram: 'A & T',
+  place: 'Abuja, Nigeria',
+  date: '2027-06-12', time: '14:00', endTime: '23:30', tz: 'Africa/Lagos',
+  venue: { name: 'The Garden House', address: '14 Jacaranda Close, Maitama, Abuja' },
+  parts: [
+    { label: 'Ceremony', text: '2:00 pm at The Garden House\n14 Jacaranda Close\nMaitama, Abuja' },
+    { label: 'Reception', text: '5:00 pm in the Garden Marquee\nThe Garden House' }
+  ],
+  schedule: [
+    { icon: 'church', time: '1:30 pm', what: 'Guests arrive' },
+    { icon: 'rings', time: '2:00 pm', what: 'The ceremony' },
+    { icon: 'drinks', time: '3:00 pm', what: 'Cocktails & small chops' },
+    { icon: 'dinner', time: '5:00 pm', what: 'Dinner' },
+    { icon: 'cake', time: '7:00 pm', what: 'Cake cutting' },
+    { icon: 'party', time: '8:00 pm', what: 'Party' },
+    { icon: 'car', time: '11:30 pm', what: 'Farewells' }
+  ],
+  stayNote: 'Book directly with either hotel. There is a shuttle back to both after the party.',
+  stay: [
+    { name: 'The Maitama Suites', text: '8 Aguiyi Ironsi Street, Maitama\n5-minute drive to the venue', link: 'https://showandtellco.shop' },
+    { name: 'Hotel Jacaranda', text: '22 Gana Street, Maitama\n8-minute drive to the venue', link: 'https://showandtellco.shop' }
+  ],
+  gifts: { text: 'Your presence is truly the greatest gift.\n\nIf you would like to give something extra, we have made a registry to help us begin our new life together.', link: 'https://showandtellco.shop', label: 'Shop Our Registry' },
+  other: [
+    { label: 'Dress code', text: 'Our aso ebi colours are sage and wine. Come dressed for a celebration, and we kindly ask that guests avoid wearing white.', colours: ['#C9C6A6', '#B9958A', '#7C8450', '#6B2A24', '#4A2A2A'] },
+    { label: 'Children', text: 'We love your little ones, but this will be an adults-only celebration. We hope you enjoy an evening out with us!' }
+  ],
+  story: { title: 'Our Love Story', text: 'We met in a queue for suya in 2019.\nWe laughed, and somehow never stopped talking.\n\nWhat started with pepper and bad jokes turned into a shared home, shared dreams and a shared playlist we argue about forever.\n\nWe can\'t wait to make unforgettable memories with you.' },
+  rsvp: { by: '2027-05-01', seats: 2, meals: ['Jollof & chicken', 'Grilled fish', 'Vegetarian'], question: 'What song will get you on the dance floor?' },
+  contact: 'amaraandtobi@example.com',
+  music: 'images/invitations/luxe/sample-song.m4a', // a music-box Pachelbel's Canon made for the sample
+  photos: {}
+};
+
+(function () {
+  var inv = SAMPLE;
+  var main = document.getElementById('lx-main');
+  document.getElementById('lx-names').textContent = inv.names.join(' & ');
+  document.getElementById('lx-letter').innerHTML = lxPhoto(inv, inv.photos.cover);
+  var show = invDraw(inv, main);
+  invOpen(inv, document.getElementById('lx-bell'), /* null while the doorbell is switched off */ document.getElementById('lx-welcome'), function () {
+    main.hidden = false; show();
+  });
+})();
+</script>
+</body>
+</html>

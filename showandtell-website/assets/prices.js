@@ -14,7 +14,8 @@ var PRICES = {
     pin: 6500,
     storyKit: 35000,      // Story Kit: printed tee + iron-on pieces
     puzzle: 25000,        // Puzzle set: two 120-piece puzzles in a book box
-    stickerPack: null     // Sticker pack: 10 die-cut stickers + a free logo sticker. null shows [PRICE] until you set it
+    stickerPack: null,    // Sticker pack: 10 die-cut stickers + a free logo sticker. null shows [PRICE] until you set it
+    digitalInvitation: null // Digital invitation, made for you. null shows [PRICE] until you set it
   },
   eu: {
     card: 6,
@@ -28,7 +29,8 @@ var PRICES = {
     pin: 7,
     storyKit: 35,
     puzzle: 35,
-    stickerPack: null
+    stickerPack: null,
+    digitalInvitation: null
   }
 };
 // ---------- End of prices ----------

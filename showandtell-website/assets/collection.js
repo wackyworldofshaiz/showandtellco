@@ -103,6 +103,12 @@
         return parts[1] ? [parts[1]] : (d ? typesOf(d) : []);
       } }
   ];
+  // A collection can list its occasions (COLLECTIONS[...].occasions). They always show in the rail,
+  // even before there's a product for each, so visitors can see what's coming.
+  if (col.occasions) {
+    FACETS.unshift({ key: 'occasion', label: 'Occasion', order: col.occasions, always: true,
+      of: function (it) { return it.occasion ? [it.occasion] : []; } });
+  }
   if (col.sections) {
     allItems();
     FACETS.unshift({ key: 'section', label: col.sectionsLabel || 'Shop by', order: col.sections.map(function (s) { return s.title; }),
@@ -141,8 +147,8 @@
     var rail = FACETS.map(function (f) {
       var present = {};
       items.forEach(function (it) { f.of(it).forEach(function (v) { present[v] = true; }); });
-      var opts = f.order.filter(function (o) { return present[o]; });
-      if (opts.length < 2 && !state.picked[f.key].length) return ''; // a filter with one choice doesn't help
+      var opts = f.always ? f.order : f.order.filter(function (o) { return present[o]; });
+      if (!f.always && opts.length < 2 && !state.picked[f.key].length) return ''; // a filter with one choice doesn't help
       return '<details class="cl-group" data-facet="' + f.key + '"' + (state.closed[f.key] ? '' : ' open') + '><summary>' + esc(f.label) + CHEV + '</summary>'
         + '<div class="cl-opts" role="group" aria-label="' + esc(f.label) + '">'
         + opts.map(function (o) {
@@ -179,7 +185,7 @@
     return '<div class="cl">'
       + '<aside class="cl-rail" aria-label="Search and filter products">'
       + '<div class="cl-search"><label for="search" class="cl-sr">Search products</label>'
-      + '<input id="search" type="search" data-search value="' + esc(state.q) + '" placeholder="Try jollof, Lagos or love" autocomplete="off">'
+      + '<input id="search" type="search" data-search value="' + esc(state.q) + '" placeholder="' + esc(col.searchHint || 'Try jollof, Lagos or love') + '" autocomplete="off">'
       + '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="#3B2E6B" stroke-width="2"></circle><path d="M16 16l5 5" stroke="#3B2E6B" stroke-width="2" stroke-linecap="round"></path></svg></div>'
       + '<button class="cl-toggle" type="button" data-rail aria-expanded="' + state.railOpen + '" aria-controls="product-filters">' + (state.railOpen ? 'Hide filters' : 'Filters') + (nPicked ? ' (' + nPicked + ')' : '') + '</button>'
       + '<div class="cl-panel" id="product-filters" data-open="' + state.railOpen + '">'
