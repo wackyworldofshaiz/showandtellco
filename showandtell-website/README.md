@@ -30,6 +30,7 @@ This is a plain static website: HTML, CSS, JavaScript and images. It doesn't nee
 | `digital-invitations.html` | Digital invitations (Cards › Digital invitations in the menu): a collection page of invitation designs. See **Digital invitations** below. |
 | `digital-invitation.html` | One invitation design's product page, e.g. `digital-invitation.html?design=luxe-wedding`. |
 | `invitation.html` | The live sample invitation guests would receive (Luxe Wedding). Hidden from search engines. |
+| `invitation-black.html` | The live sample for Black Luxe Wedding: the same invitation in black, silver and ivory, opening with a photo booth. Hidden from search engines. |
 | `open-card.html` | A digital card as the recipient sees it (the link in their email). |
 | `faq.html` | Frequently asked questions: tote care, cards, prints vs patches vs pins, group orders, ordering and delivery, patch bar. Answers in [square brackets] are placeholders to fill in. |
 
@@ -80,6 +81,7 @@ Invitations sent by link, starting with **Luxe Wedding**.
 
 - **Shop pages:** `digital-invitations.html` lists the designs (COLLECTIONS `'digital-invitations'` in `assets/catalog.js`), and each one opens `digital-invitation.html?design=<id>`. The designs' names, text and pictures are in `INVITATIONS` in `assets/catalog.js`. Set the price as `digitalInvitation` in `assets/prices.js`. Ordering works like the other products: a WhatsApp message, or "Available soon" while `SHOP_OPEN` is false.
 - **The sample guests see:** `invitation.html`, drawn by `assets/invitations.js` and `assets/invitations.css` from the `SAMPLE` details in the page. The art is in `images/invitations/luxe/`, trimmed web copies of the purchased art. The originals stay in `images/invitations/new-art/` and are never committed. The sample song is a music-box Pachelbel's Canon made for it.
+- **Black Luxe Wedding:** `invitation-black.html` uses the same code with `template: 'luxe-black'` (the body class `lx-black` switches the colours in `assets/invitations.css`). Its own art is in `images/invitations/luxe-black/`: the silver doorbell, the ivory lace heart (swapped in with `art: { heart: ... }`), the photo booth plate and strip, and the sample couple photos (made with ChatGPT for the sample). After the doorbell, a photo booth prints a strip of three photos with the date written underneath (`lxBoothStrip` in `assets/invitations.js`), in place of the envelope opening.
 - **Not built yet:** saving RSVPs, a host's private guest list, and hosts making their own invitation. For now, each invitation is set up by hand.
 - **Shop pictures:** `images/invitations/shop/` holds phone screenshots of the sample. Make new ones if the design changes.
 

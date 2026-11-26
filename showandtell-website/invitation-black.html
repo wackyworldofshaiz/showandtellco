@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're invited · Show and Tell Co</title>
+<meta name="description" content="You're invited. Tap to open your invitation.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0C0C0C">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Show and Tell Co">
+<meta property="og:title" content="You're invited!">
+<meta property="og:description" content="Tap to open your invitation.">
+<meta property="og:image" content="https://showandtellco.shop/images/share/share-cards.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="images/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="images/brand/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+<link rel="stylesheet" href="assets/invitations.css">
+<link rel="preload" as="image" href="images/invitations/luxe-black/doorbell.webp">
+</head>
+<body class="lx lx-black">
+<!-- A sample wedding invitation in Black Luxe: the Luxe invitation in black, silver and ivory, opening
+     with a photo booth that prints a strip of the couple's photos. Details live in SAMPLE below; replies are not saved. -->
+
+<div class="lx-screen" id="lx-bell">
+  <button class="lx-bell" type="button" aria-label="Tap to open your invitation">
+    <img src="images/invitations/luxe-black/doorbell.webp" alt="" draggable="false">
+    <span class="lx-bell-words" style="left: 48.5%; top: 45.5%; color: #1E1E1E">Click the<br>Button</span>
+    <span class="lx-bell-btn"></span>
+  </button>
+</div>
+
+<div class="lx-screen lx-welcome" id="lx-welcome">
+  <p class="lx-caps">We are getting married!</p>
+  <h1 class="lx-script" id="lx-names"></h1>
+  <div class="lx-booth">
+    <img src="images/invitations/luxe-black/booth-plate.webp" alt="">
+    <div class="lx-booth-out" id="lx-booth-out"></div>
+  </div>
+  <button class="lx-btn-line" type="button" data-open>Open invitation</button>
+</div>
+
+<main class="lx-main" id="lx-main" hidden></main>
+
+<script src="assets/invitations.js"></script>
+<script>
+var PH = 'images/invitations/luxe-black/couple-'; // photos made for the sample
+var SAMPLE = {
+  template: 'luxe-black',
+  art: { heart: 'images/invitations/luxe-black/heart.webp' },
+  names: ['Ada', 'Femi'],
+  monogram: 'A & F',
+  place: 'Lagos, Nigeria',
+  date: '2027-09-18', time: '13:00', endTime: '23:30', tz: 'Africa/Lagos',
+  venue: { name: 'The Glasshouse', address: '7 Bourdillon Road, Ikoyi, Lagos' },
+  parts: [
+    { label: 'Ceremony', text: '1:00 pm at The Glasshouse\n7 Bourdillon Road\nIkoyi, Lagos' },
+    { label: 'Reception', text: '4:30 pm on the Lagoon Terrace\nThe Glasshouse' }
+  ],
+  schedule: [
+    { icon: 'church', time: '12:30 pm', what: 'Guests arrive' },
+    { icon: 'rings', time: '1:00 pm', what: 'The ceremony' },
+    { icon: 'drinks', time: '2:30 pm', what: 'Cocktails & small chops' },
+    { icon: 'dinner', time: '4:30 pm', what: 'Dinner' },
+    { icon: 'cake', time: '6:30 pm', what: 'Cake cutting' },
+    { icon: 'party', time: '7:30 pm', what: 'Party' },
+    { icon: 'car', time: '11:30 pm', what: 'Farewells' }
+  ],
+  stayNote: 'Book directly with either hotel. There is a shuttle back to both after the party.',
+  stay: [
+    { name: 'The Ikoyi Suites', text: '12 Glover Road, Ikoyi\n5-minute drive to the venue', link: 'https://showandtellco.shop' },
+    { name: 'Hotel Lagoon', text: '3 Alexander Avenue, Ikoyi\n8-minute drive to the venue', link: 'https://showandtellco.shop' }
+  ],
+  gifts: { text: 'Your presence is truly the greatest gift.\n\nIf you would like to give something extra, we have made a registry to help us begin our new life together.', link: 'https://showandtellco.shop', label: 'Shop Our Registry' },
+  other: [
+    { label: 'Dress code', text: 'Black tie. Black, white, silver and every shade of grey in between. We kindly ask that guests avoid wearing all white.', colours: ['#0C0C0C', '#5A5A5A', '#A9A9A9', '#D9D6CF', '#F4F2EC'] },
+    { label: 'Children', text: 'We love your little ones, but this will be an adults-only celebration. We hope you enjoy an evening out with us!' }
+  ],
+  story: { title: 'Our Love Story', text: 'We met in a photo booth queue at a friend\'s wedding.\nOne strip of silly faces later, we were hooked.\n\nFive years, two cities and far too many photo strips on the fridge later, we\'re doing it properly.\n\nWe can\'t wait to celebrate with you.' },
+  rsvp: { by: '2027-08-01', seats: 2, meals: ['Jollof & chicken', 'Grilled fish', 'Vegetarian'], question: 'What song will get you on the dance floor?' },
+  contact: 'adaandfemi@example.com',
+  music: 'images/invitations/luxe/sample-song.m4a', // a music-box Pachelbel's Canon made for the sample
+  photos: {
+    cover: PH + '3.webp', record: PH + '1.webp',
+    booth: [PH + '2.webp', PH + '1.webp', PH + '3.webp'],
+    locket: [PH + '1.webp', PH + '3.webp'],
+    strip: [PH + '2.webp', PH + '1.webp', PH + '3.webp'],
+    story: [PH + '3.webp', PH + '2.webp']
+  }
+};
+
+(function () {
+  var inv = SAMPLE;
+  var main = document.getElementById('lx-main');
+  document.getElementById('lx-names').textContent = inv.names.join(' & ');
+  document.getElementById('lx-booth-out').innerHTML = lxBoothStrip(inv);
+  var show = invDraw(inv, main);
+  invOpen(inv, document.getElementById('lx-bell'), document.getElementById('lx-welcome'), function () {
+    main.hidden = false; show();
+  });
+})();
+</script>
+</body>
+</html>

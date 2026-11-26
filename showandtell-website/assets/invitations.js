@@ -43,7 +43,10 @@ function invCalendar(inv) {
 }
 
 // ---------- Small pieces ----------
-function lxImg(name, cls, alt) { return '<img class="' + (cls || '') + '" src="' + LX_ART + name + '.webp" alt="' + (alt || '') + '" draggable="false">'; }
+// A design can swap any piece of art for its own (inv.art = { heart: 'images/.../heart.webp' }).
+var LX_SWAP = {};
+function lxSrc(name) { return LX_SWAP[name] || (LX_ART + name + '.webp'); }
+function lxImg(name, cls, alt) { return '<img class="' + (cls || '') + '" src="' + lxSrc(name) + '" alt="' + (alt || '') + '" draggable="false">'; }
 // A photo slot. box is where it sits inside its frame, in %: [left, top, width, height, turn].
 function lxPhoto(inv, src, box) {
   var style = box ? 'left:' + box[0] + '%;top:' + box[1] + '%;width:' + box[2] + '%;height:' + box[3] + '%;' + (box[4] ? 'transform:rotate(' + box[4] + 'deg)' : '') : '';
@@ -62,6 +65,17 @@ function lxFramed(inv, frame, photos, cls, extra) {
   var mask = 'url(' + LX_ART + frame + '-holes.png) center / 100% 100% no-repeat';
   return '<div class="' + cls + '"><span class="lx-holes" style="-webkit-mask:' + mask + ';mask:' + mask + '">'
     + holes.map(function (b, i) { return lxPhoto(inv, (photos || [])[i], b); }).join('') + '</span>' + lxImg(frame) + (extra || '') + '</div>';
+}
+// The photo booth strip for the opening (Black Luxe): three photos and the date written underneath.
+var LX_BOOTH = { strip: 'images/invitations/luxe-black/strip.webp', mask: 'images/invitations/luxe-black/strip-holes.png',
+  holes: [[14.6, 2.5, 80.1, 27.4], [14.6, 30.9, 80.1, 27.4], [14.6, 59.3, 80.1, 27.3]] };
+function lxBoothStrip(inv) {
+  var photos = (inv.photos || {}).booth || [], mask = 'url(' + LX_BOOTH.mask + ') center / 100% 100% no-repeat';
+  var start = invMoment(inv.date, inv.time, inv.tz);
+  var date = invFmt(start, inv.tz, { day: '2-digit' }) + '.' + invFmt(start, inv.tz, { month: '2-digit' }) + '.' + invFmt(start, inv.tz, { year: 'numeric' });
+  return '<div class="lx-booth-strip"><span class="lx-holes" style="-webkit-mask:' + mask + ';mask:' + mask + '">'
+    + LX_BOOTH.holes.map(function (b, i) { return lxPhoto(inv, photos[i], b); }).join('') + '</span>'
+    + '<img src="' + LX_BOOTH.strip + '" alt="" draggable="false"><span class="lx-booth-date">' + date + '</span></div>';
 }
 var LX_ICONS = { church: 'icon-church', rings: 'icon-rings', drinks: 'icon-champagne', dinner: 'icon-dinner', party: 'icon-disco', cake: 'icon-cake', car: 'icon-car' };
 
@@ -258,6 +272,7 @@ function lxCountdown(el, start) {
 
 // ---------- Putting it together ----------
 function invDraw(inv, root) {
+  LX_SWAP = inv.art || {};
   var cal = invCalendar(inv);
   root.innerHTML = lxHero(inv) + lxDetails(inv, cal) + lxTimeline(inv) + lxStory(inv) + lxStay(inv) + lxGifts(inv) + lxOther(inv) + lxRsvp(inv) + lxSignoff(inv)
     + '<p class="lx-mark">Invitation by <a href="index.html">Show and Tell Co</a></p>';
@@ -289,21 +304,28 @@ function invDraw(inv, root) {
   };
 }
 
-// The doorbell, then the envelope. after() runs once the guest taps "Open invitation".
+// The doorbell, then the second screen: the envelope opening, or the photo booth printing a strip.
+// after() runs once the guest taps "Open invitation".
 function invOpen(inv, bellScreen, welcome, after) {
   var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var bell = bellScreen.querySelector('.lx-bell'), env = welcome.querySelector('.lx-env');
+  var bell = bellScreen.querySelector('.lx-bell'), env = welcome.querySelector('.lx-env'), booth = welcome.querySelector('.lx-booth');
   document.body.style.overflow = 'hidden';
   bell.addEventListener('click', function () {
     if (bell.classList.contains('pressed')) return;
     bell.classList.add('pressed');
     setTimeout(function () {
       bellScreen.classList.add('gone');
-      setTimeout(function () { env.classList.add('open'); }, still ? 0 : 700);
-      setTimeout(function () { env.classList.add('out'); }, still ? 0 : 1600);
-      setTimeout(function () { welcome.classList.add('ready'); }, still ? 0 : 2500);
+      if (env) {
+        setTimeout(function () { env.classList.add('open'); }, still ? 0 : 700);
+        setTimeout(function () { env.classList.add('out'); }, still ? 0 : 1600);
+        setTimeout(function () { welcome.classList.add('ready'); }, still ? 0 : 2500);
+      }
+      if (booth) {
+        setTimeout(function () { booth.classList.add('printing'); }, still ? 0 : 700);
+        setTimeout(function () { welcome.classList.add('ready'); }, still ? 0 : 3600);
+      }
     }, still ? 0 : 650);
-  }, { once: false });
+  });
   welcome.querySelector('[data-open]').addEventListener('click', function () {
     document.body.style.overflow = '';
     welcome.classList.add('gone');

@@ -220,6 +220,24 @@ var INVITATIONS = [
       { src: 'images/invitations/shop/luxe-wedding-4-details.webp', alt: 'The details: date, ceremony and reception, with Maps and calendar buttons' },
       { src: 'images/invitations/shop/luxe-wedding-5-rsvp.webp', alt: 'The RSVP form on the invitation' }
     ]
+  },
+  {
+    id: 'black-luxe-wedding',
+    name: 'Black Luxe Wedding',
+    occasion: 'Wedding',
+    priceKey: 'digitalInvitation',
+    live: 'invitation-black.html',
+    tagline: 'Guests ring a silver doorbell and a photo booth prints a strip of your photos, then your invitation opens in black, silver and ivory.',
+    desc: 'The Luxe Wedding invitation in black, silver and ivory, with a photo booth opening. Guests press the bell on a silver doorbell, then watch a strip of your photos print out of the slot with your date written underneath. Inside, everything is on one page: your photos in the envelope, a locket and polaroids, a record that plays your song, the date and a live countdown, the venue with directions, the order of the day, your story, where to stay, your gift list, the dress code and the RSVP form.',
+    img: 'images/invitations/shop/black-luxe-wedding-tile.webp',
+    gallery: [
+      { src: 'images/invitations/shop/black-luxe-wedding-tile.webp', alt: 'Two phones showing the Black Luxe Wedding invitation: the photo booth strip, and the first page with the couple\'s photo' },
+      { src: 'images/invitations/shop/black-luxe-wedding-1-doorbell.webp', alt: 'A silver doorbell with an ivory lace heart that says Click the Button' },
+      { src: 'images/invitations/shop/black-luxe-wedding-2-photobooth.webp', alt: 'A strip of three photos printing out of a slot in a silver plate, with the date written underneath' },
+      { src: 'images/invitations/shop/black-luxe-wedding-3-invitation.webp', alt: 'The first page: the couple\'s photo in the envelope, a record, the oval card and the countdown' },
+      { src: 'images/invitations/shop/black-luxe-wedding-4-details.webp', alt: 'The details under an ivory lace heart: date, ceremony and reception' },
+      { src: 'images/invitations/shop/black-luxe-wedding-5-story.webp', alt: 'Our love story with two polaroids and a photo strip' }
+    ]
   }
 ];
 
@@ -327,7 +345,7 @@ var COLLECTIONS = {
     title: 'Digital invitations',
     intro: 'Invitations you send by link, for every kind of celebration. Guests open them on their phone and RSVP right on the invitation.',
     colour: '#FFE3F2',
-    items: ['invite-luxe-wedding'],
+    items: ['invite-luxe-wedding', 'invite-black-luxe-wedding'],
     filters: true,
     occasions: ['Wedding', 'Engagement', 'Birthday'],  // the Occasion filter; add one here when it gets a design
     searchHint: 'Try wedding or birthday',
