@@ -42,9 +42,26 @@
 
 /* Signed in */
 .pt-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 30px 0 6px; }
-.pt-tabs { display: flex; gap: 8px; }
+.pt-tabs { display: flex; align-items: center; gap: 12px; }
 .pt-tabs span { display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: 999px; background: #1A0B45; color: #FFFFFF; font-size: 15px; font-weight: 600; }
+.pt-back { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 16px 0 12px; border-radius: 999px; background: #F4F0FF; color: #3B2E6B; font-size: 15px; font-weight: 600; text-decoration: none; }
+.pt-back:hover { background: #E9E2FF; color: #1A0B45; }
+.pt-hello { font-size: 18px; color: #1A0B45; }
 .pt-out { border: 0; background: none; font: inherit; font-size: 15px; color: #4A3F6B; text-decoration: underline; cursor: pointer; }
+
+/* Portal home: one tile per tool */
+.pt-tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 22px; padding: 22px 0 110px; }
+.pt-tool { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 26px 24px 24px; border-radius: 18px; background: #FFFFFF; box-shadow: 0 14px 36px rgba(26, 11, 69, 0.08); color: #1A0B45; text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; }
+a.pt-tool:hover { transform: translateY(-3px); box-shadow: 0 20px 44px rgba(26, 11, 69, 0.14); }
+a.pt-tool:focus-visible { outline: 3px solid #5D1AFA; outline-offset: 3px; }
+.pt-tool-icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 18px; background: #5D1AFA; color: #E4EE3F; }
+.pt-tool-icon svg { width: 34px; height: 34px; }
+.pt-tool b { font-size: 21px; line-height: 1.15; }
+.pt-tool small { font-size: 15px; line-height: 1.45; color: #4A3F6B; }
+.pt-tool .go { margin-top: auto; padding-top: 6px; font-size: 15px; font-weight: 600; color: #5D1AFA; }
+.pt-tool.is-soon { background: transparent; border: 2px dashed #CFC6F2; box-shadow: none; }
+.pt-tool.is-soon .pt-tool-icon { background: #F4F0FF; color: #9B8FD0; }
+.pt-tool.is-soon b { color: #6B6B68; }
 .pt-main { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 36px; align-items: start; padding: 20px 0 50px; }
 .pt-card { padding: 28px; border-radius: 18px; background: #FFFFFF; box-shadow: 0 14px 36px rgba(26, 11, 69, 0.08); }
 .pt-card h2 { margin: 0 0 18px; font-size: 24px; color: #1A0B45; }
@@ -154,10 +171,14 @@
   <!-- Signed in -->
   <div class="pt-wrap" id="pt-app" hidden>
     <div class="pt-bar">
-      <div class="pt-tabs"><span>Receipts</span></div>
+      <div class="pt-tabs" id="pt-tabs"></div>
       <button class="pt-out" type="button" id="pt-signout">Sign out</button>
     </div>
 
+    <!-- Portal home: every tool, as a tile. Add new tools to TOOLS in the script below. -->
+    <div class="pt-tools" id="pt-home"></div>
+
+    <div id="pt-tool-receipts" hidden>
     <div class="pt-main">
       <section class="pt-card" aria-labelledby="pt-new-h">
         <h2 id="pt-new-h" class="wide">New receipt</h2>
@@ -215,6 +236,7 @@
       <h2 id="pt-list-h" class="wide">Recent receipts</h2>
       <div id="pt-list"></div>
     </section>
+    </div>
   </div>
 </main>
 
@@ -234,8 +256,33 @@
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { d._status = r.status; return d; }); });
   }
 
+  // ---------- The tools ----------
+  // Each tool gets a tile on the portal home and opens at portal.html#<id>.
+  // To add one: add it here and give it a <div id="pt-tool-<id>" hidden> section above.
+  var TOOLS = [
+    { id: 'receipts', name: 'Receipts', blurb: 'Make a receipt and email it to a customer.', onOpen: function () { loadList(); },
+      icon: '<path d="M6 3h12v18l-2-1.4L14 21l-2-1.4L10 21l-2-1.4L6 21z"/><path d="M9 8h6M9 12h6M9 16h3"/>' }
+  ];
+  var svg = function (p) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; };
+  $('pt-home').innerHTML = TOOLS.map(function (t) {
+    return '<a class="pt-tool" href="#' + t.id + '"><span class="pt-tool-icon">' + svg(t.icon) + '</span><b class="wide">' + esc(t.name) + '</b><small>' + esc(t.blurb) + '</small><span class="go">Open →</span></a>';
+  }).join('') + '<div class="pt-tool is-soon"><span class="pt-tool-icon">' + svg('<path d="M12 6v12M6 12h12"/>') + '</span><b class="wide">More tools</b><small>New tools for the team will show up here.</small></div>';
+
+  function route() {
+    var id = location.hash.slice(1), tool = null;
+    TOOLS.forEach(function (t) { if (t.id === id) tool = t; });
+    $('pt-home').hidden = !!tool;
+    TOOLS.forEach(function (t) { var el = $('pt-tool-' + t.id); if (el) el.hidden = t !== tool; });
+    $('pt-tabs').innerHTML = tool
+      ? '<a class="pt-back" href="#">← All tools</a><span>' + esc(tool.name) + '</span>'
+      : '<p class="pt-hello">Welcome back. Choose a tool to open.</p>';
+    if (tool && tool.onOpen) tool.onOpen();
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', function () { if (code()) route(); });
+
   // ---------- Sign in ----------
-  function show(signedIn) { $('pt-signin').hidden = signedIn; $('pt-app').hidden = !signedIn; if (signedIn) loadList(); }
+  function show(signedIn) { $('pt-signin').hidden = signedIn; $('pt-app').hidden = !signedIn; if (signedIn) route(); }
   $('pt-login-form').addEventListener('submit', function (e) {
     e.preventDefault();
     var c = $('pt-code').value.trim(), err = $('pt-login-error'), btn = e.target.querySelector('button');
@@ -247,7 +294,7 @@
       err.textContent = d.message || 'That didn’t work. Please try again.';
     }).catch(function () { btn.disabled = false; err.textContent = 'Couldn’t reach the portal. Check your connection and try again.'; });
   });
-  $('pt-signout').addEventListener('click', function () { try { sessionStorage.removeItem(KEY); } catch (e) {} show(false); });
+  $('pt-signout').addEventListener('click', function () { try { sessionStorage.removeItem(KEY); } catch (e) {} history.replaceState(null, '', location.pathname); show(false); });
   function signedOut(d) { if (d && d._status === 401) { try { sessionStorage.removeItem(KEY); } catch (e) {} show(false); $('pt-login-error').textContent = 'Please sign in again.'; return true; } return false; }
 
   // ---------- Products to pick from (typing suggests them and fills in the price) ----------
