@@ -47,7 +47,7 @@
   fetch('/api/cards/get?id=' + encodeURIComponent(id) + (k ? '&k=' + encodeURIComponent(k) : ''))
     .then(function (r) { return r.json(); })
     .then(function (res) {
-      if (res.error === 'not-yet') return message('<span class="script">Not yet,</span>Nearly there', 'This card isn\'t ready to open yet. Check back when it lands in your inbox.');
+      if (res.error === 'not-yet') return message('<span class="script">Not yet,</span>Nearly there', 'This card isn\'t ready to open yet. Check back soon.');
       if (!res.card) return message('<span class="script">Hmm,</span>We can\'t find it', 'This card may have been cancelled, or the link is not quite right. Try opening it again from your email.', 'Send a card');
       if (res.sender) drawSenderBar(res.card);
       drawEnvelope(res.card);
@@ -57,15 +57,17 @@
   // The sender's own view: status, and cancel while it's still scheduled.
   function drawSenderBar(card) {
     var bar = document.getElementById('oc-sender');
+    var wa = card.via === 'whatsapp';
     var status = {
-      scheduled: 'Scheduled for <b>' + dcEsc(card.sendAtLabel || new Date(card.sendAt).toLocaleString()) + '</b>',
-      sent: 'Sent to ' + dcEsc(card.toName) + (card.openedAt ? ' · <b>opened</b>' : ' · not opened yet'),
+      scheduled: (wa ? 'We’ll remind you to send it on <b>' : 'Scheduled for <b>') + dcEsc(card.sendAtLabel || new Date(card.sendAt).toLocaleString()) + '</b>',
+      sent: (wa ? 'For ' + dcEsc(card.toName) + ', on WhatsApp' : 'Sent to ' + dcEsc(card.toName)) + (card.openedAt ? ' · <b>opened</b>' : ' · not opened yet'),
       cancelled: '<b>Cancelled.</b> This card won\'t be sent.',
       failed: '<b>We couldn\'t deliver this card.</b> Please check the email address.'
     }[card.status] || '';
-    var note = card.status === 'sent' && !card.emailed && card.emailNote ? '<br><small>' + dcEsc(card.emailNote) + '</small>' : '';
+    var note = card.status === 'sent' && !wa && !card.emailed && card.emailNote ? '<br><small>' + dcEsc(card.emailNote) + '</small>' : '';
     bar.innerHTML = '<div class="oc-sender"><span>Your private link. ' + status + note + '</span>'
-      + (card.status === 'scheduled' ? '<button type="button" id="oc-cancel">Cancel card</button>' : '') + '</div>';
+      + (card.status === 'scheduled' ? '<button type="button" id="oc-cancel">Cancel card</button>' : '')
+      + (wa && card.status === 'sent' && card.whatsappUrl ? '<a class="oc-wa" href="' + dcEsc(card.whatsappUrl) + '" target="_blank" rel="noopener">Send on WhatsApp</a>' : '') + '</div>';
     var c = document.getElementById('oc-cancel');
     if (c) c.addEventListener('click', function () {
       if (c.getAttribute('data-sure') !== '1') { c.setAttribute('data-sure', '1'); c.textContent = 'Tap again to cancel'; return; }

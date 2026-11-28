@@ -19,10 +19,10 @@ export default async (req) => {
     if (!card.openedAt) {
       card.openedAt = new Date().toISOString();
       await s.setJSON('card/' + id, card);
-      if (card.delivery && card.delivery.recipient) await sendEmail(senderUpdateEmail(card, siteUrl(req), 'opened')).catch(() => {});
+      if (card.delivery && (card.delivery.recipient || card.delivery.whatsapp)) await sendEmail(senderUpdateEmail(card, siteUrl(req), 'opened')).catch(() => {});
     }
   }
-  return json({ card: publicView(card, isSender), sender: !!isSender });
+  return json({ card: publicView(card, isSender, siteUrl(req)), sender: !!isSender });
 };
 
 export const config = { path: '/api/cards/get' };

@@ -54,6 +54,12 @@ Images are in `images/`. Shared files in `assets/`:
 
 People pick a card, write inside it in a handwriting style and ink colour, and we email it to someone now or at a date and time they choose (up to a year ahead, in the recipient's time zone). The recipient gets an email with an **Open your card** button. On the card page the envelope opens, then the card opens like a book to show the message.
 
+**By email or on WhatsApp.** In step 3 the sender picks how it arrives:
+- **By email:** we email it to the recipient, as above.
+- **On WhatsApp:** the recipient's email isn't needed, and their WhatsApp number is optional. After sending, a **Send on WhatsApp** button opens WhatsApp with "Hi Ada! I sent you a card 💌 Open it here: …" already written (in their chat if the number was given; otherwise the sender picks the contact), plus **Copy the link** for other apps. The sender's receipt email and their private card page have the same button. A scheduled WhatsApp card opens at its time, when we email the sender a reminder with the button. We still email the sender when it's opened.
+- The link shared on WhatsApp is `/c/<id>` (`functions/card-link.mjs`). Chat apps read its preview tags, so the preview shows the card's picture and "Tolu sent you a card"; people go straight on to `open-card.html`. Until a card can be opened, the preview just says "You have a card".
+- Sending through WhatsApp Business (the site sending it from our number) isn't set up: it needs a verified Meta business account, approved message wording, a per-message charge, and recipients who agreed to hear from us.
+
 **Pages (Cards › Digital cards in the menu opens `send-a-card.html`; both are hidden from search engines):**
 - `send-a-card.html`: the four steps (choose, write, who and when, check and send). `send-a-card.html?card=58` opens with that card chosen.
 - `open-card.html?id=…`: the card as the recipient sees it. The sender's link adds `&k=…`, which shows the card before it sends and has a **Cancel card** button while it's still scheduled.
