@@ -1,6 +1,9 @@
 // Shared code for digital cards: saving them, sending the emails, and the email designs.
 // Cards are kept in Netlify Blobs (store "digital-cards"):
 //   card/<id>                 the card itself (JSON)
+// A card goes by email (we send it) or by WhatsApp (the sender sends our link from their own phone;
+// for a scheduled one we email them a reminder with the button at the time). Card links shared on
+// WhatsApp use /c/<id> (functions/card-link.mjs), which shows the card in the link preview.
 //   due/<send time>__<id>     one entry per scheduled card, removed once it is sent or cancelled
 // Settings are environment variables in Netlify (Site configuration › Environment variables):
 //   CARDS_TEST_CODE   the code that sends a card without paying, while payments are off
@@ -63,14 +66,22 @@ export function validate(input) {
     toEmail: clean(input.toEmail, LIMITS.email).toLowerCase(),
     fromName: clean(input.fromName, LIMITS.name),
     fromEmail: clean(input.fromEmail, LIMITS.email).toLowerCase(),
-    tz: clean(input.tz, 60) || 'UTC'
+    tz: clean(input.tz, 60) || 'UTC',
+    via: input.via === 'whatsapp' ? 'whatsapp' : 'email',
+    toPhone: ''
   };
   if (!/^\d{1,4}$/.test(card.cardNo) || !/^images\/cards\/card-\d+\.(jpg|jpeg|png|webp)$/.test(card.cardSrc)) return { error: 'Please choose a card.' };
   if (!card.message) return { error: 'Please write a message in your card.' };
   if (!FONTS[card.font]) card.font = 'neat';
   if (!INKS[card.ink]) card.ink = 'ink';
   if (!card.toName) return { error: 'Who is the card for? Add their name.' };
-  if (!EMAIL_RE.test(card.toEmail)) return { error: "Please check the recipient's email address." };
+  if (card.via === 'whatsapp') {
+    card.toEmail = '';
+    // Their WhatsApp number is optional: with it, WhatsApp opens their chat straight away.
+    const digits = String(input.toPhone || '').replace(/[^\d]/g, '').replace(/^00/, '');
+    if (digits && (digits.length < 8 || digits.length > 15)) return { error: 'Please check their WhatsApp number, with the country code (for example +234).' };
+    card.toPhone = digits;
+  } else if (!EMAIL_RE.test(card.toEmail)) return { error: "Please check the recipient's email address." };
   if (!card.fromName) return { error: 'Add your name so they know who it is from.' };
   if (!EMAIL_RE.test(card.fromEmail)) return { error: 'Please check your email address. We send your receipt there.' };
 
@@ -88,8 +99,19 @@ export function validate(input) {
   return { card };
 }
 
+// ---------- WhatsApp ----------
+// The link the sender shares: /c/<id> shows the card's picture in WhatsApp's preview, then opens the card.
+export function shareLink(card, site) { return site + '/c/' + encodeURIComponent(card.id); }
+export function whatsappText(card, site) {
+  return 'Hi ' + card.toName + '! I sent you a card 💌 Open it here: ' + shareLink(card, site);
+}
+// Opens WhatsApp with the message written: in their chat if we have their number, otherwise the sender picks.
+export function whatsappUrl(card, site) {
+  return 'https://wa.me/' + (card.toPhone || '') + '?text=' + encodeURIComponent(whatsappText(card, site));
+}
+
 // What anyone with the card link may see. With the sender key, a little more.
-export function publicView(card, withKey) {
+export function publicView(card, withKey, site) {
   const out = {
     id: card.id, cardNo: card.cardNo, cardSrc: card.cardSrc, cardTitle: card.cardTitle,
     message: card.message, font: card.font, ink: card.ink,
@@ -100,6 +122,8 @@ export function publicView(card, withKey) {
     out.toEmail = card.toEmail; out.fromEmail = card.fromEmail; out.openedAt = card.openedAt || null;
     out.emailed = !!(card.delivery && card.delivery.recipient);
     out.emailNote = (card.delivery && card.delivery.note) || '';
+    out.via = card.via || 'email';
+    if (out.via === 'whatsapp' && site) { out.whatsappUrl = whatsappUrl(card, site); out.shareLink = shareLink(card, site); }
   }
   return out;
 }
@@ -147,8 +171,8 @@ function shell(inner, preheader) {
     + '<p style="margin:20px 0 0;font:13px/1.5 Helvetica,Arial,sans-serif;color:#6B6B68;">Show and Tell Co · Everyday joy, printed to keep</p>'
     + '</td></tr></table></body></html>';
 }
-function button(href, label) {
-  return '<a href="' + esc(href) + '" style="display:inline-block;padding:16px 30px;border-radius:10px;background:#5D1AFA;color:#FFFFFF;font:700 14px/1 Helvetica,Arial,sans-serif;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;">' + esc(label) + '</a>';
+function button(href, label, bg) {
+  return '<a href="' + esc(href) + '" style="display:inline-block;padding:16px 30px;border-radius:10px;background:' + (bg || '#5D1AFA') + ';color:#FFFFFF;font:700 14px/1 Helvetica,Arial,sans-serif;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;">' + esc(label) + '</a>';
 }
 
 export function recipientEmail(card, site) {
@@ -171,7 +195,35 @@ export function recipientEmail(card, site) {
   return { to: card.toEmail, subject, html, text };
 }
 
+const WA_GREEN = '#128C4A';
+function smallLink(href, label) {
+  return '<tr><td style="padding:0 32px 40px;font:14px/1.5 Helvetica,Arial,sans-serif;"><a href="' + esc(href) + '" style="color:#5D1AFA;">' + esc(label) + '</a></td></tr>';
+}
+
+// WhatsApp cards: the sender's email, with the button that opens WhatsApp with the message written.
+function whatsappSenderEmail(card, site, kind) {
+  const view = site + '/open-card.html?id=' + encodeURIComponent(card.id) + '&k=' + encodeURIComponent(card.key);
+  const scheduled = kind === 'receipt' && card.status === 'scheduled';
+  const when = card.sendAtLabel || new Date(card.sendAt).toUTCString();
+  const subject = scheduled ? 'Your card for ' + card.toName + ' is scheduled'
+    : kind === 'due' ? 'It’s time to send your card to ' + card.toName
+    : 'Your card for ' + card.toName + ' is ready to send';
+  const body = scheduled
+    ? 'On <b>' + esc(when) + '</b> we’ll email you a reminder with a button to send it to ' + esc(card.toName) + ' on WhatsApp. Until then, the card won’t open. You can see it, or cancel it, from your private link.'
+    : 'Tap the button to send it to ' + esc(card.toName) + ' on WhatsApp. The message and the link are already written; just press send. We’ll email you when they open it.';
+  const html = shell(
+    '<tr><td style="padding:36px 32px 0;font:800 26px/1.15 Helvetica,Arial,sans-serif;color:#1A0B45;">' + esc(subject) + '</td></tr>'
+    + '<tr><td style="padding:14px 32px 0;font:16px/1.55 Helvetica,Arial,sans-serif;color:#3A3A38;">' + body + '</td></tr>'
+    + '<tr><td style="padding:26px 32px 22px;">' + (scheduled ? button(view, 'See or cancel your card') : button(whatsappUrl(card, site), 'Send on WhatsApp', WA_GREEN)) + '</td></tr>'
+    + (scheduled ? '<tr><td style="padding:0 0 18px;"></td></tr>' : smallLink(view, 'See your card') ),
+    subject
+  );
+  const text = subject + '.\n\n' + (scheduled ? 'See or cancel your card: ' + view : 'Send it on WhatsApp: ' + whatsappUrl(card, site) + '\n\nOr copy this link into any chat: ' + shareLink(card, site) + '\n\nSee your card: ' + view) + '\n\nShow and Tell Co';
+  return { to: card.fromEmail, subject, html, text };
+}
+
 export function senderReceiptEmail(card, site) {
+  if (card.via === 'whatsapp') return whatsappSenderEmail(card, site, 'receipt');
   const view = site + '/open-card.html?id=' + encodeURIComponent(card.id) + '&k=' + encodeURIComponent(card.key);
   const scheduled = card.status === 'scheduled';
   const when = scheduled ? (card.sendAtLabel || new Date(card.sendAt).toUTCString()) : 'now';
@@ -207,6 +259,20 @@ export function senderUpdateEmail(card, site, kind) {
 // Sends a card that is due: the recipient's email first, then a note to the sender.
 // Saves the result on the card and removes it from the queue.
 export async function deliver(s, card, site, { notifySender }) {
+  if (card.via === 'whatsapp') {
+    // The sender sends it themselves: the card can now be opened, and (if it was scheduled) we
+    // email them the reminder with the WhatsApp button.
+    card.status = 'sent';
+    card.sentAt = new Date().toISOString();
+    card.delivery = { whatsapp: true, note: '' };
+    if (notifySender) {
+      const r = await sendEmail(whatsappSenderEmail(card, site, 'due')).catch((e) => ({ error: String(e) }));
+      card.delivery.note = r.id ? '' : (r.note || r.error || '');
+    }
+    await s.setJSON('card/' + card.id, card);
+    await s.delete(dueKey(card));
+    return card;
+  }
   const r = await sendEmail({ ...recipientEmail(card, site), replyTo: card.fromEmail, fromName: card.fromName });
   if (r.error) {
     card.delivery = { ...(card.delivery || {}), error: r.error, tries: ((card.delivery && card.delivery.tries) || 0) + 1, lastTry: new Date().toISOString() };

@@ -1,7 +1,7 @@
 // POST /api/cards/create — saves a card from send-a-card.html, then sends it now or queues it.
 // While payments are off, it needs the test code (CARDS_TEST_CODE). When payments go in,
 // this is the step that will wait for the payment to be confirmed instead.
-import { store, validate, newId, json, env, siteUrl, dueKey, deliver, sendEmail, senderReceiptEmail } from '../lib/cards.mjs';
+import { store, validate, newId, json, env, siteUrl, dueKey, deliver, sendEmail, senderReceiptEmail, whatsappUrl, shareLink } from '../lib/cards.mjs';
 
 export default async (req) => {
   if (req.method !== 'POST') return json({ error: 'Use POST.' }, 405);
@@ -36,7 +36,10 @@ export default async (req) => {
     id: result.id, key: result.key, status: result.status, sendAt: result.sendAt, sendAtLabel: result.sendAtLabel || '',
     emailed: !!(result.delivery && result.delivery.recipient),
     emailNote: (result.delivery && (result.delivery.note || result.delivery.error)) || '',
-    receipt: receipt.id ? 'sent' : (receipt.note || receipt.error || '')
+    receipt: receipt.id ? 'sent' : (receipt.note || receipt.error || ''),
+    via: result.via,
+    whatsappUrl: result.via === 'whatsapp' ? whatsappUrl(result, site) : null,
+    shareLink: result.via === 'whatsapp' ? shareLink(result, site) : null
   });
 };
 
