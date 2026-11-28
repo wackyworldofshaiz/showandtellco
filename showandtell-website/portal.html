@@ -42,9 +42,26 @@
 
 /* Signed in */
 .pt-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 30px 0 6px; }
-.pt-tabs { display: flex; gap: 8px; }
+.pt-tabs { display: flex; align-items: center; gap: 12px; }
 .pt-tabs span { display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: 999px; background: #1A0B45; color: #FFFFFF; font-size: 15px; font-weight: 600; }
+.pt-back { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 16px 0 12px; border-radius: 999px; background: #F4F0FF; color: #3B2E6B; font-size: 15px; font-weight: 600; text-decoration: none; }
+.pt-back:hover { background: #E9E2FF; color: #1A0B45; }
+.pt-hello { font-size: 18px; color: #1A0B45; }
 .pt-out { border: 0; background: none; font: inherit; font-size: 15px; color: #4A3F6B; text-decoration: underline; cursor: pointer; }
+
+/* Portal home: one tile per tool */
+.pt-tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 22px; padding: 22px 0 110px; }
+.pt-tool { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 26px 24px 24px; border-radius: 18px; background: #FFFFFF; box-shadow: 0 14px 36px rgba(26, 11, 69, 0.08); color: #1A0B45; text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; }
+a.pt-tool:hover { transform: translateY(-3px); box-shadow: 0 20px 44px rgba(26, 11, 69, 0.14); }
+a.pt-tool:focus-visible { outline: 3px solid #5D1AFA; outline-offset: 3px; }
+.pt-tool-icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 18px; background: #5D1AFA; color: #E4EE3F; }
+.pt-tool-icon svg { width: 34px; height: 34px; }
+.pt-tool b { font-size: 21px; line-height: 1.15; }
+.pt-tool small { font-size: 15px; line-height: 1.45; color: #4A3F6B; }
+.pt-tool .go { margin-top: auto; padding-top: 6px; font-size: 15px; font-weight: 600; color: #5D1AFA; }
+.pt-tool.is-soon { background: transparent; border: 2px dashed #CFC6F2; box-shadow: none; }
+.pt-tool.is-soon .pt-tool-icon { background: #F4F0FF; color: #9B8FD0; }
+.pt-tool.is-soon b { color: #6B6B68; }
 .pt-main { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 36px; align-items: start; padding: 20px 0 50px; }
 .pt-card { padding: 28px; border-radius: 18px; background: #FFFFFF; box-shadow: 0 14px 36px rgba(26, 11, 69, 0.08); }
 .pt-card h2 { margin: 0 0 18px; font-size: 24px; color: #1A0B45; }
@@ -107,6 +124,42 @@
 .pt-table button { border: 0; background: none; font: inherit; font-size: 14px; font-weight: 600; color: #5D1AFA; text-decoration: underline; cursor: pointer; }
 .pt-empty { padding: 26px; border-radius: 14px; background: #F4F0FF; color: #3B2E6B; }
 
+/* Inventory */
+.pt-inv-top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding: 18px 0 16px; }
+.pt-inv-top input[type=search], .pt-inv-top input[type=text] { width: auto; flex: 1 1 220px; min-height: 46px; padding: 0 13px; border: 1.5px solid #CFC6F2; border-radius: 10px; background: #FFFFFF; font: inherit; font-size: 16px; color: #1A0B45; box-sizing: border-box; }
+.pt-inv-top .pt-seg { flex-wrap: nowrap; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.pt-inv-top .pt-seg span { white-space: nowrap; padding: 0 14px; }
+.pt-inv-stats { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 22px; }
+.pt-inv-stats span { padding: 8px 14px; border-radius: 999px; background: #FFFFFF; box-shadow: 0 6px 16px rgba(26, 11, 69, 0.06); font-size: 15px; color: #3B2E6B; }
+.pt-inv-stats b { color: #1A0B45; }
+.pt-inv-stats .is-low b { color: #B4235A; }
+.pt-inv-list { overflow: hidden; border-radius: 14px; background: #FFFFFF; box-shadow: 0 10px 26px rgba(26, 11, 69, 0.06); }
+.inv-row { display: grid; grid-template-columns: minmax(0, 1fr) 90px auto; align-items: center; gap: 8px 16px; padding: 12px 16px; border-top: 1px solid #EEEAF6; }
+.inv-row:first-child { border-top: 0; }
+.inv-row.is-low { background: #FFF6F9; }
+.inv-name b { display: block; font-size: 16px; font-weight: 600; color: #1A0B45; }
+.inv-name small { display: block; margin-top: 2px; font-size: 13px; color: #6B6B68; }
+.inv-tag { display: inline-block; margin-left: 6px; padding: 2px 9px; border-radius: 999px; background: #FDE2EC; font-size: 12px; font-weight: 700; color: #B4235A; vertical-align: 2px; }
+.inv-count { font-size: 24px; font-weight: 700; text-align: right; color: #1A0B45; font-variant-numeric: tabular-nums; }
+.inv-count.none { font-size: 15px; font-weight: 500; color: #9B95AE; }
+.inv-row.is-low .inv-count { color: #B4235A; }
+.inv-btns { display: flex; align-items: center; gap: 6px; }
+.inv-btns button { min-width: 40px; height: 40px; padding: 0 12px; border: 0; border-radius: 999px; background: #F4F0FF; font: inherit; font-size: 15px; font-weight: 600; color: #3B2E6B; cursor: pointer; }
+.inv-btns button:hover { background: #E9E2FF; }
+.inv-btns .pm { font-size: 20px; line-height: 1; padding: 0; }
+.inv-btns button[disabled] { opacity: 0.5; cursor: default; }
+.inv-edit { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px; padding: 14px; border-radius: 12px; background: #F4F0FF; }
+.inv-edit .pt-field { flex: 0 1 130px; }
+.inv-edit .pt-field.wide-f { flex: 1 1 200px; }
+.inv-edit .pt-go { width: auto; padding: 0 22px; }
+.inv-edit .pt-error { flex-basis: 100%; }
+.inv-stop { margin-left: auto; }
+.inv-more { display: block; width: 100%; padding: 14px; border: 0; border-top: 1px solid #EEEAF6; background: #FFFFFF; font: inherit; font-size: 15px; font-weight: 600; color: #5D1AFA; cursor: pointer; }
+.pt-inv-log { padding: 34px 0 100px; }
+.pt-inv-log h2 { margin: 0 0 14px; font-size: 24px; color: #1A0B45; }
+.pt-table .up { color: #14532D; font-weight: 700; }
+.pt-table .down { color: #B4235A; font-weight: 700; }
+
 @media (max-width: 900px) {
   .pt-wrap { padding: 0 16px; }
   .pt-main { grid-template-columns: minmax(0, 1fr); }
@@ -115,6 +168,8 @@
   .pt-table thead { display: none; }
   .pt-table tr { display: grid; grid-template-columns: 1fr auto; padding: 10px 14px; border-top: 1px solid #EEEAF6; }
   .pt-table td { padding: 3px 0; border: 0; }
+  .inv-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .inv-btns { grid-column: 1 / -1; }
 }
 @media (max-width: 520px) {
   .pt-two { grid-template-columns: minmax(0, 1fr); }
@@ -134,7 +189,7 @@
   <section class="st-hero" aria-labelledby="pt-title">
     <div class="st-hero-inner">
       <h1 id="pt-title"><span>Staff</span>Portal</h1>
-      <p>For the Show and Tell team. Make and send receipts, with more tools on the way.</p>
+      <p>For the Show and Tell team. Send receipts, keep track of stock, and more tools on the way.</p>
     </div>
   </section>
 
@@ -154,10 +209,14 @@
   <!-- Signed in -->
   <div class="pt-wrap" id="pt-app" hidden>
     <div class="pt-bar">
-      <div class="pt-tabs"><span>Receipts</span></div>
+      <div class="pt-tabs" id="pt-tabs"></div>
       <button class="pt-out" type="button" id="pt-signout">Sign out</button>
     </div>
 
+    <!-- Portal home: every tool, as a tile. Add new tools to TOOLS in the script below. -->
+    <div class="pt-tools" id="pt-home"></div>
+
+    <div id="pt-tool-receipts" hidden>
     <div class="pt-main">
       <section class="pt-card" aria-labelledby="pt-new-h">
         <h2 id="pt-new-h" class="wide">New receipt</h2>
@@ -215,6 +274,29 @@
       <h2 id="pt-list-h" class="wide">Recent receipts</h2>
       <div id="pt-list"></div>
     </section>
+    </div>
+
+    <div id="pt-tool-inventory" hidden>
+      <div class="pt-inv-stats" id="inv-stats" aria-live="polite"></div>
+      <div class="pt-inv-top">
+        <label for="inv-q" style="position:absolute;left:-9999px">Find a product</label>
+        <input id="inv-q" type="search" placeholder="Find a product" autocomplete="off">
+        <div class="pt-seg" role="radiogroup" aria-label="Show">
+          <label><input type="radio" name="inv-show" value="all" checked><span>All</span></label>
+          <label><input type="radio" name="inv-show" value="low"><span>Low</span></label>
+          <label><input type="radio" name="inv-show" value="counted"><span>Counted</span></label>
+          <label><input type="radio" name="inv-show" value="none"><span>Not counted</span></label>
+        </div>
+        <label for="inv-who" style="position:absolute;left:-9999px">Your name</label>
+        <input id="inv-who" type="text" maxlength="60" placeholder="Your name (for the history)" autocomplete="off">
+      </div>
+      <p class="pt-error" id="inv-error" role="alert"></p>
+      <div class="pt-inv-list" id="inv-list"></div>
+      <section class="pt-inv-log" aria-labelledby="inv-log-h">
+        <h2 id="inv-log-h" class="wide">Stock history</h2>
+        <div id="inv-log"></div>
+      </section>
+    </div>
   </div>
 </main>
 
@@ -234,8 +316,35 @@
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { d._status = r.status; return d; }); });
   }
 
+  // ---------- The tools ----------
+  // Each tool gets a tile on the portal home and opens at portal.html#<id>.
+  // To add one: add it here and give it a <div id="pt-tool-<id>" hidden> section above.
+  var TOOLS = [
+    { id: 'receipts', name: 'Receipts', blurb: 'Make a receipt and email it to a customer.', onOpen: function () { loadList(); },
+      icon: '<path d="M6 3h12v18l-2-1.4L14 21l-2-1.4L10 21l-2-1.4L6 21z"/><path d="M9 8h6M9 12h6M9 16h3"/>' },
+    { id: 'inventory', name: 'Inventory', blurb: 'See what’s in stock, count it and spot what’s running low.', onOpen: function () { loadStock(); },
+      icon: '<path d="M3.5 8 12 3.5 20.5 8v8L12 20.5 3.5 16z"/><path d="M3.5 8 12 12.5 20.5 8M12 12.5v8"/>' }
+  ];
+  var svg = function (p) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>'; };
+  $('pt-home').innerHTML = TOOLS.map(function (t) {
+    return '<a class="pt-tool" href="#' + t.id + '"><span class="pt-tool-icon">' + svg(t.icon) + '</span><b class="wide">' + esc(t.name) + '</b><small>' + esc(t.blurb) + '</small><span class="go">Open →</span></a>';
+  }).join('') + '<div class="pt-tool is-soon"><span class="pt-tool-icon">' + svg('<path d="M12 6v12M6 12h12"/>') + '</span><b class="wide">More tools</b><small>New tools for the team will show up here.</small></div>';
+
+  function route() {
+    var id = location.hash.slice(1), tool = null;
+    TOOLS.forEach(function (t) { if (t.id === id) tool = t; });
+    $('pt-home').hidden = !!tool;
+    TOOLS.forEach(function (t) { var el = $('pt-tool-' + t.id); if (el) el.hidden = t !== tool; });
+    $('pt-tabs').innerHTML = tool
+      ? '<a class="pt-back" href="#">← All tools</a><span>' + esc(tool.name) + '</span>'
+      : '<p class="pt-hello">Welcome back. Choose a tool to open.</p>';
+    if (tool && tool.onOpen) tool.onOpen();
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', function () { if (code()) route(); });
+
   // ---------- Sign in ----------
-  function show(signedIn) { $('pt-signin').hidden = signedIn; $('pt-app').hidden = !signedIn; if (signedIn) loadList(); }
+  function show(signedIn) { $('pt-signin').hidden = signedIn; $('pt-app').hidden = !signedIn; if (signedIn) route(); }
   $('pt-login-form').addEventListener('submit', function (e) {
     e.preventDefault();
     var c = $('pt-code').value.trim(), err = $('pt-login-error'), btn = e.target.querySelector('button');
@@ -247,7 +356,7 @@
       err.textContent = d.message || 'That didn’t work. Please try again.';
     }).catch(function () { btn.disabled = false; err.textContent = 'Couldn’t reach the portal. Check your connection and try again.'; });
   });
-  $('pt-signout').addEventListener('click', function () { try { sessionStorage.removeItem(KEY); } catch (e) {} show(false); });
+  $('pt-signout').addEventListener('click', function () { try { sessionStorage.removeItem(KEY); } catch (e) {} history.replaceState(null, '', location.pathname); show(false); });
   function signedOut(d) { if (d && d._status === 401) { try { sessionStorage.removeItem(KEY); } catch (e) {} show(false); $('pt-login-error').textContent = 'Please sign in again.'; return true; } return false; }
 
   // ---------- Products to pick from (typing suggests them and fills in the price) ----------
@@ -365,7 +474,7 @@
       done.hidden = false;
       done.classList.toggle('is-warn', !res.sent);
       done.innerHTML = res.sent
-        ? 'Receipt <b>' + esc(res.receipt.number) + '</b> was emailed to ' + esc(res.receipt.email) + '.'
+        ? 'Receipt <b>' + esc(res.receipt.number) + '</b> was emailed to ' + esc(res.receipt.email) + '.' + (res.stockUpdated ? ' Stock was updated for ' + res.stockUpdated + (res.stockUpdated === 1 ? ' product.' : ' products.') : '')
         : 'Receipt <b>' + esc(res.receipt.number) + '</b> was saved, but the email didn’t go (' + esc(String(res.message || 'unknown problem').replace(/\.$/, '')) + '). You can send it again from the list below.';
       if (res.sent) resetForm();
       loadList();
@@ -407,6 +516,112 @@
         var again = document.querySelector('[data-resend="' + n + '"]');
         if (again) again.insertAdjacentHTML('afterend', '<span class="pt-row-msg">' + esc(res.message || 'The email didn’t go. Please try again.') + '</span>');
       }, 400);
+    });
+  });
+
+  // ---------- Inventory ----------
+  // Products are named like on receipts, so receipts take them off the count. A product is
+  // "counted" once someone sets its stock; the rest show as "Not counted".
+  var STOCK = { items: {}, log: [] }, invOpen = null, invShown = 60, invQueue = Promise.resolve();
+  try { $('inv-who').value = localStorage.getItem('stc-portal-name') || ''; } catch (e) {}
+  $('inv-who').addEventListener('change', function () { try { localStorage.setItem('stc-portal-name', this.value.trim()); } catch (e) {} });
+  function isLow(it) { return it && (it.count <= 0 || (it.low != null && it.count <= it.low)); }
+  function shortDate(iso) { return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); }
+  function loadStock() {
+    $('inv-error').textContent = '';
+    api('/api/portal/inventory').then(function (res) {
+      if (signedOut(res)) return;
+      if (!res.items) { $('inv-error').textContent = res.message || 'Couldn’t load the stock just now.'; return; }
+      STOCK = res; drawStock();
+    }).catch(function () { $('inv-error').textContent = 'Couldn’t load the stock just now. Check your connection.'; });
+  }
+  // Changes go one at a time, so quick taps on + and − all count.
+  function changeStock(body, done) {
+    body.staff = $('inv-who').value.trim();
+    invQueue = invQueue.then(function () {
+      return api('/api/portal/inventory', { method: 'POST', body: body }).then(function (res) {
+        if (signedOut(res)) return;
+        if (!res.items) { if (done) done(res.message || 'That didn’t work. Please try again.'); return; }
+        STOCK = res; if (done) done(null); drawStock();
+      }).catch(function () { if (done) done('Couldn’t reach the portal. Check your connection and try again.'); });
+    });
+  }
+  function drawStock() {
+    var items = STOCK.items, names = {};
+    Object.keys(PRODUCTS).forEach(function (k) { names[k] = 1; });
+    Object.keys(items).forEach(function (k) { names[k] = 1; });
+    var all = Object.keys(names), counted = all.filter(function (k) { return items[k]; }), low = counted.filter(function (k) { return isLow(items[k]); });
+    $('inv-stats').innerHTML = '<span class="' + (low.length ? 'is-low' : '') + '"><b>' + low.length + '</b> running low</span>'
+      + '<span><b>' + counted.length + '</b> counted</span><span><b>' + (all.length - counted.length) + '</b> not counted yet</span>';
+    var show = document.querySelector('input[name=inv-show]:checked').value, q = $('inv-q').value.trim().toLowerCase();
+    var list = all.filter(function (k) {
+      var it = items[k];
+      if (show === 'low' && !isLow(it)) return false;
+      if (show === 'counted' && !it) return false;
+      if (show === 'none' && it) return false;
+      return !q || k.toLowerCase().indexOf(q) >= 0;
+    }).sort(function (a, b) {
+      var ra = isLow(items[a]) ? 0 : items[a] ? 1 : 2, rb = isLow(items[b]) ? 0 : items[b] ? 1 : 2;
+      return ra - rb || a.localeCompare(b);
+    });
+    if (invOpen && list.indexOf(invOpen) < 0) invOpen = null;
+    var box = $('inv-list');
+    if (!list.length) { box.innerHTML = '<p class="pt-empty">' + (show === 'low' ? 'Nothing is running low.' : 'No products match.') + '</p>'; }
+    else box.innerHTML = list.slice(0, invShown).map(function (k) {
+      var it = items[k], lowNow = isLow(it);
+      var sub = it ? (it.low != null ? 'Low at ' + it.low + ' · ' : '') + 'Updated ' + shortDate(it.updatedAt) : 'Not counted yet';
+      var row = '<div class="inv-row' + (lowNow ? ' is-low' : '') + '" data-p="' + esc(k) + '">'
+        + '<div class="inv-name"><b>' + esc(k) + (lowNow ? '<span class="inv-tag">' + (it.count <= 0 ? 'Out' : 'Low') + '</span>' : '') + '</b><small>' + sub + '</small></div>'
+        + '<div class="inv-count' + (it ? '' : ' none') + '" aria-label="In stock">' + (it ? it.count : '–') + '</div>'
+        + '<div class="inv-btns">' + (it ? '<button type="button" class="pm" data-adj="-1" aria-label="Take one away from ' + esc(k) + '">−</button><button type="button" class="pm" data-adj="1" aria-label="Add one to ' + esc(k) + '">+</button>' : '')
+        + '<button type="button" data-edit>' + (it ? 'Edit' : 'Count it') + '</button></div>';
+      if (invOpen === k) row += '<form class="inv-edit" novalidate>'
+        + '<div class="pt-field"><label>In stock</label><input type="number" step="1" inputmode="numeric" data-f="count" value="' + (it ? it.count : '') + '"></div>'
+        + '<div class="pt-field"><label>Low at <span class="opt">(optional)</span></label><input type="number" min="0" step="1" inputmode="numeric" data-f="low" value="' + (it && it.low != null ? it.low : '') + '"></div>'
+        + '<div class="pt-field wide-f"><label>Why <span class="opt">(optional)</span></label><input type="text" maxlength="120" data-f="reason" placeholder="' + (it ? 'Counted, new delivery, damaged…' : 'First count') + '"></div>'
+        + '<button class="btn pt-go" type="submit">Save</button><button class="pt-cancel" type="button" data-cancel>Cancel</button>'
+        + (it ? '<button class="pt-cancel inv-stop" type="button" data-stop>Stop counting this</button>' : '')
+        + '<p class="pt-error" data-f="error" role="alert"></p></form>';
+      return row + '</div>';
+    }).join('') + (list.length > invShown ? '<button type="button" class="inv-more" id="inv-more">Show ' + Math.min(60, list.length - invShown) + ' more of ' + (list.length - invShown) + '</button>' : '');
+    var log = STOCK.log || [];
+    $('inv-log').innerHTML = !log.length ? '<p class="pt-empty">No changes yet. When stock is counted, added, taken away or sold on a receipt, it shows here.</p>'
+      : '<table class="pt-table"><thead><tr><th>When</th><th>Product</th><th>Change</th><th>Now</th><th>Why</th></tr></thead><tbody>'
+        + log.slice(0, 50).map(function (e) {
+          var ch = e.change > 0 ? '<span class="up">+' + e.change + '</span>' : e.change < 0 ? '<span class="down">−' + (-e.change) + '</span>' : '–';
+          return '<tr><td>' + shortDate(e.at) + ', ' + new Date(e.at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) + '</td><td>' + esc(e.product) + '</td><td>' + ch + '</td>'
+            + '<td>' + (e.count == null ? '–' : e.count) + '</td><td>' + esc(e.reason) + (e.staff ? '<br><small style="color:#6B6B68">' + esc(e.staff) + '</small>' : '') + '</td></tr>';
+        }).join('') + '</tbody></table>';
+  }
+  $('inv-q').addEventListener('input', function () { invShown = 60; drawStock(); });
+  document.querySelectorAll('input[name=inv-show]').forEach(function (r) { r.addEventListener('change', function () { invShown = 60; drawStock(); }); });
+  $('inv-list').addEventListener('click', function (e) {
+    if (e.target.id === 'inv-more') { invShown += 60; drawStock(); return; }
+    var row = e.target.closest('.inv-row'); if (!row) return;
+    var p = row.getAttribute('data-p'), b;
+    if ((b = e.target.closest('[data-adj]'))) {
+      b.disabled = true;
+      changeStock({ action: 'adjust', product: p, change: Number(b.getAttribute('data-adj')) }, function (msg) { if (msg) $('inv-error').textContent = msg; });
+    } else if (e.target.closest('[data-edit]')) {
+      invOpen = invOpen === p ? null : p; drawStock();
+      var f = row.parentNode.querySelector('.inv-row[data-p="' + CSS.escape(p) + '"] [data-f=count]'); if (f) f.focus();
+    } else if (e.target.closest('[data-cancel]')) {
+      invOpen = null; drawStock();
+    } else if ((b = e.target.closest('[data-stop]'))) {
+      if (!b.hasAttribute('data-sure')) { b.setAttribute('data-sure', ''); b.textContent = 'Tap again to stop counting'; return; }
+      invOpen = null; changeStock({ action: 'remove', product: p });
+    }
+  });
+  $('inv-list').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target, p = f.closest('.inv-row').getAttribute('data-p'), get = function (k) { return f.querySelector('[data-f=' + k + ']'); };
+    var count = get('count').value.trim(), low = get('low').value.trim();
+    if (!/^-?\d+$/.test(count)) { get('error').textContent = 'Enter how many are in stock, as a whole number.'; get('count').focus(); return; }
+    if (low && !/^\d+$/.test(low)) { get('error').textContent = 'The “low at” number should be a whole number.'; get('low').focus(); return; }
+    f.querySelector('.pt-go').disabled = true;
+    changeStock({ action: 'set', product: p, count: Number(count), low: low === '' ? '' : Number(low), reason: get('reason').value.trim() }, function (msg) {
+      if (msg) { f.querySelector('.pt-go').disabled = false; get('error').textContent = msg; return; }
+      invOpen = null;
     });
   });
 

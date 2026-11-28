@@ -1,8 +1,9 @@
 // The staff portal's receipts. Every request needs the staff code (header x-portal-code).
 // GET  /api/portal/receipts               — the latest receipts, newest first
-// POST /api/portal/receipts {action:'create', ...receipt}  — save a receipt and email it to the customer
+// POST /api/portal/receipts {action:'create', ...receipt}  — save a receipt, email it to the customer and take
+//                                                         its products off the stock count
 // POST /api/portal/receipts {action:'resend', number}       — email a saved receipt again
-import { store, checkCode, json, validateReceipt, nextNumber, receiptEmail, sendEmail } from '../lib/portal.mjs';
+import { store, checkCode, json, validateReceipt, nextNumber, receiptEmail, sendEmail, takeOffReceipt } from '../lib/portal.mjs';
 
 const INDEX = 'index/receipts';
 
@@ -54,9 +55,12 @@ export default async (req) => {
   r.number = await nextNumber(s);
   r.createdAt = new Date().toISOString();
   await s.setJSON('receipt/' + r.number, r);
+  // Products on the receipt come off the stock count (Inventory tool). Never blocks the receipt.
+  let stockUpdated = 0;
+  try { stockUpdated = await takeOffReceipt(s, r); } catch (e) { console.error('stock', e); }
   const sent = body.send === false ? {} : await email(s, r);
   if (body.send === false) await saveIndex(s, r);
-  return json({ receipt: r, sent: !!sent.id, message: sent.id || body.send === false ? null : r.emailError });
+  return json({ receipt: r, sent: !!sent.id, stockUpdated, message: sent.id || body.send === false ? null : r.emailError });
 };
 
 export const config = { path: '/api/portal/receipts' };
