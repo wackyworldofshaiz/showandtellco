@@ -85,6 +85,7 @@ var NAV = [
   var icon = function (paths, size) {
     return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + paths + '</svg>';
   };
+  var portalIcon = icon('<path d="M6 21V9a6 6 0 0 1 12 0v12"/><path d="M3.5 21h17"/><circle cx="14.6" cy="14.2" r="0.7" fill="currentColor"/>', 21);
   var chevron = icon('<path d="M6 9l6 6 6-6"/>', 14);
 
   // The messages appear twice so the scroll can loop without a gap; the copy is hidden from screen readers.
@@ -119,7 +120,9 @@ var NAV = [
     + '<span class="nav-help-text" aria-hidden="true"><span class="nav-help-q">Do you need help?</span><span class="nav-help-num">' + esc(HELP_PHONE) + '</span></span></a>'
     + '<a class="nav-icon" href="all-products.html#search" aria-label="Search products">' + icon('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/>', 21) + '</a>'
     // The staff portal (portal.html): an arched doorway. Staff sign in there with the code.
-    + '<a class="nav-icon" href="portal.html" aria-label="Staff portal" title="Staff portal">' + icon('<path d="M6 21V9a6 6 0 0 1 12 0v12"/><path d="M3.5 21h17"/><circle cx="14.6" cy="14.2" r="0.7" fill="currentColor"/>', 21) + '</a></div>'
+    // On smaller screens it moves into the hamburger menu instead (.nav-portal-menu below).
+    + '<a class="nav-icon nav-portal" href="portal.html" aria-label="Staff portal" title="Staff portal">' + portalIcon + '</a></div>'
     + '</div>'
-    + '<nav id="site-links" class="site-links" aria-label="Main"><ul>' + items + '</ul>' + regionSwitch('region-mobile') + '</nav></div>';
+    + '<nav id="site-links" class="site-links" aria-label="Main"><ul>' + items + '</ul>' + regionSwitch('region-mobile')
+    + '<a class="nav-portal-menu" href="portal.html">' + portalIcon + '<span>Staff portal</span></a></nav></div>';
 })();
