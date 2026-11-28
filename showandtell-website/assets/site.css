@@ -29,6 +29,7 @@ img { max-width: 100%; }
 .nav-logo img { height: 42px; width: auto; display: block; }
 .nav-icon { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; color: #1F1F1F; }
 .nav-icon:hover { color: #5D1AFA; }
+.nav-portal-menu { display: none !important; }
 .nav-help { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding-right: 4px; color: #1F1F1F; text-decoration: none; }
 .nav-help svg { stroke-width: 2; flex: 0 0 auto; }
 .nav-help-text { display: flex; flex-direction: column; line-height: 1.2; font-family: 'Jost', Helvetica, Arial, sans-serif; }
@@ -95,6 +96,10 @@ img { max-width: 100%; }
   .nav-drop:hover .drop-panel, .nav-drop:focus-within .drop-panel { display: none; }
   .nav-drop[data-open] .drop-panel { display: block; }
   .region-mobile { display: inline-flex !important; margin: 4px 0 24px; font-size: 15px; }
+  /* The staff portal lives in the menu here, not beside search */
+  .nav-portal { display: none; }
+  .nav-portal-menu { display: flex !important; align-items: center; gap: 10px; width: fit-content; margin: -8px 0 24px; padding: 12px 0; border-top: 0; font-size: 15px; color: #4A3F6B; }
+  .nav-portal-menu svg { width: 20px; height: 20px; }
 }
 @media (max-width: 640px) {
   .announce-set { font-size: 12px; padding: 8px 11px; }
