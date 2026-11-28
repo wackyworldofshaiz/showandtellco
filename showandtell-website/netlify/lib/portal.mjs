@@ -138,3 +138,39 @@ export function receiptEmail(r) {
 }
 
 export { sendEmail };
+
+// ---------- Stock (the Inventory tool) ----------
+// One record in the "portal" store: { items: { "<product>": { count, low, updatedAt } }, log: [newest change first] }.
+// Products are named the same way as on receipts (for example "Tote bag: Lagos Love"), so a receipt's
+// products can come off the count. Only products someone has counted are tracked.
+const STOCK = 'inventory';
+export const productName = (v) => clean(v, 120);
+export function whole(v, min, max) { const n = Number(v); return Number.isInteger(n) && n >= min && n <= max ? n : null; }
+
+export async function getStock(s) {
+  const inv = (await s.get(STOCK, { type: 'json' })) || {};
+  return { items: inv.items || {}, log: inv.log || [] };
+}
+export async function saveStock(s, inv) {
+  inv.log = inv.log.slice(0, 300);
+  await s.setJSON(STOCK, inv);
+}
+export function logChange(inv, e) {
+  inv.log.unshift(Object.assign({ at: new Date().toISOString() }, e, { staff: clean(e.staff, 60), reason: clean(e.reason, 120) }));
+}
+
+// After a receipt is made: take its products off the stock count. Returns how many products changed.
+export async function takeOffReceipt(s, r) {
+  const inv = await getStock(s);
+  let changed = 0;
+  for (const x of r.items) {
+    const it = inv.items[x.product];
+    if (!it) continue; // not being counted
+    it.count -= x.qty;
+    it.updatedAt = new Date().toISOString();
+    logChange(inv, { product: x.product, change: -x.qty, count: it.count, reason: 'Sold, receipt ' + r.number, staff: r.staff });
+    changed++;
+  }
+  if (changed) await saveStock(s, inv);
+  return changed;
+}
